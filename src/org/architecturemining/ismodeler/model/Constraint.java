@@ -1,4 +1,4 @@
-package org.architecturemining.ismodeller.model;
+package org.architecturemining.ismodeler.model;
 
 public class Constraint {
 

@@ -4,9 +4,9 @@ import java.io.FileNotFoundException;
 
 import org.architecturemining.ismodeler.io.ConstraintReader;
 import org.architecturemining.ismodeler.io.SpecificationReader;
-import org.architecturemining.ismodeller.model.Specification;
-import org.architecturemining.ismodeller.model.Constraint;
-import org.architecturemining.ismodeller.model.ProcessModel;
+import org.architecturemining.ismodeler.model.Specification;
+import org.architecturemining.ismodeler.model.Constraint;
+import org.architecturemining.ismodeler.model.ProcessModel;
 
 import java.util.List;
 

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 import org.architecturemining.ismodeler.VirtualWorld;
 import org.architecturemining.ismodeler.proving.SyntaxException;
-import org.architecturemining.ismodeller.model.Constraint;
-import org.architecturemining.ismodeller.model.Label;
-import org.architecturemining.ismodeller.model.Population;
-import org.architecturemining.ismodeller.model.Predicate;
-import org.architecturemining.ismodeller.model.Specification;
+import org.architecturemining.ismodeler.model.Constraint;
+import org.architecturemining.ismodeler.model.Label;
+import org.architecturemining.ismodeler.model.Population;
+import org.architecturemining.ismodeler.model.Predicate;
+import org.architecturemining.ismodeler.model.Specification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

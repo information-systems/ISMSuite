@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.architecturemining.ismodeller.model.Constraint;
-import org.architecturemining.ismodeller.model.Specification;
+import org.architecturemining.ismodeler.model.Constraint;
+import org.architecturemining.ismodeler.model.Specification;
 
 public class ConstraintReader {
 

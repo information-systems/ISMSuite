@@ -7,10 +7,10 @@ import java.util.List;
 import org.architecturemining.ismodeler.proving.GeneralProverException;
 import org.architecturemining.ismodeler.proving.Prover;
 import org.architecturemining.ismodeler.proving.SyntaxException;
-import org.architecturemining.ismodeller.model.Constraint;
-import org.architecturemining.ismodeller.model.Label;
-import org.architecturemining.ismodeller.model.Population;
-import org.architecturemining.ismodeller.model.Specification;
+import org.architecturemining.ismodeler.model.Constraint;
+import org.architecturemining.ismodeler.model.Label;
+import org.architecturemining.ismodeler.model.Population;
+import org.architecturemining.ismodeler.model.Specification;
 
 public class VirtualWorld {
 

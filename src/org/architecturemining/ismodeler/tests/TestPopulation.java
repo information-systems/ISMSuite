@@ -2,15 +2,14 @@ package org.architecturemining.ismodeler.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.architecturemining.ismodeler.model.Population;
+import org.architecturemining.ismodeler.model.Predicate;
 import org.architecturemining.ismodeler.proving.GeneralProverException;
 import org.architecturemining.ismodeler.proving.Prover;
 import org.architecturemining.ismodeler.proving.SyntaxException;
-import org.architecturemining.ismodeller.model.Population;
-import org.architecturemining.ismodeller.model.Predicate;
 import org.junit.jupiter.api.Test;
 
 class TestPopulation {
@@ -107,6 +106,8 @@ class TestPopulation {
 		buildPopulation();
 		pop.addInhabitant("augustine", "human");
 		String unique = pop.getTFFUniquenessConstraints();
+		
+		System.out.println(unique);
 		
 		assertTrue(unique.indexOf("socrates != plato") > 0, "Socrates equal to Plato");
 		assertTrue(unique.indexOf("plato != socrates") > 0, "Plato equal to Socrates");

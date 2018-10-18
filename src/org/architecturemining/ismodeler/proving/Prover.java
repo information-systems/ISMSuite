@@ -4,13 +4,32 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Properties;
 
 public class Prover {
 	
+	private String proofcommand;
+	
 	private Prover() {
-		
+		try {
+			Properties prop = new Properties();
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+			 
+			if (in != null) {
+				prop.load(in);
+				if (prop.containsKey("prover")) {
+					proofcommand = prop.getProperty("prover");
+				}
+			}
+		} catch(Exception e) {
+		}
+
+		if (proofcommand == null || proofcommand.length() == 0) {
+			proofcommand = "./tool/E/PROVER/eprover";
+		}
 	}
 	
 	public boolean proof(String text) throws SyntaxException, GeneralProverException {
@@ -27,7 +46,7 @@ public class Prover {
 	 * @throws GeneralProverException 
 	 */
 	public boolean proof(String text, String constraint) throws SyntaxException, GeneralProverException {
-		File dir = new File(System.getProperty("user.dir") + "\\tmp-prover");
+		File dir = new File(System.getProperty("user.dir") + File.separator + "tmp-prover");
 		dir.mkdirs();
 		try {
 			
@@ -42,11 +61,19 @@ public class Prover {
 			out.close();
 			
 			// then pass it on to the prover
-			String command = ".\\E\\PROVER\\eprover --silent --auto " + proofFile.getAbsolutePath();
+			//String command = "./tool/E/PROVER/eprover --silent --auto " + proofFile.getAbsolutePath();
+			
+			String command = proofcommand + " " + proofFile.getAbsolutePath();
+			System.out.println(command);
 			Runtime rt = Runtime.getRuntime();
 			Process pr = rt.exec(command);
 			
-			
+			BufferedReader outr = new BufferedReader(new 
+				     InputStreamReader(pr.getInputStream()));
+			String s = null;
+			while ((s = outr.readLine()) != null) {
+			    System.out.println(s);
+			}
 			
 			int code = pr.waitFor();
 			
@@ -64,10 +91,10 @@ public class Prover {
 			case 3:
 				BufferedReader output = new BufferedReader(new 
 					     InputStreamReader(pr.getErrorStream()));
-				String s = null;
+				String st = null;
 				StringBuilder error = new StringBuilder();
-				while ((s = output.readLine()) != null) {
-				    error.append(s);
+				while ((st = output.readLine()) != null) {
+				    error.append(st);
 				}
 				throw new SyntaxException(text + "\n" + constraint, error.toString());
 			default:

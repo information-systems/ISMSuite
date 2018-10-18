@@ -3,8 +3,8 @@ package org.architecturemining.ismodeler;
 import java.util.HashMap;
 import java.util.List;
 
-import org.architecturemining.ismodeller.model.ProcessModel;
-import org.architecturemining.ismodeller.model.Population;
+import org.architecturemining.ismodeler.model.ProcessModel;
+import org.architecturemining.ismodeler.model.Population;
 
 public class WorldChanger {
 

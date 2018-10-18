@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import org.architecturemining.ismodeller.model.Argument;
-import org.architecturemining.ismodeller.model.Label;
-import org.architecturemining.ismodeller.model.Operation;
-import org.architecturemining.ismodeller.model.PredicateDefinition;
-import org.architecturemining.ismodeller.model.Specification;
+import org.architecturemining.ismodeler.model.Argument;
+import org.architecturemining.ismodeler.model.Label;
+import org.architecturemining.ismodeler.model.Operation;
+import org.architecturemining.ismodeler.model.PredicateDefinition;
+import org.architecturemining.ismodeler.model.Specification;
 
 public class SpecificationReader {
 

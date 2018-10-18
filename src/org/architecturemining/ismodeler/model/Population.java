@@ -1,4 +1,4 @@
-package org.architecturemining.ismodeller.model;
+package org.architecturemining.ismodeler.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +75,7 @@ public class Population {
 		} else {
 			ArrayList<String> l = new ArrayList<String>();
 			l.add(id);
-			this.inhabitantsPerType.put(id, l);
+			this.inhabitantsPerType.put(type, l);
 		} 
 	}
 	
