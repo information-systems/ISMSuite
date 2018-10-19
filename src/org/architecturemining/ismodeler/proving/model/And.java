@@ -3,6 +3,7 @@
  */
 package org.architecturemining.ismodeler.proving.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -12,12 +13,19 @@ import java.util.Iterator;
  * @author jmw
  *
  */
-public class AndOperator extends Operator {
+public class And extends Operator {
 
 	private Collection<Clause> operands;
 	
-	public AndOperator(Collection<Clause> operands) {
-		this.operands = operands; 
+	public And(Collection<Clause> clauses) {
+		this.operands = clauses; 
+	}
+	
+	public And(Clause...clauses) {
+		operands = new ArrayList<>();
+		for(Clause c: clauses) {
+			operands.add(c);
+		}
 	}
 	
 	@Override
@@ -28,6 +36,15 @@ public class AndOperator extends Operator {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public Object clone() {
+		ArrayList<Clause> params = new ArrayList<>();
+		for(Clause c: operands) {
+			params.add((Clause) c.clone());
+		}
+		return new And(params);
 	}
 
 }

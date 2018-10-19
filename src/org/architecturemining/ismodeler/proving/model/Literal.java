@@ -1,6 +1,6 @@
 package org.architecturemining.ismodeler.proving.model;
 
-public abstract class Literal extends Clause implements Cloneable {
+public abstract class Literal extends Clause {
 
 	private String label;
 	
@@ -30,12 +30,4 @@ public abstract class Literal extends Clause implements Cloneable {
 			return false;
 		}
 	}
-	
-	@Override
-	public int hashCode() {
-		return toString().hashCode();
-	}
-	
-	@Override
-	public abstract Object clone();
 }

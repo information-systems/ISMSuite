@@ -1,5 +1,6 @@
 package org.architecturemining.ismodeler.proving.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -8,12 +9,19 @@ import java.util.Iterator;
  * 
  * @author jmw
  */
-public class OrOperator extends Operator {
+public class Or extends Operator {
 
 	private Collection<Clause> operands;
 	
-	public OrOperator(Collection<Clause> operands) {
+	public Or(Collection<Clause> operands) {
 		this.operands = operands; 
+	}
+	
+	public Or(Clause... operands) {
+		this.operands = new ArrayList<>();
+		for(Clause c: operands) {
+			this.operands.add(c);
+		}
 	}
 	
 	@Override
@@ -26,4 +34,12 @@ public class OrOperator extends Operator {
 		return false;
 	}
 
+	@Override
+	public Object clone() {
+		ArrayList<Clause> params = new ArrayList<>();
+		for(Clause c: operands) {
+			params.add((Clause) c.clone());
+		}
+		return new Or(params);
+	}
 }
