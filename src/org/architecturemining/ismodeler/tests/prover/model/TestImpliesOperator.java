@@ -36,6 +36,8 @@ public class TestImpliesOperator extends WorldTester {
 		assertTrue((new Relation("philosopher", socrates)).isValidIn(world));
 		assertFalse((new Relation("likes", socrates, plato)).isValidIn(world));
 		assertFalse(imp2.isValidIn(world));
+		
+		System.out.println(imp2);
 				
 		// TRUE: philosopher(Hume) => likes( Augustine, Plato )
 		Implies imp3 = new Implies(

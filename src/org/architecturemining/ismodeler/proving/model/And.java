@@ -46,5 +46,18 @@ public class And extends Operator {
 		}
 		return new And(params);
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("AND( ");
+		for(Clause op: operands) {
+			sb.append("[");
+			sb.append(op.toString());
+			sb.append("] ");
+		}
+		sb.append(")");
+		return sb.toString();
+	}
 
 }

@@ -21,5 +21,10 @@ public class Not extends Operator {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return "NOT ( [" + operand.toString() + "] );";
+	}
+	
 
 }

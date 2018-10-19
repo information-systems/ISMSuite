@@ -21,5 +21,17 @@ public class Implies extends Operator {
 	public Object clone() {
 		return new Implies((Clause) premise.clone(), (Clause) conclusion.clone());
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("( ");
+		sb.append(premise.toString());
+		sb.append(") => (");
+		sb.append(conclusion.toString());
+		sb.append(")");
+		
+		return sb.toString();
+	}
 
 }
