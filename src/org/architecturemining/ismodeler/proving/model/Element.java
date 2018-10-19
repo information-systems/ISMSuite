@@ -1,19 +1,19 @@
 package org.architecturemining.ismodeler.proving.model;
 
-public class Variable extends Literal {
+public class Element extends Literal {
 
 	private String type;
 	private String mString;
 	
-	public Variable(String label, String type) {
+	public Element(String label, String type) {
 		super(label);
 		this.type = type;
-		this.mString = "VAR: " + label + " (" + type + ")";
+		mString = "ELT: " + label + " (" + type + ")";
 	}
-	
+
 	@Override
 	public boolean isAbstract() {
-		return true;
+		return false;
 	}
 	
 	public String getType() {
@@ -24,9 +24,9 @@ public class Variable extends Literal {
 	public String toString() {
 		return mString;
 	}
-
+	
 	@Override
 	public Object clone() {
-		return new Variable(getLabel(), getType());
+		return new Element(getLabel(), getType());
 	}
 }

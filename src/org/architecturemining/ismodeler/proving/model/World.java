@@ -22,26 +22,41 @@ public class World {
 
 	private Set<Relation> relations = new HashSet<>();
 	
-	private Map<String,Set<Literal>> inhabitants = new HashMap<>(); 
+	private Map<String,Set<Literal>> elements = new HashMap<>(); 
 	
-	public boolean addInhabitant(Literal l, String type) {
-		if (l.isComplex()||l.isAbstract()) {
-			return false;
+	public boolean addElement(Element e) {
+		if (!elements.containsKey(e.getType())) {
+			elements.put(e.getType(), new HashSet<Literal>());
 		}
-		if (!inhabitants.containsKey(type)) {
-			inhabitants.put(type, new HashSet<Literal>());
-		}
-		inhabitants.get(type).add(l);
-		
-		return true;
+		return elements.get(e.getType()).add(e);
 	}
 	
 	public boolean containsType(String type) {
-		return inhabitants.containsKey(type);
+		return elements.containsKey(type);
 	}
 	
-	public Set<Literal> getInhabitants(String type) {
-		return inhabitants.get(type);
+	public Iterator<Literal> elementsIn(String type) {
+		return elements.get(type).iterator();
+	}
+	
+	public int elementSize(String type) {
+		if (elements.containsKey(type)) {
+			return elements.get(type).size();
+		} else {
+			return 0;
+		}
+	}
+	
+	public int relationSize() {
+		return relations.size();
+	}
+	
+	public boolean removeElement(Element e) {
+		if (elements.containsKey(e.getType())) {
+			return elements.get(e.getType()).remove(e);
+		} else {
+			return true;
+		}
 	}
 	
 	public boolean addRelation(Relation r) {
@@ -51,19 +66,24 @@ public class World {
 		return relations.add(r);
 	}
 	
-	public Set<Relation> getRelations() {
-		return relations;
+	public boolean removeRelation(Relation r) {
+		return relations.remove(r);
+	}
+	
+	public Iterator<Relation> relations() {
+		return relations.iterator();
 	}
 	
 	public boolean contains(Literal l) {
 		if (l instanceof Relation) {
 			return relations.contains(l);
-		} else {
-			for(Set<Literal> inh : inhabitants.values() ) {
-				if (inh.contains(l)) {
-					return true;
-				}
+		} else if (l instanceof Element) {
+			if (elements.containsKey(((Element) l).getType())) {
+				return elements.get(((Element) l).getType()).contains(l);
+			} else {
+				return false;
 			}
+		} else {
 			return false;
 		}
 	}

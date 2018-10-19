@@ -4,42 +4,78 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 public class Relation extends Literal {
 	
 	private List<Literal> parameters;
-	
-	/**
-	 * We directly calculate the isabstract in the Constructor,
-	 * and only update it if a parameter is changed, to be more
-	 * efficient, as isAbstract is called a lot.
-	 */
 	private boolean mIsAbstract;
 	private String mString;
 	
-	public Relation(String label, List<Literal> parameters) {
+	public Relation(String label, List<Literal> params) {
 		super(label);
-		this.parameters = parameters;
+		parameters = params;
 		
-		updateSettings();
+		updateState();
 	}
 	
-	private void updateSettings() {
-		// Check whether the parameters are all non-abstract.
-		mIsAbstract = false;
+	public Relation(String label, Literal ... params) {
+		super(label);
+		parameters = new ArrayList<>();
+		for(Literal p : params) {
+			parameters.add(p);
+		}
+		
+		updateState();
+	}
+
+
+	private void updateState() {
 		StringBuilder sb = new StringBuilder();
+		mIsAbstract = false;
 		sb.append("REL: ");
 		sb.append(getLabel());
 		sb.append("(");
-		for(Literal param : parameters) {
-			if (param.isAbstract()) {
+		for(Literal p : parameters) {
+			sb.append("[");
+			sb.append(p.toString());
+			sb.append("] ");
+			if (p.isAbstract()) {
 				mIsAbstract = true;
 			}
-			sb.append("[");
-			sb.append(param.toString());
-			sb.append("] ");
 		}
-		sb.append(")");
+		sb.append(" )");
 		mString = sb.toString();
+	}
+	
+	public boolean isInstantiateable(int index) {
+		if (index < 0 || index >= size() ) {
+			return false;
+		}
+		return (parameters.get(index) instanceof Variable);
+	}
+	
+	/**
+	 * This method updates a parameter. The update is only allowed if
+	 * the Literal to be changed is a Variable.
+	 * @param index
+	 * @param l
+	 * @return
+	 * @throws Exception 
+	 */
+	public Relation instantiateParameter(int index, Literal replace) throws Exception {
+		if (!isInstantiateable(index)) {
+			throw new Exception("Parameter cannot be replaced");
+		}
+		List<Literal> params = new ArrayList<>();
+		for(int i = 0 ; i < parameters.size(); i++) {
+			if (i == index) {
+				params.add(replace);
+			} else {
+				params.add((Literal) parameters.get(i).clone());
+			}
+		}
+		return new Relation(getLabel(), params);
 	}
 	
 	/**
@@ -51,67 +87,29 @@ public class Relation extends Literal {
 	}
 	
 	@Override
-	public boolean isComplex() {
-		return true;
+	public String toString() {
+		return mString;
 	}
 	
-	public List<Literal> getParameters() {
-		return parameters;
+	public Iterator<Literal> iterator() {
+		return parameters.iterator();
 	}
 	
-	public void setParameter(int index, Literal parameter) {
-		if (index > 0 && index < parameters.size()) {
-			parameters.set(index, parameter);
-			// update isabstract
-			updateSettings();
-		}
-	}
-	
-	public int getParameterCount() {
+	public int size() {
 		return parameters.size();
 	}
 	
+	public Literal get(int index) throws IndexOutOfBoundsException {
+		return parameters.get(index);
+	}
+	
+	@Override
 	public Object clone() {
-		// Relation clone = new Relation(this.getLabel(), parameters.clone());
-		// return clone;
-		return null;
-	}
-	
-	/*
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Relation) {
-			Relation r = (Relation) o;
-			if (!r.getLabel().equals(getLabel())) {
-				return false;
-			}
-			if (r.getParameterCount() != parameters.size()) {
-				return false;
-			}
-			
-			for(int i = 0; i < this.getParameters().size(); i++) {
-				if (!r.getParameters().get(i).equals(getParameters().get(i))) {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			return false;
+		ArrayList<Literal> params = new ArrayList<>();
+		for(Literal p: parameters) {
+			params.add((Literal) p.clone());
 		}
-	} */
-	
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Relation) {
-			return o.toString().equals(this.toString());
-		} else {
-			return false;
-		}
-	}
-	
-	@Override
-	public String toString() {
-		return mString;
+		return new Relation(getLabel(), params);
 	}
 	
 }

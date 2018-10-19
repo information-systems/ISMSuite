@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Set;
 
+import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Literal;
 import org.architecturemining.ismodeler.proving.model.Relation;
 import org.architecturemining.ismodeler.proving.model.Variable;
@@ -16,75 +17,56 @@ class TestWorld {
 	@Test
 	void testAddElements() {
 		World w = new World();
-		assertNull(w.getInhabitants("human"));
+		assertEquals(0, w.elementSize("human"));
+		Element socrates = new Element("Socrates", "human");
+		Element plato = new Element("Plato", "human");
+		w.addElement(socrates);
+		w.addElement(plato);
 		
-		assertEquals(0, w.getRelations().size());
+		assertEquals(2, w.elementSize("human"));
+		Element plato2 = new Element("Plato", "human");
+		w.addElement(plato2);
+		assertEquals(2, w.elementSize("human"));
 		
-		Literal socrates = new Literal("Socrates");
-		Literal plato = new Literal("Plato");
-		Literal augustine = new Literal("Augustine");
+		assertTrue(w.contains(plato));
+		assertTrue(w.contains(plato2));
+		assertTrue(w.contains(new Element("Socrates", "human")));
+		assertFalse(w.contains(new Element("Augustine", "human")));
 		
-		w.addInhabitant(socrates, "human");
-		w.addInhabitant(plato, "human");
-		w.addInhabitant(augustine, "human");
-		
-		// Socrates likes himself
-		ArrayList<Literal> rel1 = new ArrayList<>();
-		rel1.add(socrates);
-		rel1.add(socrates);
-		
-		// Plato likes Socrates
-		ArrayList<Literal> rel2 = new ArrayList<>();
-		rel2.add(plato);
-		rel2.add(socrates);
-		
-		// Augustine likes Plato
-		ArrayList<Literal> rel3 = new ArrayList<>();
-		rel3.add(augustine);
-		rel3.add(plato);
-		
-		Relation r1 = new Relation("likes", rel1);
-		Relation r2 = new Relation("likes", rel2);
-		Relation r3 = new Relation("likes", rel3);
-		
-		w.addRelation(r1);
-		w.addRelation(r2);
-		w.addRelation(r3);
-		
-		Set<Literal> items = w.getInhabitants("human");
-		assertEquals(3, items.size());
-		assertTrue(items.contains(plato));
-		assertTrue(items.contains(socrates));
-		assertTrue(items.contains(augustine));
-		
-		Set<Relation> rel = w.getRelations();
-		assertEquals(3, rel.size());
-		assertTrue(rel.contains(r1));
-		assertTrue(rel.contains(r2));
-		assertTrue(rel.contains(r3));
+		w.removeElement(new Element("Socrates", "human"));
+		assertFalse(w.contains(socrates));
 	}
 	
 	@Test
-	void testAddAbstractItem() {
+	void testAddRelations() {
 		World w = new World();
+		Element socrates = new Element("Socrates", "human");
+		Element plato = new Element("Plato", "human");
+		Element augustine = new Element("Augustine", "human");
 		
-		Literal socrates = new Literal("Socrates");
+		w.addElement(socrates);
+		w.addElement(plato);
+		w.addElement(augustine);
 		
-		assertTrue(w.addInhabitant(socrates, "human"));
-		assertEquals(1, w.getInhabitants("human").size());
+		w.addRelation(new Relation("likes", socrates, socrates));
+		w.addRelation(new Relation("likes", plato, plato));
+		w.addRelation(new Relation("likes", augustine, augustine));
 		
-		Variable someone = new Variable("someone", "human");
+		assertEquals(3, w.relationSize());
 		
-		assertFalse(w.addInhabitant(someone, "human"));
-		assertEquals(1, w.getInhabitants("human").size());
+		assertTrue(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
+		assertTrue(w.contains(new Relation("likes", new Element("Plato","human"), new Element("Plato", "human"))));
+		assertTrue(w.contains(new Relation("likes", new Element("Augustine","human"), new Element("Augustine", "human"))));
 		
-		// Socrates likes himself
-		ArrayList<Literal> rel1 = new ArrayList<>();
-		rel1.add(socrates);
-		rel1.add(someone);
+		assertFalse(w.contains(new Relation("likes", new Element("Augustine","human"), new Element("Plato", "human"))));
 		
-		Relation r = new Relation("likes", rel1);
-		assertFalse(w.addRelation(r));
-		assertEquals(0, w.getRelations().size());
+		w.addRelation(new Relation("likes", new Element("Socrates", "human"), new Variable("Someone", "human")));
+		
+		assertEquals(3, w.relationSize());
+		
+		w.removeRelation(new Relation("likes", new Element("Socrates", "human"), new Element("Socrates", "human")));
+
+		assertEquals(2, w.relationSize());
+		assertFalse(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
 	}
 }
