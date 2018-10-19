@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import org.architecturemining.ismodeler.proving.model.Literal;
+import org.architecturemining.ismodeler.proving.model.NotOperator;
 import org.architecturemining.ismodeler.proving.model.Relation;
 import org.architecturemining.ismodeler.proving.model.World;
 import org.junit.jupiter.api.Test;
@@ -74,7 +75,7 @@ class TestOperators {
 	}
 	
 	@Test
-	void testNotOperator() {
+	void testClauseValidIn() {
 		World w = constructWorld();
 		
 		Literal socrates = new Literal("Socrates");
@@ -83,18 +84,29 @@ class TestOperators {
 		ArrayList<Literal> rel = new ArrayList<>();
 		rel.add(plato);
 		rel.add(socrates);
-					
+		
 		Relation testPlatoLikesSocrates = new Relation("likes", rel);
+		assertFalse(w.addRelation(testPlatoLikesSocrates));		
+		assertTrue(testPlatoLikesSocrates.isValidIn(w));
 		
-		assertFalse(w.addRelation(testPlatoLikesSocrates));
+	}
+	
+	@Test
+	void testNotOperator() {
+		World w = constructWorld();
 		
-		// System.out.println(testPlatoLikesSocrates);
-		// System.out.println(testPlatoLikesSocrates.hashCode()); 
+		Literal socrates = new Literal("Socrates");
+		Literal plato = new Literal("Plato");
 		
-		//System.out.println(w.contains(testPlatoLikesSocrates));
+		ArrayList<Literal> rel = new ArrayList<>();
+		rel.add(socrates);
+		rel.add(plato);
 		
-		// assertTrue(testPlatoLikesSocrates.isValidIn(w));
+		Relation testSocratesLikesPlato = new Relation("likes", rel);
+		NotOperator not = new NotOperator(testSocratesLikesPlato);
 		
+		assertFalse(testSocratesLikesPlato.isValidIn(w));
+		assertTrue(not.isValidIn(w));		
 	}
 
 }

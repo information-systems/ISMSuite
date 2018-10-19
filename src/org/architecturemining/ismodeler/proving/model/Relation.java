@@ -13,8 +13,8 @@ public class Relation extends Literal {
 	 * and only update it if a parameter is changed, to be more
 	 * efficient, as isAbstract is called a lot.
 	 */
-	private boolean isabstract;
-	private String mystring;
+	private boolean mIsAbstract;
+	private String mString;
 	
 	public Relation(String label, List<Literal> parameters) {
 		super(label);
@@ -25,19 +25,21 @@ public class Relation extends Literal {
 	
 	private void updateSettings() {
 		// Check whether the parameters are all non-abstract.
-		isabstract = false;
+		mIsAbstract = false;
 		StringBuilder sb = new StringBuilder();
 		sb.append("REL: ");
 		sb.append(getLabel());
+		sb.append("(");
 		for(Literal param : parameters) {
 			if (param.isAbstract()) {
-				isabstract = true;
+				mIsAbstract = true;
 			}
-			sb.append("_!!!_");
+			sb.append("[");
 			sb.append(param.toString());
+			sb.append("] ");
 		}
-		
-		mystring = sb.toString();
+		sb.append(")");
+		mString = sb.toString();
 	}
 	
 	/**
@@ -45,7 +47,7 @@ public class Relation extends Literal {
 	 */
 	@Override
 	public boolean isAbstract() {
-		return isabstract;
+		return mIsAbstract;
 	}
 	
 	@Override
@@ -65,11 +67,17 @@ public class Relation extends Literal {
 		}
 	}
 	
-	public Object clone() {
-		Relation clone = new Relation(this.getLabel(), this.getParameters());
-		return clone;
+	public int getParameterCount() {
+		return parameters.size();
 	}
 	
+	public Object clone() {
+		// Relation clone = new Relation(this.getLabel(), parameters.clone());
+		// return clone;
+		return null;
+	}
+	
+	/*
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Relation) {
@@ -77,12 +85,12 @@ public class Relation extends Literal {
 			if (!r.getLabel().equals(getLabel())) {
 				return false;
 			}
-			if (r.getParameters().size() != getParameters().size()) {
+			if (r.getParameterCount() != parameters.size()) {
 				return false;
 			}
 			
 			for(int i = 0; i < this.getParameters().size(); i++) {
-				if (r.getParameters().get(i) != getParameters().get(i)) {
+				if (!r.getParameters().get(i).equals(getParameters().get(i))) {
 					return false;
 				}
 			}
@@ -90,11 +98,20 @@ public class Relation extends Literal {
 		} else {
 			return false;
 		}
+	} */
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Relation) {
+			return o.toString().equals(this.toString());
+		} else {
+			return false;
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return mystring;
+		return mString;
 	}
 	
 }

@@ -3,9 +3,11 @@ package org.architecturemining.ismodeler.proving.model;
 public class Literal extends Clause implements Cloneable {
 
 	private String label;
+	private String mString;
 	
 	public Literal(String label) {
 		this.label = label;
+		this.mString = "LIT: " + label;
 	}
 	
 	@Override
@@ -27,12 +29,6 @@ public class Literal extends Clause implements Cloneable {
 	public String getLabel() {
 		return label;
 	}
-	
-	public Literal setLabel(String label) {
-		this.label = label;
-		return this;
-	}
-	
 	
 	@Override
 	public Object clone() {
@@ -56,7 +52,7 @@ public class Literal extends Clause implements Cloneable {
 	
 	@Override
 	public String toString() {
-		return getLabel();
+		return mString;
 	}
 
 }
