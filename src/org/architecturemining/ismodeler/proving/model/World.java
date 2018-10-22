@@ -5,6 +5,7 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -36,7 +37,11 @@ public class World {
 	}
 	
 	public Iterator<Element> elementsIn(String type) {
-		return elements.get(type).iterator();
+		if (elements.containsKey(type)) {
+			return elements.get(type).iterator();
+		} else {
+			return Collections.emptyIterator();
+		}
 	}
 	
 	public int elementSize(String type) {

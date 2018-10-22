@@ -1,6 +1,7 @@
 package org.architecturemining.ismodeler.proving.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Exists extends Operator {
@@ -38,7 +39,16 @@ public class Exists extends Operator {
 	
 	@Override
 	public boolean isValidIn(World world) {
-		// TODO Auto-generated method stub
+		Iterator<Element> it = world.elementsIn(variable.getType());
+		while(it.hasNext()) {
+			Element element = it.next();
+			Clause clause = (Clause) operand.clone();
+			clause.instantiate(variable, element);
+			
+			if (clause.isValidIn(world)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
