@@ -22,11 +22,11 @@ public class World {
 
 	private Set<Relation> relations = new HashSet<>();
 	
-	private Map<String,Set<Literal>> elements = new HashMap<>(); 
+	private Map<String,Set<Element>> elements = new HashMap<>(); 
 	
 	public boolean addElement(Element e) {
 		if (!elements.containsKey(e.getType())) {
-			elements.put(e.getType(), new HashSet<Literal>());
+			elements.put(e.getType(), new HashSet<Element>());
 		}
 		return elements.get(e.getType()).add(e);
 	}
@@ -35,7 +35,7 @@ public class World {
 		return elements.containsKey(type);
 	}
 	
-	public Iterator<Literal> elementsIn(String type) {
+	public Iterator<Element> elementsIn(String type) {
 		return elements.get(type).iterator();
 	}
 	
@@ -86,5 +86,30 @@ public class World {
 		} else {
 			return false;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		// Population
+		sb.append("%%%%%%%%%%%%%%%%%%%%\n");
+		sb.append("%%%  Population  %%%\n");
+		for(String type: elements.keySet()) {
+			sb.append("% " + type + ":\n");
+			for(Element el: elements.get(type)) {
+				sb.append(el);
+				sb.append("\n");
+			}
+		}
+		sb.append("%%%%%%%%%%%%%%%%%%%%\n");
+		sb.append("%%%   Relation   %%%\n");
+		for(Relation rel: relations) {
+			sb.append(rel);
+			sb.append("\n");
+		}
+		sb.append("%%%%%%%%%%%%%%%%%%%%\n");
+		
+		return sb.toString();
 	}
 }

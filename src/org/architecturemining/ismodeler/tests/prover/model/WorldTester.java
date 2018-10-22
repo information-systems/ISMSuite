@@ -31,7 +31,7 @@ public class WorldTester {
 		w.addRelation(new Relation("likes", new Element("Augustine", "human"), new Element("Augustine", "human")));
 		w.addRelation(new Relation("likes", new Element("Plato", "human"), new Element("Socrates", "human")));
 		w.addRelation(new Relation("likes", new Element("Augustine", "human"), new Element("Plato", "human")));
-				
+		
 		return w;
 	}
 	

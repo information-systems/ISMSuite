@@ -13,7 +13,11 @@ public abstract class Literal extends Clause {
 		if (this.isAbstract()) {
 			return false;
 		}
-		return world.contains(this);
+		if (world.contains(this)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	 
 	public abstract boolean isAbstract();
