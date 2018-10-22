@@ -5,23 +5,37 @@ import java.util.List;
 
 public class Exists extends Operator {
 
-private Clause operand;
+	private Clause operand;
+	private String mString;
 	
-	private List<Variable> variables;
+	private Variable variable;
 	
-	public Exists(Clause clause, Variable... variables) {
+	public Exists(Variable v, Clause clause) {
 		this.operand = clause;
-		this.variables = new ArrayList<>();
-		for(Variable v: variables) {
-			this.variables.add(v);
-		}
+		this.variable = v;
+		
+		calculateProperties();
 	}
 	
-	public Exists(Clause clause, List<Variable> variables) {
-		this.operand = clause;
-		this.variables = variables;
+	public Variable getVariable() {
+		return variable;
 	}
-
+	
+	public Clause getOperand() {
+		return operand;
+	}
+	
+	private void calculateProperties() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("EXISTS [");
+		sb.append(variable.toString());
+		sb.append("] (");
+		sb.append(operand.toString());
+		sb.append(")");
+		
+		mString = sb.toString();
+	}
+	
 	@Override
 	public boolean isValidIn(World world) {
 		// TODO Auto-generated method stub
@@ -30,25 +44,21 @@ private Clause operand;
 
 	@Override
 	public Object clone() {
-		ArrayList<Variable> vars = new ArrayList<>();
-		for(Variable v: variables) {
-			vars.add((Variable) v.clone());
-		}
-		return new Exists((Clause) operand.clone(), vars);
+		return new Exists((Variable) variable.clone(), (Clause) operand.clone());
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("EXISTS [");
-		for(Variable v: variables) {
-			sb.append(v.toString());
-			sb.append(" ");
+		return mString;
+	}
+
+	@Override
+	public void instantiate(Variable x, Element a) {
+		if (variable.equals(x)) {
+			return;
 		}
-		sb.append("] (");
-		sb.append(operand.toString());
-		sb.append(")");
+		operand.instantiate(x, a);
 		
-		return sb.toString();
+		calculateProperties();
 	}
 }

@@ -16,7 +16,7 @@ public class Relation extends Literal {
 		super(label);
 		parameters = params;
 		
-		updateState();
+		calculateProperties();
 	}
 	
 	public Relation(String label, Literal ... params) {
@@ -26,11 +26,11 @@ public class Relation extends Literal {
 			parameters.add(p);
 		}
 		
-		updateState();
+		calculateProperties();
 	}
 
 
-	private void updateState() {
+	private void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		mIsAbstract = false;
 		sb.append("REL: ");
@@ -46,36 +46,6 @@ public class Relation extends Literal {
 		}
 		sb.append(" )");
 		mString = sb.toString();
-	}
-	
-	public boolean isInstantiateable(int index) {
-		if (index < 0 || index >= size() ) {
-			return false;
-		}
-		return (parameters.get(index) instanceof Variable);
-	}
-	
-	/**
-	 * This method updates a parameter. The update is only allowed if
-	 * the Literal to be changed is a Variable.
-	 * @param index
-	 * @param l
-	 * @return
-	 * @throws Exception 
-	 */
-	public Relation instantiateParameter(int index, Literal replace) throws Exception {
-		if (!isInstantiateable(index)) {
-			throw new Exception("Parameter cannot be replaced");
-		}
-		List<Literal> params = new ArrayList<>();
-		for(int i = 0 ; i < parameters.size(); i++) {
-			if (i == index) {
-				params.add(replace);
-			} else {
-				params.add((Literal) parameters.get(i).clone());
-			}
-		}
-		return new Relation(getLabel(), params);
 	}
 	
 	/**
@@ -110,6 +80,18 @@ public class Relation extends Literal {
 			params.add((Literal) p.clone());
 		}
 		return new Relation(getLabel(), params);
+	}
+	
+	@Override
+	public void instantiate(Variable x, Element a) {
+		for(int i = 0 ; i < size() ; i++) {
+			if (parameters.get(i).equals(x)) {
+				parameters.set(i, a);
+			} else {
+				parameters.get(i).instantiate(x, a);
+			}
+		}
+		calculateProperties();
 	}
 	
 }

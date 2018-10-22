@@ -12,9 +12,12 @@ import java.util.Iterator;
 public class Or extends Operator {
 
 	private Collection<Clause> operands;
+	private String mString;
 	
 	public Or(Collection<Clause> operands) {
-		this.operands = operands; 
+		this.operands = operands;
+		
+		calculateProperties();
 	}
 	
 	public Or(Clause... operands) {
@@ -22,6 +25,20 @@ public class Or extends Operator {
 		for(Clause c: operands) {
 			this.operands.add(c);
 		}
+		
+		calculateProperties();
+	}
+	
+	private void calculateProperties() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("OR( ");
+		for(Clause op: operands) {
+			sb.append("[");
+			sb.append(op.toString());
+			sb.append("] ");
+		}
+		sb.append(")");
+		mString = sb.toString();
 	}
 	
 	@Override
@@ -45,14 +62,14 @@ public class Or extends Operator {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("OR( ");
-		for(Clause op: operands) {
-			sb.append("[");
-			sb.append(op.toString());
-			sb.append("] ");
+		return mString;
+	}
+
+	@Override
+	public void instantiate(Variable x, Element a) {
+		for(Clause c: operands) {
+			c.instantiate(x, a);
 		}
-		sb.append(")");
-		return sb.toString();
+		calculateProperties();
 	}
 }

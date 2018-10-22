@@ -16,9 +16,12 @@ import java.util.Iterator;
 public class And extends Operator {
 
 	private Collection<Clause> operands;
+	private String mString;
 	
 	public And(Collection<Clause> clauses) {
-		this.operands = clauses; 
+		this.operands = clauses;
+		
+		calculateProperties();
 	}
 	
 	public And(Clause...clauses) {
@@ -26,6 +29,19 @@ public class And extends Operator {
 		for(Clause c: clauses) {
 			operands.add(c);
 		}
+		calculateProperties();
+	}
+	
+	private void calculateProperties() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("AND( ");
+		for(Clause op: operands) {
+			sb.append("[");
+			sb.append(op.toString());
+			sb.append("] ");
+		}
+		sb.append(")");
+		mString = sb.toString();
 	}
 	
 	@Override
@@ -49,15 +65,16 @@ public class And extends Operator {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("AND( ");
-		for(Clause op: operands) {
-			sb.append("[");
-			sb.append(op.toString());
-			sb.append("] ");
+		return mString;
+	}
+
+	@Override
+	public void instantiate(Variable x, Element a) {
+		for(Clause c: operands) {
+			c.instantiate(x, a);
 		}
-		sb.append(")");
-		return sb.toString();
+		
+		calculateProperties();
 	}
 
 }

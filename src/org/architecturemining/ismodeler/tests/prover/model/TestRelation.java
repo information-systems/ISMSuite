@@ -109,17 +109,6 @@ class TestRelation {
 		
 		assertTrue(likes2.isAbstract());
 		
-		assertFalse(likes2.isInstantiateable(0));
-		assertTrue(likes2.isInstantiateable(1));
-		
-		try {
-			Relation likes3 = likes2.instantiateParameter(1, plato);
-			assertTrue(likes3.equals(likes));
-		} catch (Exception e) {
-			fail("should not happen!");
-			e.printStackTrace();
-		}
-		
 		
 	}
 	

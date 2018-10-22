@@ -29,4 +29,9 @@ public class Element extends Literal {
 	public Object clone() {
 		return new Element(getLabel(), getType());
 	}
+
+	@Override
+	public void instantiate(Variable x, Element a) {
+		// Nothing to do :-)
+	}
 }

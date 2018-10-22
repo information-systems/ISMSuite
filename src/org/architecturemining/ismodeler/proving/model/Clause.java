@@ -10,5 +10,15 @@ public abstract class Clause implements Cloneable {
 	}
 	
 	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Clause) {
+			return o.toString().equals(this.toString());
+		}
+		return false;
+	}
+	
+	@Override
 	public abstract Object clone();
+	
+	public abstract void instantiate(Variable x, Element a);
 }

@@ -21,13 +21,5 @@ public abstract class Literal extends Clause {
 	public String getLabel() {
 		return label;
 	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Literal) {
-			return o.toString().equals(toString());
-		} else {
-			return false;
-		}
-	}
+
 }

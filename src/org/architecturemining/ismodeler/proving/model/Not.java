@@ -3,9 +3,16 @@ package org.architecturemining.ismodeler.proving.model;
 public class Not extends Operator {
 
 	private Clause operand;
+	private String mString;
 	
 	public Not(Clause operand) {
 		this.operand = operand;
+		
+		calculateProperties();
+	}
+	
+	private void calculateProperties() {
+		mString = "NOT ( [" + operand.toString() + "] );";
 	}
 	
 	@Override
@@ -23,8 +30,12 @@ public class Not extends Operator {
 	
 	@Override
 	public String toString() {
-		return "NOT ( [" + operand.toString() + "] );";
+		return mString;
 	}
-	
 
+	@Override
+	public void instantiate(Variable x, Element a) {
+		operand.instantiate(x, a);
+		calculateProperties();
+	}
 }

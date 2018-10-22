@@ -5,9 +5,24 @@ public class Implies extends Operator {
 	private Clause premise;
 	private Clause conclusion;
 	
+	private String mString;
+	
 	public Implies(Clause premise, Clause conclusion) {
 		this.premise = premise;
 		this.conclusion = conclusion;
+		
+		calculateProperties();
+	}
+	
+	private void calculateProperties() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("( ");
+		sb.append(premise.toString());
+		sb.append(") => (");
+		sb.append(conclusion.toString());
+		sb.append(")");
+		
+		mString = sb.toString();
 	}
 	
 	@Override
@@ -24,14 +39,15 @@ public class Implies extends Operator {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("( ");
-		sb.append(premise.toString());
-		sb.append(") => (");
-		sb.append(conclusion.toString());
-		sb.append(")");
+		return mString;
+	}
+
+	@Override
+	public void instantiate(Variable x, Element a) {
+		premise.instantiate(x, a);
+		conclusion.instantiate(x, a);
 		
-		return sb.toString();
+		calculateProperties();
 	}
 
 }
