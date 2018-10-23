@@ -26,8 +26,12 @@ public class ParserTest {
 					+ "tff(d_type, type, d: human)."
 					+ "tff( r_a_b, axiom, r(a,b))."
 					+ "tff( r_b_c, axiom, r(b,c))."
-					+ "tff( r_a_b_and_r_b_c, conjecture, r(a,b) & r(b,c) )."
-					+ "tff( r_refl,conjecture, ! [X: human] : ( r(X,X) ) )."
+					+ "tff( r_a_b_and_r_b_c, conjecture, r(X,b) & r(b,c) )."
+					+ "tff( r_a_b_and_r_b_c_and_r_a_d, conjecture, r(X,b) & r(b,c) & r(a,d) )."
+					+ "tff( r_a_b_or_r_b_c, conjecture, r(X,b) | r(b,c) )."
+					+ "tff( r_a_b_or_r_b_c_or_r_a_d, conjecture, r(X,b) | r(b,c) | r(a,d) )."
+					+ "tff( r_a_b_and_r_b_c_or_r_a_d, conjecture, (r(X,b) & r(b,c)) | r(a,d) )."
+					+ "tff( r_refl, conjecture, ! [X: human] : ( r(X,X) ) )."
 				    + "tff( r_trans, conjecture, ! [X: human, Y: human, Z:human ] : ( ( ( r(X,Y) & r(Y,Z) )  => r(X,Z) ) ) )."
 				);
 		TFFLexer lexer = new TFFLexer(stream);

@@ -2,23 +2,23 @@ package org.architecturemining.ismodeler.proving.model;
 
 public class Equality extends Operator {
 
-	private Literal left;
-	private Literal right;
+	private Clause left;
+	private Clause right;
 	
 	private String mString;
 	
-	public Equality(Literal left, Literal right) {
+	public Equality(Clause left, Clause right) {
 		this.left = left;
 		this.right = right;
 		
 		calculateProperties();
 	}
 	
-	public Literal getLeft() {
+	public Clause getLeft() {
 		return left;
 	}
 	
-	public Literal getRight() {
+	public Clause getRight() {
 		return right;
 	}
 	
@@ -47,14 +47,12 @@ public class Equality extends Operator {
 	public void instantiate(Variable x, Element a) {
 		if (left.equals(x)) {
 			left = (Element) a.clone();
+		} else {
+			left.instantiate(x, a);
 		}
 		if (right.equals(x)) {
 			right = (Element) a.clone();
-		}
-		if (left instanceof Relation) {
-			left.instantiate(x, a);
-		}
-		if (right instanceof Relation) {
+		} else {
 			right.instantiate(x, a);
 		}
 	}

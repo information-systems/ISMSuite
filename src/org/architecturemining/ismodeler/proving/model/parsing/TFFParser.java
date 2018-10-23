@@ -175,9 +175,6 @@ public class TFFParser extends Parser {
 		public TerminalNode Iff() { return getToken(TFFParser.Iff, 0); }
 		public TerminalNode Impl() { return getToken(TFFParser.Impl, 0); }
 		public TerminalNode If() { return getToken(TFFParser.If, 0); }
-		public TerminalNode Niff() { return getToken(TFFParser.Niff, 0); }
-		public TerminalNode Nor() { return getToken(TFFParser.Nor, 0); }
-		public TerminalNode Nand() { return getToken(TFFParser.Nand, 0); }
 		public Binary_connectiveContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -206,7 +203,7 @@ public class TFFParser extends Parser {
 			{
 			setState(66);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Iff) | (1L << Impl) | (1L << If) | (1L << Niff) | (1L << Nor) | (1L << Nand))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Iff) | (1L << Impl) | (1L << If))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1246,6 +1243,7 @@ public class TFFParser extends Parser {
 			return getRuleContext(Fof_termContext.class,i);
 		}
 		public TerminalNode Infix_inequality() { return getToken(TFFParser.Infix_inequality, 0); }
+		public TerminalNode Infix_equality() { return getToken(TFFParser.Infix_equality, 0); }
 		public Fof_infix_unaryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1269,14 +1267,31 @@ public class TFFParser extends Parser {
 		Fof_infix_unaryContext _localctx = new Fof_infix_unaryContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_fof_infix_unary);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(165);
-			fof_term();
-			setState(166);
-			match(Infix_inequality);
-			setState(167);
-			fof_term();
+			setState(173);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(165);
+				fof_term();
+				setState(166);
+				match(Infix_inequality);
+				setState(167);
+				fof_term();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(169);
+				fof_term();
+				setState(170);
+				match(Infix_equality);
+				setState(171);
+				fof_term();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -1323,25 +1338,25 @@ public class TFFParser extends Parser {
 		Fof_termContext _localctx = new Fof_termContext(_ctx, getState());
 		enterRule(_localctx, 38, RULE_fof_term);
 		try {
-			setState(177);
+			setState(183);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Lower_word:
 			case Single_quoted:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(169);
+				setState(175);
 				atomic_word();
-				setState(174);
+				setState(180);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 				case 1:
 					{
-					setState(170);
+					setState(176);
 					match(T__6);
-					setState(171);
+					setState(177);
 					argument_list();
-					setState(172);
+					setState(178);
 					match(T__7);
 					}
 					break;
@@ -1351,7 +1366,7 @@ public class TFFParser extends Parser {
 			case Upper_word:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(176);
+				setState(182);
 				variable();
 				}
 				break;
@@ -1403,21 +1418,21 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(179);
+			setState(185);
 			argument();
-			setState(184);
+			setState(190);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__1) {
 				{
 				{
-				setState(180);
+				setState(186);
 				match(T__1);
-				setState(181);
+				setState(187);
 				argument();
 				}
 				}
-				setState(186);
+				setState(192);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1435,8 +1450,12 @@ public class TFFParser extends Parser {
 	}
 
 	public static class ArgumentContext extends ParserRuleContext {
-		public TerminalNode Upper_word() { return getToken(TFFParser.Upper_word, 0); }
-		public TerminalNode Lower_word() { return getToken(TFFParser.Lower_word, 0); }
+		public VariableContext variable() {
+			return getRuleContext(VariableContext.class,0);
+		}
+		public Atomic_wordContext atomic_word() {
+			return getRuleContext(Atomic_wordContext.class,0);
+		}
 		public ArgumentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1459,20 +1478,27 @@ public class TFFParser extends Parser {
 	public final ArgumentContext argument() throws RecognitionException {
 		ArgumentContext _localctx = new ArgumentContext(_ctx, getState());
 		enterRule(_localctx, 42, RULE_argument);
-		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(187);
-			_la = _input.LA(1);
-			if ( !(_la==Upper_word || _la==Lower_word) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(195);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case Upper_word:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(193);
+				variable();
+				}
+				break;
+			case Lower_word:
+			case Single_quoted:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(194);
+				atomic_word();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1519,29 +1545,29 @@ public class TFFParser extends Parser {
 		Tff_typed_atomContext _localctx = new Tff_typed_atomContext(_ctx, getState());
 		enterRule(_localctx, 44, RULE_tff_typed_atom);
 		try {
-			setState(197);
+			setState(205);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Lower_word:
 			case Single_quoted:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(189);
+				setState(197);
 				atomic_word();
-				setState(190);
+				setState(198);
 				match(T__5);
-				setState(191);
+				setState(199);
 				atomic_word();
 				}
 				break;
 			case T__6:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(193);
+				setState(201);
 				match(T__6);
-				setState(194);
+				setState(202);
 				tff_typed_atom();
-				setState(195);
+				setState(203);
 				match(T__7);
 				}
 				break;
@@ -1590,16 +1616,16 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(199);
+			setState(207);
 			match(Upper_word);
-			setState(202);
+			setState(210);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
 			case 1:
 				{
-				setState(200);
+				setState(208);
 				match(T__5);
-				setState(201);
+				setState(209);
 				atomic_word();
 				}
 				break;
@@ -1650,21 +1676,21 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(204);
+			setState(212);
 			variable();
-			setState(209);
+			setState(217);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__1) {
 				{
 				{
-				setState(205);
+				setState(213);
 				match(T__1);
-				setState(206);
+				setState(214);
 				variable();
 				}
 				}
-				setState(211);
+				setState(219);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1709,21 +1735,21 @@ public class TFFParser extends Parser {
 		NameContext _localctx = new NameContext(_ctx, getState());
 		enterRule(_localctx, 50, RULE_name);
 		try {
-			setState(214);
+			setState(222);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Lower_word:
 			case Single_quoted:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(212);
+				setState(220);
 				atomic_word();
 				}
 				break;
 			case Integer:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(213);
+				setState(221);
 				match(Integer);
 				}
 				break;
@@ -1778,25 +1804,25 @@ public class TFFParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(216);
+			setState(224);
 			atomic_word();
-			setState(221);
+			setState(229);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(217);
+					setState(225);
 					match(T__1);
-					setState(218);
+					setState(226);
 					atomic_word_list();
 					}
 					} 
 				}
-				setState(223);
+				setState(231);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
 			}
 			}
 		}
@@ -1840,7 +1866,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(224);
+			setState(232);
 			_la = _input.LA(1);
 			if ( !(_la==Lower_word || _la==Single_quoted) ) {
 			_errHandler.recoverInline(this);
@@ -1890,7 +1916,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(226);
+			setState(234);
 			match(Dollar_word);
 			}
 		}
@@ -1932,7 +1958,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(228);
+			setState(236);
 			match(Dollar_dollar_word);
 			}
 		}
@@ -1977,7 +2003,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(230);
+			setState(238);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Real) | (1L << Rational) | (1L << Integer))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2027,7 +2053,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(232);
+			setState(240);
 			match(Single_quoted);
 			}
 		}
@@ -2067,7 +2093,7 @@ public class TFFParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3B\u00ed\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3B\u00f5\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -2079,66 +2105,70 @@ public class TFFParser extends Parser {
 		"\3\17\3\17\3\17\3\17\3\17\3\17\7\17\u0086\n\17\f\17\16\17\u0089\13\17"+
 		"\3\20\3\20\3\20\5\20\u008e\n\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\22"+
 		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u009f\n\22\3\23\3\23\3\23\3\23"+
-		"\3\23\5\23\u00a6\n\23\3\24\3\24\3\24\3\24\3\25\3\25\3\25\3\25\3\25\5\25"+
-		"\u00b1\n\25\3\25\5\25\u00b4\n\25\3\26\3\26\3\26\7\26\u00b9\n\26\f\26\16"+
-		"\26\u00bc\13\26\3\27\3\27\3\30\3\30\3\30\3\30\3\30\3\30\3\30\3\30\5\30"+
-		"\u00c8\n\30\3\31\3\31\3\31\5\31\u00cd\n\31\3\32\3\32\3\32\7\32\u00d2\n"+
-		"\32\f\32\16\32\u00d5\13\32\3\33\3\33\5\33\u00d9\n\33\3\34\3\34\3\34\7"+
-		"\34\u00de\n\34\f\34\16\34\u00e1\13\34\3\35\3\35\3\36\3\36\3\37\3\37\3"+
-		" \3 \3!\3!\3!\2\4\32\34\"\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&"+
-		"(*,.\60\62\64\668:<>@\2\b\4\2\30\30\33\33\3\2\r\22\3\2\13\f\3\2<=\3\2"+
-		"=>\5\2)),,//\2\u00e0\2B\3\2\2\2\4D\3\2\2\2\6F\3\2\2\2\bH\3\2\2\2\nM\3"+
-		"\2\2\2\fR\3\2\2\2\16Z\3\2\2\2\20^\3\2\2\2\22b\3\2\2\2\24f\3\2\2\2\26h"+
-		"\3\2\2\2\30n\3\2\2\2\32p\3\2\2\2\34}\3\2\2\2\36\u008d\3\2\2\2 \u008f\3"+
-		"\2\2\2\"\u009e\3\2\2\2$\u00a0\3\2\2\2&\u00a7\3\2\2\2(\u00b3\3\2\2\2*\u00b5"+
-		"\3\2\2\2,\u00bd\3\2\2\2.\u00c7\3\2\2\2\60\u00c9\3\2\2\2\62\u00ce\3\2\2"+
-		"\2\64\u00d8\3\2\2\2\66\u00da\3\2\2\28\u00e2\3\2\2\2:\u00e4\3\2\2\2<\u00e6"+
-		"\3\2\2\2>\u00e8\3\2\2\2@\u00ea\3\2\2\2BC\t\2\2\2C\3\3\2\2\2DE\t\3\2\2"+
-		"E\5\3\2\2\2FG\t\4\2\2G\7\3\2\2\2HI\7\23\2\2I\t\3\2\2\2JL\5\f\7\2KJ\3\2"+
-		"\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2NP\3\2\2\2OM\3\2\2\2PQ\7\2\2\3Q\13\3"+
-		"\2\2\2RS\7\3\2\2ST\5\64\33\2TU\7\4\2\2UV\5\16\b\2VW\7\4\2\2WX\5\20\t\2"+
-		"XY\7\5\2\2Y\r\3\2\2\2Z[\7=\2\2[\17\3\2\2\2\\_\5\22\n\2]_\5.\30\2^\\\3"+
-		"\2\2\2^]\3\2\2\2_\21\3\2\2\2`c\5\24\13\2ac\5\36\20\2b`\3\2\2\2ba\3\2\2"+
-		"\2c\23\3\2\2\2dg\5\26\f\2eg\5\30\r\2fd\3\2\2\2fe\3\2\2\2g\25\3\2\2\2h"+
-		"i\5\36\20\2ij\5\4\3\2jk\5\36\20\2k\27\3\2\2\2lo\5\32\16\2mo\5\34\17\2"+
-		"nl\3\2\2\2nm\3\2\2\2o\31\3\2\2\2pq\b\16\1\2qr\5\36\20\2rs\7\13\2\2st\5"+
-		"\36\20\2tz\3\2\2\2uv\f\3\2\2vw\7\13\2\2wy\5\36\20\2xu\3\2\2\2y|\3\2\2"+
-		"\2zx\3\2\2\2z{\3\2\2\2{\33\3\2\2\2|z\3\2\2\2}~\b\17\1\2~\177\5\36\20\2"+
-		"\177\u0080\7\f\2\2\u0080\u0081\5\36\20\2\u0081\u0087\3\2\2\2\u0082\u0083"+
-		"\f\3\2\2\u0083\u0084\7\f\2\2\u0084\u0086\5\36\20\2\u0085\u0082\3\2\2\2"+
-		"\u0086\u0089\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088\35"+
-		"\3\2\2\2\u0089\u0087\3\2\2\2\u008a\u008e\5 \21\2\u008b\u008e\5\"\22\2"+
-		"\u008c\u008e\5$\23\2\u008d\u008a\3\2\2\2\u008d\u008b\3\2\2\2\u008d\u008c"+
-		"\3\2\2\2\u008e\37\3\2\2\2\u008f\u0090\5\2\2\2\u0090\u0091\7\6\2\2\u0091"+
-		"\u0092\5\62\32\2\u0092\u0093\7\7\2\2\u0093\u0094\7\b\2\2\u0094\u0095\5"+
-		"\36\20\2\u0095!\3\2\2\2\u0096\u0097\5\b\5\2\u0097\u0098\5\36\20\2\u0098"+
-		"\u009f\3\2\2\2\u0099\u009f\5&\24\2\u009a\u009b\7\t\2\2\u009b\u009c\5\22"+
-		"\n\2\u009c\u009d\7\n\2\2\u009d\u009f\3\2\2\2\u009e\u0096\3\2\2\2\u009e"+
-		"\u0099\3\2\2\2\u009e\u009a\3\2\2\2\u009f#\3\2\2\2\u00a0\u00a5\58\35\2"+
-		"\u00a1\u00a2\7\t\2\2\u00a2\u00a3\5*\26\2\u00a3\u00a4\7\n\2\2\u00a4\u00a6"+
-		"\3\2\2\2\u00a5\u00a1\3\2\2\2\u00a5\u00a6\3\2\2\2\u00a6%\3\2\2\2\u00a7"+
-		"\u00a8\5(\25\2\u00a8\u00a9\7\26\2\2\u00a9\u00aa\5(\25\2\u00aa\'\3\2\2"+
-		"\2\u00ab\u00b0\58\35\2\u00ac\u00ad\7\t\2\2\u00ad\u00ae\5*\26\2\u00ae\u00af"+
-		"\7\n\2\2\u00af\u00b1\3\2\2\2\u00b0\u00ac\3\2\2\2\u00b0\u00b1\3\2\2\2\u00b1"+
-		"\u00b4\3\2\2\2\u00b2\u00b4\5\60\31\2\u00b3\u00ab\3\2\2\2\u00b3\u00b2\3"+
-		"\2\2\2\u00b4)\3\2\2\2\u00b5\u00ba\5,\27\2\u00b6\u00b7\7\4\2\2\u00b7\u00b9"+
-		"\5,\27\2\u00b8\u00b6\3\2\2\2\u00b9\u00bc\3\2\2\2\u00ba\u00b8\3\2\2\2\u00ba"+
-		"\u00bb\3\2\2\2\u00bb+\3\2\2\2\u00bc\u00ba\3\2\2\2\u00bd\u00be\t\5\2\2"+
-		"\u00be-\3\2\2\2\u00bf\u00c0\58\35\2\u00c0\u00c1\7\b\2\2\u00c1\u00c2\5"+
-		"8\35\2\u00c2\u00c8\3\2\2\2\u00c3\u00c4\7\t\2\2\u00c4\u00c5\5.\30\2\u00c5"+
-		"\u00c6\7\n\2\2\u00c6\u00c8\3\2\2\2\u00c7\u00bf\3\2\2\2\u00c7\u00c3\3\2"+
-		"\2\2\u00c8/\3\2\2\2\u00c9\u00cc\7<\2\2\u00ca\u00cb\7\b\2\2\u00cb\u00cd"+
-		"\58\35\2\u00cc\u00ca\3\2\2\2\u00cc\u00cd\3\2\2\2\u00cd\61\3\2\2\2\u00ce"+
-		"\u00d3\5\60\31\2\u00cf\u00d0\7\4\2\2\u00d0\u00d2\5\60\31\2\u00d1\u00cf"+
-		"\3\2\2\2\u00d2\u00d5\3\2\2\2\u00d3\u00d1\3\2\2\2\u00d3\u00d4\3\2\2\2\u00d4"+
-		"\63\3\2\2\2\u00d5\u00d3\3\2\2\2\u00d6\u00d9\58\35\2\u00d7\u00d9\7/\2\2"+
-		"\u00d8\u00d6\3\2\2\2\u00d8\u00d7\3\2\2\2\u00d9\65\3\2\2\2\u00da\u00df"+
-		"\58\35\2\u00db\u00dc\7\4\2\2\u00dc\u00de\5\66\34\2\u00dd\u00db\3\2\2\2"+
-		"\u00de\u00e1\3\2\2\2\u00df\u00dd\3\2\2\2\u00df\u00e0\3\2\2\2\u00e0\67"+
-		"\3\2\2\2\u00e1\u00df\3\2\2\2\u00e2\u00e3\t\6\2\2\u00e39\3\2\2\2\u00e4"+
-		"\u00e5\7:\2\2\u00e5;\3\2\2\2\u00e6\u00e7\7;\2\2\u00e7=\3\2\2\2\u00e8\u00e9"+
-		"\t\7\2\2\u00e9?\3\2\2\2\u00ea\u00eb\7>\2\2\u00ebA\3\2\2\2\24M^bfnz\u0087"+
-		"\u008d\u009e\u00a5\u00b0\u00b3\u00ba\u00c7\u00cc\u00d3\u00d8\u00df";
+		"\3\23\5\23\u00a6\n\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u00b0"+
+		"\n\24\3\25\3\25\3\25\3\25\3\25\5\25\u00b7\n\25\3\25\5\25\u00ba\n\25\3"+
+		"\26\3\26\3\26\7\26\u00bf\n\26\f\26\16\26\u00c2\13\26\3\27\3\27\5\27\u00c6"+
+		"\n\27\3\30\3\30\3\30\3\30\3\30\3\30\3\30\3\30\5\30\u00d0\n\30\3\31\3\31"+
+		"\3\31\5\31\u00d5\n\31\3\32\3\32\3\32\7\32\u00da\n\32\f\32\16\32\u00dd"+
+		"\13\32\3\33\3\33\5\33\u00e1\n\33\3\34\3\34\3\34\7\34\u00e6\n\34\f\34\16"+
+		"\34\u00e9\13\34\3\35\3\35\3\36\3\36\3\37\3\37\3 \3 \3!\3!\3!\2\4\32\34"+
+		"\"\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@\2"+
+		"\7\4\2\30\30\33\33\3\2\r\17\3\2\13\f\3\2=>\5\2)),,//\2\u00ea\2B\3\2\2"+
+		"\2\4D\3\2\2\2\6F\3\2\2\2\bH\3\2\2\2\nM\3\2\2\2\fR\3\2\2\2\16Z\3\2\2\2"+
+		"\20^\3\2\2\2\22b\3\2\2\2\24f\3\2\2\2\26h\3\2\2\2\30n\3\2\2\2\32p\3\2\2"+
+		"\2\34}\3\2\2\2\36\u008d\3\2\2\2 \u008f\3\2\2\2\"\u009e\3\2\2\2$\u00a0"+
+		"\3\2\2\2&\u00af\3\2\2\2(\u00b9\3\2\2\2*\u00bb\3\2\2\2,\u00c5\3\2\2\2."+
+		"\u00cf\3\2\2\2\60\u00d1\3\2\2\2\62\u00d6\3\2\2\2\64\u00e0\3\2\2\2\66\u00e2"+
+		"\3\2\2\28\u00ea\3\2\2\2:\u00ec\3\2\2\2<\u00ee\3\2\2\2>\u00f0\3\2\2\2@"+
+		"\u00f2\3\2\2\2BC\t\2\2\2C\3\3\2\2\2DE\t\3\2\2E\5\3\2\2\2FG\t\4\2\2G\7"+
+		"\3\2\2\2HI\7\23\2\2I\t\3\2\2\2JL\5\f\7\2KJ\3\2\2\2LO\3\2\2\2MK\3\2\2\2"+
+		"MN\3\2\2\2NP\3\2\2\2OM\3\2\2\2PQ\7\2\2\3Q\13\3\2\2\2RS\7\3\2\2ST\5\64"+
+		"\33\2TU\7\4\2\2UV\5\16\b\2VW\7\4\2\2WX\5\20\t\2XY\7\5\2\2Y\r\3\2\2\2Z"+
+		"[\7=\2\2[\17\3\2\2\2\\_\5\22\n\2]_\5.\30\2^\\\3\2\2\2^]\3\2\2\2_\21\3"+
+		"\2\2\2`c\5\24\13\2ac\5\36\20\2b`\3\2\2\2ba\3\2\2\2c\23\3\2\2\2dg\5\26"+
+		"\f\2eg\5\30\r\2fd\3\2\2\2fe\3\2\2\2g\25\3\2\2\2hi\5\36\20\2ij\5\4\3\2"+
+		"jk\5\36\20\2k\27\3\2\2\2lo\5\32\16\2mo\5\34\17\2nl\3\2\2\2nm\3\2\2\2o"+
+		"\31\3\2\2\2pq\b\16\1\2qr\5\36\20\2rs\7\13\2\2st\5\36\20\2tz\3\2\2\2uv"+
+		"\f\3\2\2vw\7\13\2\2wy\5\36\20\2xu\3\2\2\2y|\3\2\2\2zx\3\2\2\2z{\3\2\2"+
+		"\2{\33\3\2\2\2|z\3\2\2\2}~\b\17\1\2~\177\5\36\20\2\177\u0080\7\f\2\2\u0080"+
+		"\u0081\5\36\20\2\u0081\u0087\3\2\2\2\u0082\u0083\f\3\2\2\u0083\u0084\7"+
+		"\f\2\2\u0084\u0086\5\36\20\2\u0085\u0082\3\2\2\2\u0086\u0089\3\2\2\2\u0087"+
+		"\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088\35\3\2\2\2\u0089\u0087\3\2\2"+
+		"\2\u008a\u008e\5 \21\2\u008b\u008e\5\"\22\2\u008c\u008e\5$\23\2\u008d"+
+		"\u008a\3\2\2\2\u008d\u008b\3\2\2\2\u008d\u008c\3\2\2\2\u008e\37\3\2\2"+
+		"\2\u008f\u0090\5\2\2\2\u0090\u0091\7\6\2\2\u0091\u0092\5\62\32\2\u0092"+
+		"\u0093\7\7\2\2\u0093\u0094\7\b\2\2\u0094\u0095\5\36\20\2\u0095!\3\2\2"+
+		"\2\u0096\u0097\5\b\5\2\u0097\u0098\5\36\20\2\u0098\u009f\3\2\2\2\u0099"+
+		"\u009f\5&\24\2\u009a\u009b\7\t\2\2\u009b\u009c\5\22\n\2\u009c\u009d\7"+
+		"\n\2\2\u009d\u009f\3\2\2\2\u009e\u0096\3\2\2\2\u009e\u0099\3\2\2\2\u009e"+
+		"\u009a\3\2\2\2\u009f#\3\2\2\2\u00a0\u00a5\58\35\2\u00a1\u00a2\7\t\2\2"+
+		"\u00a2\u00a3\5*\26\2\u00a3\u00a4\7\n\2\2\u00a4\u00a6\3\2\2\2\u00a5\u00a1"+
+		"\3\2\2\2\u00a5\u00a6\3\2\2\2\u00a6%\3\2\2\2\u00a7\u00a8\5(\25\2\u00a8"+
+		"\u00a9\7\26\2\2\u00a9\u00aa\5(\25\2\u00aa\u00b0\3\2\2\2\u00ab\u00ac\5"+
+		"(\25\2\u00ac\u00ad\7\27\2\2\u00ad\u00ae\5(\25\2\u00ae\u00b0\3\2\2\2\u00af"+
+		"\u00a7\3\2\2\2\u00af\u00ab\3\2\2\2\u00b0\'\3\2\2\2\u00b1\u00b6\58\35\2"+
+		"\u00b2\u00b3\7\t\2\2\u00b3\u00b4\5*\26\2\u00b4\u00b5\7\n\2\2\u00b5\u00b7"+
+		"\3\2\2\2\u00b6\u00b2\3\2\2\2\u00b6\u00b7\3\2\2\2\u00b7\u00ba\3\2\2\2\u00b8"+
+		"\u00ba\5\60\31\2\u00b9\u00b1\3\2\2\2\u00b9\u00b8\3\2\2\2\u00ba)\3\2\2"+
+		"\2\u00bb\u00c0\5,\27\2\u00bc\u00bd\7\4\2\2\u00bd\u00bf\5,\27\2\u00be\u00bc"+
+		"\3\2\2\2\u00bf\u00c2\3\2\2\2\u00c0\u00be\3\2\2\2\u00c0\u00c1\3\2\2\2\u00c1"+
+		"+\3\2\2\2\u00c2\u00c0\3\2\2\2\u00c3\u00c6\5\60\31\2\u00c4\u00c6\58\35"+
+		"\2\u00c5\u00c3\3\2\2\2\u00c5\u00c4\3\2\2\2\u00c6-\3\2\2\2\u00c7\u00c8"+
+		"\58\35\2\u00c8\u00c9\7\b\2\2\u00c9\u00ca\58\35\2\u00ca\u00d0\3\2\2\2\u00cb"+
+		"\u00cc\7\t\2\2\u00cc\u00cd\5.\30\2\u00cd\u00ce\7\n\2\2\u00ce\u00d0\3\2"+
+		"\2\2\u00cf\u00c7\3\2\2\2\u00cf\u00cb\3\2\2\2\u00d0/\3\2\2\2\u00d1\u00d4"+
+		"\7<\2\2\u00d2\u00d3\7\b\2\2\u00d3\u00d5\58\35\2\u00d4\u00d2\3\2\2\2\u00d4"+
+		"\u00d5\3\2\2\2\u00d5\61\3\2\2\2\u00d6\u00db\5\60\31\2\u00d7\u00d8\7\4"+
+		"\2\2\u00d8\u00da\5\60\31\2\u00d9\u00d7\3\2\2\2\u00da\u00dd\3\2\2\2\u00db"+
+		"\u00d9\3\2\2\2\u00db\u00dc\3\2\2\2\u00dc\63\3\2\2\2\u00dd\u00db\3\2\2"+
+		"\2\u00de\u00e1\58\35\2\u00df\u00e1\7/\2\2\u00e0\u00de\3\2\2\2\u00e0\u00df"+
+		"\3\2\2\2\u00e1\65\3\2\2\2\u00e2\u00e7\58\35\2\u00e3\u00e4\7\4\2\2\u00e4"+
+		"\u00e6\5\66\34\2\u00e5\u00e3\3\2\2\2\u00e6\u00e9\3\2\2\2\u00e7\u00e5\3"+
+		"\2\2\2\u00e7\u00e8\3\2\2\2\u00e8\67\3\2\2\2\u00e9\u00e7\3\2\2\2\u00ea"+
+		"\u00eb\t\5\2\2\u00eb9\3\2\2\2\u00ec\u00ed\7:\2\2\u00ed;\3\2\2\2\u00ee"+
+		"\u00ef\7;\2\2\u00ef=\3\2\2\2\u00f0\u00f1\t\6\2\2\u00f1?\3\2\2\2\u00f2"+
+		"\u00f3\7>\2\2\u00f3A\3\2\2\2\26M^bfnz\u0087\u008d\u009e\u00a5\u00af\u00b6"+
+		"\u00b9\u00c0\u00c5\u00cf\u00d4\u00db\u00e0\u00e7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -15,6 +15,13 @@ public class ClauseReader extends TFFBaseVisitor<Clause> {
 	private World world;
 	private Map<String, Clause> conjectures;
 	
+	/**
+	 * First argument is the Variable Name, Second its type.
+	 * If a variable is not in this list, it is a Free variable,
+	 * and hence, we do not know its type.
+	 */
+	private Map<String, String> currentlyBoundVariables = new HashMap<>();
+	
 	public World getWorld() {
 		return world;
 	}
@@ -99,6 +106,49 @@ public class ClauseReader extends TFFBaseVisitor<Clause> {
 		return null;
 	}
 	
+	public Clause visitTff_quantified_formula(TFFParser.Tff_quantified_formulaContext tcx) {
+		// TODO Keep track of the variables defined here, add them to 
+		// the context, and remove them once this function is finished.
+		
+		return null;
+	}
+	
+	/**
+	 * unary_connective tff_unitary_formula | fof_infix_unary | '(' tff_logic_formula ')';
+	 */
+	@Override
+	public Clause visitTff_unary_formula(TFFParser.Tff_unary_formulaContext txc) {
+		if (txc.tff_logic_formula() != null) {
+			return visitTff_logic_formula(txc.tff_logic_formula());
+		}
+		if (txc.tff_unitary_formula() != null) {
+			return visitTff_unitary_formula(txc.tff_unitary_formula());
+		}
+		if (txc.fof_infix_unary() != null) {
+			return visitFof_infix_unary(txc.fof_infix_unary());
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * fof_term Infix_inequality fof_term | fof_term Infix_equality fof_term 
+	 */
+	@Override
+	public Clause visitFof_infix_unary(TFFParser.Fof_infix_unaryContext txc) {
+		if (txc.Infix_equality() != null) {
+			Clause left = visitFof_term(txc.fof_term(0));
+			Clause right = visitFof_term(txc.fof_term(1));
+			return new Equality(left, right);
+		}
+		if (txc.Infix_inequality() != null) {
+			Clause left = visitFof_term(txc.fof_term(0));
+			Clause right = visitFof_term(txc.fof_term(1));
+			return new Not(new Equality(left, right));
+		}
+		return null;
+	}
+	
 	/**
 	 * atomic_word ( '(' argument_list ')' )?
 	 */
@@ -107,8 +157,18 @@ public class ClauseReader extends TFFBaseVisitor<Clause> {
 		List<Literal> parameters = new ArrayList<>();
 		if (txc.argument_list() != null) {
 			for(int i = 0 ; i < txc.argument_list().argument().size() ; i++ ) {
-				String s = txc.argument_list().argument(i).getText();
-				parameters.add(new Element(s, world.findTypeFor(s)));
+				if (txc.argument_list().argument(i).atomic_word() != null) {
+					String s = txc.argument_list().argument(i).atomic_word().getText();
+					parameters.add(new Element(s, world.findTypeFor(s)));
+				}
+				if (txc.argument_list().argument(i).variable() != null) {
+					String s = txc.argument_list().argument(i).variable().getText();
+					String type = "";
+					if (currentlyBoundVariables.containsKey(s)) {
+						type = currentlyBoundVariables.get(s);
+					}
+					parameters.add(new Variable(s, type));
+				}
 			}
 		}
 		
@@ -128,6 +188,40 @@ public class ClauseReader extends TFFBaseVisitor<Clause> {
 			return visitTff_binary_nonassoc(txc.tff_binary_nonassoc());
 		}
 		return null;
+	}
+	
+	/**
+	 * tff_unitary_formula binary_connective tff_unitary_formula
+	 */
+	@Override
+	public Clause visitTff_binary_nonassoc(TFFParser.Tff_binary_nonassocContext txc) {
+		Clause premise;
+		Clause conclusion;
+		
+		// A <= B === B => A
+		if (txc.binary_connective().If() != null) {
+			premise = visitTff_unitary_formula(txc.tff_unitary_formula(1));
+			conclusion =  visitTff_unitary_formula(txc.tff_unitary_formula(0));
+			
+			return new Implies(premise, conclusion);
+		}
+		if (txc.binary_connective().Impl() != null) {
+			premise = visitTff_unitary_formula(txc.tff_unitary_formula(0));
+			conclusion =  visitTff_unitary_formula(txc.tff_unitary_formula(1));
+			
+			return new Implies(premise, conclusion);
+		}
+		if (txc.binary_connective().Iff() != null) {
+			premise = visitTff_unitary_formula(txc.tff_unitary_formula(0));
+			conclusion =  visitTff_unitary_formula(txc.tff_unitary_formula(1));
+			
+			return new And(
+					new Implies(premise, conclusion),
+					new Implies(conclusion, premise)
+			);
+		}
+		
+		return new True();
 	}
 	
 	/**
@@ -161,6 +255,26 @@ public class ClauseReader extends TFFBaseVisitor<Clause> {
 		}
 		
 		return new And(left, right);
+		// */
+	}
+	
+	/**
+	 * tff_unitary_formula And tff_unitary_formula | tff_and_formula And tff_unitary_formula
+	 */
+	@Override
+	public Clause visitTff_or_formula(TFFParser.Tff_or_formulaContext txc) {
+		
+		Clause right;
+		Clause left;
+		if (txc.tff_or_formula() != null) {
+			left = visitTff_or_formula(txc.tff_or_formula());
+			right = visitTff_unitary_formula(txc.tff_unitary_formula().get(0));
+		} else {
+			left = visitTff_unitary_formula(txc.tff_unitary_formula().get(0));
+			right = visitTff_unitary_formula(txc.tff_unitary_formula().get(1));
+		}
+		
+		return new Or(left, right);
 		// */
 	}
 	

@@ -71,7 +71,7 @@ Line_comment         : '%' ~[\r\n]* -> skip;
 Block_comment        : '/*' .*? '*/' -> skip;
 
 fof_quantifier       : Forall | Exists;
-binary_connective    : Iff | Impl | If | Niff | Nor | Nand;
+binary_connective    : Iff | Impl | If ; // | Niff | Nor | Nand;
 assoc_connective     : Or | And;
 unary_connective     : Not;
 
@@ -101,11 +101,12 @@ tff_unary_formula       : unary_connective tff_unitary_formula
                         | '(' tff_logic_formula ')'; 
 tff_atomic_formula      : atomic_word ( '(' argument_list ')' )?;
 
-fof_infix_unary         : fof_term Infix_inequality fof_term;
+fof_infix_unary         : fof_term Infix_inequality fof_term
+                        | fof_term Infix_equality fof_term;
 fof_term                : atomic_word ( '(' argument_list ')' )? | variable ;
 
 argument_list           : argument (',' argument)*;
-argument                : Upper_word | Lower_word;
+argument                : variable | atomic_word;
 
 tff_typed_atom          : atomic_word ':' atomic_word
                         | '(' tff_typed_atom ')';
