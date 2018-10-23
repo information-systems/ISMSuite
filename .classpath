@@ -7,6 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ANTLR-v471"/>
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/commons-lang3-3.7.jar"/>
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/org.cpntools.accesscpn.cosimulation_2.2.0.jar"/>
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine_2.2.0.jar"/>

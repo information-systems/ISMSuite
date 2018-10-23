@@ -23,13 +23,28 @@ public class World {
 
 	private Set<Relation> relations = new HashSet<>();
 	
-	private Map<String,Set<Element>> elements = new HashMap<>(); 
+	private Map<String,Set<Element>> elements = new HashMap<>();
+	private Map<String,String> items = new HashMap<>();
 	
 	public boolean addElement(Element e) {
+		if (items.containsKey(e.getLabel())) {
+			// label can only occur once
+			return false;
+		}
 		if (!elements.containsKey(e.getType())) {
 			elements.put(e.getType(), new HashSet<Element>());
 		}
+		items.put(e.getLabel(), e.getType());
+		
 		return elements.get(e.getType()).add(e);
+	}
+	
+	public String findTypeFor(String element) {
+		if (items.containsKey(element)) {
+			return items.get(element);
+		} else {
+			return "";
+		}
 	}
 	
 	public boolean containsType(String type) {
