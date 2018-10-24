@@ -59,29 +59,6 @@ public class VirtualWorld {
 			return results;
 		}
 		
-		Prover p = Prover.getInstance();
-		String proofText = tffHeader + population.toTFF();
-		
-		try {
-			
-			for(Constraint c: constraints.values()) {
-				boolean proofResult;
-				proofResult = p.proof(proofText, c.toTFF());
-				System.out.println(proofText);
-				System.out.println(c.toTFF());
-				System.out.println("I got proof: " + proofResult);
-				System.out.println("Constraint : " + c.getDesiredOutcome());
-				if (proofResult != c.getDesiredOutcome()) {
-					results.add(c.getId());
-				}
-			}
-		
-		} catch (GeneralProverException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		
-		
 		return results;
 	}
 }

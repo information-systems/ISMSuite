@@ -132,7 +132,7 @@ public class World {
 		return true;
 	}
 	
-	public List<String> inValidates() {
+	public List<String> invalidates() {
 		List<String> invalid = new ArrayList<>();
 		for(Entry<String, Clause> c: conjectures.entrySet() ) {
 			if (!c.getValue().isValidIn(this)) {

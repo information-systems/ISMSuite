@@ -123,15 +123,6 @@ class TestPopulation {
 	
 	@Test
 	void testToTFF() {
-		buildPopulation();
-		try {
-			Prover.getInstance().proof(pop.toTFF());
-			assertTrue(true, "Proof passes syntax check");
-		} catch (SyntaxException e) {
-			e.printStackTrace();
-			fail("I did not expect a syntax-exception: " + e.getMessage());
-		} catch (GeneralProverException e) {
-			fail("I did not expect a general-exception: " + e.getMessage());
-		}
+		
 	}
 }
