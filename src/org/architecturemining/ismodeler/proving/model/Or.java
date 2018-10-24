@@ -12,7 +12,6 @@ import java.util.Iterator;
 public class Or extends Operator {
 
 	private Collection<Clause> operands;
-	private String mString;
 	
 	public Or(Collection<Clause> operands) {
 		this.operands = operands;
@@ -29,7 +28,7 @@ public class Or extends Operator {
 		calculateProperties();
 	}
 	
-	private void calculateProperties() {
+	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("OR( ");
 		for(Clause op: operands) {
@@ -60,11 +59,6 @@ public class Or extends Operator {
 		return new Or(params);
 	}
 	
-	@Override
-	public String toString() {
-		return mString;
-	}
-
 	@Override
 	public void instantiate(Variable x, Element a) {
 		for(Clause c: operands) {

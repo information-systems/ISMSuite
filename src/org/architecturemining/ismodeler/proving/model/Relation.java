@@ -10,7 +10,6 @@ public class Relation extends Literal {
 	
 	private List<Literal> parameters;
 	private boolean mIsAbstract;
-	private String mString;
 	
 	public Relation(String label, List<Literal> params) {
 		super(label);
@@ -29,8 +28,8 @@ public class Relation extends Literal {
 		calculateProperties();
 	}
 
-
-	private void calculateProperties() {
+	@Override
+	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		mIsAbstract = false;
 		sb.append("REL: ");
@@ -54,11 +53,6 @@ public class Relation extends Literal {
 	@Override
 	public boolean isAbstract() {
 		return mIsAbstract;
-	}
-	
-	@Override
-	public String toString() {
-		return mString;
 	}
 	
 	public Iterator<Literal> iterator() {

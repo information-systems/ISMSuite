@@ -4,6 +4,10 @@ public abstract class Clause implements Cloneable {
 
 	public abstract boolean isValidIn(World world);
 	
+	protected String mString;
+	
+	protected abstract void calculateProperties();
+	
 	@Override
 	public int hashCode() {
 		return toString().hashCode();
@@ -21,4 +25,9 @@ public abstract class Clause implements Cloneable {
 	public abstract Object clone();
 	
 	public abstract void instantiate(Variable x, Element a);
+	
+	@Override
+	public String toString() {
+		return mString;
+	}
 }

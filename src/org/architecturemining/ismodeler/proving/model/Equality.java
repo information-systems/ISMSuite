@@ -5,8 +5,6 @@ public class Equality extends Operator {
 	private Clause left;
 	private Clause right;
 	
-	private String mString;
-	
 	public Equality(Clause left, Clause right) {
 		this.left = left;
 		this.right = right;
@@ -22,7 +20,8 @@ public class Equality extends Operator {
 		return right;
 	}
 	
-	private void calculateProperties() {
+	@Override
+	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("EQ ( [");
 		sb.append(left.toString());
@@ -56,5 +55,4 @@ public class Equality extends Operator {
 			right.instantiate(x, a);
 		}
 	}
-
 }

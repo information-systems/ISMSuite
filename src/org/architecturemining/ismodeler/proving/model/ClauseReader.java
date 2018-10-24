@@ -184,8 +184,6 @@ public class ClauseReader {
 		}
 
 		public Clause visitTff_quantified_formula(TFFParser.Tff_quantified_formulaContext txc) {
-			// TODO Keep track of the variables defined here, add them to
-			// the context, and remove them once this function is finished.
 			List<Variable> variables = new ArrayList<>();
 			if (txc.variable_list() != null) {
 				for (int i = 0; i < txc.variable_list().variable().size(); i++) {
@@ -248,7 +246,35 @@ public class ClauseReader {
 			}
 			return null;
 		}
-
+		
+		/**
+		 * tff_atomic_formula | variable
+		 */
+		@Override
+		public Clause visitFof_term(TFFParser.Fof_termContext txc) {
+			if (txc.tff_atomic_formula() != null) {
+				return visitTff_atomic_formula(txc.tff_atomic_formula());
+			}
+			if (txc.variable() != null) {
+				return visitVariable(txc.variable());
+			}
+			return null;
+		}
+		
+		@Override
+		public Clause visitVariable(TFFParser.VariableContext txc) {
+			String name = txc.Upper_word().getText();
+			String type = "";
+			if (currentlyBoundVariables.containsKey(name)) {
+				type = currentlyBoundVariables.get(name);
+			}
+			if (txc.atomic_word() != null) {
+				type = txc.atomic_word().getText();
+			}
+			
+			return new Variable(name, type);
+		}
+		
 		/**
 		 * atomic_word ( '(' argument_list ')' )?
 		 */

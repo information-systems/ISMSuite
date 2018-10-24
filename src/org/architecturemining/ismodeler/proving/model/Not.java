@@ -3,7 +3,6 @@ package org.architecturemining.ismodeler.proving.model;
 public class Not extends Operator {
 
 	private Clause operand;
-	private String mString;
 	
 	public Not(Clause operand) {
 		this.operand = operand;
@@ -11,7 +10,7 @@ public class Not extends Operator {
 		calculateProperties();
 	}
 	
-	private void calculateProperties() {
+	protected void calculateProperties() {
 		mString = "NOT ( [" + operand.toString() + "] );";
 	}
 	
@@ -27,12 +26,6 @@ public class Not extends Operator {
 		return new Not((Clause) operand.clone());
 	}
 	
-	
-	@Override
-	public String toString() {
-		return mString;
-	}
-
 	@Override
 	public void instantiate(Variable x, Element a) {
 		operand.instantiate(x, a);

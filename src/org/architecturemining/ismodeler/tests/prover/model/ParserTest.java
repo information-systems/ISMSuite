@@ -33,7 +33,8 @@ public class ParserTest {
 					+ "tff( r_a_b_or_r_b_c_or_r_a_d, conjecture, r(X,b) | r(b,c) | r(a,d) )."
 					+ "tff( r_a_b_and_r_b_c_or_r_a_d, conjecture, (r(X,b) & r(b,c)) | r(a,d) )."
 					+ "tff( r_refl, conjecture, ! [X: human] : ( r(X,X) ) )."
-				    + "tff( r_trans, conjecture, ! [X: human, Y: human, Z:human ] : ( ( ( r(X,Y) & r(Y,Z) )  => r(X,Z) ) ) )."
+				    + "tff( r_trans, conjecture, ! [X: human, Y: human, Z: human ] : ( ( ( r(X,Y) & r(Y,Z) )  => r(X,Z) ) ) )."
+				    + "tff( r_symm, conjecture,  ! [X: human, Y: human, Z: human ] : ( X!=Y ) )."
 				);
 		
         System.out.println(world.toString());

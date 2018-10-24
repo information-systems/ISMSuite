@@ -59,14 +59,25 @@ tff( transitive_conj, conjecture,
 %--------------------------------------------------------------------
 % Conjecture: the population is reflexive
 
-% As we do not have a<c, the relation should not be transitive,
-% Hence, this conjecture should be false.
-
 tff( reflexive_pop, conjecture, 
 	! [X: item] : 
 	( 
 		sm(X,X)
 	)
 ).
+
+
+%--------------------------------------------------------------------
+
+%--------------------------------------------------------------------
+% Conjecture: functional. This should not hold
+
+tff( sm_is_a_function, conjecture, 
+	! [X: item, Y: item, Z: item] : 
+	( 
+		(sm(X,Y) & sm(X,Z)) => (Y=Z)
+	)
+).
+
 
 %--------------------------------------------------------------------

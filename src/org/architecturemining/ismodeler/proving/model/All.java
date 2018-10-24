@@ -7,7 +7,6 @@ import java.util.List;
 public class All extends Operator {
 
 	private Clause operand;
-	private String mString;
 	
 	private Variable variable;
 	
@@ -26,7 +25,7 @@ public class All extends Operator {
 		return operand;
 	}
 	
-	private void calculateProperties() {
+	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ALL [");
 		sb.append(variable.toString());
@@ -58,11 +57,6 @@ public class All extends Operator {
 		return new All((Variable) variable.clone(), (Clause) operand.clone());
 	}
 	
-	@Override
-	public String toString() {
-		return mString;
-	}
-
 	@Override
 	public void instantiate(Variable x, Element a) {
 		if (variable.equals(x)) {

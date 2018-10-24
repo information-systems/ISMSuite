@@ -4,7 +4,13 @@ public class True extends Clause {
 
 	@Override
 	public boolean isValidIn(World world) {
+		mString = "TRUE";
+		
 		return true;
+	}
+	
+	@Override
+	protected void calculateProperties() {
 	}
 
 	@Override

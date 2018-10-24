@@ -3,12 +3,17 @@ package org.architecturemining.ismodeler.proving.model;
 public class Element extends Literal {
 
 	private String type;
-	private String mString;
 	
 	public Element(String label, String type) {
 		super(label);
 		this.type = type;
-		mString = "ELT: " + label + " (" + type + ")";
+	
+		calculateProperties();
+	}
+	
+	@Override
+	protected void calculateProperties() {
+		mString = "ELT: " + getLabel() + " (" + type + ")";
 	}
 
 	@Override
@@ -18,11 +23,6 @@ public class Element extends Literal {
 	
 	public String getType() {
 		return type;
-	}
-	
-	@Override
-	public String toString() {
-		return mString;
 	}
 	
 	@Override

@@ -5,8 +5,6 @@ public class Implies extends Operator {
 	private Clause premise;
 	private Clause conclusion;
 	
-	private String mString;
-	
 	public Implies(Clause premise, Clause conclusion) {
 		this.premise = premise;
 		this.conclusion = conclusion;
@@ -14,7 +12,7 @@ public class Implies extends Operator {
 		calculateProperties();
 	}
 	
-	private void calculateProperties() {
+	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("( ");
 		sb.append(premise.toString());
@@ -37,11 +35,6 @@ public class Implies extends Operator {
 		return new Implies((Clause) premise.clone(), (Clause) conclusion.clone());
 	}
 	
-	@Override
-	public String toString() {
-		return mString;
-	}
-
 	@Override
 	public void instantiate(Variable x, Element a) {
 		premise.instantiate(x, a);

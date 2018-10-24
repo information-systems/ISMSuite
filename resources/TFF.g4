@@ -103,7 +103,7 @@ tff_atomic_formula      : atomic_word ( '(' argument_list ')' )?;
 
 fof_infix_unary         : fof_term Infix_inequality fof_term
                         | fof_term Infix_equality fof_term;
-fof_term                : atomic_word ( '(' argument_list ')' )? | variable ;
+fof_term                : tff_atomic_formula | variable ;
 
 argument_list           : argument (',' argument)*;
 argument                : variable | atomic_word;

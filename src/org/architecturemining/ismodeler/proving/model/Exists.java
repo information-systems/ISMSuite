@@ -7,8 +7,6 @@ import java.util.List;
 public class Exists extends Operator {
 
 	private Clause operand;
-	private String mString;
-	
 	private Variable variable;
 	
 	public Exists(Variable v, Clause clause) {
@@ -26,7 +24,8 @@ public class Exists extends Operator {
 		return operand;
 	}
 	
-	private void calculateProperties() {
+	@Override
+	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("EXISTS [");
 		sb.append(variable.toString());
@@ -57,11 +56,6 @@ public class Exists extends Operator {
 		return new Exists((Variable) variable.clone(), (Clause) operand.clone());
 	}
 	
-	@Override
-	public String toString() {
-		return mString;
-	}
-
 	@Override
 	public void instantiate(Variable x, Element a) {
 		if (variable.equals(x)) {
