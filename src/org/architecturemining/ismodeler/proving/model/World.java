@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -25,6 +26,8 @@ public class World {
 	
 	private Map<String,Set<Element>> elements = new HashMap<>();
 	private Map<String,String> items = new HashMap<>();
+	
+	private Map<String,Clause> conjectures = new HashMap<>();
 	
 	public boolean addElement(Element e) {
 		if (items.containsKey(e.getLabel())) {
@@ -108,6 +111,37 @@ public class World {
 		}
 	}
 	
+	public void addConjecture(String name, Clause clause) {
+		conjectures.put(name, clause);
+	}
+	
+	public Clause getConjecture(String name) {
+		if (conjectures.containsKey(name)) {
+			return conjectures.get(name);
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean isValid() {
+		for(Clause c: conjectures.values() ) {
+			if (!c.isValidIn(this)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public List<String> inValidates() {
+		List<String> invalid = new ArrayList<>();
+		for(Entry<String, Clause> c: conjectures.entrySet() ) {
+			if (!c.getValue().isValidIn(this)) {
+				invalid.add(c.getKey());
+			}
+		}
+		return invalid;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -129,6 +163,14 @@ public class World {
 			sb.append("\n");
 		}
 		sb.append("%%%%%%%%%%%%%%%%%%%%\n");
+		sb.append("%%%  Conjecture  %%%\n");
+		for(Entry<String, Clause> c: conjectures.entrySet()) {
+			sb.append("% ");
+			sb.append(c.getKey());
+			sb.append("\n    ");
+			sb.append(c.getValue().toString());
+			sb.append("\n");
+		}
 		
 		return sb.toString();
 	}
