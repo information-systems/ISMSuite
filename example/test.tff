@@ -66,9 +66,6 @@ tff( reflexive_pop, conjecture,
 	)
 ).
 
-
-%--------------------------------------------------------------------
-
 %--------------------------------------------------------------------
 % Conjecture: functional. This should not hold
 
@@ -79,5 +76,14 @@ tff( sm_is_a_function, conjecture,
 	)
 ).
 
+%--------------------------------------------------------------------
+% Conjecture: all elements are related to at least one other element
+
+tff( all_elements_have_a_relation, conjecture, 
+	! [X: item] : 
+	(
+		? [Y: item] : ( sm(X,Y) )
+	)
+).
 
 %--------------------------------------------------------------------

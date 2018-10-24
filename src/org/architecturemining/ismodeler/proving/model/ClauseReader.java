@@ -185,6 +185,10 @@ public class ClauseReader {
 
 		public Clause visitTff_quantified_formula(TFFParser.Tff_quantified_formulaContext txc) {
 			List<Variable> variables = new ArrayList<>();
+			if (txc.fof_quantifier() == null) {
+				return null;
+			}
+			
 			if (txc.variable_list() != null) {
 				for (int i = 0; i < txc.variable_list().variable().size(); i++) {
 					String type = "";
@@ -197,11 +201,21 @@ public class ClauseReader {
 				}
 				// Next, parse the Clause
 				Clause clause = visitTff_unitary_formula(txc.tff_unitary_formula());
-				// Walk back
-				for (int i = variables.size() - 1; i >= 0; i--) {
-					All all = new All(variables.get(i), clause);
-					clause = all;
-					currentlyBoundVariables.remove(variables.get(i).getLabel());
+				
+				if (txc.fof_quantifier().Forall() != null) {
+					// Walk back
+					for (int i = variables.size() - 1; i >= 0; i--) {
+						All all = new All(variables.get(i), clause);
+						clause = all;
+						currentlyBoundVariables.remove(variables.get(i).getLabel());
+					}
+				} else if (txc.fof_quantifier().Exists()!=null) {
+					// Walk back
+					for (int i = variables.size() - 1; i >= 0; i--) {
+						Exists exists = new Exists(variables.get(i), clause);
+						clause = exists;
+						currentlyBoundVariables.remove(variables.get(i).getLabel());
+					}
 				}
 
 				return clause;
