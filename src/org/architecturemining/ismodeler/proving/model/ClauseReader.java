@@ -234,7 +234,8 @@ public class ClauseReader {
 				return visitTff_logic_formula(txc.tff_logic_formula());
 			}
 			if (txc.tff_unitary_formula() != null) {
-				return visitTff_unitary_formula(txc.tff_unitary_formula());
+				Clause clause = visitTff_unitary_formula(txc.tff_unitary_formula());
+				return new Not(clause);
 			}
 			if (txc.fof_infix_unary() != null) {
 				return visitFof_infix_unary(txc.fof_infix_unary());
