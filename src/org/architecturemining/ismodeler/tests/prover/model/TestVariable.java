@@ -13,8 +13,6 @@ class TestVariable {
 		Variable var = new Variable("Someone", "human");
 		assertEquals("human", var.getType());
 		assertEquals("Someone", var.getLabel());
-		
-		assertTrue(var.isAbstract());
 	}
 	
 	@Test

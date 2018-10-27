@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Stack;
 
+import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Literal;
 import org.architecturemining.ismodeler.proving.model.Not;
@@ -24,6 +26,17 @@ class TestNotOperator extends WorldTester {
 		
 		Not not = new Not(relation);
 		assertTrue(not.isValidIn(w));
+		Stack<Clause> ex = not.findExplanationFor(w);
+		assertTrue(ex.isEmpty());
+		
+		Element soc = new Element("Socrates", "human");
+		
+		not = new Not(soc);
+		assertFalse(not.isValidIn(w));
+		ex = not.findExplanationFor(w);
+		assertEquals(1, ex.size());
+		assertTrue(ex.contains(soc));
+		
 	}
 	
 }

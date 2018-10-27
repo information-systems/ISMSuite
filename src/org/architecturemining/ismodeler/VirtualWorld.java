@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.architecturemining.ismodeler.proving.GeneralProverException;
 import org.architecturemining.ismodeler.proving.Prover;
-import org.architecturemining.ismodeler.proving.SyntaxException;
 import org.architecturemining.ismodeler.model.Constraint;
 import org.architecturemining.ismodeler.model.Label;
 import org.architecturemining.ismodeler.model.Population;
@@ -52,7 +50,7 @@ public class VirtualWorld {
 	 * @return the IDs of the failed constraints
 	 * @throws SyntaxException 
 	 */
-	public List<String> validate(Population population) throws SyntaxException {
+	public List<String> validate(Population population) {
 		ArrayList<String> results = new ArrayList<String>();
 		
 		if (population.isEmpty()) {

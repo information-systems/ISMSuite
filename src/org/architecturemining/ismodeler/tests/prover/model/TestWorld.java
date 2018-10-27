@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Stack;
 
+import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Literal;
+import org.architecturemining.ismodeler.proving.model.Not;
 import org.architecturemining.ismodeler.proving.model.Relation;
 import org.architecturemining.ismodeler.proving.model.Variable;
 import org.architecturemining.ismodeler.proving.model.World;
@@ -32,9 +35,27 @@ class TestWorld {
 		assertTrue(w.contains(plato2));
 		assertTrue(w.contains(new Element("Socrates", "human")));
 		assertFalse(w.contains(new Element("Augustine", "human")));
+
+		Stack<Clause> ex = plato.findExplanationFor(w);
+		assertTrue(ex.isEmpty());
+		
+		ex = plato2.findExplanationFor(w);
+		assertTrue(ex.isEmpty());
+		
+		ex = (new Element("Socrates", "human")).findExplanationFor(w);
+		assertTrue(ex.isEmpty());
+		
+		ex = (new Element("Augustine", "human")).findExplanationFor(w);
+		assertEquals(1, ex.size());
+		// TODO: add assertion that not(Element(Augustine, human)) is in ex.
+		assertTrue(ex.contains(new Not(new Element("Augustine", "human"))));
 		
 		w.removeElement(new Element("Socrates", "human"));
 		assertFalse(w.contains(socrates));
+		ex = socrates.findExplanationFor(w);
+		assertEquals(1, ex.size());
+		// TODO: add assertion that not(Element(Socrates, human))
+		assertTrue(ex.contains(new Not(new Element("Socrates", "human"))));
 	}
 	
 	@Test
@@ -60,6 +81,16 @@ class TestWorld {
 		
 		assertFalse(w.contains(new Relation("likes", new Element("Augustine","human"), new Element("Plato", "human"))));
 		
+		Stack<Clause> ex = (new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))).findExplanationFor(w);
+		assertTrue(ex.isEmpty());
+		ex = (new Relation("likes", new Element("Plato","human"), new Element("Plato", "human"))).findExplanationFor(w);
+		assertTrue(ex.isEmpty());
+		ex = (new Relation("likes", new Element("Augustine","human"), new Element("Augustine", "human"))).findExplanationFor(w);
+		assertTrue(ex.isEmpty());
+		ex = ((new Relation("likes", new Element("Augustine","human"), new Element("Plato", "human")))).findExplanationFor(w);
+		assertEquals(1, ex.size());
+		assertTrue(ex.contains(new Not(new Relation("likes", new Element("Augustine","human"), new Element("Plato", "human")))));
+		
 		w.addRelation(new Relation("likes", new Element("Socrates", "human"), new Variable("Someone", "human")));
 		
 		assertEquals(3, w.relationSize());
@@ -68,5 +99,9 @@ class TestWorld {
 
 		assertEquals(2, w.relationSize());
 		assertFalse(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
+		ex = (new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))).findExplanationFor(w);
+		assertEquals(1, ex.size());
+		assertTrue(ex.contains(new Not(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human")))));
+		
 	}
 }

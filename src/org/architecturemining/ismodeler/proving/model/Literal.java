@@ -1,5 +1,7 @@
 package org.architecturemining.ismodeler.proving.model;
 
+import java.util.Stack;
+
 public abstract class Literal extends Clause {
 
 	private String label;
@@ -18,6 +20,18 @@ public abstract class Literal extends Clause {
 		} else {
 			return false;
 		}
+	}
+	
+	public Stack<Clause> findExplanationFor(World world) {
+		Stack<Clause> explain = new Stack<>();
+		if (this.isAbstract()) {
+			explain.add(this);
+		}
+		if (!world.contains(this)) {
+			explain.add(new Not(this));
+		}
+		
+		return explain;
 	}
 	 
 	public abstract boolean isAbstract();

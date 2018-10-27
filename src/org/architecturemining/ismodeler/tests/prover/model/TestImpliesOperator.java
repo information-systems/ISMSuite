@@ -2,8 +2,13 @@ package org.architecturemining.ismodeler.tests.prover.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Stack;
+
+import org.architecturemining.ismodeler.proving.model.And;
+import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Implies;
+import org.architecturemining.ismodeler.proving.model.Not;
 import org.architecturemining.ismodeler.proving.model.Relation;
 import org.architecturemining.ismodeler.proving.model.World;
 import org.junit.jupiter.api.Test;
@@ -28,17 +33,23 @@ public class TestImpliesOperator extends WorldTester {
 		assertTrue((new Relation("philosopher", augustine)).isValidIn(world));
 		assertTrue((new Relation("likes", augustine, augustine)).isValidIn(world));
 		assertTrue(imp1.isValidIn(world));
+		Stack<Clause> ex = imp1.findExplanationFor(world);
+		assertTrue(ex.isEmpty());
 		
+		Relation socP = new Relation("philosopher", socrates);
+		Relation likesSP = new Relation("likes", socrates, plato);
 		// FALSE: philosopher ( Socrates ) => likes ( Socrates, Plato )
-		Implies imp2 = new Implies(
-				new Relation("philosopher", socrates), 
-				new Relation("likes", socrates, plato));
-		assertTrue((new Relation("philosopher", socrates)).isValidIn(world));
-		assertFalse((new Relation("likes", socrates, plato)).isValidIn(world));
+		Implies imp2 = new Implies(	socP, likesSP );
+		assertTrue(socP.isValidIn(world));
+		assertFalse(likesSP.isValidIn(world));
 		assertFalse(imp2.isValidIn(world));
 		
-		System.out.println(imp2);
-				
+		ex = imp2.findExplanationFor(world);
+		System.out.println(ex);
+		assertEquals(2, ex.size());
+		assertTrue(ex.contains(new And(socP, new Not(likesSP))));
+		assertTrue(ex.contains(new Not(imp2)));
+		
 		// TRUE: philosopher(Hume) => likes( Augustine, Plato )
 		Implies imp3 = new Implies(
 				new Relation("philosopher", hume), 
@@ -46,6 +57,7 @@ public class TestImpliesOperator extends WorldTester {
 		assertFalse((new Relation("philosopher", hume)).isValidIn(world));
 		assertTrue((new Relation("likes", augustine, plato)).isValidIn(world));
 		assertTrue(imp3.isValidIn(world));
+		assertTrue(imp3.findExplanationFor(world).isEmpty());
 		
 		// TRUE: philosopher(Hume) => likes( Hume, Plato )
 		Implies imp4 = new Implies(
@@ -54,6 +66,7 @@ public class TestImpliesOperator extends WorldTester {
 		assertFalse((new Relation("philosopher", hume)).isValidIn(world));
 		assertFalse((new Relation("likes", hume, plato)).isValidIn(world));
 		assertTrue(imp4.isValidIn(world));
+		assertTrue(imp4.findExplanationFor(world).isEmpty());
 	}
 	
 }

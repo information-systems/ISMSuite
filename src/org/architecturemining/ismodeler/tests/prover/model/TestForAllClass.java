@@ -2,10 +2,14 @@ package org.architecturemining.ismodeler.tests.prover.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Stack;
+
 import org.architecturemining.ismodeler.proving.model.All;
 import org.architecturemining.ismodeler.proving.model.And;
+import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Implies;
+import org.architecturemining.ismodeler.proving.model.Not;
 import org.architecturemining.ismodeler.proving.model.Relation;
 import org.architecturemining.ismodeler.proving.model.Variable;
 import org.architecturemining.ismodeler.proving.model.World;
@@ -34,10 +38,41 @@ class TestForAllClass extends WorldTester {
 								)
 						)
 				)
-		);	
+		);
+		
+		Element a = new Element("Augustine", "human");
+		Element s = new Element("Socrates", "human");
+		Element p = new Element("Plato", "human");
+		
+		Relation lAP = new Relation("likes", a, p);
+		Relation lPS = new Relation("likes", p, s);
+		Relation lAS = new Relation("likes", a, s);
+		
+		Variable x = new Variable("X", "human");
+		Variable y = new Variable("Y", "human");
+		Variable z = new Variable("Z", "human");
+		
+		Relation lAZ = new Relation("likes", a, z);
+		Relation lPZ = new Relation("likes", p, z);
+		Relation lYZ = new Relation("likes", y, z);
+		Relation lAY = new Relation("likes", a, y);
+		Relation lXY = new Relation("likes", x, y);
+		Relation lXZ = new Relation("likes", x, z);
 		
 		// This should be false, as A > P, P > S, but not A > S.
 		assertFalse(all.isValidIn(w));
+		Stack<Clause> ce1 = all.findExplanationFor(w);
+		
+		System.out.println(Clause.printStack(ce1));
+
+		
+		assertEquals(5, ce1.size());
+		assertTrue(ce1.contains(new And(new And(lAP, lPS), new Not(lAS) )));
+		assertTrue(ce1.contains(new Not(new Implies(new And(lAP, lPS), lAS))));
+		assertTrue(ce1.contains(new Not(new All(z, new Implies(new And(lAP, lPZ), lAZ)))));
+		assertTrue(ce1.contains(new Not(new All(y, new All(z, new Implies(new And(lAY, lYZ), lAZ))))));
+		assertTrue(ce1.contains(new Not(all)));
+		
 		// Add a relation A > S
 		w.addRelation(
 				new Relation("likes", 
@@ -48,6 +83,7 @@ class TestForAllClass extends WorldTester {
 		
 		// Now it should be true...
 		assertTrue(all.isValidIn(w));
+		assertTrue(all.findExplanationFor(w).isEmpty());
 	}
 	
 	@Test

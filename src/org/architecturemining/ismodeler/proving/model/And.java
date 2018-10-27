@@ -6,6 +6,7 @@ package org.architecturemining.ismodeler.proving.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Stack;
 
 /**
  * Returns true if all operands are valid. 
@@ -52,7 +53,7 @@ public class And extends Operator {
 		}
 		return true;
 	}
-
+	
 	@Override
 	public Object clone() {
 		ArrayList<Clause> params = new ArrayList<>();
@@ -69,6 +70,36 @@ public class And extends Operator {
 		}
 		
 		calculateProperties();
+	}
+
+	/**
+	 * IF A & B is not true, its explanation is either 
+	 * not(A) or not(B), depending on which of them is false;
+	 * How do we know a clause is false?
+	 * TODO use (findExplanationFor(world).isEmpty()) instead of isValidIn(world);
+	 */
+	@Override
+	public Stack<Clause> findExplanationFor(World world) {
+		boolean value = true;
+		for(Clause op: operands) {
+			Stack<Clause> exOp = op.findExplanationFor(world);
+			// if exOp is empty, the clause holds
+			if (!exOp.isEmpty()) {
+				exOp.add(new Not(this));
+				return exOp;
+			}
+		}
+		return new Stack<>();
+	}
+
+	@Override
+	public String toTFF(boolean typed) {
+		StringBuilder sb = new StringBuilder();
+		for(Clause c: operands) {
+			sb.append(" & ");
+			sb.append(c.toTFF(false));
+		}
+		return "(" + sb.substring(1) + " )";
 	}
 
 }

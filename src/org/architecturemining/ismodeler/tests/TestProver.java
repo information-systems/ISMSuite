@@ -5,9 +5,7 @@ package org.architecturemining.ismodeler.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.architecturemining.ismodeler.proving.GeneralProverException;
 import org.architecturemining.ismodeler.proving.Prover;
-import org.architecturemining.ismodeler.proving.SyntaxException;
 import org.junit.jupiter.api.Test;
 
 /**

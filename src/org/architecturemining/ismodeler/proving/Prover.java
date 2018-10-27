@@ -2,7 +2,11 @@ package org.architecturemining.ismodeler.proving;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Stack;
 
+import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.ClauseReader;
 import org.architecturemining.ismodeler.proving.model.World;
 
@@ -12,6 +16,7 @@ public class Prover {
 		
 		boolean silent = false;
 		boolean printWorld = false;
+		boolean explain = false;
 		String filename = "";
 		
 		for(String a: args) {
@@ -19,6 +24,8 @@ public class Prover {
 				silent = true;
 			} else if (a.equals("--printworld")) {
 				printWorld = true;
+			} else if (a.equals("--explanation")) {
+				explain = true;
 			} else {
 				filename = a;
 			}
@@ -29,8 +36,9 @@ public class Prover {
 			System.out.println("Where <filename> is a file in TFF-format");
 			System.out.println();
 			System.out.println("Options:");
-			System.out.println("\t--silent     no output is printed.");
-			System.out.println("\t--printworld prints the world (default off)");
+			System.out.println("\t--silent      no output is printed.");
+			System.out.println("\t--printworld  prints the world (default off)");
+			System.out.println("\t--explanation gives an explanation when no proof is found");
 			System.out.println();
 			System.out.println("Return states: ");
 			System.out.println("\t0: Proof found");
@@ -54,26 +62,52 @@ public class Prover {
 				System.out.println(world.toString());
 			}
 			
-			List<String> invalid = world.invalidates();
-			
-			if (invalid.isEmpty()) {
-				if (!silent) { 
+			if (explain) {
+				
+				Map<String, Stack<Clause>> results = world.invalidateAndExplain();
+				if (results.isEmpty()) {
 					System.out.println("Proof found!");
-				}
-				System.exit(0);
-				return;
-			} else {
-				if (!silent) {
-					System.out.println("I could not find a proof for the following conjectures:");
-				}
-				for(String s: invalid) {
-					if (!silent) {
-						System.out.print(" *  ");
+					System.exit(0);
+					return;
+				} else {
+					System.out.println("I could not find a proof for the following conjectures: ");
+					for(Entry<String, Stack<Clause>> invalid : results.entrySet()) {
+						System.out.print("* ");
+						System.out.println(invalid.getKey() + " is not valid");
+						System.out.println("  Explanation:");
+						System.out.println("    Because:");
+						for(Clause c: invalid.getValue()) {
+							System.out.print("     ");
+							System.out.println(c.toTFF(false));
+							System.out.println("    Hence: ");
+						}
+						System.out.println("      Not( " + invalid.getKey() + " )");
 					}
-					System.out.println(s);
+					System.exit(1);
+					return;
 				}
-				System.exit(1);
-				return;
+			} else {
+				List<String> invalid = world.invalidates();
+				
+				if (invalid.isEmpty()) {
+					if (!silent) { 
+						System.out.println("Proof found!");
+					}
+					System.exit(0);
+					return;
+				} else {
+					if (!silent) {
+						System.out.println("I could not find a proof for the following conjectures:");
+					}
+					for(String s: invalid) {
+						if (!silent) {
+							System.out.print(" *  ");
+						}
+						System.out.println(s);
+					}
+					System.exit(1);
+					return;
+				}
 			}
 			
 		} catch (IOException e) {

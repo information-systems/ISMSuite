@@ -3,6 +3,7 @@ package org.architecturemining.ismodeler.proving.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 public class Exists extends Operator {
 
@@ -50,7 +51,7 @@ public class Exists extends Operator {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public Object clone() {
 		return new Exists((Variable) variable.clone(), (Clause) operand.clone());
@@ -64,5 +65,24 @@ public class Exists extends Operator {
 		operand.instantiate(x, a);
 		
 		calculateProperties();
+	}
+
+	/**
+	 * Exists is not true, if no items can be found that 
+	 */
+	@Override
+	public Stack<Clause> findExplanationFor(World world) {
+		Not dm = new Not(
+				new All(
+						this.getVariable(), 
+						new Not(this.getOperand())
+				)
+			);
+		return dm.findExplanationFor(world);
+	}
+
+	@Override
+	public String toTFF(boolean typed) {
+		return "( ? [ " + getVariable().toTFF(true) + " ] : ( " + getOperand().toTFF(false) + " ) )";
 	}
 }

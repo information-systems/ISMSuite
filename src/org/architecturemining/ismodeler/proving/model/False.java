@@ -2,15 +2,15 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.Stack;
 
-public class True extends Clause {
+public class False extends Clause {
 
-	public True() {
-		mString = "TRUE";
+	public False() {
+		mString = "FALSE";
 	}
 	
 	@Override
-	public boolean isValidIn(World world) {	
-		return true;
+	public boolean isValidIn(World world) {
+		return false;
 	}
 	
 	@Override
@@ -19,7 +19,7 @@ public class True extends Clause {
 
 	@Override
 	public Object clone() {
-		return new True();
+		return new False();
 	}
 
 	@Override
@@ -27,14 +27,13 @@ public class True extends Clause {
 
 	@Override
 	public Stack<Clause> findExplanationFor(World world) {
-		return new Stack<>();
+		Stack<Clause> s = new Stack<>();
+		s.add(this);
+		return s;
 	}
 
 	@Override
 	public String toTFF(boolean typed) {
-		return "$true";
+		return "$false";
 	}
-
-	
-
 }

@@ -2,7 +2,10 @@ package org.architecturemining.ismodeler.tests.prover.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Stack;
+
 import org.architecturemining.ismodeler.proving.model.And;
+import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Not;
 import org.architecturemining.ismodeler.proving.model.Relation;
@@ -28,6 +31,8 @@ class TestAndOperator extends WorldTester {
 				new Relation("philosopher", augustine)
 				);
 		assertTrue(and1.isValidIn(world));
+		Stack<Clause> ex = and1.findExplanationFor(world); 
+		assertTrue(ex.isEmpty());
 		
 		// FALSE: philosopher( Socrates ) and philosopher( Hume )
 		And and2 = new And(
@@ -35,6 +40,11 @@ class TestAndOperator extends WorldTester {
 				new Relation("philosopher", hume)
 				);
 		assertFalse(and2.isValidIn(world));
+		ex = and2.findExplanationFor(world);
+		System.out.println(ex);
+		assertEquals(2, ex.size());
+		ex.contains(new Not(new Relation("philosopher", hume)));
+		ex.contains(new Not(and2));
 		
 		// TRUE: philosopher( Socrates ) and NOT(philosopher( Hume ))
 		And and3 = new And(
@@ -42,6 +52,19 @@ class TestAndOperator extends WorldTester {
 				new Not(new Relation("philosopher", hume))
 				);
 		assertTrue(and3.isValidIn(world));
+		assertTrue(and3.findExplanationFor(world).isEmpty());
+		
+		And and4 = new And(
+				new Relation("philosopher", hume),
+				new Relation("philosopher", descartes)
+				);
+		assertFalse(and4.isValidIn(world));
+		ex = and4.findExplanationFor(world);
+		assertEquals(3, ex.size());
+		assertTrue(ex.contains(new Not(new Relation("philosopher", hume))));
+		assertTrue(ex.contains(new Not(new Relation("philosopher", descartes))));
+		assertTrue(ex.contains(new Not(and4)));
 	}
+	
 
 }

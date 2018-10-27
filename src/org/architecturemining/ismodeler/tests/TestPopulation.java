@@ -7,9 +7,7 @@ import java.util.HashSet;
 
 import org.architecturemining.ismodeler.model.Population;
 import org.architecturemining.ismodeler.model.Predicate;
-import org.architecturemining.ismodeler.proving.GeneralProverException;
 import org.architecturemining.ismodeler.proving.Prover;
-import org.architecturemining.ismodeler.proving.SyntaxException;
 import org.junit.jupiter.api.Test;
 
 class TestPopulation {

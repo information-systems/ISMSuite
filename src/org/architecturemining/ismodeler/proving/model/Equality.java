@@ -1,5 +1,7 @@
 package org.architecturemining.ismodeler.proving.model;
 
+import java.util.Stack;
+
 public class Equality extends Operator {
 
 	private Clause left;
@@ -55,4 +57,22 @@ public class Equality extends Operator {
 			right.instantiate(x, a);
 		}
 	}
+
+	/**
+	 * Explanation of X=Y is false: not(X=Y) :-)
+	 */
+	@Override
+	public Stack<Clause> findExplanationFor(World world) {
+		Stack<Clause> s = new Stack<>();
+		if (!this.isValidIn(world)) {
+			s.add(new Not(this));
+		}
+		return s;
+	}
+
+	@Override
+	public String toTFF(boolean typed) {
+		return "( " + left.toTFF(false) + " = " + right.toTFF(false) + " )";
+	}
+
 }

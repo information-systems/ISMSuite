@@ -2,6 +2,9 @@ package org.architecturemining.ismodeler.tests.prover.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Stack;
+
+import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Not;
 import org.architecturemining.ismodeler.proving.model.Or;
@@ -28,13 +31,17 @@ class TestOrOperator extends WorldTester {
 				new Relation("philosopher", augustine)
 		);
 		assertTrue(or1.isValidIn(world));
+		Stack<Clause> ex = or1.findExplanationFor(world);
+		assertTrue(ex.isEmpty());
 		
-		// TRUE: philosopher( Hume ) or philosopher( Plato )
+ 		// TRUE: philosopher( Hume ) or philosopher( Plato )
 		Or or2 = new Or(
 				new Relation("philosopher", hume),
 				new Relation("philosopher", plato)
 		);
 		assertTrue(or2.isValidIn(world));
+		ex = or2.findExplanationFor(world);
+		assertTrue(ex.isEmpty());
 		
 		// FALSE: philosopher ( Hume ) or philosopher ( Descartes )
 		Or or3 = new Or(
@@ -42,6 +49,12 @@ class TestOrOperator extends WorldTester {
 				new Relation("philosopher", descartes)
 		);
 		assertFalse(or3.isValidIn(world));
+		ex = or3.findExplanationFor(world);
+		System.out.println(ex);
+		assertEquals(3, ex.size());
+		assertTrue(ex.contains(new Not(new Relation("philosopher", hume))));
+		assertTrue(ex.contains(new Not(new Relation("philosopher", descartes))));
+		assertTrue(ex.contains(new Not(or3)));
 		
 		// TRUE: not(philosopher( Hume ) ) or philosopher ( Descartes )
 		Or or4 = new Or(
@@ -49,6 +62,7 @@ class TestOrOperator extends WorldTester {
 				new Relation("philosopher", descartes)
 		);
 		assertTrue(or4.isValidIn(world));
+		assertTrue(or4.findExplanationFor(world).isEmpty());
 	}
 
 }

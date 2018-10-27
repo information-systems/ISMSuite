@@ -3,6 +3,8 @@ package org.architecturemining.ismodeler.proving.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * Returns true if at least one of the operands is true.
@@ -65,5 +67,39 @@ public class Or extends Operator {
 			c.instantiate(x, a);
 		}
 		calculateProperties();
+	}
+
+	/**
+	 * The only explanation possible for an OR is that
+	 * all its operands are not true.
+	 */
+	@Override
+	public Stack<Clause> findExplanationFor(World world) {
+		boolean value = false;
+		Stack<Clause> result = new Stack<>();
+		for(Clause c: operands) {
+			Stack<Clause> exOp = c.findExplanationFor(world);
+			if (exOp.isEmpty()) {
+				value = true;
+			} else {
+				result.addAll(exOp);
+			}
+		}
+		if (value) {
+			return new Stack<>();
+		} else {
+			result.add(new Not(this));
+			return result;
+		}
+	}
+
+	@Override
+	public String toTFF(boolean typed) {
+		StringBuilder sb = new StringBuilder();
+		for(Clause c: operands) {
+			sb.append(" | ");
+			sb.append(c.toTFF(false));
+		}
+		return "(" + sb.substring(1) + " )";
 	}
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.architecturemining.ismodeler.VirtualWorld;
-import org.architecturemining.ismodeler.proving.SyntaxException;
+
 import org.architecturemining.ismodeler.model.Constraint;
 import org.architecturemining.ismodeler.model.Label;
 import org.architecturemining.ismodeler.model.Population;
@@ -61,30 +61,7 @@ class TestVirtualWorld {
 	
 	@Test
 	void testWorldWithInhabitants() {
-		Population pop = new Population();
-		pop.addInhabitant("socrates", "p");
-		Predicate p = new Predicate("philosopher", new String[] {"socrates"});
-		pop.addPredicate(p);
 		
-		try {
-			// This should be false, because there is no clause
-			// that states that Socrates is human.
-			List<String> invalid1 = world.validate(pop);
-			assertFalse(invalid1.isEmpty(), "World with Philosopher Socrates who is no human");
-			assertEquals(1, invalid1.size(), "World with philospher Socrates, not human, size not 1");
-			assertEquals("allPhilosophersAreHuman", invalid1.get(0), "World with philospher Socrates, not human, wrong constraint ID");
-			
-			Predicate p2 = new Predicate("human", new String[] { "socrates"});
-			pop.addPredicate(p2);
-			
-			// This should be true now, as there is a new 
-			// predicate that states that Socrates is human.
-			List<String> invalid2 = world.validate(pop);
-			assertTrue(invalid2.isEmpty(), "World with Philosopher Socrates, who is human as well");
-
-		} catch(SyntaxException e) {
-			fail(e.getProofText() + "\n\n" + e.getMessage());
-		}
 	}
 
 }

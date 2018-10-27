@@ -1,4 +1,4 @@
-// Generated from TFF.g4 by ANTLR 4.7.1
+// Generated from .\TFF.g4 by ANTLR 4.7.1
 package org.architecturemining.ismodeler.proving.model.parsing;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -52,7 +52,7 @@ public class TFFParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'tff('", "','", "').'", "'['", "']'", "':'", "'('", "')'", "'|'", 
+		null, "'tff'", "'('", "','", "').'", "'['", "']'", "':'", "')'", "'|'", 
 		"'&'", "'<=>'", "'=>'", "'<='", "'<~>'", "'~|'", "'~&'", "'~'", "'!!'", 
 		"'!>'", "'!='", "'='", "'!'", "'??'", "'?*'", "'?'", "'^'", "'@@+'", "'@+'", 
 		"'@@-'", "'@-'", "'@='", "'@'", "':='", "'>'", "'*'", "'+'", "'<<'", "'-->'"
@@ -419,17 +419,19 @@ public class TFFParser extends Parser {
 			setState(80);
 			match(T__0);
 			setState(81);
-			name();
+			match(T__1);
 			setState(82);
-			match(T__1);
+			name();
 			setState(83);
-			formula_role();
-			setState(84);
-			match(T__1);
-			setState(85);
-			tff_formula();
-			setState(86);
 			match(T__2);
+			setState(84);
+			formula_role();
+			setState(85);
+			match(T__2);
+			setState(86);
+			tff_formula();
+			setState(87);
+			match(T__3);
 			}
 		}
 		catch (RecognitionException re) {
@@ -470,7 +472,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(88);
+			setState(89);
 			match(Lower_word);
 			}
 		}
@@ -515,20 +517,20 @@ public class TFFParser extends Parser {
 		Tff_formulaContext _localctx = new Tff_formulaContext(_ctx, getState());
 		enterRule(_localctx, 14, RULE_tff_formula);
 		try {
-			setState(92);
+			setState(93);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(90);
+				setState(91);
 				tff_logic_formula();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(91);
+				setState(92);
 				tff_typed_atom();
 				}
 				break;
@@ -575,20 +577,20 @@ public class TFFParser extends Parser {
 		Tff_logic_formulaContext _localctx = new Tff_logic_formulaContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_tff_logic_formula);
 		try {
-			setState(96);
+			setState(97);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(94);
+				setState(95);
 				tff_binary_formula();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(95);
+				setState(96);
 				tff_unitary_formula();
 				}
 				break;
@@ -635,20 +637,20 @@ public class TFFParser extends Parser {
 		Tff_binary_formulaContext _localctx = new Tff_binary_formulaContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_tff_binary_formula);
 		try {
-			setState(100);
+			setState(101);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(98);
+				setState(99);
 				tff_binary_nonassoc();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(99);
+				setState(100);
 				tff_binary_assoc();
 				}
 				break;
@@ -700,11 +702,11 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(102);
-			tff_unitary_formula();
 			setState(103);
-			binary_connective();
+			tff_unitary_formula();
 			setState(104);
+			binary_connective();
+			setState(105);
 			tff_unitary_formula();
 			}
 		}
@@ -749,20 +751,20 @@ public class TFFParser extends Parser {
 		Tff_binary_assocContext _localctx = new Tff_binary_assocContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_tff_binary_assoc);
 		try {
-			setState(108);
+			setState(109);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(106);
+				setState(107);
 				tff_or_formula(0);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(107);
+				setState(108);
 				tff_and_formula(0);
 				}
 				break;
@@ -825,15 +827,15 @@ public class TFFParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(111);
-			tff_unitary_formula();
 			setState(112);
-			match(Or);
+			tff_unitary_formula();
 			setState(113);
+			match(Or);
+			setState(114);
 			tff_unitary_formula();
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(120);
+			setState(121);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -844,16 +846,16 @@ public class TFFParser extends Parser {
 					{
 					_localctx = new Tff_or_formulaContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_tff_or_formula);
-					setState(115);
-					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(116);
-					match(Or);
+					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(117);
+					match(Or);
+					setState(118);
 					tff_unitary_formula();
 					}
 					} 
 				}
-				setState(122);
+				setState(123);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			}
@@ -916,15 +918,15 @@ public class TFFParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(124);
-			tff_unitary_formula();
 			setState(125);
-			match(And);
+			tff_unitary_formula();
 			setState(126);
+			match(And);
+			setState(127);
 			tff_unitary_formula();
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(133);
+			setState(134);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -935,16 +937,16 @@ public class TFFParser extends Parser {
 					{
 					_localctx = new Tff_and_formulaContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_tff_and_formula);
-					setState(128);
-					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(129);
-					match(And);
+					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(130);
+					match(And);
+					setState(131);
 					tff_unitary_formula();
 					}
 					} 
 				}
-				setState(135);
+				setState(136);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 			}
@@ -994,27 +996,27 @@ public class TFFParser extends Parser {
 		Tff_unitary_formulaContext _localctx = new Tff_unitary_formulaContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_tff_unitary_formula);
 		try {
-			setState(139);
+			setState(140);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(136);
+				setState(137);
 				tff_quantified_formula();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(137);
+				setState(138);
 				tff_unary_formula();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(138);
+				setState(139);
 				tff_atomic_formula();
 				}
 				break;
@@ -1066,17 +1068,17 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(141);
-			fof_quantifier();
 			setState(142);
-			match(T__3);
+			fof_quantifier();
 			setState(143);
-			variable_list();
-			setState(144);
 			match(T__4);
+			setState(144);
+			variable_list();
 			setState(145);
 			match(T__5);
 			setState(146);
+			match(T__6);
+			setState(147);
 			tff_unitary_formula();
 			}
 		}
@@ -1127,15 +1129,15 @@ public class TFFParser extends Parser {
 		Tff_unary_formulaContext _localctx = new Tff_unary_formulaContext(_ctx, getState());
 		enterRule(_localctx, 32, RULE_tff_unary_formula);
 		try {
-			setState(156);
+			setState(157);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Not:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(148);
-				unary_connective();
 				setState(149);
+				unary_connective();
+				setState(150);
 				tff_unitary_formula();
 				}
 				break;
@@ -1144,18 +1146,18 @@ public class TFFParser extends Parser {
 			case Single_quoted:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(151);
+				setState(152);
 				fof_infix_unary();
 				}
 				break;
-			case T__6:
+			case T__1:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(152);
-				match(T__6);
 				setState(153);
-				tff_logic_formula();
+				match(T__1);
 				setState(154);
+				tff_logic_formula();
+				setState(155);
 				match(T__7);
 				}
 				break;
@@ -1206,18 +1208,18 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(158);
+			setState(159);
 			atomic_word();
-			setState(163);
+			setState(164);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				{
-				setState(159);
-				match(T__6);
 				setState(160);
-				argument_list();
+				match(T__1);
 				setState(161);
+				argument_list();
+				setState(162);
 				match(T__7);
 				}
 				break;
@@ -1267,28 +1269,28 @@ public class TFFParser extends Parser {
 		Fof_infix_unaryContext _localctx = new Fof_infix_unaryContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_fof_infix_unary);
 		try {
-			setState(173);
+			setState(174);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(165);
-				fof_term();
 				setState(166);
-				match(Infix_inequality);
+				fof_term();
 				setState(167);
+				match(Infix_inequality);
+				setState(168);
 				fof_term();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(169);
-				fof_term();
 				setState(170);
-				match(Infix_equality);
+				fof_term();
 				setState(171);
+				match(Infix_equality);
+				setState(172);
 				fof_term();
 				}
 				break;
@@ -1335,21 +1337,21 @@ public class TFFParser extends Parser {
 		Fof_termContext _localctx = new Fof_termContext(_ctx, getState());
 		enterRule(_localctx, 38, RULE_fof_term);
 		try {
-			setState(177);
+			setState(178);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Lower_word:
 			case Single_quoted:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(175);
+				setState(176);
 				tff_atomic_formula();
 				}
 				break;
 			case Upper_word:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(176);
+				setState(177);
 				variable();
 				}
 				break;
@@ -1401,21 +1403,21 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(179);
+			setState(180);
 			argument();
-			setState(184);
+			setState(185);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__1) {
+			while (_la==T__2) {
 				{
 				{
-				setState(180);
-				match(T__1);
 				setState(181);
+				match(T__2);
+				setState(182);
 				argument();
 				}
 				}
-				setState(186);
+				setState(187);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1462,13 +1464,13 @@ public class TFFParser extends Parser {
 		ArgumentContext _localctx = new ArgumentContext(_ctx, getState());
 		enterRule(_localctx, 42, RULE_argument);
 		try {
-			setState(189);
+			setState(190);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Upper_word:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(187);
+				setState(188);
 				variable();
 				}
 				break;
@@ -1476,7 +1478,7 @@ public class TFFParser extends Parser {
 			case Single_quoted:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(188);
+				setState(189);
 				atomic_word();
 				}
 				break;
@@ -1528,29 +1530,29 @@ public class TFFParser extends Parser {
 		Tff_typed_atomContext _localctx = new Tff_typed_atomContext(_ctx, getState());
 		enterRule(_localctx, 44, RULE_tff_typed_atom);
 		try {
-			setState(199);
+			setState(200);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Lower_word:
 			case Single_quoted:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(191);
-				atomic_word();
 				setState(192);
-				match(T__5);
+				atomic_word();
 				setState(193);
+				match(T__6);
+				setState(194);
 				atomic_word();
 				}
 				break;
-			case T__6:
+			case T__1:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(195);
-				match(T__6);
 				setState(196);
-				tff_typed_atom();
+				match(T__1);
 				setState(197);
+				tff_typed_atom();
+				setState(198);
 				match(T__7);
 				}
 				break;
@@ -1599,16 +1601,16 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(201);
+			setState(202);
 			match(Upper_word);
-			setState(204);
+			setState(205);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 			case 1:
 				{
-				setState(202);
-				match(T__5);
 				setState(203);
+				match(T__6);
+				setState(204);
 				atomic_word();
 				}
 				break;
@@ -1659,21 +1661,21 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(206);
+			setState(207);
 			variable();
-			setState(211);
+			setState(212);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__1) {
+			while (_la==T__2) {
 				{
 				{
-				setState(207);
-				match(T__1);
 				setState(208);
+				match(T__2);
+				setState(209);
 				variable();
 				}
 				}
-				setState(213);
+				setState(214);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1718,21 +1720,21 @@ public class TFFParser extends Parser {
 		NameContext _localctx = new NameContext(_ctx, getState());
 		enterRule(_localctx, 50, RULE_name);
 		try {
-			setState(216);
+			setState(217);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Lower_word:
 			case Single_quoted:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(214);
+				setState(215);
 				atomic_word();
 				}
 				break;
 			case Integer:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(215);
+				setState(216);
 				match(Integer);
 				}
 				break;
@@ -1787,23 +1789,23 @@ public class TFFParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(218);
+			setState(219);
 			atomic_word();
-			setState(223);
+			setState(224);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(219);
-					match(T__1);
 					setState(220);
+					match(T__2);
+					setState(221);
 					atomic_word_list();
 					}
 					} 
 				}
-				setState(225);
+				setState(226);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			}
@@ -1849,7 +1851,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(226);
+			setState(227);
 			_la = _input.LA(1);
 			if ( !(_la==Lower_word || _la==Single_quoted) ) {
 			_errHandler.recoverInline(this);
@@ -1899,7 +1901,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(228);
+			setState(229);
 			match(Dollar_word);
 			}
 		}
@@ -1941,7 +1943,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(230);
+			setState(231);
 			match(Dollar_dollar_word);
 			}
 		}
@@ -1986,7 +1988,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(232);
+			setState(233);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Real) | (1L << Rational) | (1L << Integer))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2036,7 +2038,7 @@ public class TFFParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(234);
+			setState(235);
 			match(Single_quoted);
 			}
 		}
@@ -2076,79 +2078,80 @@ public class TFFParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3B\u00ef\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3B\u00f0\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
 		"\t!\3\2\3\2\3\3\3\3\3\4\3\4\3\5\3\5\3\6\7\6L\n\6\f\6\16\6O\13\6\3\6\3"+
-		"\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\t\3\t\5\t_\n\t\3\n\3\n\5"+
-		"\nc\n\n\3\13\3\13\5\13g\n\13\3\f\3\f\3\f\3\f\3\r\3\r\5\ro\n\r\3\16\3\16"+
-		"\3\16\3\16\3\16\3\16\3\16\3\16\7\16y\n\16\f\16\16\16|\13\16\3\17\3\17"+
-		"\3\17\3\17\3\17\3\17\3\17\3\17\7\17\u0086\n\17\f\17\16\17\u0089\13\17"+
-		"\3\20\3\20\3\20\5\20\u008e\n\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21\3\22"+
-		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u009f\n\22\3\23\3\23\3\23\3\23"+
-		"\3\23\5\23\u00a6\n\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u00b0"+
-		"\n\24\3\25\3\25\5\25\u00b4\n\25\3\26\3\26\3\26\7\26\u00b9\n\26\f\26\16"+
-		"\26\u00bc\13\26\3\27\3\27\5\27\u00c0\n\27\3\30\3\30\3\30\3\30\3\30\3\30"+
-		"\3\30\3\30\5\30\u00ca\n\30\3\31\3\31\3\31\5\31\u00cf\n\31\3\32\3\32\3"+
-		"\32\7\32\u00d4\n\32\f\32\16\32\u00d7\13\32\3\33\3\33\5\33\u00db\n\33\3"+
-		"\34\3\34\3\34\7\34\u00e0\n\34\f\34\16\34\u00e3\13\34\3\35\3\35\3\36\3"+
-		"\36\3\37\3\37\3 \3 \3!\3!\3!\2\4\32\34\"\2\4\6\b\n\f\16\20\22\24\26\30"+
-		"\32\34\36 \"$&(*,.\60\62\64\668:<>@\2\7\4\2\30\30\33\33\3\2\r\17\3\2\13"+
-		"\f\3\2=>\5\2)),,//\2\u00e3\2B\3\2\2\2\4D\3\2\2\2\6F\3\2\2\2\bH\3\2\2\2"+
-		"\nM\3\2\2\2\fR\3\2\2\2\16Z\3\2\2\2\20^\3\2\2\2\22b\3\2\2\2\24f\3\2\2\2"+
-		"\26h\3\2\2\2\30n\3\2\2\2\32p\3\2\2\2\34}\3\2\2\2\36\u008d\3\2\2\2 \u008f"+
-		"\3\2\2\2\"\u009e\3\2\2\2$\u00a0\3\2\2\2&\u00af\3\2\2\2(\u00b3\3\2\2\2"+
-		"*\u00b5\3\2\2\2,\u00bf\3\2\2\2.\u00c9\3\2\2\2\60\u00cb\3\2\2\2\62\u00d0"+
-		"\3\2\2\2\64\u00da\3\2\2\2\66\u00dc\3\2\2\28\u00e4\3\2\2\2:\u00e6\3\2\2"+
-		"\2<\u00e8\3\2\2\2>\u00ea\3\2\2\2@\u00ec\3\2\2\2BC\t\2\2\2C\3\3\2\2\2D"+
-		"E\t\3\2\2E\5\3\2\2\2FG\t\4\2\2G\7\3\2\2\2HI\7\23\2\2I\t\3\2\2\2JL\5\f"+
-		"\7\2KJ\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2NP\3\2\2\2OM\3\2\2\2PQ\7\2"+
-		"\2\3Q\13\3\2\2\2RS\7\3\2\2ST\5\64\33\2TU\7\4\2\2UV\5\16\b\2VW\7\4\2\2"+
-		"WX\5\20\t\2XY\7\5\2\2Y\r\3\2\2\2Z[\7=\2\2[\17\3\2\2\2\\_\5\22\n\2]_\5"+
-		".\30\2^\\\3\2\2\2^]\3\2\2\2_\21\3\2\2\2`c\5\24\13\2ac\5\36\20\2b`\3\2"+
-		"\2\2ba\3\2\2\2c\23\3\2\2\2dg\5\26\f\2eg\5\30\r\2fd\3\2\2\2fe\3\2\2\2g"+
-		"\25\3\2\2\2hi\5\36\20\2ij\5\4\3\2jk\5\36\20\2k\27\3\2\2\2lo\5\32\16\2"+
-		"mo\5\34\17\2nl\3\2\2\2nm\3\2\2\2o\31\3\2\2\2pq\b\16\1\2qr\5\36\20\2rs"+
-		"\7\13\2\2st\5\36\20\2tz\3\2\2\2uv\f\3\2\2vw\7\13\2\2wy\5\36\20\2xu\3\2"+
-		"\2\2y|\3\2\2\2zx\3\2\2\2z{\3\2\2\2{\33\3\2\2\2|z\3\2\2\2}~\b\17\1\2~\177"+
-		"\5\36\20\2\177\u0080\7\f\2\2\u0080\u0081\5\36\20\2\u0081\u0087\3\2\2\2"+
-		"\u0082\u0083\f\3\2\2\u0083\u0084\7\f\2\2\u0084\u0086\5\36\20\2\u0085\u0082"+
-		"\3\2\2\2\u0086\u0089\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088"+
-		"\35\3\2\2\2\u0089\u0087\3\2\2\2\u008a\u008e\5 \21\2\u008b\u008e\5\"\22"+
-		"\2\u008c\u008e\5$\23\2\u008d\u008a\3\2\2\2\u008d\u008b\3\2\2\2\u008d\u008c"+
-		"\3\2\2\2\u008e\37\3\2\2\2\u008f\u0090\5\2\2\2\u0090\u0091\7\6\2\2\u0091"+
-		"\u0092\5\62\32\2\u0092\u0093\7\7\2\2\u0093\u0094\7\b\2\2\u0094\u0095\5"+
-		"\36\20\2\u0095!\3\2\2\2\u0096\u0097\5\b\5\2\u0097\u0098\5\36\20\2\u0098"+
-		"\u009f\3\2\2\2\u0099\u009f\5&\24\2\u009a\u009b\7\t\2\2\u009b\u009c\5\22"+
-		"\n\2\u009c\u009d\7\n\2\2\u009d\u009f\3\2\2\2\u009e\u0096\3\2\2\2\u009e"+
-		"\u0099\3\2\2\2\u009e\u009a\3\2\2\2\u009f#\3\2\2\2\u00a0\u00a5\58\35\2"+
-		"\u00a1\u00a2\7\t\2\2\u00a2\u00a3\5*\26\2\u00a3\u00a4\7\n\2\2\u00a4\u00a6"+
-		"\3\2\2\2\u00a5\u00a1\3\2\2\2\u00a5\u00a6\3\2\2\2\u00a6%\3\2\2\2\u00a7"+
-		"\u00a8\5(\25\2\u00a8\u00a9\7\26\2\2\u00a9\u00aa\5(\25\2\u00aa\u00b0\3"+
-		"\2\2\2\u00ab\u00ac\5(\25\2\u00ac\u00ad\7\27\2\2\u00ad\u00ae\5(\25\2\u00ae"+
-		"\u00b0\3\2\2\2\u00af\u00a7\3\2\2\2\u00af\u00ab\3\2\2\2\u00b0\'\3\2\2\2"+
-		"\u00b1\u00b4\5$\23\2\u00b2\u00b4\5\60\31\2\u00b3\u00b1\3\2\2\2\u00b3\u00b2"+
-		"\3\2\2\2\u00b4)\3\2\2\2\u00b5\u00ba\5,\27\2\u00b6\u00b7\7\4\2\2\u00b7"+
-		"\u00b9\5,\27\2\u00b8\u00b6\3\2\2\2\u00b9\u00bc\3\2\2\2\u00ba\u00b8\3\2"+
-		"\2\2\u00ba\u00bb\3\2\2\2\u00bb+\3\2\2\2\u00bc\u00ba\3\2\2\2\u00bd\u00c0"+
-		"\5\60\31\2\u00be\u00c0\58\35\2\u00bf\u00bd\3\2\2\2\u00bf\u00be\3\2\2\2"+
-		"\u00c0-\3\2\2\2\u00c1\u00c2\58\35\2\u00c2\u00c3\7\b\2\2\u00c3\u00c4\5"+
-		"8\35\2\u00c4\u00ca\3\2\2\2\u00c5\u00c6\7\t\2\2\u00c6\u00c7\5.\30\2\u00c7"+
-		"\u00c8\7\n\2\2\u00c8\u00ca\3\2\2\2\u00c9\u00c1\3\2\2\2\u00c9\u00c5\3\2"+
-		"\2\2\u00ca/\3\2\2\2\u00cb\u00ce\7<\2\2\u00cc\u00cd\7\b\2\2\u00cd\u00cf"+
-		"\58\35\2\u00ce\u00cc\3\2\2\2\u00ce\u00cf\3\2\2\2\u00cf\61\3\2\2\2\u00d0"+
-		"\u00d5\5\60\31\2\u00d1\u00d2\7\4\2\2\u00d2\u00d4\5\60\31\2\u00d3\u00d1"+
-		"\3\2\2\2\u00d4\u00d7\3\2\2\2\u00d5\u00d3\3\2\2\2\u00d5\u00d6\3\2\2\2\u00d6"+
-		"\63\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d8\u00db\58\35\2\u00d9\u00db\7/\2\2"+
-		"\u00da\u00d8\3\2\2\2\u00da\u00d9\3\2\2\2\u00db\65\3\2\2\2\u00dc\u00e1"+
-		"\58\35\2\u00dd\u00de\7\4\2\2\u00de\u00e0\5\66\34\2\u00df\u00dd\3\2\2\2"+
-		"\u00e0\u00e3\3\2\2\2\u00e1\u00df\3\2\2\2\u00e1\u00e2\3\2\2\2\u00e2\67"+
-		"\3\2\2\2\u00e3\u00e1\3\2\2\2\u00e4\u00e5\t\5\2\2\u00e59\3\2\2\2\u00e6"+
-		"\u00e7\7:\2\2\u00e7;\3\2\2\2\u00e8\u00e9\7;\2\2\u00e9=\3\2\2\2\u00ea\u00eb"+
-		"\t\6\2\2\u00eb?\3\2\2\2\u00ec\u00ed\7>\2\2\u00edA\3\2\2\2\25M^bfnz\u0087"+
-		"\u008d\u009e\u00a5\u00af\u00b3\u00ba\u00bf\u00c9\u00ce\u00d5\u00da\u00e1";
+		"\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\t\3\t\5\t`\n\t\3\n\3"+
+		"\n\5\nd\n\n\3\13\3\13\5\13h\n\13\3\f\3\f\3\f\3\f\3\r\3\r\5\rp\n\r\3\16"+
+		"\3\16\3\16\3\16\3\16\3\16\3\16\3\16\7\16z\n\16\f\16\16\16}\13\16\3\17"+
+		"\3\17\3\17\3\17\3\17\3\17\3\17\3\17\7\17\u0087\n\17\f\17\16\17\u008a\13"+
+		"\17\3\20\3\20\3\20\5\20\u008f\n\20\3\21\3\21\3\21\3\21\3\21\3\21\3\21"+
+		"\3\22\3\22\3\22\3\22\3\22\3\22\3\22\3\22\5\22\u00a0\n\22\3\23\3\23\3\23"+
+		"\3\23\3\23\5\23\u00a7\n\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24"+
+		"\u00b1\n\24\3\25\3\25\5\25\u00b5\n\25\3\26\3\26\3\26\7\26\u00ba\n\26\f"+
+		"\26\16\26\u00bd\13\26\3\27\3\27\5\27\u00c1\n\27\3\30\3\30\3\30\3\30\3"+
+		"\30\3\30\3\30\3\30\5\30\u00cb\n\30\3\31\3\31\3\31\5\31\u00d0\n\31\3\32"+
+		"\3\32\3\32\7\32\u00d5\n\32\f\32\16\32\u00d8\13\32\3\33\3\33\5\33\u00dc"+
+		"\n\33\3\34\3\34\3\34\7\34\u00e1\n\34\f\34\16\34\u00e4\13\34\3\35\3\35"+
+		"\3\36\3\36\3\37\3\37\3 \3 \3!\3!\3!\2\4\32\34\"\2\4\6\b\n\f\16\20\22\24"+
+		"\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@\2\7\4\2\30\30\33\33\3\2\r\17"+
+		"\3\2\13\f\3\2=>\5\2)),,//\2\u00e4\2B\3\2\2\2\4D\3\2\2\2\6F\3\2\2\2\bH"+
+		"\3\2\2\2\nM\3\2\2\2\fR\3\2\2\2\16[\3\2\2\2\20_\3\2\2\2\22c\3\2\2\2\24"+
+		"g\3\2\2\2\26i\3\2\2\2\30o\3\2\2\2\32q\3\2\2\2\34~\3\2\2\2\36\u008e\3\2"+
+		"\2\2 \u0090\3\2\2\2\"\u009f\3\2\2\2$\u00a1\3\2\2\2&\u00b0\3\2\2\2(\u00b4"+
+		"\3\2\2\2*\u00b6\3\2\2\2,\u00c0\3\2\2\2.\u00ca\3\2\2\2\60\u00cc\3\2\2\2"+
+		"\62\u00d1\3\2\2\2\64\u00db\3\2\2\2\66\u00dd\3\2\2\28\u00e5\3\2\2\2:\u00e7"+
+		"\3\2\2\2<\u00e9\3\2\2\2>\u00eb\3\2\2\2@\u00ed\3\2\2\2BC\t\2\2\2C\3\3\2"+
+		"\2\2DE\t\3\2\2E\5\3\2\2\2FG\t\4\2\2G\7\3\2\2\2HI\7\23\2\2I\t\3\2\2\2J"+
+		"L\5\f\7\2KJ\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2NP\3\2\2\2OM\3\2\2\2"+
+		"PQ\7\2\2\3Q\13\3\2\2\2RS\7\3\2\2ST\7\4\2\2TU\5\64\33\2UV\7\5\2\2VW\5\16"+
+		"\b\2WX\7\5\2\2XY\5\20\t\2YZ\7\6\2\2Z\r\3\2\2\2[\\\7=\2\2\\\17\3\2\2\2"+
+		"]`\5\22\n\2^`\5.\30\2_]\3\2\2\2_^\3\2\2\2`\21\3\2\2\2ad\5\24\13\2bd\5"+
+		"\36\20\2ca\3\2\2\2cb\3\2\2\2d\23\3\2\2\2eh\5\26\f\2fh\5\30\r\2ge\3\2\2"+
+		"\2gf\3\2\2\2h\25\3\2\2\2ij\5\36\20\2jk\5\4\3\2kl\5\36\20\2l\27\3\2\2\2"+
+		"mp\5\32\16\2np\5\34\17\2om\3\2\2\2on\3\2\2\2p\31\3\2\2\2qr\b\16\1\2rs"+
+		"\5\36\20\2st\7\13\2\2tu\5\36\20\2u{\3\2\2\2vw\f\3\2\2wx\7\13\2\2xz\5\36"+
+		"\20\2yv\3\2\2\2z}\3\2\2\2{y\3\2\2\2{|\3\2\2\2|\33\3\2\2\2}{\3\2\2\2~\177"+
+		"\b\17\1\2\177\u0080\5\36\20\2\u0080\u0081\7\f\2\2\u0081\u0082\5\36\20"+
+		"\2\u0082\u0088\3\2\2\2\u0083\u0084\f\3\2\2\u0084\u0085\7\f\2\2\u0085\u0087"+
+		"\5\36\20\2\u0086\u0083\3\2\2\2\u0087\u008a\3\2\2\2\u0088\u0086\3\2\2\2"+
+		"\u0088\u0089\3\2\2\2\u0089\35\3\2\2\2\u008a\u0088\3\2\2\2\u008b\u008f"+
+		"\5 \21\2\u008c\u008f\5\"\22\2\u008d\u008f\5$\23\2\u008e\u008b\3\2\2\2"+
+		"\u008e\u008c\3\2\2\2\u008e\u008d\3\2\2\2\u008f\37\3\2\2\2\u0090\u0091"+
+		"\5\2\2\2\u0091\u0092\7\7\2\2\u0092\u0093\5\62\32\2\u0093\u0094\7\b\2\2"+
+		"\u0094\u0095\7\t\2\2\u0095\u0096\5\36\20\2\u0096!\3\2\2\2\u0097\u0098"+
+		"\5\b\5\2\u0098\u0099\5\36\20\2\u0099\u00a0\3\2\2\2\u009a\u00a0\5&\24\2"+
+		"\u009b\u009c\7\4\2\2\u009c\u009d\5\22\n\2\u009d\u009e\7\n\2\2\u009e\u00a0"+
+		"\3\2\2\2\u009f\u0097\3\2\2\2\u009f\u009a\3\2\2\2\u009f\u009b\3\2\2\2\u00a0"+
+		"#\3\2\2\2\u00a1\u00a6\58\35\2\u00a2\u00a3\7\4\2\2\u00a3\u00a4\5*\26\2"+
+		"\u00a4\u00a5\7\n\2\2\u00a5\u00a7\3\2\2\2\u00a6\u00a2\3\2\2\2\u00a6\u00a7"+
+		"\3\2\2\2\u00a7%\3\2\2\2\u00a8\u00a9\5(\25\2\u00a9\u00aa\7\26\2\2\u00aa"+
+		"\u00ab\5(\25\2\u00ab\u00b1\3\2\2\2\u00ac\u00ad\5(\25\2\u00ad\u00ae\7\27"+
+		"\2\2\u00ae\u00af\5(\25\2\u00af\u00b1\3\2\2\2\u00b0\u00a8\3\2\2\2\u00b0"+
+		"\u00ac\3\2\2\2\u00b1\'\3\2\2\2\u00b2\u00b5\5$\23\2\u00b3\u00b5\5\60\31"+
+		"\2\u00b4\u00b2\3\2\2\2\u00b4\u00b3\3\2\2\2\u00b5)\3\2\2\2\u00b6\u00bb"+
+		"\5,\27\2\u00b7\u00b8\7\5\2\2\u00b8\u00ba\5,\27\2\u00b9\u00b7\3\2\2\2\u00ba"+
+		"\u00bd\3\2\2\2\u00bb\u00b9\3\2\2\2\u00bb\u00bc\3\2\2\2\u00bc+\3\2\2\2"+
+		"\u00bd\u00bb\3\2\2\2\u00be\u00c1\5\60\31\2\u00bf\u00c1\58\35\2\u00c0\u00be"+
+		"\3\2\2\2\u00c0\u00bf\3\2\2\2\u00c1-\3\2\2\2\u00c2\u00c3\58\35\2\u00c3"+
+		"\u00c4\7\t\2\2\u00c4\u00c5\58\35\2\u00c5\u00cb\3\2\2\2\u00c6\u00c7\7\4"+
+		"\2\2\u00c7\u00c8\5.\30\2\u00c8\u00c9\7\n\2\2\u00c9\u00cb\3\2\2\2\u00ca"+
+		"\u00c2\3\2\2\2\u00ca\u00c6\3\2\2\2\u00cb/\3\2\2\2\u00cc\u00cf\7<\2\2\u00cd"+
+		"\u00ce\7\t\2\2\u00ce\u00d0\58\35\2\u00cf\u00cd\3\2\2\2\u00cf\u00d0\3\2"+
+		"\2\2\u00d0\61\3\2\2\2\u00d1\u00d6\5\60\31\2\u00d2\u00d3\7\5\2\2\u00d3"+
+		"\u00d5\5\60\31\2\u00d4\u00d2\3\2\2\2\u00d5\u00d8\3\2\2\2\u00d6\u00d4\3"+
+		"\2\2\2\u00d6\u00d7\3\2\2\2\u00d7\63\3\2\2\2\u00d8\u00d6\3\2\2\2\u00d9"+
+		"\u00dc\58\35\2\u00da\u00dc\7/\2\2\u00db\u00d9\3\2\2\2\u00db\u00da\3\2"+
+		"\2\2\u00dc\65\3\2\2\2\u00dd\u00e2\58\35\2\u00de\u00df\7\5\2\2\u00df\u00e1"+
+		"\5\66\34\2\u00e0\u00de\3\2\2\2\u00e1\u00e4\3\2\2\2\u00e2\u00e0\3\2\2\2"+
+		"\u00e2\u00e3\3\2\2\2\u00e3\67\3\2\2\2\u00e4\u00e2\3\2\2\2\u00e5\u00e6"+
+		"\t\5\2\2\u00e69\3\2\2\2\u00e7\u00e8\7:\2\2\u00e8;\3\2\2\2\u00e9\u00ea"+
+		"\7;\2\2\u00ea=\3\2\2\2\u00eb\u00ec\t\6\2\2\u00ec?\3\2\2\2\u00ed\u00ee"+
+		"\7>\2\2\u00eeA\3\2\2\2\25M_cgo{\u0088\u008e\u009f\u00a6\u00b0\u00b4\u00bb"+
+		"\u00c0\u00ca\u00cf\u00d6\u00db\u00e2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -80,7 +80,7 @@ unary_connective     : Not;
 // we stick to this, and keep the grammar as simple as possible.
 // For example, we do not allow for annotations.
 tff_file                : tff_line* EOF;
-tff_line                : 'tff(' name ',' formula_role ',' tff_formula ').';
+tff_line                : 'tff' '(' name ',' formula_role ',' tff_formula ').';
 formula_role            : Lower_word; // #RES no restrictions
 
 tff_formula             : tff_logic_formula | tff_typed_atom;

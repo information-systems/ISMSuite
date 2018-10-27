@@ -1,5 +1,7 @@
 package org.architecturemining.ismodeler.proving.model;
 
+import java.util.Stack;
+
 public class Implies extends Operator {
 
 	private Clause premise;
@@ -29,7 +31,7 @@ public class Implies extends Operator {
 		Or or = new Or(new Not(premise), conclusion);
 		return or.isValidIn(world);
 	}
-
+	
 	@Override
 	public Object clone() {
 		return new Implies((Clause) premise.clone(), (Clause) conclusion.clone());
@@ -41,6 +43,33 @@ public class Implies extends Operator {
 		conclusion.instantiate(x, a);
 		
 		calculateProperties();
+	}
+
+	/**
+	 * A => B is only invalid if A & not(B).
+	 * A => B = not(A) | B = not( A & not(B) )
+	 */
+	@Override
+	public Stack<Clause> findExplanationFor(World world) {
+		
+		Not form = new Not(
+				new And(
+						this.premise,
+						new Not(this.conclusion)
+						)
+				);
+		
+		// Or form = new Or(new Not(this.premise), this.conclusion);
+		Stack<Clause> s = form.findExplanationFor(world);
+		if (!s.isEmpty()) {
+			s.add(new Not(this));
+		}
+		return s;
+	}
+
+	@Override
+	public String toTFF(boolean typed) {
+		return "( " + premise.toTFF(false) + " => " + conclusion.toTFF(false) + " )";
 	}
 
 }

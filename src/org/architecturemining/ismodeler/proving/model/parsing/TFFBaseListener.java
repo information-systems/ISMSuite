@@ -1,4 +1,4 @@
-// Generated from TFF.g4 by ANTLR 4.7.1
+// Generated from .\TFF.g4 by ANTLR 4.7.1
 package org.architecturemining.ismodeler.proving.model.parsing;
 
 import org.antlr.v4.runtime.ParserRuleContext;

@@ -14,6 +14,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * @author jmw
@@ -140,6 +141,19 @@ public class World {
 			}
 		}
 		return invalid;
+	}
+	
+	public Map<String,Stack<Clause>> invalidateAndExplain() {
+		Map<String,Stack<Clause>> results = new HashMap<>();
+		
+		for(Entry<String, Clause> c: conjectures.entrySet() ) {
+			Stack<Clause> st = c.getValue().findExplanationFor(this);
+			if (!st.isEmpty()) {
+				results.put(c.getKey(), st);
+			}
+		}
+		
+		return results;
 	}
 	
 	@Override

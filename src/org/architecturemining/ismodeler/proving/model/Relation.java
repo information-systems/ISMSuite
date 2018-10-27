@@ -87,5 +87,16 @@ public class Relation extends Literal {
 		}
 		calculateProperties();
 	}
+
+	@Override
+	public String toTFF(boolean typed) {
+		
+		StringBuilder sb = new StringBuilder();
+		for(Literal item: parameters) {
+			sb.append(", ");
+			sb.append(item.toTFF(false));
+		}
+		return getLabel() + "(" + sb.substring(1) + ")";
+	}
 	
 }

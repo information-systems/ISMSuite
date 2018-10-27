@@ -34,4 +34,13 @@ public class Variable extends Literal {
 	public void instantiate(Variable x, Element a) {
 		// Nothing to do :-)
 	}
+	
+	@Override
+	public String toTFF(boolean typed) {
+		if (typed) {
+			return getLabel() + ": " + getType();
+		} else {
+			return getLabel();
+		}
+	}
 }
