@@ -6,6 +6,11 @@ import java.util.List;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
+/**
+ * A relation represents a property of one or more Literals
+ * 
+ * @author jmw
+ */
 public class Relation extends Literal {
 	
 	private List<Literal> parameters;
@@ -28,6 +33,10 @@ public class Relation extends Literal {
 		calculateProperties();
 	}
 
+	/**
+	 * Calculates the String representation, and whether
+	 * it is an abstract Literal or not.
+	 */
 	@Override
 	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
@@ -76,6 +85,10 @@ public class Relation extends Literal {
 		return new Relation(getLabel(), params);
 	}
 	
+	/**
+	 * If one of the Literals equals the variable,
+	 * we substitute the variable for the element.
+	 */
 	@Override
 	public void instantiate(Variable x, Element a) {
 		for(int i = 0 ; i < size() ; i++) {

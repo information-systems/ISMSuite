@@ -5,6 +5,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * This class represents the universal quantifier:
+ * 
+ *  ! [ X: Variable ] : ( P(X) ).
+ *  
+ *  The P(X) is called the operand, X the variable.
+ *  
+ * @author jmw
+ *
+ */
 public class All extends Operator {
 
 	private Clause operand;
@@ -30,13 +40,19 @@ public class All extends Operator {
 		StringBuilder sb = new StringBuilder();
 		sb.append("ALL [");
 		sb.append(variable.toString());
-		sb.append("] (");
+		sb.append("] : (");
 		sb.append(operand.toString());
 		sb.append(")");
 		
 		mString = sb.toString();
 	}
 	
+	/**
+	 * The universal quantifier is only true if for all possible
+	 * instantiations of the variable, the operand holds.
+	 * As soon as one of the instantiations fails, the ForAll
+	 * fails, and we stop searching.
+	 */
 	@Override
 	public boolean isValidIn(World world) {
 		Iterator<Element> it = world.elementsIn(variable.getType());
@@ -59,6 +75,9 @@ public class All extends Operator {
 		return new All((Variable) variable.clone(), (Clause) operand.clone());
 	}
 	
+	/**
+	 * Only a Free Variable may be instantiated!
+	 */
 	@Override
 	public void instantiate(Variable x, Element a) {
 		if (variable.equals(x)) {

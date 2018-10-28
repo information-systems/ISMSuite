@@ -2,21 +2,29 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
 /**
- * Returns true if at least one of the operands is true.
+ * The Or Operator. Clause represents A | B
+ * A and B are called the operands.
+ * Like for the And Clause, we order the elements, as
+ * A | B  = B | A.
+ * That way, we ensure that both always get the same 
+ * representation, and are treated as equals...
  * 
  * @author jmw
  */
 public class Or extends Operator {
 
-	private Collection<Clause> operands;
+	private List<Clause> operands;
 	
 	public Or(Collection<Clause> operands) {
-		this.operands = operands;
+		this.operands = new ArrayList<Clause>();
+		this.operands.addAll(operands);
+		Collections.sort(this.operands);
 		
 		calculateProperties();
 	}
@@ -26,10 +34,12 @@ public class Or extends Operator {
 		for(Clause c: operands) {
 			this.operands.add(c);
 		}
+		Collections.sort(this.operands);
 		
 		calculateProperties();
 	}
 	
+	@Override
 	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("OR( ");
@@ -42,6 +52,10 @@ public class Or extends Operator {
 		mString = sb.toString();
 	}
 	
+	/**
+	 * The Or is valid as soon as one of the operands is true
+	 * in the world. If none are true, we return false.
+	 */
 	@Override
 	public boolean isValidIn(World world) {
 		for(Iterator<Clause> it = operands.iterator() ; it.hasNext() ; ) {
@@ -71,26 +85,24 @@ public class Or extends Operator {
 
 	/**
 	 * The only explanation possible for an OR is that
-	 * all its operands are not true.
+	 * all its operands are not true. Hence, using De Morgan:
+	 * not(not(A | B)) == not(not(A) & not(B)). Hence, if
+	 * we check this formula, and the Not is not valid, we get
+	 * as explanation not(A) & not(B), and that is exactly what
+	 * we would like to have!
 	 */
 	@Override
 	public Stack<Clause> findExplanationFor(World world) {
-		boolean value = false;
-		Stack<Clause> result = new Stack<>();
+		List<Clause> notClauses = new ArrayList<>();
 		for(Clause c: operands) {
-			Stack<Clause> exOp = c.findExplanationFor(world);
-			if (exOp.isEmpty()) {
-				value = true;
-			} else {
-				result.addAll(exOp);
-			}
+			notClauses.add(new Not((Clause) c.clone()));
 		}
-		if (value) {
-			return new Stack<>();
-		} else {
-			result.add(new Not(this));
-			return result;
-		}
+		Not dm = new Not(new And(notClauses));
+		
+		Stack<Clause> result = dm.findExplanationFor(world);
+		result.add(new Not(this));
+		
+		return result;
 	}
 
 	@Override
@@ -100,6 +112,6 @@ public class Or extends Operator {
 			sb.append(" | ");
 			sb.append(c.toTFF(false));
 		}
-		return "(" + sb.substring(1) + " )";
+		return "(" + sb.substring(2) + " )";
 	}
 }

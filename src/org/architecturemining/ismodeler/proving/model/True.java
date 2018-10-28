@@ -2,6 +2,12 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.Stack;
 
+/**
+ * Basic representation of True. Is always true...
+ * 
+ * @author jmw
+ *
+ */
 public class True extends Clause {
 
 	public True() {

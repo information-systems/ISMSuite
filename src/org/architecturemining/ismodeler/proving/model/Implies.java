@@ -2,6 +2,14 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.Stack;
 
+/**
+ * Clause of the form A => B
+ *  A is called the premise,
+ *  B is called the conclusion.
+ *  
+ * @author jmw
+ *
+ */
 public class Implies extends Operator {
 
 	private Clause premise;
@@ -25,6 +33,10 @@ public class Implies extends Operator {
 		mString = sb.toString();
 	}
 	
+	/**
+	 * We use the basic definition of
+	 * A => B === not(A) | B
+	 */
 	@Override
 	public boolean isValidIn(World world) {
 		// A => B === not(A) or B
@@ -46,8 +58,15 @@ public class Implies extends Operator {
 	}
 
 	/**
-	 * A => B is only invalid if A & not(B).
-	 * A => B = not(A) | B = not( A & not(B) )
+	 * The only clause for which this formula is false, is 
+	 * when the premise is true, but the conclusion is false.
+	 * Hence, we follow the following reasoning:
+	 *   A => B is only invalid if A & not(B).
+	 *   A => B = not(A) | B = not( A & not(B) )
+	 * Then if the Not is false, it generates the explanation
+	 * A & not(B), which is exactly what we want as explanation
+	 * for the Implies!
+	 * 
 	 */
 	@Override
 	public Stack<Clause> findExplanationFor(World world) {

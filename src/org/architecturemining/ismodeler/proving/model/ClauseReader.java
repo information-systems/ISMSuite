@@ -19,6 +19,12 @@ import org.architecturemining.ismodeler.proving.model.parsing.TFFParser;
 import org.architecturemining.ismodeler.proving.model.parsing.TFFParser.Atomic_wordContext;
 import org.architecturemining.ismodeler.proving.model.parsing.TFFParser.Tff_fileContext;
 
+/**
+ * Reads and parses Strings in TFF-format to Clauses and Worlds.
+ * 
+ * @author jmw
+ *
+ */
 public class ClauseReader {
 
 	public static World buildWorldFrom(String tff) {
@@ -249,15 +255,17 @@ public class ClauseReader {
 		 */
 		@Override
 		public Clause visitFof_infix_unary(TFFParser.Fof_infix_unaryContext txc) {
-			if (txc.Infix_equality() != null) {
-				Clause left = visitFof_term(txc.fof_term(0));
-				Clause right = visitFof_term(txc.fof_term(1));
-				return new Equality(left, right);
-			}
-			if (txc.Infix_inequality() != null) {
-				Clause left = visitFof_term(txc.fof_term(0));
-				Clause right = visitFof_term(txc.fof_term(1));
-				return new Not(new Equality(left, right));
+			Clause left = visitFof_term(txc.fof_term(0));
+			Clause right = visitFof_term(txc.fof_term(1));
+
+			if ((left instanceof Literal) && (right instanceof Literal) ) {
+				Equality eq = new Equality((Literal) left, (Literal) right);
+				if (txc.Infix_equality() != null) {
+					return eq;
+				}
+				if (txc.Infix_inequality() != null) {
+					return new Not(eq);
+				}
 			}
 			return null;
 		}

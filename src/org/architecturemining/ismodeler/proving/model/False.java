@@ -2,6 +2,12 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.Stack;
 
+/**
+ * The Clause False, which is just always false...
+ *  
+ * @author jmw
+ *
+ */
 public class False extends Clause {
 
 	public False() {

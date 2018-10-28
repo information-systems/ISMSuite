@@ -1,5 +1,12 @@
 package org.architecturemining.ismodeler.proving.model;
 
+/**
+ * Represents a variable that can be used in Relations and
+ * operators. Can only be substituted for elements.
+ *  
+ * @author jmw
+ *
+ */
 public class Variable extends Literal {
 
 	private String type;
@@ -16,6 +23,9 @@ public class Variable extends Literal {
 		this.mString = "VAR: " + getLabel() + " (" + type + ")";
 	}
 	
+	/**
+	 * Is always abstract.
+	 */
 	@Override
 	public boolean isAbstract() {
 		return true;

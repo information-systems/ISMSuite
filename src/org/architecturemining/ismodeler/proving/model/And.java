@@ -5,7 +5,9 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -16,11 +18,16 @@ import java.util.Stack;
  */
 public class And extends Operator {
 
-	private Collection<Clause> operands;
+	/**
+	 * To keep the sort equals for A & B and B & A, we sort
+	 * the items once created.
+	 */
+	private List<Clause> operands;
 	
-	public And(Collection<Clause> clauses) {
-		this.operands = clauses;
-		
+	public And(Collection<Clause> clauses) { 
+		this.operands = new ArrayList<>();
+		this.operands.addAll(clauses);
+		Collections.sort(operands);
 		calculateProperties();
 	}
 	
@@ -29,6 +36,8 @@ public class And extends Operator {
 		for(Clause c: clauses) {
 			operands.add(c);
 		}
+		Collections.sort(this.operands);
+		
 		calculateProperties();
 	}
 	
@@ -44,6 +53,13 @@ public class And extends Operator {
 		mString = sb.toString();
 	}
 	
+	
+	/**
+	 * The AND function is valid in a world, if all its clauses
+	 * are valid in the world. As soon as one is invalid,
+	 * we know that the whole formula is false. Hence, we may
+	 * directly stop.
+	 */
 	@Override
 	public boolean isValidIn(World world) {
 		for(Iterator<Clause> it = operands.iterator() ; it.hasNext() ; ) {
@@ -75,8 +91,11 @@ public class And extends Operator {
 	/**
 	 * IF A & B is not true, its explanation is either 
 	 * not(A) or not(B), depending on which of them is false;
-	 * How do we know a clause is false?
-	 * TODO use (findExplanationFor(world).isEmpty()) instead of isValidIn(world);
+	 * An operand is invalid if the stack its explanation generates
+	 * is not empty; since there is some explanation.
+	 * Again, since the operand is invalid, we pass on the reason
+	 * why one of its operands is invalid, and conclude that this
+	 * Clause itself is also invalid.
 	 */
 	@Override
 	public Stack<Clause> findExplanationFor(World world) {
@@ -99,7 +118,6 @@ public class And extends Operator {
 			sb.append(" & ");
 			sb.append(c.toTFF(false));
 		}
-		return "(" + sb.substring(1) + " )";
+		return "(" + sb.substring(2) + " )";
 	}
-
 }

@@ -2,6 +2,15 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.Stack;
 
+/**
+ * Represents the Not operator.
+ *   Not(A)
+ *   
+ * A is called the Operand
+ * 
+ * @author jmw
+ *
+ */
 public class Not extends Operator {
 
 	private Clause operand;
@@ -13,9 +22,13 @@ public class Not extends Operator {
 	}
 	
 	protected void calculateProperties() {
-		mString = "NOT ( [" + operand.toString() + "] );";
+		mString = "NOT ( [" + operand.toString() + "] )";
 	}
 	
+	/**
+	 * The Not operator is valid in the world if its
+	 * operand is not valid in the world.
+	 */
 	@Override
 	public boolean isValidIn(World world) {
 		if (operand.isValidIn(world)) {

@@ -1,5 +1,12 @@
 package org.architecturemining.ismodeler.proving.model;
 
+/**
+ * An element is some object in the real word that can be used
+ * in defining Relations and statements about the world.
+ * Each element has a Type.
+ * 
+ * @author jmw
+ */
 public class Element extends Literal {
 
 	private String type;
@@ -16,6 +23,9 @@ public class Element extends Literal {
 		mString = "ELT: " + getLabel() + " (" + type + ")";
 	}
 
+	/**
+	 * An element is as concrete as it can get...
+	 */
 	@Override
 	public boolean isAbstract() {
 		return false;

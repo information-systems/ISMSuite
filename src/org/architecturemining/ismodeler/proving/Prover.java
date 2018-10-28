@@ -24,7 +24,7 @@ public class Prover {
 				silent = true;
 			} else if (a.equals("--printworld")) {
 				printWorld = true;
-			} else if (a.equals("--explanation")) {
+			} else if (a.equals("--explain")) {
 				explain = true;
 			} else {
 				filename = a;
@@ -38,7 +38,7 @@ public class Prover {
 			System.out.println("Options:");
 			System.out.println("\t--silent      no output is printed.");
 			System.out.println("\t--printworld  prints the world (default off)");
-			System.out.println("\t--explanation gives an explanation when no proof is found");
+			System.out.println("\t--explain     gives an explanation when no proof is found");
 			System.out.println();
 			System.out.println("Return states: ");
 			System.out.println("\t0: Proof found");

@@ -2,23 +2,29 @@ package org.architecturemining.ismodeler.proving.model;
 
 import java.util.Stack;
 
+/**
+ * An equality is a compare-operator between two literals, e.g.
+ * X = a, b = c, or R(a,b,c) = R(X,b,Y).
+ * 
+ * @author jmw
+ */
 public class Equality extends Operator {
 
-	private Clause left;
-	private Clause right;
+	private Literal left;
+	private Literal right;
 	
-	public Equality(Clause left, Clause right) {
+	public Equality(Literal left, Literal right) {
 		this.left = left;
 		this.right = right;
 		
 		calculateProperties();
 	}
 	
-	public Clause getLeft() {
+	public Literal getLeft() {
 		return left;
 	}
 	
-	public Clause getRight() {
+	public Literal getRight() {
 		return right;
 	}
 	
@@ -34,6 +40,10 @@ public class Equality extends Operator {
 		mString = sb.toString();
 	}
 	
+	/**
+	 * An Equality is valid in any world, as long as the right
+	 * and left side are identical. 
+	 */
 	@Override
 	public boolean isValidIn(World world) {
 		return left.equals(right);
@@ -44,6 +54,12 @@ public class Equality extends Operator {
 		return new Equality((Literal) left.clone(), (Literal) right.clone());
 	}
 
+	/**
+	 * As the equality can have literals, it may be that one of 
+	 * the constituents needs to be changed from the Variable
+	 * to the instance itself. Otherwise, we just push the
+	 * instantiation further.
+	 */
 	@Override
 	public void instantiate(Variable x, Element a) {
 		if (left.equals(x)) {
