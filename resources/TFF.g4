@@ -12,7 +12,7 @@ fragment Numeric : [0-9];
 fragment Lower_alpha : [a-z];
 fragment Upper_alpha : [A-Z];
 fragment Alpha_numeric : Lower_alpha | Upper_alpha | Numeric | '_';
-
+ 
 Or                   : '|';
 And                  : '&';
 Iff                  : '<=>';
