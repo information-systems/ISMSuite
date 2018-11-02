@@ -7,7 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ANTLR-v471"/>
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/commons-lang3-3.7.jar"/>
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/org.cpntools.accesscpn.cosimulation_2.2.0.jar"/>
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine_2.2.0.jar"/>
@@ -21,5 +20,6 @@
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/google-guava.jar"/>
 	<classpathentry kind="lib" path="tool/accesscpn-2.2.0/javax.ws.rs-api-2.0.rev.A.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="lib/antlr-4.7.1-complete.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
