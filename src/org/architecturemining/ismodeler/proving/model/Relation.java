@@ -92,6 +92,7 @@ public class Relation extends Literal {
 	 */
 	@Override
 	public void instantiate(Variable x, Element a) {
+		
 		for(int i = 0 ; i < size() ; i++) {
 			if (parameters.get(i).equals(x)) {
 				parameters.set(i, a);

@@ -3,6 +3,7 @@ package org.architecturemining.ismodeler.specification;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 public class Specification {
 
@@ -39,4 +40,16 @@ public class Specification {
 		return sb.toString();
 	}
 
+	public boolean containsTransition(String transition) {
+		return transitions.containsKey(transition);
+	}
+	
+	public Transaction getTransactionFor(String transition) {
+		return transitions.get(transition);
+	}
+
+	public Set<String> transitions() {
+		return transitions.keySet();
+	}
+	
 }

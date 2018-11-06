@@ -21,7 +21,7 @@ import java.util.Stack;
  *
  * A world is a set of finite sets, and relations
  */
-public class World {
+public class World implements Cloneable {
 
 	private Set<Relation> relations = new HashSet<>();
 	
@@ -30,6 +30,10 @@ public class World {
 	
 	private Map<String,Clause> conjectures = new HashMap<>();
 	
+	public Set<Entry<String, Clause>> getConjectures() {
+		return conjectures.entrySet();
+	}
+		
 	public boolean addElement(Element e) {
 		if (items.containsKey(e.getLabel())) {
 			// label can only occur once
@@ -187,5 +191,27 @@ public class World {
 		}
 		
 		return sb.toString();
+	}
+	
+	@Override
+	public Object clone() {
+		World w = new World();
+		for(Entry<String, String> e: items.entrySet()) {
+			w.addElement(new Element(e.getKey(), e.getValue()));
+		}
+		
+		for(Relation r: relations) {
+			w.addRelation((Relation) r.clone());
+		}
+		
+		for(Entry<String, Clause> e: conjectures.entrySet()) {
+			w.addConjecture(e.getKey(), e.getValue());
+		}
+		
+		return w;
+	}
+	
+	public boolean isEmpty() {
+		return items.isEmpty();
 	}
 }
