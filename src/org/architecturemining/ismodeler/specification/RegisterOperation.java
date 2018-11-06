@@ -14,9 +14,9 @@ public class RegisterOperation extends Operation {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("register (");
+		sb.append("register ");
 		sb.append(var.toTFF(false));
-		sb.append(");");
+		sb.append(";");
 		
 		return sb.toString();
 	}

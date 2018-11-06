@@ -100,16 +100,24 @@ public class Relation extends Literal {
 		}
 		calculateProperties();
 	}
-
+	
 	@Override
 	public String toTFF(boolean typed) {
+		return getLabel() + "(" + getParameterString() + ")";
+	}
+
+	public String getParameterString() {
 		
 		StringBuilder sb = new StringBuilder();
 		for(Literal item: parameters) {
 			sb.append(", ");
 			sb.append(item.toTFF(false));
 		}
-		return getLabel() + "(" + sb.substring(1) + ")";
+		if (sb.length() > 0) {
+			return sb.substring(1);
+		} else {
+			return "";
+		}
 	}
 	
 }

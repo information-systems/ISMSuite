@@ -18,8 +18,8 @@ public class SpecificationParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, T__12=13, WS=14, Line_comment=15, Block_comment=16, 
-		Upper_word=17, Lower_word=18;
+		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, WS=16, Line_comment=17, 
+		Block_comment=18, Upper_word=19, Lower_word=20;
 	public static final int
 		RULE_specication_file = 0, RULE_process = 1, RULE_process_content = 2, 
 		RULE_place = 3, RULE_transition = 4, RULE_argument_list = 5, RULE_variable_declaration = 6, 
@@ -35,11 +35,12 @@ public class SpecificationParser extends Parser {
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "'process'", "'{'", "'}'", "'place'", "'('", "')'", "'transition'", 
-		"','", "':'", "';'", "'register'", "'insert'", "'remove'"
+		"','", "':'", "';'", "'register'", "'insert'", "'into'", "'remove'", "'from'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, "WS", "Line_comment", "Block_comment", "Upper_word", "Lower_word"
+		null, null, null, null, "WS", "Line_comment", "Block_comment", "Upper_word", 
+		"Lower_word"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -342,7 +343,7 @@ public class SpecificationParser extends Parser {
 			setState(62);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__13))) != 0)) {
 				{
 				{
 				setState(59);
@@ -422,7 +423,7 @@ public class SpecificationParser extends Parser {
 			setState(76);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__10) | (1L << T__11) | (1L << T__13))) != 0)) {
 				{
 				{
 				setState(73);
@@ -613,7 +614,7 @@ public class SpecificationParser extends Parser {
 				insert_operator();
 				}
 				break;
-			case T__12:
+			case T__13:
 				{
 				setState(95);
 				remove_operator();
@@ -669,11 +670,7 @@ public class SpecificationParser extends Parser {
 			setState(100);
 			match(T__10);
 			setState(101);
-			match(T__4);
-			setState(102);
 			variable();
-			setState(103);
-			match(T__5);
 			}
 		}
 		catch (RecognitionException re) {
@@ -688,9 +685,10 @@ public class SpecificationParser extends Parser {
 	}
 
 	public static class Insert_operatorContext extends ParserRuleContext {
-		public RelationContext relation() {
-			return getRuleContext(RelationContext.class,0);
+		public Variable_listContext variable_list() {
+			return getRuleContext(Variable_listContext.class,0);
 		}
+		public TerminalNode Lower_word() { return getToken(SpecificationParser.Lower_word, 0); }
 		public Insert_operatorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -716,14 +714,18 @@ public class SpecificationParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105);
+			setState(103);
 			match(T__11);
-			setState(106);
+			setState(104);
 			match(T__4);
-			setState(107);
-			relation();
-			setState(108);
+			setState(105);
+			variable_list();
+			setState(106);
 			match(T__5);
+			setState(107);
+			match(T__12);
+			setState(108);
+			match(Lower_word);
 			}
 		}
 		catch (RecognitionException re) {
@@ -738,9 +740,10 @@ public class SpecificationParser extends Parser {
 	}
 
 	public static class Remove_operatorContext extends ParserRuleContext {
-		public RelationContext relation() {
-			return getRuleContext(RelationContext.class,0);
+		public Variable_listContext variable_list() {
+			return getRuleContext(Variable_listContext.class,0);
 		}
+		public TerminalNode Lower_word() { return getToken(SpecificationParser.Lower_word, 0); }
 		public Remove_operatorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -767,13 +770,17 @@ public class SpecificationParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(110);
-			match(T__12);
+			match(T__13);
 			setState(111);
 			match(T__4);
 			setState(112);
-			relation();
+			variable_list();
 			setState(113);
 			match(T__5);
+			setState(114);
+			match(T__14);
+			setState(115);
+			match(Lower_word);
 			}
 		}
 		catch (RecognitionException re) {
@@ -817,13 +824,13 @@ public class SpecificationParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(115);
-			match(Lower_word);
-			setState(116);
-			match(T__4);
 			setState(117);
-			variable_list();
+			match(Lower_word);
 			setState(118);
+			match(T__4);
+			setState(119);
+			variable_list();
+			setState(120);
 			match(T__5);
 			}
 		}
@@ -871,21 +878,21 @@ public class SpecificationParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(120);
+			setState(122);
 			variable();
-			setState(125);
+			setState(127);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__7) {
 				{
 				{
-				setState(121);
+				setState(123);
 				match(T__7);
-				setState(122);
+				setState(124);
 				variable();
 				}
 				}
-				setState(127);
+				setState(129);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -931,7 +938,7 @@ public class SpecificationParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(128);
+			setState(130);
 			_la = _input.LA(1);
 			if ( !(_la==Upper_word || _la==Lower_word) ) {
 			_errHandler.recoverInline(this);
@@ -983,7 +990,7 @@ public class SpecificationParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(130);
+			setState(132);
 			_la = _input.LA(1);
 			if ( !(_la==Upper_word || _la==Lower_word) ) {
 			_errHandler.recoverInline(this);
@@ -1033,7 +1040,7 @@ public class SpecificationParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(132);
+			setState(134);
 			match(Lower_word);
 			}
 		}
@@ -1049,39 +1056,40 @@ public class SpecificationParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\24\u0089\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\26\u008b\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\3\2\7\2"+
 		"$\n\2\f\2\16\2\'\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\7\4\63\n"+
 		"\4\f\4\16\4\66\13\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\7\5?\n\5\f\5\16\5B\13"+
 		"\5\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\7\6M\n\6\f\6\16\6P\13\6\3\6\3\6"+
 		"\3\7\3\7\3\7\7\7W\n\7\f\7\16\7Z\13\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\5\tc"+
-		"\n\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3\f"+
-		"\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\7\16~\n\16\f\16\16\16\u0081"+
-		"\13\16\3\17\3\17\3\20\3\20\3\21\3\21\3\21\2\2\22\2\4\6\b\n\f\16\20\22"+
-		"\24\26\30\32\34\36 \2\3\3\2\23\24\2\u0081\2%\3\2\2\2\4*\3\2\2\2\6\64\3"+
-		"\2\2\2\b\67\3\2\2\2\nE\3\2\2\2\fS\3\2\2\2\16[\3\2\2\2\20b\3\2\2\2\22f"+
-		"\3\2\2\2\24k\3\2\2\2\26p\3\2\2\2\30u\3\2\2\2\32z\3\2\2\2\34\u0082\3\2"+
-		"\2\2\36\u0084\3\2\2\2 \u0086\3\2\2\2\"$\5\4\3\2#\"\3\2\2\2$\'\3\2\2\2"+
-		"%#\3\2\2\2%&\3\2\2\2&(\3\2\2\2\'%\3\2\2\2()\7\2\2\3)\3\3\2\2\2*+\7\3\2"+
-		"\2+,\5\34\17\2,-\7\4\2\2-.\5\6\4\2./\7\5\2\2/\5\3\2\2\2\60\63\5\b\5\2"+
-		"\61\63\5\n\6\2\62\60\3\2\2\2\62\61\3\2\2\2\63\66\3\2\2\2\64\62\3\2\2\2"+
-		"\64\65\3\2\2\2\65\7\3\2\2\2\66\64\3\2\2\2\678\7\6\2\289\5\34\17\29:\7"+
-		"\7\2\2:;\5\f\7\2;<\7\b\2\2<@\7\4\2\2=?\5\20\t\2>=\3\2\2\2?B\3\2\2\2@>"+
-		"\3\2\2\2@A\3\2\2\2AC\3\2\2\2B@\3\2\2\2CD\7\5\2\2D\t\3\2\2\2EF\7\t\2\2"+
-		"FG\5\34\17\2GH\7\7\2\2HI\5\f\7\2IJ\7\b\2\2JN\7\4\2\2KM\5\20\t\2LK\3\2"+
-		"\2\2MP\3\2\2\2NL\3\2\2\2NO\3\2\2\2OQ\3\2\2\2PN\3\2\2\2QR\7\5\2\2R\13\3"+
-		"\2\2\2SX\5\16\b\2TU\7\n\2\2UW\5\16\b\2VT\3\2\2\2WZ\3\2\2\2XV\3\2\2\2X"+
-		"Y\3\2\2\2Y\r\3\2\2\2ZX\3\2\2\2[\\\5\36\20\2\\]\7\13\2\2]^\5 \21\2^\17"+
-		"\3\2\2\2_c\5\22\n\2`c\5\24\13\2ac\5\26\f\2b_\3\2\2\2b`\3\2\2\2ba\3\2\2"+
-		"\2cd\3\2\2\2de\7\f\2\2e\21\3\2\2\2fg\7\r\2\2gh\7\7\2\2hi\5\36\20\2ij\7"+
-		"\b\2\2j\23\3\2\2\2kl\7\16\2\2lm\7\7\2\2mn\5\30\r\2no\7\b\2\2o\25\3\2\2"+
-		"\2pq\7\17\2\2qr\7\7\2\2rs\5\30\r\2st\7\b\2\2t\27\3\2\2\2uv\7\24\2\2vw"+
-		"\7\7\2\2wx\5\32\16\2xy\7\b\2\2y\31\3\2\2\2z\177\5\36\20\2{|\7\n\2\2|~"+
-		"\5\36\20\2}{\3\2\2\2~\u0081\3\2\2\2\177}\3\2\2\2\177\u0080\3\2\2\2\u0080"+
-		"\33\3\2\2\2\u0081\177\3\2\2\2\u0082\u0083\t\2\2\2\u0083\35\3\2\2\2\u0084"+
-		"\u0085\t\2\2\2\u0085\37\3\2\2\2\u0086\u0087\7\24\2\2\u0087!\3\2\2\2\n"+
-		"%\62\64@NXb\177";
+		"\n\t\3\t\3\t\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\f\3\f\3"+
+		"\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\7\16\u0080\n\16"+
+		"\f\16\16\16\u0083\13\16\3\17\3\17\3\20\3\20\3\21\3\21\3\21\2\2\22\2\4"+
+		"\6\b\n\f\16\20\22\24\26\30\32\34\36 \2\3\3\2\25\26\2\u0083\2%\3\2\2\2"+
+		"\4*\3\2\2\2\6\64\3\2\2\2\b\67\3\2\2\2\nE\3\2\2\2\fS\3\2\2\2\16[\3\2\2"+
+		"\2\20b\3\2\2\2\22f\3\2\2\2\24i\3\2\2\2\26p\3\2\2\2\30w\3\2\2\2\32|\3\2"+
+		"\2\2\34\u0084\3\2\2\2\36\u0086\3\2\2\2 \u0088\3\2\2\2\"$\5\4\3\2#\"\3"+
+		"\2\2\2$\'\3\2\2\2%#\3\2\2\2%&\3\2\2\2&(\3\2\2\2\'%\3\2\2\2()\7\2\2\3)"+
+		"\3\3\2\2\2*+\7\3\2\2+,\5\34\17\2,-\7\4\2\2-.\5\6\4\2./\7\5\2\2/\5\3\2"+
+		"\2\2\60\63\5\b\5\2\61\63\5\n\6\2\62\60\3\2\2\2\62\61\3\2\2\2\63\66\3\2"+
+		"\2\2\64\62\3\2\2\2\64\65\3\2\2\2\65\7\3\2\2\2\66\64\3\2\2\2\678\7\6\2"+
+		"\289\5\34\17\29:\7\7\2\2:;\5\f\7\2;<\7\b\2\2<@\7\4\2\2=?\5\20\t\2>=\3"+
+		"\2\2\2?B\3\2\2\2@>\3\2\2\2@A\3\2\2\2AC\3\2\2\2B@\3\2\2\2CD\7\5\2\2D\t"+
+		"\3\2\2\2EF\7\t\2\2FG\5\34\17\2GH\7\7\2\2HI\5\f\7\2IJ\7\b\2\2JN\7\4\2\2"+
+		"KM\5\20\t\2LK\3\2\2\2MP\3\2\2\2NL\3\2\2\2NO\3\2\2\2OQ\3\2\2\2PN\3\2\2"+
+		"\2QR\7\5\2\2R\13\3\2\2\2SX\5\16\b\2TU\7\n\2\2UW\5\16\b\2VT\3\2\2\2WZ\3"+
+		"\2\2\2XV\3\2\2\2XY\3\2\2\2Y\r\3\2\2\2ZX\3\2\2\2[\\\5\36\20\2\\]\7\13\2"+
+		"\2]^\5 \21\2^\17\3\2\2\2_c\5\22\n\2`c\5\24\13\2ac\5\26\f\2b_\3\2\2\2b"+
+		"`\3\2\2\2ba\3\2\2\2cd\3\2\2\2de\7\f\2\2e\21\3\2\2\2fg\7\r\2\2gh\5\36\20"+
+		"\2h\23\3\2\2\2ij\7\16\2\2jk\7\7\2\2kl\5\32\16\2lm\7\b\2\2mn\7\17\2\2n"+
+		"o\7\26\2\2o\25\3\2\2\2pq\7\20\2\2qr\7\7\2\2rs\5\32\16\2st\7\b\2\2tu\7"+
+		"\21\2\2uv\7\26\2\2v\27\3\2\2\2wx\7\26\2\2xy\7\7\2\2yz\5\32\16\2z{\7\b"+
+		"\2\2{\31\3\2\2\2|\u0081\5\36\20\2}~\7\n\2\2~\u0080\5\36\20\2\177}\3\2"+
+		"\2\2\u0080\u0083\3\2\2\2\u0081\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\33"+
+		"\3\2\2\2\u0083\u0081\3\2\2\2\u0084\u0085\t\2\2\2\u0085\35\3\2\2\2\u0086"+
+		"\u0087\t\2\2\2\u0087\37\3\2\2\2\u0088\u0089\7\26\2\2\u0089!\3\2\2\2\n"+
+		"%\62\64@NXb\u0081";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

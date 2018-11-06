@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.architecturemining.ismodeler.specification.SpecificationBuilder;
+import org.architecturemining.ismodeler.specification.SpecificationReader;
 import org.architecturemining.ismodeler.specification.parsing.SpecificationLexer;
 import org.architecturemining.ismodeler.specification.parsing.SpecificationParser;
 import org.architecturemining.ismodeler.specification.parsing.SpecificationParser.Process_contentContext;
@@ -15,19 +15,10 @@ public class ParserTest {
 
 	public static void main(String[] args) {
 		try {
-			CharStream stream = CharStreams.fromFileName("/home/jmw/git/DPS/example/students2.2.spec");
-			// CharStream stream = CharStreams.fromString("process Test { }");
-			
-			SpecificationLexer lexer = new SpecificationLexer(stream);
-			CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-	        SpecificationParser parser = new SpecificationParser(tokenStream);
-	        Specication_fileContext spec = parser.specication_file();
 	        
-	        SpecificationBuilder builder = new SpecificationBuilder();
-	        
-	        builder.visit(spec);
-	        
-	        System.out.println(builder.getSpecification().toString());
+	        String output = SpecificationReader.fromFileName("/home/jmw/git/DPS/example/students2.2.spec").toString();
+	        System.out.println(output); 
+	        //System.out.println(SpecificationReader.fromString(output).toString());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

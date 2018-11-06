@@ -14,9 +14,11 @@ public class InsertOperation extends Operation {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("insert( ");
-		sb.append(relation.toTFF(false));		
-		sb.append(" );");
+		sb.append("insert (");
+		sb.append(relation.getParameterString());		
+		sb.append(") into ");
+		sb.append(relation.getLabel());
+		sb.append(";");
 		return sb.toString();
 	}
 

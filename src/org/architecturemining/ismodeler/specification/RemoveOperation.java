@@ -14,9 +14,11 @@ public class RemoveOperation extends Operation {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("remove( ");
-		sb.append(relation.toTFF(false));		
-		sb.append(" );");
+		sb.append("remove (");
+		sb.append(relation.getParameterString());		
+		sb.append(") from ");
+		sb.append(relation.getLabel());
+		sb.append(";");
 		return sb.toString();
 	}
 }
