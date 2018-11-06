@@ -41,8 +41,9 @@ class TestAndOperator extends WorldTester {
 				);
 		assertFalse(and2.isValidIn(world));
 		ex = and2.findExplanationFor(world);
-		System.out.println(ex);
-		assertEquals(2, ex.size());
+		//System.out.println(ex);
+		assertEquals(3, ex.size());
+		ex.contains(new Not(hume));
 		ex.contains(new Not(new Relation("philosopher", hume)));
 		ex.contains(new Not(and2));
 		
@@ -61,7 +62,7 @@ class TestAndOperator extends WorldTester {
 		assertFalse(and4.isValidIn(world));
 		ex = and4.findExplanationFor(world);
 		assertEquals(3, ex.size());
-		assertTrue(ex.contains(new Not(new Relation("philosopher", hume))));
+		assertTrue(ex.contains(new Not(descartes)));
 		assertTrue(ex.contains(new Not(new Relation("philosopher", descartes))));
 		assertTrue(ex.contains(new Not(and4)));
 	}

@@ -3,6 +3,7 @@ package org.architecturemining.ismodeler.proving.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
@@ -103,7 +104,7 @@ public class Relation extends Literal {
 	
 	@Override
 	public String toTFF(boolean typed) {
-		return getLabel() + "(" + getParameterString() + ")";
+		return getLabel() + "(" + getParameterString() + " )";
 	}
 
 	public String getParameterString() {
@@ -118,6 +119,51 @@ public class Relation extends Literal {
 		} else {
 			return "";
 		}
+	}
+	
+	/**
+	 * Returns true if the Literal is part of the world.
+	 */
+	@Override
+	public boolean isValidIn(World world) {
+		if (this.isAbstract()) {
+			return false;
+		}
+		
+		for(Literal item: parameters) {
+			if (!item.isValidIn(world)) {
+				return false;
+			}
+		}
+		
+		return world.contains(this);
+	}
+	
+	/**
+	 * The only way a Literal cannot be true, is if it does
+	 * not exist in the world. Hence, to explain why it is false,
+	 * we only need to state that the literal is not in the world.
+	 */
+	@Override
+	public Stack<Clause> findExplanationFor(World world) {
+		Stack<Clause> explain = new Stack<>();
+		
+		if (this.isAbstract()) {
+			explain.add(this);
+			return explain;
+		}
+		
+		for(Literal item: parameters) {
+			if (!item.isValidIn(world)) {
+				explain.add(new Not(item));
+			}
+		}
+		
+		if (!world.contains(this)) {
+			explain.add(new Not(this));
+		}
+		
+		return explain;
 	}
 	
 }

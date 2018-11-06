@@ -100,8 +100,9 @@ public class Or extends Operator {
 		Not dm = new Not(new And(notClauses));
 		
 		Stack<Clause> result = dm.findExplanationFor(world);
-		result.add(new Not(this));
-		
+		if (!result.isEmpty()) {
+			result.add(new Not(this));
+		}
 		return result;
 	}
 

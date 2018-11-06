@@ -53,4 +53,17 @@ public class Element extends Literal {
 			return getLabel();
 		}
 	}
+	
+	/**
+	 * Returns true if the Literal is part of the world.
+	 */
+	@Override
+	public boolean isValidIn(World world) {
+		if (world.contains(this)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

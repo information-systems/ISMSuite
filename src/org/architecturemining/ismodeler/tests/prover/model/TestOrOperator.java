@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Stack;
 
+import org.architecturemining.ismodeler.proving.model.And;
 import org.architecturemining.ismodeler.proving.model.Clause;
 import org.architecturemining.ismodeler.proving.model.Element;
 import org.architecturemining.ismodeler.proving.model.Not;
@@ -32,6 +33,7 @@ class TestOrOperator extends WorldTester {
 		);
 		assertTrue(or1.isValidIn(world));
 		Stack<Clause> ex = or1.findExplanationFor(world);
+		System.out.println(Clause.printStack(ex));
 		assertTrue(ex.isEmpty());
 		
  		// TRUE: philosopher( Hume ) or philosopher( Plato )
@@ -50,10 +52,12 @@ class TestOrOperator extends WorldTester {
 		);
 		assertFalse(or3.isValidIn(world));
 		ex = or3.findExplanationFor(world);
-		System.out.println(ex);
-		assertEquals(3, ex.size());
-		assertTrue(ex.contains(new Not(new Relation("philosopher", hume))));
-		assertTrue(ex.contains(new Not(new Relation("philosopher", descartes))));
+		System.out.println(Clause.printStack(ex));
+		assertEquals(2, ex.size());
+		assertTrue(ex.contains(new And(
+				new Not(new Relation("philosopher", hume)),
+				new Not(new Relation("philosopher", descartes))
+		)));
 		assertTrue(ex.contains(new Not(or3)));
 		
 		// TRUE: not(philosopher( Hume ) ) or philosopher ( Descartes )

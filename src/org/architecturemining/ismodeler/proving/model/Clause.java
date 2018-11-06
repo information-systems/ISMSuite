@@ -105,8 +105,10 @@ public abstract class Clause implements Cloneable, Comparable<Clause> {
 	 */
 	public static String printStack(Stack<Clause> stack) {
 		StringBuilder sb = new StringBuilder();
-		
-		for( int i = stack.size() -1 ; i <= 0 ; i-- ) {
+		sb.append("Size: ");
+		sb.append(stack.size());
+		sb.append("\n");
+		for( int i = stack.size() -1 ; i >= 0 ; i-- ) {
 			Clause c = stack.get(i);
 			sb.append(c.toTFF(false));
 			sb.append("\n");

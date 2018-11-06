@@ -19,25 +19,11 @@ public abstract class Literal extends Clause {
 	}
 	
 	/**
-	 * Returns true if the Literal is part of the world.
-	 */
-	@Override
-	public boolean isValidIn(World world) {
-		if (this.isAbstract()) {
-			return false;
-		}
-		if (world.contains(this)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	/**
 	 * The only way a Literal cannot be true, is if it does
 	 * not exist in the world. Hence, to explain why it is false,
 	 * we only need to state that the literal is not in the world.
 	 */
+	@Override
 	public Stack<Clause> findExplanationFor(World world) {
 		Stack<Clause> explain = new Stack<>();
 		if (this.isAbstract()) {
