@@ -4,8 +4,8 @@
     <!--ANT 1.7 is required-->
     <!--define folder properties-->
     <property name="dir.buildfile" value="."/>
-    <property name="dir.workspace" value="C:/test"/>
-    <property name="dir.jarfile" value="C:/GIT/DPS/tool"/>
+    <property name="dir.workspace" value="../"/>
+    <property name="dir.jarfile" value="../tool"/>
     <target name="create_run_jar">
         <jar destfile="${dir.jarfile}/Prover.jar">
             <manifest>
@@ -15,8 +15,8 @@
                 <attribute name="Rsrc-Class-Path" value="./ antlr-4.7.1-complete.jar"/>
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
-            <zipfileset dir="C:/GIT/DPS/lib" includes="antlr-4.7.1-complete.jar"/>
-            <fileset dir="C:/GIT/DPS/bin"/>
+            <zipfileset dir="../lib" includes="antlr-4.7.1-complete.jar"/>
+            <fileset dir="../bin"/>
         </jar>
     </target>
 </project>
