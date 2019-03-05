@@ -56,4 +56,15 @@ public class SimpleVector {
 		}
 		return vector[i];
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		for(int i = 0; i < size() ; i++ ) {
+			b.append(", ");
+			b.append(vector[i]);
+		}
+		
+		return "{" + b.substring(1) + " }";
+	}
 }

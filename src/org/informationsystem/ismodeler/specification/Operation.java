@@ -2,9 +2,9 @@ package org.informationsystem.ismodeler.specification;
 
 import java.util.Map;
 
-import org.informationsystem.ismodeler.proving.model.Element;
-import org.informationsystem.ismodeler.proving.model.Variable;
-import org.informationsystem.ismodeler.proving.model.World;
+import org.informationsystem.proving.model.Element;
+import org.informationsystem.proving.model.Variable;
+import org.informationsystem.proving.model.World;
 
 public abstract class Operation {
 

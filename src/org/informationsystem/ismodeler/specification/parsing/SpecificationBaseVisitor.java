@@ -80,6 +80,13 @@ public class SpecificationBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitDeregister_operator(SpecificationParser.Deregister_operatorContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitInsert_operator(SpecificationParser.Insert_operatorContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

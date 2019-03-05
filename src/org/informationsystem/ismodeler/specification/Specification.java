@@ -52,4 +52,8 @@ public class Specification {
 		return transitions.keySet();
 	}
 	
+	public Transaction getPlace(String place) {
+		return places.get(place);
+	}
+	
 }

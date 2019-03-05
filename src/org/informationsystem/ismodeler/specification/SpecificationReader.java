@@ -10,14 +10,14 @@ import java.util.Map;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.informationsystem.ismodeler.proving.model.Literal;
-import org.informationsystem.ismodeler.proving.model.Relation;
-import org.informationsystem.ismodeler.proving.model.Variable;
 import org.informationsystem.ismodeler.specification.parsing.SpecificationBaseVisitor;
 import org.informationsystem.ismodeler.specification.parsing.SpecificationLexer;
 import org.informationsystem.ismodeler.specification.parsing.SpecificationParser;
 import org.informationsystem.ismodeler.specification.parsing.SpecificationParser.Specication_fileContext;
 import org.informationsystem.ismodeler.specification.parsing.SpecificationParser.Variable_declarationContext;
+import org.informationsystem.proving.model.Literal;
+import org.informationsystem.proving.model.Relation;
+import org.informationsystem.proving.model.Variable;
 
 public class SpecificationReader { 
 
@@ -106,6 +106,9 @@ public class SpecificationReader {
 				if (transactions.get(i).register_operator() != null) {
 					op = buildRegisterOperation(transactions.get(i).register_operator(), vars);
 				}
+				if (transactions.get(i).deregister_operator() != null) {
+					op = buildDeregisterOperation(transactions.get(i).deregister_operator(), vars);
+				}
 				if (transactions.get(i).insert_operator() != null) {
 					op = buildInsertOperation(transactions.get(i).insert_operator(), vars);
 				}
@@ -126,6 +129,15 @@ public class SpecificationReader {
 				type = vars.get(varname);
 			}
 			return new RegisterOperation(new Variable(varname, type));
+		}
+		
+		private DeregisterOperation buildDeregisterOperation(SpecificationParser.Deregister_operatorContext ctx, Map<String,String> vars) {
+			String varname = ctx.variable().getText();
+			String type = "";
+			if (vars.containsKey(varname)) {
+				type = vars.get(varname);
+			}
+			return new DeregisterOperation(new Variable(varname, type));
 		}
 		
 		private InsertOperation buildInsertOperation(SpecificationParser.Insert_operatorContext ctx, Map<String, String> vars) {

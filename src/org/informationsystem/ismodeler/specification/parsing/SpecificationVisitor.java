@@ -65,6 +65,12 @@ public interface SpecificationVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRegister_operator(SpecificationParser.Register_operatorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link SpecificationParser#deregister_operator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeregister_operator(SpecificationParser.Deregister_operatorContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link SpecificationParser#insert_operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -10,7 +10,7 @@
         <jar destfile="${dir.jarfile}/Prover.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
-                <attribute name="Rsrc-Main-Class" value="org.architecturemining.ismodeler.proving.Prover"/>
+                <attribute name="Rsrc-Main-Class" value="org.informationsystem.proving.Prover"/>
                 <attribute name="Class-Path" value="."/>
                 <attribute name="Rsrc-Class-Path" value="./ antlr-4.7.1-complete.jar"/>
             </manifest>

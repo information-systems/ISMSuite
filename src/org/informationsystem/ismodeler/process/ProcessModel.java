@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.informationsystem.ismodeler.proving.model.Element;
-import org.informationsystem.ismodeler.proving.model.Variable;
+import org.informationsystem.proving.model.Element;
+import org.informationsystem.proving.model.Variable;
 
 public interface ProcessModel {
 
@@ -13,8 +13,8 @@ public interface ProcessModel {
 	
 	List<String> getPlaces();
 	List<String> getTransitions();
-	List<Entry<String, Binding>> getEnabledTransitions();
+	List<BoundTransition> getEnabledTransitions();
 	
-	boolean fire(String transition);
+	boolean fire(BoundTransition transition);
 	
 }

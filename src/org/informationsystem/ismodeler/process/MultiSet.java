@@ -195,4 +195,20 @@ public class MultiSet<T> implements Set<T> {
 		return null;
 	}
 	
+	@Override
+	public String toString() {
+		if (isEmpty()) {
+			return "[]";
+		}
+		StringBuilder b = new StringBuilder();
+		
+		for(MultiSetItem<T> it: items.values()) {
+			b.append(", ");
+			b.append(it.getObject().toString());
+			b.append(": ");
+			b.append(it.getCount());
+		}
+		
+		return "[" + b.substring(1) + " ]";
+	}
 }

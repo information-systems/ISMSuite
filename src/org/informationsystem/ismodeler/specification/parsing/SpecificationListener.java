@@ -98,6 +98,16 @@ public interface SpecificationListener extends ParseTreeListener {
 	 */
 	void exitRegister_operator(SpecificationParser.Register_operatorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SpecificationParser#deregister_operator}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeregister_operator(SpecificationParser.Deregister_operatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SpecificationParser#deregister_operator}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeregister_operator(SpecificationParser.Deregister_operatorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SpecificationParser#insert_operator}.
 	 * @param ctx the parse tree
 	 */

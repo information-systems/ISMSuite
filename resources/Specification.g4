@@ -31,9 +31,10 @@ transition           : 'transition' name '(' argument_list ')' '{' transaction* 
 argument_list        : variable_declaration (',' variable_declaration )*;
 variable_declaration : variable ':' type;
 
-transaction          : (register_operator | insert_operator | remove_operator) ';' ;
+transaction          : (register_operator | insert_operator | remove_operator | deregister_operator ) ';' ;
 
 register_operator    : 'register' variable ;
+deregister_operator  : 'deregister' variable ;
 
 insert_operator      : 'insert' '(' variable_list ')' 'into' Lower_word;
 remove_operator      : 'remove' '(' variable_list ')' 'from' Lower_word;
