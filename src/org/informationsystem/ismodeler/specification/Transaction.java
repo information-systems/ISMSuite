@@ -11,8 +11,6 @@ import org.informationsystem.proving.model.Element;
 import org.informationsystem.proving.model.Variable;
 import org.informationsystem.proving.model.World;
 
-import jdk.internal.jline.console.completer.ArgumentCompleter.ArgumentList;
-
 public class Transaction {
 
 	private List<Operation> myoperations = new ArrayList<>();

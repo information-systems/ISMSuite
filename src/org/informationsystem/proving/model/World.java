@@ -85,6 +85,7 @@ public class World implements Cloneable {
 	
 	public boolean removeElement(Element e) {
 		if (elements.containsKey(e.getType())) {
+			items.remove(e.getLabel());
 			return elements.get(e.getType()).remove(e);
 		} else {
 			return true;
