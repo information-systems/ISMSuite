@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project DPS">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="/home/jmw/java-workspace"/>
+    <property name="dir.jarfile" value="/home/jmw/git/DPS/tool"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/ISModeler.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.informationsystem.ismodeler.ISModeler"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="/home/jmw/git/DPS/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/commons-lang3-3.7.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.cpntools.accesscpn.cosimulation_2.2.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.cpntools.accesscpn.engine_2.2.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.cpntools.accesscpn.engine.proxy_2.2.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.cpntools.accesscpn.model_2.2.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.cpntools.accesscpn.model.exporter_2.2.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.cpntools.accesscpn.model.importer_2.2.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.eclipse.emf.common.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/org.eclipse.emf.ecore-2.7.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/google-guava.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.jarfile}/accesscpn-2.2.0/javax.ws.rs-api-2.0.rev.A.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/jmw/git/DPS/lib/antlr-4.7.1-complete.jar"/>
+        </jar>
+    </target>
+</project>

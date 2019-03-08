@@ -1,5 +1,7 @@
 package org.informationsystem.ismodeler;
 
+import java.awt.EventQueue;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +33,13 @@ public class ISModeler {
 				ClauseReader.buildWorldFrom(datamodel)
 				);
 				
-		MainFrame m = new MainFrame(controller);
-		
-		m.setVisible(true);
+		try {
+			MainFrame.invokeUI(controller);
+		} catch (InvocationTargetException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 	}
 	

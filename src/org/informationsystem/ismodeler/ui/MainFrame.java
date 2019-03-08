@@ -2,6 +2,7 @@ package org.informationsystem.ismodeler.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -36,6 +37,21 @@ public class MainFrame extends JFrame {
         splitter.setContinuousLayout(true);
 				
 		this.add(splitter, BorderLayout.CENTER);
+	}
+	
+	// Invoke/show the UI.
+	public static void invokeUI(Controller controller) throws InvocationTargetException, InterruptedException {
+		EventQueue.invokeAndWait(new Runnable() {
+			@Override public void run() {
+				try {
+					final MainFrame frame = new MainFrame(controller);
+					frame.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 }
