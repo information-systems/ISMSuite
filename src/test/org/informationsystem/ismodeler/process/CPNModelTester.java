@@ -11,11 +11,6 @@ import org.junit.jupiter.api.Test;
 
 class CPNModelTester {
 
-	
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
 	@Test
 	void testTransitionList() {
 		try {
@@ -39,10 +34,12 @@ class CPNModelTester {
 			CPNModel model = CPNModel.getInstance();
 			Collection<String> list = model.getPlaces();
 			
-			assertEquals(list.size(), 3, "Unexpected number of transitions");
+			assertEquals(list.size(), 4, "Unexpected number of transitions");
 			assertTrue(list.contains("Philosophers.Counter"));
 			assertTrue(list.contains("Philosophers.Philosopher"));
 			assertTrue(list.contains("Philosophers.Human"));
+
+			model.getCurrentMarking();
 			
 		} catch (Exception e) {
 			fail("CPN Model trows unexpected exception: " + e.getMessage());

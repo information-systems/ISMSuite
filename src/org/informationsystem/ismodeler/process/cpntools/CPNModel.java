@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.cpntools.accesscpn.engine.highlevel.HighLevelSimulator;
 import org.cpntools.accesscpn.engine.highlevel.instance.Instance;
+import org.cpntools.accesscpn.engine.highlevel.instance.Marking;
+import org.cpntools.accesscpn.engine.highlevel.instance.State;
 import org.cpntools.accesscpn.engine.proxy.ProxyDaemon;
 import org.cpntools.accesscpn.engine.proxy.ProxySimulator;
 import org.cpntools.accesscpn.model.PetriNet;
@@ -77,7 +79,18 @@ public class CPNModel implements ProcessModel {
 	
 	@Override
 	public Map<String, MultiSet<Token>> getCurrentMarking() {
-		// TODO Auto-generated method stub
+		try {
+			State state = simulator.getMarking();
+			for( Marking m : state.getAllMarkings()) {
+				System.out.print(m.getPlaceInstance().toString());
+				System.out.print(": ");
+				System.out.println(m.getMarking());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

@@ -119,204 +119,204 @@ Stop message:
 Call chain: (nti_ms)
 
   item <stop#> in ~beta/basiclib/betaenv
-  { PC  0x48962b <M194BETAENV+0xf7>, object 0x4d0f460, proto 0x911fbc stop# [ast: 0x0001,0x0973] <T194BETAENV> }
+  { PC  0x48962b <M194BETAENV+0xf7>, object 0x4ced820, proto 0x911fbc stop# [ast: 0x0001,0x0973] <T194BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <exception#> in ~beta/basiclib/betaenv
-  { PC  0x489bc7 <M235BETAENV+0xab>, object 0x4d0f298, proto 0x912674 exception# [ast: 0x0001,0x0b6b] <T235BETAENV> }
+  { PC  0x489bc7 <M235BETAENV+0xab>, object 0x4ced658, proto 0x912674 exception# [ast: 0x0001,0x0b6b] <T235BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <Error#>error#hiErrCB#integerObject#integerValue# in C:/cpn2000/document/ml/mlsocket
-  { PC  0x52ae80 <M40MLSOCKET+0x62>, object 0x4d0f280, proto 0xa65412 Error# [ast: 0x0001,0x0203] <T40MLSOCKET> }
+  { PC  0x52ae80 <M40MLSOCKET+0x62>, object 0x4ced640, proto 0xa65412 Error# [ast: 0x0001,0x0203] <T40MLSOCKET> }
     -- MLSocket#BasicSocket# in C:/cpn2000/document/ml/mlsocket
-    { Surrounding object 0x4f67e10, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
+    { Surrounding object 0x4f515a8, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
   item Error#<error#>hiErrCB#integerObject#integerValue# in ~beta/process/basicsocket
-  { PC  0x6d17d3 <M25BASICSOCKET+0x7>, object 0x4d0f280, proto 0xa65bfc error# [ast: 0x0001,0x010f] <T25BASICSOCKET> }
+  { PC  0x6d17d3 <M25BASICSOCKET+0x7>, object 0x4ced640, proto 0xa65bfc error# [ast: 0x0001,0x010f] <T25BASICSOCKET> }
     -- MLSocket#BasicSocket# in C:/cpn2000/document/ml/mlsocket
-    { Surrounding object 0x4f67e10, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
+    { Surrounding object 0x4f515a8, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
   item Error#error#<hiErrCB#>integerObject#integerValue# in ~beta/process/errorcallback
-  { PC  0x6d2068 <M10ERRORCALLBACK+0x7>, object 0x4d0f280, proto 0xa670c0 hiErrCB# [ast: 0x0001,0x0057] <T10ERRORCALLBACK> }
+  { PC  0x6d2068 <M10ERRORCALLBACK+0x7>, object 0x4ced640, proto 0xa670c0 hiErrCB# [ast: 0x0001,0x0057] <T10ERRORCALLBACK> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item Error#error#hiErrCB#<integerObject#>integerValue# in ~beta/basiclib/betaenv
-  { PC  0x402942 <M26BETAENV+0x7>, object 0x4d0f280, proto 0x910584 integerObject# [ast: 0x0001,0x00c9] <T26BETAENV> }
+  { PC  0x402942 <M26BETAENV+0x7>, object 0x4ced640, proto 0x910584 integerObject# [ast: 0x0001,0x00c9] <T26BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item Error#error#hiErrCB#integerObject#<integerValue#> in ~beta/basiclib/betaenv
-  { PC  0x40294d <M25BETAENV+0xa>, object 0x4d0f280, proto 0x91054e integerValue# [ast: 0x0001,0x00bc] <T25BETAENV> }
+  { PC  0x40294d <M25BETAENV+0xa>, object 0x4ced640, proto 0x91054e integerValue# [ast: 0x0001,0x00bc] <T25BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <error#>hiErrCB#integerObject#integerValue# in ~beta/process/basicsocket
-  { PC  0x6d176e <M32BASICSOCKET+0x5c>, object 0x4d0f268, proto 0xa65d9c error# [ast: 0x0001,0x0154] <T32BASICSOCKET> }
+  { PC  0x6d176e <M32BASICSOCKET+0x5c>, object 0x4ced628, proto 0xa65d9c error# [ast: 0x0001,0x0154] <T32BASICSOCKET> }
     -- *Put#withIdle#withPE# in C:/cpn2000/document/ml/private/mlcombody
-    { Surrounding object 0x4d0f0e8, proto 0x99ebe6 * [ast: 0x000b,0x0110] <T11MLCOMPRIVATE> }
+    { Surrounding object 0x4ced4a8, proto 0x99ebe6 * [ast: 0x000b,0x0110] <T11MLCOMPRIVATE> }
   item error#<hiErrCB#>integerObject#integerValue# in ~beta/process/errorcallback
-  { PC  0x6d2068 <M10ERRORCALLBACK+0x7>, object 0x4d0f268, proto 0xa670c0 hiErrCB# [ast: 0x0001,0x0057] <T10ERRORCALLBACK> }
+  { PC  0x6d2068 <M10ERRORCALLBACK+0x7>, object 0x4ced628, proto 0xa670c0 hiErrCB# [ast: 0x0001,0x0057] <T10ERRORCALLBACK> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item error#hiErrCB#<integerObject#>integerValue# in ~beta/basiclib/betaenv
-  { PC  0x402942 <M26BETAENV+0x7>, object 0x4d0f268, proto 0x910584 integerObject# [ast: 0x0001,0x00c9] <T26BETAENV> }
+  { PC  0x402942 <M26BETAENV+0x7>, object 0x4ced628, proto 0x910584 integerObject# [ast: 0x0001,0x00c9] <T26BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item error#hiErrCB#integerObject#<integerValue#> in ~beta/basiclib/betaenv
-  { PC  0x40294d <M25BETAENV+0xa>, object 0x4d0f268, proto 0x91054e integerValue# [ast: 0x0001,0x00bc] <T25BETAENV> }
+  { PC  0x40294d <M25BETAENV+0xa>, object 0x4ced628, proto 0x91054e integerValue# [ast: 0x0001,0x00bc] <T25BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item connBrokenError#<loErrCB#>errCB#integerValue# in ~beta/process/basicsocket
-  { PC  0x6d16dd <M33BASICSOCKET+0x59>, object 0x4d0f1b8, proto 0xa65ddc loErrCB# [ast: 0x0001,0x016e] <T33BASICSOCKET> }
+  { PC  0x6d16dd <M33BASICSOCKET+0x59>, object 0x4ced578, proto 0xa65ddc loErrCB# [ast: 0x0001,0x016e] <T33BASICSOCKET> }
     -- *Put#withIdle#withPE# in C:/cpn2000/document/ml/private/mlcombody
-    { Surrounding object 0x4d0f0e8, proto 0x99ebe6 * [ast: 0x000b,0x0110] <T11MLCOMPRIVATE> }
+    { Surrounding object 0x4ced4a8, proto 0x99ebe6 * [ast: 0x000b,0x0110] <T11MLCOMPRIVATE> }
   item connBrokenError#loErrCB#<errCB#>integerValue# in ~beta/process/errorcallback
-  { PC  0x530050 <M5ERRORCALLBACK+0xe>, object 0x4d0f1b8, proto 0xa66fc0 errCB# [ast: 0x0001,0x0022] <T5ERRORCALLBACK> }
+  { PC  0x530050 <M5ERRORCALLBACK+0xe>, object 0x4ced578, proto 0xa66fc0 errCB# [ast: 0x0001,0x0022] <T5ERRORCALLBACK> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item connBrokenError#loErrCB#errCB#<integerValue#> in ~beta/basiclib/betaenv
-  { PC  0x40294d <M25BETAENV+0xa>, object 0x4d0f1b8, proto 0x91054e integerValue# [ast: 0x0001,0x00bc] <T25BETAENV> }
+  { PC  0x40294d <M25BETAENV+0xa>, object 0x4ced578, proto 0x91054e integerValue# [ast: 0x0001,0x00bc] <T25BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item *<errInquiry#> in ~beta/process/private/basicsocketbody
-  { PC  0x52b12f <M4BASICSOCKETBODY+0x70>, object 0x4d0f240, proto 0x99b386 errInquiry# [ast: 0x0002,0x0003] <T4BASICSOCKETBODY> }
+  { PC  0x52b12f <M4BASICSOCKETBODY+0x70>, object 0x4ced600, proto 0x99b386 errInquiry# [ast: 0x0002,0x0003] <T4BASICSOCKETBODY> }
     -- MLSocket#BasicSocket# in C:/cpn2000/document/ml/mlsocket
-    { Surrounding object 0x4f67e10, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
+    { Surrounding object 0x4f515a8, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
   item <sendMem#> in ~beta/process/private/basicsocketbody
-  { PC  0x52b865 <M9BASICSOCKETPRIVATE+0xee>, object 0x4f68960, proto 0x99b6d6 sendMem# [ast: 0x0004,0x00d2] <T9BASICSOCKETPRIVATE> }
+  { PC  0x52b865 <M9BASICSOCKETPRIVATE+0xee>, object 0x4f52288, proto 0x99b6d6 sendMem# [ast: 0x0004,0x00d2] <T9BASICSOCKETPRIVATE> }
     -- BASICSOCKETPRIVATE-~ in ~beta/process/private/basicsocketbody
-    { Surrounding object 0x4f68858, proto 0x99b47e BASICSOCKETPRIVATE-~ [ast: 0x0004,0x0001] <T1BASICSOCKETPRIVATE> }
+    { Surrounding object 0x4f52180, proto 0x99b47e BASICSOCKETPRIVATE-~ [ast: 0x0004,0x0001] <T1BASICSOCKETPRIVATE> }
   item <*> in C:/cpn2000/document/ml/private/mlsocketbody
-  { PC  0x52a908 <M1MLSOCKETPUT+0x261>, object 0x4d0f128, proto 0x99b01c * [ast: 0x0020,0x0003] <T1MLSOCKETPUT> }
+  { PC  0x52a908 <M1MLSOCKETPUT+0x261>, object 0x4ced4e8, proto 0x99b01c * [ast: 0x0020,0x0003] <T1MLSOCKETPUT> }
     -- *Put#withIdle#withPE# in C:/cpn2000/document/ml/private/mlcombody
-    { Surrounding object 0x4d0f0e8, proto 0x99ebe6 * [ast: 0x000b,0x0110] <T11MLCOMPRIVATE> }
+    { Surrounding object 0x4ced4a8, proto 0x99ebe6 * [ast: 0x000b,0x0110] <T11MLCOMPRIVATE> }
   item *<Put#>withIdle#withPE# in C:/cpn2000/document/ml/mlsocket
-  { PC  0x52a6a3 <M38MLSOCKET+0x30>, object 0x4d0f0e8, proto 0xa65344 Put# [ast: 0x0001,0x01e8] <T38MLSOCKET> }
+  { PC  0x52a6a3 <M38MLSOCKET+0x30>, object 0x4ced4a8, proto 0xa65344 Put# [ast: 0x0001,0x01e8] <T38MLSOCKET> }
     -- MLSocket#BasicSocket# in C:/cpn2000/document/ml/mlsocket
-    { Surrounding object 0x4f67e10, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
+    { Surrounding object 0x4f515a8, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
   item *Put#<withIdle#>withPE# in ~beta/process/basicsocket
-  { PC  0x6d145a <M42BASICSOCKET+0x7>, object 0x4d0f0e8, proto 0xa66088 withIdle# [ast: 0x0001,0x01d6] <T42BASICSOCKET> }
+  { PC  0x6d145a <M42BASICSOCKET+0x7>, object 0x4ced4a8, proto 0xa66088 withIdle# [ast: 0x0001,0x01d6] <T42BASICSOCKET> }
     -- MLSocket#BasicSocket# in C:/cpn2000/document/ml/mlsocket
-    { Surrounding object 0x4f67e10, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
+    { Surrounding object 0x4f515a8, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
   item *Put#withIdle#<withPE#> in ~beta/process/basicsocket
-  { PC  0x6d14f3 <M31BASICSOCKET+0xa>, object 0x4d0f0e8, proto 0xa65d48 withPE# [ast: 0x0001,0x0150] <T31BASICSOCKET> }
+  { PC  0x6d14f3 <M31BASICSOCKET+0xa>, object 0x4ced4a8, proto 0xa65d48 withPE# [ast: 0x0001,0x0150] <T31BASICSOCKET> }
     -- MLSocket#BasicSocket# in C:/cpn2000/document/ml/mlsocket
-    { Surrounding object 0x4f67e10, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
+    { Surrounding object 0x4f515a8, proto 0xa64fbc MLSocket# [ast: 0x0001,0x0133] <T27MLSOCKET> }
   item <Terminate#> in C:/cpn2000/document/ml/private/mlcombody
-  { PC  0x5319c6 <M9MLCOMPRIVATE+0x5a>, object 0x4d0f088, proto 0x99ebaa Terminate# [ast: 0x000b,0x00ee] <T9MLCOMPRIVATE> }
+  { PC  0x5319c6 <M9MLCOMPRIVATE+0x5a>, object 0x4ced448, proto 0x99ebaa Terminate# [ast: 0x000b,0x00ee] <T9MLCOMPRIVATE> }
     -- MLCOMPRIVATE-~ in C:/cpn2000/document/ml/private/mlcombody
-    { Surrounding object 0x4f67e00, proto 0x99e91a MLCOMPRIVATE-~ [ast: 0x000b,0x0001] <T1MLCOMPRIVATE> }
+    { Surrounding object 0x4f51598, proto 0x99e91a MLCOMPRIVATE-~ [ast: 0x000b,0x0001] <T1MLCOMPRIVATE> }
   comp <ReceiverThread#>System#SysHead# in C:/cpn2000/document/ml/private/mlcombody
-  { PC  0x531bef <M2MLCOMPRIVATE+0x42>, object 0x4fe1e10, proto 0x99e9fc ReceiverThread# [ast: 0x000b,0x002f] <T2MLCOMPRIVATE> }
+  { PC  0x531bef <M2MLCOMPRIVATE+0x42>, object 0x4fcf598, proto 0x99e9fc ReceiverThread# [ast: 0x000b,0x002f] <T2MLCOMPRIVATE> }
     -- MLCOMPRIVATE-~ in C:/cpn2000/document/ml/private/mlcombody
-    { Surrounding object 0x4f67e00, proto 0x99e91a MLCOMPRIVATE-~ [ast: 0x000b,0x0001] <T1MLCOMPRIVATE> }
+    { Surrounding object 0x4f51598, proto 0x99e91a MLCOMPRIVATE-~ [ast: 0x000b,0x0001] <T1MLCOMPRIVATE> }
   comp ReceiverThread#<System#>SysHead# in ~beta/basiclib/basicsystemenv
-  { PC  0x703e87 <M18BASICSYSTEMENV+0x7>, object 0x4fe1e10, proto 0xa88ba4 System# [ast: 0x0001,0x00fb] <T18BASICSYSTEMENV> }
+  { PC  0x703e87 <M18BASICSYSTEMENV+0x7>, object 0x4fcf598, proto 0xa88ba4 System# [ast: 0x0001,0x00fb] <T18BASICSYSTEMENV> }
     -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in C:/cpn2000/cpntools/cpntools
-    { Surrounding object 0x4dfef28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
+    { Surrounding object 0x4de5f28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
   comp ReceiverThread#System#<SysHead#> in ~beta/basiclib/basicsystemenv
-  { PC  0x703b4b <M56BASICSYSTEMENV+0xa>, object 0x4fe1e10, proto 0xa894ee SysHead# [ast: 0x0001,0x0310] <T56BASICSYSTEMENV> }
+  { PC  0x703b4b <M56BASICSYSTEMENV+0xa>, object 0x4fcf598, proto 0xa894ee SysHead# [ast: 0x0001,0x0310] <T56BASICSYSTEMENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
 
   item <attNext#>realValue# in ~beta/basiclib/private/basicsystemenvbody
-  { PC  0x5efca6 <M2BASICSYSTEMENVPRIVATE+0x1c2>, object 0x4dfee58, proto 0x9c7aec attNext# [ast: 0x0010,0x001a] <T2BASICSYSTEMENVPRIVATE> }
+  { PC  0x5efca6 <M2BASICSYSTEMENVPRIVATE+0x1c2>, object 0x4de5e58, proto 0x9c7aec attNext# [ast: 0x0010,0x001a] <T2BASICSYSTEMENVPRIVATE> }
     -- BASICSYSTEMENVPRIVATE-~ in ~beta/basiclib/private/basicsystemenvbody
-    { Surrounding object 0x4dfec58, proto 0x9c79f0 BASICSYSTEMENVPRIVATE-~ [ast: 0x0010,0x0001] <T1BASICSYSTEMENVPRIVATE> }
+    { Surrounding object 0x4de5c58, proto 0x9c79f0 BASICSYSTEMENVPRIVATE-~ [ast: 0x0010,0x0001] <T1BASICSYSTEMENVPRIVATE> }
   item attNext#<realValue#> in ~beta/basiclib/betaenv
-  { PC  0x4028c5 <M37BETAENV+0xa>, object 0x4dfee58, proto 0x9107fe realValue# [ast: 0x0001,0x0150] <T37BETAENV> }
+  { PC  0x4028c5 <M37BETAENV+0xa>, object 0x4de5e58, proto 0x9107fe realValue# [ast: 0x0001,0x0150] <T37BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <UIIdle#>booleanValue# in ~beta/guienv/private/winnt/guienvntsystemenvbody
-  { PC  0x44cfa8 <M3PIOPRIVATE+0xbb>, object 0x4e02420, proto 0x92fc06 UIIdle# [ast: 0x0005,0x0028] <T3PIOPRIVATE> }
+  { PC  0x44cfa8 <M3PIOPRIVATE+0xbb>, object 0x4de9848, proto 0x92fc06 UIIdle# [ast: 0x0005,0x0028] <T3PIOPRIVATE> }
     -- PIOPRIVATE-~ in ~beta/guienv/private/winnt/guienvntsystemenvbody
-    { Surrounding object 0x4dfe5f8, proto 0x92fb8e PIOPRIVATE-~ [ast: 0x0005,0x0001] <T1PIOPRIVATE> }
+    { Surrounding object 0x4de55f8, proto 0x92fb8e PIOPRIVATE-~ [ast: 0x0005,0x0001] <T1PIOPRIVATE> }
   item UIIdle#<booleanValue#> in ~beta/basiclib/betaenv
-  { PC  0x40290b <M31BETAENV+0xa>, object 0x4e02420, proto 0x9106a2 booleanValue# [ast: 0x0001,0x0104] <T31BETAENV> }
+  { PC  0x40290b <M31BETAENV+0xa>, object 0x4de9848, proto 0x9106a2 booleanValue# [ast: 0x0001,0x0104] <T31BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <processOneEvent#> in ~beta/guienv/private/winnt/guienv_ntiprivate
-  { PC  0x4aaac4 <M2GUIENV_NTIPRIVATE+0x79>, object 0x4fceee8, proto 0x96e6f4 processOneEvent# [ast: 0x0001,0x0018] <T2GUIENV_NTIPRIVATE> }
+  { PC  0x4aaac4 <M2GUIENV_NTIPRIVATE+0x79>, object 0x4fbe958, proto 0x96e6f4 processOneEvent# [ast: 0x0001,0x0018] <T2GUIENV_NTIPRIVATE> }
     -- GUIenv# in ~beta/guienv/guienv
-    { Surrounding object 0x4dfe908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
+    { Surrounding object 0x4de5908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
   item <mainLoop#> in ~beta/guienv/private/winnt/guienv_ntiprivate
-  { PC  0x4aaff7 <M1GUIENV_NTIPRIVATE+0x32>, object 0x4fceed8, proto 0x96e6b0 mainLoop# [ast: 0x0001,0x0003] <T1GUIENV_NTIPRIVATE> }
+  { PC  0x4aaff7 <M1GUIENV_NTIPRIVATE+0x32>, object 0x4fbe948, proto 0x96e6b0 mainLoop# [ast: 0x0001,0x0003] <T1GUIENV_NTIPRIVATE> }
     -- GUIenv# in ~beta/guienv/guienv
-    { Surrounding object 0x4dfe908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
+    { Surrounding object 0x4de5908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
   item <GUIenv#> in ~beta/guienv/guienv
-  { PC  0x4a842b <M1GUIENV+0x4d>, object 0x4dfe908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
+  { PC  0x4a842b <M1GUIENV+0x4d>, object 0x4de5908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <run#>run# in ~beta/postwimp/foundation/guisurface
-  { PC  0x48ead1 <M90GUISURFACE+0x5b>, object 0x4fcef28, proto 0x966204 run# [ast: 0x0001,0x0b15] <T90GUISURFACE> }
+  { PC  0x48ead1 <M90GUISURFACE+0x5b>, object 0x4fbd160, proto 0x966204 run# [ast: 0x0001,0x0b15] <T90GUISURFACE> }
     -- GUISurface#Surface# in ~beta/postwimp/foundation/guisurface
-    { Surrounding object 0x4dfe7f0, proto 0x964e06 GUISurface# [ast: 0x0001,0x0048] <T4GUISURFACE> }
+    { Surrounding object 0x4de57f0, proto 0x964e06 GUISurface# [ast: 0x0001,0x0048] <T4GUISURFACE> }
   item run#<run#> in ~beta/postwimp/foundation/abstractsurface
-  { PC  0x6fc57e <M99ABSTRACTSURFACE+0xa>, object 0x4fcef28, proto 0xa81f50 run# [ast: 0x0001,0x0727] <T99ABSTRACTSURFACE> }
+  { PC  0x6fc57e <M99ABSTRACTSURFACE+0xa>, object 0x4fbd160, proto 0xa81f50 run# [ast: 0x0001,0x0727] <T99ABSTRACTSURFACE> }
     -- GUISurface#Surface# in ~beta/postwimp/foundation/guisurface
-    { Surrounding object 0x4dfe7f0, proto 0x964e06 GUISurface# [ast: 0x0001,0x0048] <T4GUISURFACE> }
+    { Surrounding object 0x4de57f0, proto 0x964e06 GUISurface# [ast: 0x0001,0x0048] <T4GUISURFACE> }
   item <platformAfter#> in ~beta/postwimp/foundation/private/worldbody
-  { PC  0x48d24c <M90WORLDBODY+0x37>, object 0x4fcf108, proto 0x9cba62 platformAfter# [ast: 0x0003,0x000a] <T90WORLDBODY> }
+  { PC  0x48d24c <M90WORLDBODY+0x37>, object 0x4fbd670, proto 0x9cba62 platformAfter# [ast: 0x0003,0x000a] <T90WORLDBODY> }
     -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in C:/cpn2000/cpntools/cpntools
-    { Surrounding object 0x4dfef28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
+    { Surrounding object 0x4de5f28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
   item <after#> in ~beta/postwimp/foundation/world
-  { PC  0x60b319 <M366WORLD+0x1b>, object 0x4fcef58, proto 0xa7d5ea after# [ast: 0x0001,0x1d98] <T366WORLD> }
+  { PC  0x60b319 <M366WORLD+0x1b>, object 0x4fbd190, proto 0xa7d5ea after# [ast: 0x0001,0x1d98] <T366WORLD> }
     -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in C:/cpn2000/cpntools/cpntools
-    { Surrounding object 0x4dfef28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
+    { Surrounding object 0x4de5f28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
   comp PROGRAM-~CPNWorkSpace#Workspace#<World#>SystemEnv#SysHead# in ~beta/postwimp/foundation/world
-  { PC  0x6f1d01 <M27WORLD+0x34>, object 0x4dfef28, proto 0xa77a34 World# [ast: 0x0001,0x00c6] <T27WORLD> }
+  { PC  0x6f1d01 <M27WORLD+0x34>, object 0x4de5f28, proto 0xa77a34 World# [ast: 0x0001,0x00c6] <T27WORLD> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   comp PROGRAM-~CPNWorkSpace#Workspace#World#<SystemEnv#>SysHead# in ~beta/basiclib/basicsystemenv
-  { PC  0x703ca0 <M4BASICSYSTEMENV+0x1d>, object 0x4dfef28, proto 0xa88834 SystemEnv# [ast: 0x0001,0x002e] <T4BASICSYSTEMENV> }
+  { PC  0x703ca0 <M4BASICSYSTEMENV+0x1d>, object 0x4de5f28, proto 0xa88834 SystemEnv# [ast: 0x0001,0x002e] <T4BASICSYSTEMENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   comp PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#<SysHead#> in ~beta/basiclib/basicsystemenv
-  { PC  0x703b4b <M56BASICSYSTEMENV+0xa>, object 0x4dfef28, proto 0xa894ee SysHead# [ast: 0x0001,0x0310] <T56BASICSYSTEMENV> }
+  { PC  0x703b4b <M56BASICSYSTEMENV+0xa>, object 0x4de5f28, proto 0xa894ee SysHead# [ast: 0x0001,0x0310] <T56BASICSYSTEMENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
 
   item <attNext#>realValue# in ~beta/basiclib/private/basicsystemenvbody
-  { PC  0x5efca6 <M2BASICSYSTEMENVPRIVATE+0x1c2>, object 0x4dfee58, proto 0x9c7aec attNext# [ast: 0x0010,0x001a] <T2BASICSYSTEMENVPRIVATE> }
+  { PC  0x5efca6 <M2BASICSYSTEMENVPRIVATE+0x1c2>, object 0x4de5e58, proto 0x9c7aec attNext# [ast: 0x0010,0x001a] <T2BASICSYSTEMENVPRIVATE> }
     -- BASICSYSTEMENVPRIVATE-~ in ~beta/basiclib/private/basicsystemenvbody
-    { Surrounding object 0x4dfec58, proto 0x9c79f0 BASICSYSTEMENVPRIVATE-~ [ast: 0x0010,0x0001] <T1BASICSYSTEMENVPRIVATE> }
+    { Surrounding object 0x4de5c58, proto 0x9c79f0 BASICSYSTEMENVPRIVATE-~ [ast: 0x0010,0x0001] <T1BASICSYSTEMENVPRIVATE> }
   item attNext#<realValue#> in ~beta/basiclib/betaenv
-  { PC  0x4028c5 <M37BETAENV+0xa>, object 0x4dfee58, proto 0x9107fe realValue# [ast: 0x0001,0x0150] <T37BETAENV> }
+  { PC  0x4028c5 <M37BETAENV+0xa>, object 0x4de5e58, proto 0x9107fe realValue# [ast: 0x0001,0x0150] <T37BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <UIIdle#>booleanValue# in ~beta/guienv/private/winnt/guienvntsystemenvbody
-  { PC  0x44cfa8 <M3PIOPRIVATE+0xbb>, object 0x4e02420, proto 0x92fc06 UIIdle# [ast: 0x0005,0x0028] <T3PIOPRIVATE> }
+  { PC  0x44cfa8 <M3PIOPRIVATE+0xbb>, object 0x4de9848, proto 0x92fc06 UIIdle# [ast: 0x0005,0x0028] <T3PIOPRIVATE> }
     -- PIOPRIVATE-~ in ~beta/guienv/private/winnt/guienvntsystemenvbody
-    { Surrounding object 0x4dfe5f8, proto 0x92fb8e PIOPRIVATE-~ [ast: 0x0005,0x0001] <T1PIOPRIVATE> }
+    { Surrounding object 0x4de55f8, proto 0x92fb8e PIOPRIVATE-~ [ast: 0x0005,0x0001] <T1PIOPRIVATE> }
   item UIIdle#<booleanValue#> in ~beta/basiclib/betaenv
-  { PC  0x40290b <M31BETAENV+0xa>, object 0x4e02420, proto 0x9106a2 booleanValue# [ast: 0x0001,0x0104] <T31BETAENV> }
+  { PC  0x40290b <M31BETAENV+0xa>, object 0x4de9848, proto 0x9106a2 booleanValue# [ast: 0x0001,0x0104] <T31BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <processOneEvent#> in ~beta/guienv/private/winnt/guienv_ntiprivate
-  { PC  0x4aaac4 <M2GUIENV_NTIPRIVATE+0x79>, object 0x4e02918, proto 0x96e6f4 processOneEvent# [ast: 0x0001,0x0018] <T2GUIENV_NTIPRIVATE> }
+  { PC  0x4aaac4 <M2GUIENV_NTIPRIVATE+0x79>, object 0x4de9918, proto 0x96e6f4 processOneEvent# [ast: 0x0001,0x0018] <T2GUIENV_NTIPRIVATE> }
     -- GUIenv# in ~beta/guienv/guienv
-    { Surrounding object 0x4dfe908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
+    { Surrounding object 0x4de5908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
   item <mainLoop#> in ~beta/guienv/private/winnt/guienv_ntiprivate
-  { PC  0x4aaff7 <M1GUIENV_NTIPRIVATE+0x32>, object 0x4e02908, proto 0x96e6b0 mainLoop# [ast: 0x0001,0x0003] <T1GUIENV_NTIPRIVATE> }
+  { PC  0x4aaff7 <M1GUIENV_NTIPRIVATE+0x32>, object 0x4de9908, proto 0x96e6b0 mainLoop# [ast: 0x0001,0x0003] <T1GUIENV_NTIPRIVATE> }
     -- GUIenv# in ~beta/guienv/guienv
-    { Surrounding object 0x4dfe908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
+    { Surrounding object 0x4de5908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
   item <GUIenv#> in ~beta/guienv/guienv
-  { PC  0x4a842b <M1GUIENV+0x4d>, object 0x4dfe908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
+  { PC  0x4a842b <M1GUIENV+0x4d>, object 0x4de5908, proto 0x97a188 GUIenv# [ast: 0x0001,0x0003] <T1GUIENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   item <start#> in ~beta/guienv/private/winnt/guienvntsystemenvbody
-  { PC  0x44c912 <M7PIOPRIVATE+0x486>, object 0x4dffc88, proto 0x92fdc4 start# [ast: 0x0005,0x01aa] <T7PIOPRIVATE> }
+  { PC  0x44c912 <M7PIOPRIVATE+0x486>, object 0x4de6c88, proto 0x92fdc4 start# [ast: 0x0005,0x01aa] <T7PIOPRIVATE> }
     -- PIOPRIVATE-~ in ~beta/guienv/private/winnt/guienvntsystemenvbody
-    { Surrounding object 0x4dfe5f8, proto 0x92fb8e PIOPRIVATE-~ [ast: 0x0005,0x0001] <T1PIOPRIVATE> }
+    { Surrounding object 0x4de55f8, proto 0x92fb8e PIOPRIVATE-~ [ast: 0x0005,0x0001] <T1PIOPRIVATE> }
   comp <BASICSCHEDULER-~>SysHead# in ~beta/guienv/private/winnt/guienvntsystemenvbody
-  { PC  0x44ba90 <M2BASICSCHEDULER+0x4d>, object 0x4dffcb0, proto 0x92fade BASICSCHEDULER-~ [ast: 0x0002,0x0001] <T2BASICSCHEDULER> }
+  { PC  0x44ba90 <M2BASICSCHEDULER+0x4d>, object 0x4de6cb0, proto 0x92fade BASICSCHEDULER-~ [ast: 0x0002,0x0001] <T2BASICSCHEDULER> }
     -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in C:/cpn2000/cpntools/cpntools
-    { Surrounding object 0x4dfef28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
+    { Surrounding object 0x4de5f28, proto 0x9c8bca PROGRAM-~ [ast: 0x0001,0x0001] <T2PROGRAM> }
   comp BASICSCHEDULER-~<SysHead#> in ~beta/basiclib/basicsystemenv
-  { PC  0x703b4b <M56BASICSYSTEMENV+0xa>, object 0x4dffcb0, proto 0xa894ee SysHead# [ast: 0x0001,0x0310] <T56BASICSYSTEMENV> }
+  { PC  0x703b4b <M56BASICSYSTEMENV+0xa>, object 0x4de6cb0, proto 0xa894ee SysHead# [ast: 0x0001,0x0310] <T56BASICSYSTEMENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
 
   item <*> in ~beta/basiclib/betaenv
-  { PC  0x48abf4 <M250BETAENV+0x94>, object 0x4dffc78, proto 0x9129aa * [ast: 0x0001,0x0c3c] <T250BETAENV> }
+  { PC  0x48abf4 <M250BETAENV+0x94>, object 0x4de6c78, proto 0x9129aa * [ast: 0x0001,0x0c3c] <T250BETAENV> }
     -- BETAENV-~ in ~beta/basiclib/betaenv
-    { Surrounding object 0x4dfe400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+    { Surrounding object 0x4de5400, proto 0x9103a0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
   basic component in ~beta/basiclib/betaenv
 
 Legend:
