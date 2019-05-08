@@ -79,19 +79,15 @@ public class CPNModel implements ProcessModel {
 	
 	@Override
 	public Map<String, MultiSet<Token>> getCurrentMarking() {
+		Map<String, MultiSet<Token>> marking = new HashMap<>();
 		try {
 			State state = simulator.getMarking();
 			for( Marking m : state.getAllMarkings()) {
-				System.out.print(m.getPlaceInstance().toString());
-				System.out.print(": ");
-				System.out.println(m.getMarking());
+				marking.put(m.getPlaceInstance().toString(), TokenParser.parse(m.getMarking()));
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
+		}		
+		return marking;
 	}
 
 	@Override
