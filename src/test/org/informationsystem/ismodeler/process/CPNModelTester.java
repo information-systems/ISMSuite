@@ -2,6 +2,7 @@ package test.org.informationsystem.ismodeler.process;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.util.Collection;
 
 import org.informationsystem.ismodeler.process.cpntools.CPNModel;
