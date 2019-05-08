@@ -18,4 +18,6 @@ public interface ProcessModel {
 	
 	boolean fire(BoundTransition transition);
 	
+	
+	boolean terminate();
 }

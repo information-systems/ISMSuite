@@ -59,6 +59,7 @@ public class CPNModel implements ProcessModel {
 	private Map<String, Instance<PlaceNode>> places;
 	
 	private CPNModel(HighLevelSimulator simulator) {
+		
 		this.simulator = simulator;
 		this.transitions = new HashMap<>();
 		this.places = new HashMap<>();
@@ -118,5 +119,10 @@ public class CPNModel implements ProcessModel {
 		return false;
 	}
 
-	
+	@Override
+	public boolean terminate() {
+		simulator.destroy();
+		this.model = null;
+		return true;
+	}
 }

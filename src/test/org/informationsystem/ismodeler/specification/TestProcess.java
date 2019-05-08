@@ -141,4 +141,11 @@ public class TestProcess implements ProcessModel {
 		}
 	}
 	
+	@Override
+	public boolean terminate() {
+		return true;
+	}
+	
+	
+	
 }
