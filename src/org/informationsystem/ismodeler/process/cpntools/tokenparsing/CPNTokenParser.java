@@ -89,6 +89,7 @@ public class CPNTokenParser extends Parser {
 		public TokenContext token(int i) {
 			return getRuleContext(TokenContext.class,i);
 		}
+		public TerminalNode EOF() { return getToken(CPNTokenParser.EOF, 0); }
 		public Token_listContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -133,6 +134,8 @@ public class CPNTokenParser extends Parser {
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
+			setState(20);
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -178,11 +181,11 @@ public class CPNTokenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(20);
-			count();
-			setState(21);
-			match(T__1);
 			setState(22);
+			count();
+			setState(23);
+			match(T__1);
+			setState(24);
 			token_value();
 			}
 		}
@@ -228,17 +231,17 @@ public class CPNTokenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(25); 
+			setState(27); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(24);
+				setState(26);
 				match(Numeric);
 				}
 				}
-				setState(27); 
+				setState(29); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==Numeric );
@@ -285,20 +288,20 @@ public class CPNTokenParser extends Parser {
 		Token_valueContext _localctx = new Token_valueContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_token_value);
 		try {
-			setState(31);
+			setState(33);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case Numeric:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(29);
+				setState(31);
 				id();
 				}
 				break;
 			case T__2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(30);
+				setState(32);
 				id_list();
 				}
 				break;
@@ -348,17 +351,17 @@ public class CPNTokenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(34); 
+			setState(36); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(33);
+				setState(35);
 				match(Numeric);
 				}
 				}
-				setState(36); 
+				setState(38); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==Numeric );
@@ -408,27 +411,27 @@ public class CPNTokenParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(38);
+			setState(40);
 			match(T__2);
-			setState(39);
+			setState(41);
 			id();
-			setState(44);
+			setState(46);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__3) {
 				{
 				{
-				setState(40);
+				setState(42);
 				match(T__3);
-				setState(41);
+				setState(43);
 				id();
 				}
 				}
-				setState(46);
+				setState(48);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(47);
+			setState(49);
 			match(T__4);
 			}
 		}
@@ -444,20 +447,20 @@ public class CPNTokenParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\64\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13\66\4\2\t\2\4\3"+
 		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2\3\2\3\2\7\2\22\n\2\f\2\16\2\25"+
-		"\13\2\3\3\3\3\3\3\3\3\3\4\6\4\34\n\4\r\4\16\4\35\3\5\3\5\5\5\"\n\5\3\6"+
-		"\6\6%\n\6\r\6\16\6&\3\7\3\7\3\7\3\7\7\7-\n\7\f\7\16\7\60\13\7\3\7\3\7"+
-		"\3\7\2\2\b\2\4\6\b\n\f\2\2\2\62\2\16\3\2\2\2\4\26\3\2\2\2\6\33\3\2\2\2"+
-		"\b!\3\2\2\2\n$\3\2\2\2\f(\3\2\2\2\16\23\5\4\3\2\17\20\7\3\2\2\20\22\5"+
-		"\4\3\2\21\17\3\2\2\2\22\25\3\2\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\3\3"+
-		"\2\2\2\25\23\3\2\2\2\26\27\5\6\4\2\27\30\7\4\2\2\30\31\5\b\5\2\31\5\3"+
-		"\2\2\2\32\34\7\13\2\2\33\32\3\2\2\2\34\35\3\2\2\2\35\33\3\2\2\2\35\36"+
-		"\3\2\2\2\36\7\3\2\2\2\37\"\5\n\6\2 \"\5\f\7\2!\37\3\2\2\2! \3\2\2\2\""+
-		"\t\3\2\2\2#%\7\13\2\2$#\3\2\2\2%&\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\'\13\3"+
-		"\2\2\2()\7\5\2\2).\5\n\6\2*+\7\6\2\2+-\5\n\6\2,*\3\2\2\2-\60\3\2\2\2."+
-		",\3\2\2\2./\3\2\2\2/\61\3\2\2\2\60.\3\2\2\2\61\62\7\7\2\2\62\r\3\2\2\2"+
-		"\7\23\35!&.";
+		"\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\6\4\36\n\4\r\4\16\4\37\3\5\3\5\5\5$"+
+		"\n\5\3\6\6\6\'\n\6\r\6\16\6(\3\7\3\7\3\7\3\7\7\7/\n\7\f\7\16\7\62\13\7"+
+		"\3\7\3\7\3\7\2\2\b\2\4\6\b\n\f\2\2\2\64\2\16\3\2\2\2\4\30\3\2\2\2\6\35"+
+		"\3\2\2\2\b#\3\2\2\2\n&\3\2\2\2\f*\3\2\2\2\16\23\5\4\3\2\17\20\7\3\2\2"+
+		"\20\22\5\4\3\2\21\17\3\2\2\2\22\25\3\2\2\2\23\21\3\2\2\2\23\24\3\2\2\2"+
+		"\24\26\3\2\2\2\25\23\3\2\2\2\26\27\7\2\2\3\27\3\3\2\2\2\30\31\5\6\4\2"+
+		"\31\32\7\4\2\2\32\33\5\b\5\2\33\5\3\2\2\2\34\36\7\13\2\2\35\34\3\2\2\2"+
+		"\36\37\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \7\3\2\2\2!$\5\n\6\2\"$\5\f\7"+
+		"\2#!\3\2\2\2#\"\3\2\2\2$\t\3\2\2\2%\'\7\13\2\2&%\3\2\2\2\'(\3\2\2\2(&"+
+		"\3\2\2\2()\3\2\2\2)\13\3\2\2\2*+\7\5\2\2+\60\5\n\6\2,-\7\6\2\2-/\5\n\6"+
+		"\2.,\3\2\2\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\60"+
+		"\3\2\2\2\63\64\7\7\2\2\64\r\3\2\2\2\7\23\37#(\60";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

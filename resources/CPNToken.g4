@@ -6,7 +6,7 @@ WS                   : [ \r\t\n]+ -> skip ;
 Line_comment         : '//' ~[\r\n]* -> skip;
 Block_comment        : '/*' .*? '*/' -> skip;
 
-token_list  : token ( '++' token )*;
+token_list  : token ( '++' token )* EOF;
 token       : count '`' token_value;
 count       : Numeric+;
 token_value : id | id_list;

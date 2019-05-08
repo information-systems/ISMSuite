@@ -112,6 +112,12 @@ public class CPNModel implements ProcessModel {
 
 	@Override
 	public boolean fire(BoundTransition transition) {
+		
+		
+		
+		// Update the CPN Tools view
+		// this.simulator.refreshViews();
+		
 		// TODO Auto-generated method stub
 		return false;
 	}
