@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
+import org.informationsystem.ismodeler.process.BoundTransition;
 import org.informationsystem.ismodeler.process.MultiSet;
 import org.informationsystem.ismodeler.process.Token;
 import org.informationsystem.ismodeler.process.cpntools.CPNModel;
@@ -16,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 class CPNModelTester {
 
-	@Test
+	
 	void testTransitionList() {
 		try {
 			CPNModel model = CPNModel.getInstance();
@@ -93,8 +94,32 @@ class CPNModelTester {
 		
 	}
 	
+	@Test
+	void testEnabledTransitions() throws Exception {
+		BoundTransition b = null;
+		for(BoundTransition t: CPNModel.getInstance().getEnabledTransitions()) {
+			System.out.println(t);
+			if (t.getName().equals("Philosophers.newHuman")) b = t;
+		}
+
+		System.out.println("I fire: " + b);
+		
+		if (b != null) {
+			CPNModel.getInstance().fire(b);
+		}
+		
+		System.out.println(" New Marking: " + CPNModel.getInstance().getCurrentMarking());
+		
+		for(BoundTransition t: CPNModel.getInstance().getEnabledTransitions()) {
+			System.out.println(t);
+			b = t;
+		}
+		
+	}
+	
+	
 	@AfterAll
-	static void stop() {
+	static void stop() throws Exception {
 		try {
 			CPNModel.getInstance().terminate();
 		} catch (Exception e) {

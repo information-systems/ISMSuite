@@ -1,15 +1,19 @@
 package org.informationsystem.ismodeler.process.cpntools;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.cpntools.accesscpn.engine.highlevel.HighLevelSimulator;
+import org.cpntools.accesscpn.engine.highlevel.instance.Binding;
 import org.cpntools.accesscpn.engine.highlevel.instance.Instance;
 import org.cpntools.accesscpn.engine.highlevel.instance.Marking;
 import org.cpntools.accesscpn.engine.highlevel.instance.State;
+import org.cpntools.accesscpn.engine.highlevel.instance.ValueAssignment;
 import org.cpntools.accesscpn.engine.proxy.ProxyDaemon;
 import org.cpntools.accesscpn.engine.proxy.ProxySimulator;
 import org.cpntools.accesscpn.model.PetriNet;
@@ -20,6 +24,8 @@ import org.informationsystem.ismodeler.process.BoundTransition;
 import org.informationsystem.ismodeler.process.MultiSet;
 import org.informationsystem.ismodeler.process.ProcessModel;
 import org.informationsystem.ismodeler.process.Token;
+
+import com.sun.javafx.css.CalculatedValue;
 
 public class CPNModel implements ProcessModel {
 
@@ -100,23 +106,63 @@ public class CPNModel implements ProcessModel {
 	public Collection<String> getTransitions() {
 		return transitions.keySet();
 	}
+	
+	private Map<BoundTransition, Binding> enabledTransitions; 
 
 	@Override
 	public Collection<BoundTransition> getEnabledTransitions() {
-		// TODO Auto-generated method stub
-		return null;
+		if (enabledTransitions == null) {
+			updateEnabledTransitions();
+		}
+		return enabledTransitions.keySet();
 	}
+	
+
+	/**
+	 * Should be called after every execute()
+	 */
+	private void updateEnabledTransitions() {
+		enabledTransitions = new HashMap<>();
+		try {
+			for(Entry<String, Instance<Transition>> t : transitions.entrySet()) {
+				List<Binding> bindings = simulator.getBindings(t.getValue());
+			
+				for(Binding b: bindings) {
+					org.informationsystem.ismodeler.process.Binding binding = new org.informationsystem.ismodeler.process.Binding();
+					for(ValueAssignment a: b.getAllAssignments()) {
+						binding.set(a.getName(), Long.parseLong(a.getValue()));
+					}
+					enabledTransitions.put(new BoundTransition(b.getTransitionInstance().toString(), binding), b);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 
 	@Override
 	public boolean fire(BoundTransition transition) {
+		// Get the binding from the enabled transitions
+		if (!enabledTransitions.containsKey(transition)) {
+			return false;
+		}
 		
+		Binding b = enabledTransitions.get(transition);
 		
+		try {
+			simulator.execute(b);
+			// Update the CPN Tools view
+			simulator.refreshViews();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		// Update the CPN Tools view
-		// this.simulator.refreshViews();
-		
-		// TODO Auto-generated method stub
-		return false;
+		updateEnabledTransitions();
+		return true;
 	}
 
 	@Override
