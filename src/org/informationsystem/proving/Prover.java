@@ -48,9 +48,9 @@ public class Prover {
 			System.out.println("\t4  Generic error.");
 			System.out.println();
 			System.out.println("This prover is part of the ISModeler project");
-			System.out.println("  See: www.architecturemining.org/tools/DPS");
+			System.out.println("  See: www.informationsystem.org/ISMSuite");
 			System.out.println();
-			System.out.println("(c) 2018, Jan Martijn van der Werf <j.m.e.m.vanderwerf@uu.nl>");
+			System.out.println("(c) 2018-2019, Jan Martijn van der Werf <j.m.e.m.vanderwerf@uu.nl>");
 
 			System.exit(3);
 			return;
