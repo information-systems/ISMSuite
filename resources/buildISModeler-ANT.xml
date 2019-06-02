@@ -3,45 +3,31 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <!--define folder properties-->
-    <property name="dir.buildfile" value="."/>
-    <property name="dir.workspace" value="C:/Users/werf0006/java-workspace"/>
-    <property name="dir.jarfile" value="${dir.buildfile}/ISModeler"/>
+    <property name="dir.buildfile" value="../tool/"/>
+    <property name="dir.workspace" value="../"/>
+    <property name="dir.jarfile" value="${dir.buildfile}/ISMSuite"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/ISModeler.jar">
+        <jar destfile="${dir.jarfile}/ISMSuite.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.informationsystem.ismodeler.ISModeler"/>
-                <attribute name="Class-Path" value=". ISModeler_lib/commons-lang3-3.7.jar ISModeler_lib/org.cpntools.accesscpn.cosimulation_2.2.0.jar ISModeler_lib/org.cpntools.accesscpn.engine_2.2.0.jar ISModeler_lib/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar ISModeler_lib/org.cpntools.accesscpn.engine.proxy_2.2.0.jar ISModeler_lib/org.cpntools.accesscpn.model_2.2.0.jar ISModeler_lib/org.cpntools.accesscpn.model.exporter_2.2.0.jar ISModeler_lib/org.cpntools.accesscpn.model.importer_2.2.0.jar ISModeler_lib/org.eclipse.emf.common.jar ISModeler_lib/org.eclipse.emf.ecore-2.7.0.jar ISModeler_lib/google-guava.jar ISModeler_lib/javax.ws.rs-api-2.0.rev.A.jar ISModeler_lib/org.junit.jupiter.api_5.4.0.v20190212-2109.jar ISModeler_lib/org.junit.jupiter.engine_5.4.0.v20190212-2109.jar ISModeler_lib/org.junit.jupiter.migrationsupport_5.4.0.v20190212-2109.jar ISModeler_lib/org.junit.jupiter.params_5.4.0.v20190212-2109.jar ISModeler_lib/org.junit.platform.commons_1.4.0.v20190212-2109.jar ISModeler_lib/org.junit.platform.engine_1.4.0.v20190212-2109.jar ISModeler_lib/org.junit.platform.launcher_1.4.0.v20190212-2109.jar ISModeler_lib/org.junit.platform.runner_1.4.0.v20190212-2109.jar ISModeler_lib/org.junit.platform.suite.api_1.4.0.v20190212-2109.jar ISModeler_lib/org.junit.vintage.engine_5.4.0.v20190212-2109.jar ISModeler_lib/org.opentest4j_1.1.1.v20190212-2109.jar ISModeler_lib/org.apiguardian_1.0.0.v20190212-2109.jar ISModeler_lib/junit.jar ISModeler_lib/org.hamcrest.core_1.3.0.v20180420-1519.jar ISModeler_lib/antlr-4.7.1-complete.jar"/>
+                <attribute name="Class-Path" value=". ISMSuite_lib/commons-lang3-3.7.jar ISMSuite_lib/org.cpntools.accesscpn.cosimulation_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.engine_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.engine.proxy_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.model_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.model.exporter_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.model.importer_2.2.0.jar ISMSuite_lib/org.eclipse.emf.common.jar ISMSuite_lib/org.eclipse.emf.ecore-2.7.0.jar ISMSuite_lib/google-guava.jar ISMSuite_lib/javax.ws.rs-api-2.0.rev.A.jar"/>
             </manifest>
-            <fileset dir="C:/Users/werf0006/git/DPS/bin"/>
+            <fileset dir="${dir.workspace}/bin"/>
+        	<zipfileset dir="../lib" includes="antlr-4.7.1-complete.jar"/>
         </jar>
-        <delete dir="${dir.jarfile}/ISModeler_lib"/>
-        <mkdir dir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/commons-lang3-3.7.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.cpntools.accesscpn.cosimulation_2.2.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine_2.2.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine.proxy_2.2.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model_2.2.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model.exporter_2.2.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model.importer_2.2.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.eclipse.emf.common.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/org.eclipse.emf.ecore-2.7.0.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/google-guava.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/tool/accesscpn-2.2.0/javax.ws.rs-api-2.0.rev.A.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.jupiter.api_5.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.jupiter.engine_5.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.jupiter.migrationsupport_5.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.jupiter.params_5.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.platform.commons_1.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.platform.engine_1.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.platform.launcher_1.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.platform.runner_1.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.platform.suite.api_1.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit.vintage.engine_5.4.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.opentest4j_1.1.1.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.apiguardian_1.0.0.v20190212-2109.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/.p2/pool/plugins/org.hamcrest.core_1.3.0.v20180420-1519.jar" todir="${dir.jarfile}/ISModeler_lib"/>
-        <copy file="C:/Users/werf0006/git/DPS/lib/antlr-4.7.1-complete.jar" todir="${dir.jarfile}/ISModeler_lib"/>
+        <delete dir="${dir.jarfile}/ISMSuite_lib"/>
+        <mkdir dir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/commons-lang3-3.7.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.cosimulation_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine.proxy_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model.exporter_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model.importer_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.eclipse.emf.common.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.eclipse.emf.ecore-2.7.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/google-guava.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/javax.ws.rs-api-2.0.rev.A.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
     </target>
 </project>

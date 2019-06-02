@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project DPS with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR file Export Wizard-->
+    <!--ANT 1.7 is required-->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="../"/>
+    <property name="dir.workspace" value="../"/>
+    <property name="dir.jarfile" value="${dir.buildfile}/tool"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/ISMSuite-complete.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="org.informationsystem.ismodeler.ISModeler"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ commons-lang3-3.7.jar org.cpntools.accesscpn.cosimulation_2.2.0.jar org.cpntools.accesscpn.engine_2.2.0.jar org.cpntools.accesscpn.engine.highlevel_2.2.0.jar org.cpntools.accesscpn.engine.proxy_2.2.0.jar org.cpntools.accesscpn.model_2.2.0.jar org.cpntools.accesscpn.model.exporter_2.2.0.jar org.cpntools.accesscpn.model.importer_2.2.0.jar org.eclipse.emf.common.jar org.eclipse.emf.ecore-2.7.0.jar google-guava.jar javax.ws.rs-api-2.0.rev.A.jar antlr-4.7.1-complete.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="/home/jmw/git/DPS/bin"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="commons-lang3-3.7.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.cosimulation_2.2.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.engine_2.2.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.engine.highlevel_2.2.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.engine.proxy_2.2.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.model_2.2.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.model.exporter_2.2.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.model.importer_2.2.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.eclipse.emf.common.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.eclipse.emf.ecore-2.7.0.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="google-guava.jar"/>
+            <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="javax.ws.rs-api-2.0.rev.A.jar"/>
+            <zipfileset dir="${dir.workspace}/lib" includes="antlr-4.7.1-complete.jar"/>
+        </jar>
+    </target>
+</project>
