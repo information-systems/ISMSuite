@@ -37,7 +37,6 @@ public class ISModeler {
 				
 			MainFrame.invokeUI(controller);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

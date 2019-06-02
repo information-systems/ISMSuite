@@ -236,7 +236,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="3.4.0">1`2</text>
+                version="3.4.0">1`3</text>
         </initmark>
       </place>
       <place id="ID1413626944">
@@ -693,7 +693,7 @@
         <transend idref="ID1413611294"/>
         <placeend idref="ID1413610342"/>
         <annot id="ID1413613028">
-          <posattr x="-130.500000"
+          <posattr x="-139.000000"
                    y="-3.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -704,7 +704,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="3.4.0">nu1+1</text>
+                version="3.4.0">nu1</text>
         </annot>
       </arc>
       <arc id="ID1413613324"
@@ -821,7 +821,7 @@
         <transend idref="ID1413613623"/>
         <placeend idref="ID1413610342"/>
         <annot id="ID1413614620">
-          <posattr x="-36.500000"
+          <posattr x="-45.000000"
                    y="-4.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -832,7 +832,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="3.4.0">nu1+1</text>
+                version="3.4.0">nu1</text>
         </annot>
       </arc>
       <arc id="ID1413616082"
@@ -1379,14 +1379,14 @@
     </options>
     <binders>
       <cpnbinder id="ID2222"
-                 x="290"
-                 y="119"
+                 x="229"
+                 y="92"
                  width="758"
                  height="460">
         <sheets>
           <cpnsheet id="ID2215"
-                    panx="-6.000000"
-                    pany="-5.000000"
+                    panx="40.000000"
+                    pany="20.000000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
