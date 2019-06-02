@@ -1,6 +1,7 @@
 
 
-process Philosophers { place Philosopher(p: person) {
+process Philosophers { 
+	place Philosopher(p: person) {
 		register p;
 		insert (p) into human;
 		insert (p) into philosopher;
