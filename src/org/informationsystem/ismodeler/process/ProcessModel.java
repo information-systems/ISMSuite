@@ -1,20 +1,23 @@
 package org.informationsystem.ismodeler.process;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.informationsystem.ismodeler.proving.model.Element;
-import org.informationsystem.ismodeler.proving.model.Variable;
+import org.informationsystem.proving.model.Element;
+import org.informationsystem.proving.model.Variable;
 
 public interface ProcessModel {
 
 	Map<String, MultiSet<Token>> getCurrentMarking();
 	
-	List<String> getPlaces();
-	List<String> getTransitions();
-	List<Entry<String, Binding>> getEnabledTransitions();
+	Collection<String> getPlaces();
+	Collection<String> getTransitions();
+	Collection<BoundTransition> getEnabledTransitions();
 	
-	boolean fire(String transition);
+	boolean fire(BoundTransition transition);
 	
+	
+	boolean terminate();
 }

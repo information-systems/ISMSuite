@@ -67,7 +67,11 @@ public class MultiSet<T> implements Set<T> {
 		}
 		
 		public void increase() {
-			this.count++;
+			increase(1);
+		}
+		
+		public void increase(int count) {
+			if (count > 0) this.count += count;
 		}
 	}
 	
@@ -76,20 +80,23 @@ public class MultiSet<T> implements Set<T> {
 
 	@Override
 	public boolean add(T obj) {
-		if (obj == null) {
+		return add(obj, 1);
+	}
+	
+	public boolean add(T obj, int count) {
+		if (obj == null || count < 1) {
 			return false;
 		}
-		this.totalCount++;
+		this.totalCount += count;
 		
 		if (items.containsKey(obj)) {
-			items.get(obj).increase();
+			items.get(obj).increase(count);
 			return true;
 		}
 		else {
-			items.put(obj, new MultiSetItem<T>(obj));
+			items.put(obj, new MultiSetItem<T>(obj, count));
 			return true;
 		}
-		
 	}
 
 	@Override
@@ -195,4 +202,20 @@ public class MultiSet<T> implements Set<T> {
 		return null;
 	}
 	
+	@Override
+	public String toString() {
+		if (isEmpty()) {
+			return "[]";
+		}
+		StringBuilder b = new StringBuilder();
+		
+		for(MultiSetItem<T> it: items.values()) {
+			b.append(", ");
+			b.append(it.getObject().toString());
+			b.append(": ");
+			b.append(it.getCount());
+		}
+		
+		return "[" + b.substring(1) + " ]";
+	}
 }

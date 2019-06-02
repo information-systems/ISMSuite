@@ -3,10 +3,10 @@ package org.informationsystem.ismodeler.specification;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.informationsystem.ismodeler.proving.model.Element;
-import org.informationsystem.ismodeler.proving.model.Relation;
-import org.informationsystem.ismodeler.proving.model.Variable;
-import org.informationsystem.ismodeler.proving.model.World;
+import org.informationsystem.proving.model.Element;
+import org.informationsystem.proving.model.Relation;
+import org.informationsystem.proving.model.Variable;
+import org.informationsystem.proving.model.World;
 
 public class InsertOperation extends Operation {
 

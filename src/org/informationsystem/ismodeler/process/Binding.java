@@ -2,20 +2,23 @@ package org.informationsystem.ismodeler.process;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
-class Binding implements Iterable<Binding.BindingElement> {
+import com.sun.org.apache.xpath.internal.operations.Variable;
+
+public class Binding implements Iterable<Binding.BindingElement> {
 	
-	class BindingElement {
-		private String key;
+	public class BindingElement {
+		private String variable;
 		private long value;
 		
 		public BindingElement(String key, long value) {
-			this.key = key;
+			this.variable = key;
 			this.value = value;
 		}
 		
-		public String getKey() {
-			return key;
+		public String getVariable() {
+			return variable;
 		}
 		
 		public long getValue() {
@@ -23,10 +26,15 @@ class Binding implements Iterable<Binding.BindingElement> {
 		}
 	}
 	
-	private HashMap<String, BindingElement> variables = new HashMap<>();
+	private Map<String, BindingElement> variables = new HashMap<>();
+
 	
 	public boolean contains(Object o) {
 		return variables.containsKey(o);
+	}
+	
+	public int size() {
+		return variables.size();
 	}
 	
 	public void set(String key, long value) {
@@ -50,6 +58,36 @@ class Binding implements Iterable<Binding.BindingElement> {
 	@Override
 	public Iterator<BindingElement> iterator() {
 		return variables.values().iterator();
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		for(BindingElement e: this) {
+			b.append(", ");
+			b.append(e.variable);
+			b.append(" = ");
+			b.append(e.value);
+		}
+		
+		return b.substring(2);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o.getClass() != this.getClass()) {
+			return false;
+		}
+		Binding b = (Binding) o;
+		if (b.size() != this.size()) {
+			return false;
+		}
+		for(BindingElement var: variables.values()) {
+			if (!(b.contains(var.getVariable()) && b.get(var.getVariable()) == var.getValue())) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

@@ -124,6 +124,18 @@ public class SpecificationBaseListener implements SpecificationListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDeregister_operator(SpecificationParser.Deregister_operatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeregister_operator(SpecificationParser.Deregister_operatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInsert_operator(SpecificationParser.Insert_operatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
