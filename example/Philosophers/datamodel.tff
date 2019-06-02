@@ -1,0 +1,33 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Domain constraints
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Constraint 1: subset constraint.
+% All philosophers are human
+tff( 
+	all_philosophers_are_human, 
+	conjecture, 	
+	! [X: person]: (  philosopher(X) => human(X) )
+).
+
+% Constraint 2: domain constraint. 
+% likes is a many-to-many relation between human and human: 
+% likes(a,b) states that a likes b.
+tff( 
+	like_domain_human, 
+	conjecture, 	
+	! [X: person, Y: person] : (likes(X,Y) => ( human(X) & human(Y) ) )
+).
+
+% constraint 3
+% Everybody should like some philosopher, unless you are a philosopher
+% yourself.
+tff( 
+	all_humans_not_a_philo_like_a_philo, 
+	conjecture,	
+	! [X: person] : 
+		( ~( philosopher(X) )  
+		=> 
+		( ? [Y: person] : ( likes(X,Y) & philosopher(Y) ) ) 
+		) 
+).

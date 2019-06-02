@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project DPS with libraries in sub-folder">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="../tool/"/>
+    <property name="dir.workspace" value="../"/>
+    <property name="dir.jarfile" value="${dir.buildfile}/ISMSuite"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/ISMSuite.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.informationsystem.ismodeler.ISModeler"/>
+                <attribute name="Class-Path" value=". ISMSuite_lib/commons-lang3-3.7.jar ISMSuite_lib/org.cpntools.accesscpn.cosimulation_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.engine_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.engine.proxy_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.model_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.model.exporter_2.2.0.jar ISMSuite_lib/org.cpntools.accesscpn.model.importer_2.2.0.jar ISMSuite_lib/org.eclipse.emf.common.jar ISMSuite_lib/org.eclipse.emf.ecore-2.7.0.jar ISMSuite_lib/google-guava.jar ISMSuite_lib/javax.ws.rs-api-2.0.rev.A.jar"/>
+            </manifest>
+            <fileset dir="${dir.workspace}/bin"/>
+        	<zipfileset dir="../lib" includes="antlr-4.7.1-complete.jar"/>
+        </jar>
+        <delete dir="${dir.jarfile}/ISMSuite_lib"/>
+        <mkdir dir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/commons-lang3-3.7.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.cosimulation_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.engine.proxy_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model.exporter_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.cpntools.accesscpn.model.importer_2.2.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.eclipse.emf.common.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/org.eclipse.emf.ecore-2.7.0.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/google-guava.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+        <copy file="${dir.workspace}/tool/accesscpn-2.2.0/javax.ws.rs-api-2.0.rev.A.jar" todir="${dir.jarfile}/ISMSuite_lib"/>
+    </target>
+</project>

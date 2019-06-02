@@ -1,0 +1,89 @@
+%--------------------------------------------------------------------
+% TFF: Typed First-Order Form
+% @Author: Jan Martijn van der Werf <j.m.e.m.vanderwerf@uu.nl>
+% @Date: 11 October 2018
+%
+% @Brief A small population on which we want to check transitivity.
+%
+% Notation taken from:
+% https://ts.data61.csiro.au/publications/nicta_full_text/4724.pdf
+%--------------------------------------------------------------------
+
+%--------------------------------------------------------------------
+% Types
+% Notice that these are currently not supported in Prover!
+%--------------------------------------------------------------------
+% We have an item type: all elements are an item
+% tff( item_type, type, item: $tType ).
+
+% We have a "smaller than" relation that takes two items 
+% tff( sm_type,   type, sm: (item * item) > $o ).
+
+%--------------------------------------------------------------------
+% Population
+%--------------------------------------------------------------------
+% We have three elements a, b, and c
+tff( a_type, type, a: item).
+tff( b_type, type, b: item).
+tff( c_type, type, c: item).
+
+% And all items are distinct
+% tff( a_neq_b, axiom, a != b).
+% tff( a_neq_c, axiom, a != c).
+% tff( b_neq_c, axiom, b != c).
+
+% We have only "a < b" and "b < c", denoted by sm(a,b) and sm(b,c), resp.
+tff( a_sm_b, axiom, sm(a,b)).
+tff( b_sm_c, axiom, sm(b,c)).
+tff( a_sm_c, axiom, sm(a,c)).
+
+% In addition, we make the relation reflexive.
+tff( a_sm_a, axiom, sm(a,a)).
+tff( b_sm_b, axiom, sm(b,b)).
+tff( c_sm_c, axiom, sm(c,c)).
+
+
+%--------------------------------------------------------------------
+% Conjecture: the population is transitive
+
+% As we do not have a<c, the relation should not be transitive,
+% Hence, this conjecture should be false.
+
+tff( transitive_conj, conjecture, 
+	! [X: item, Y: item, Z: item] : 
+	( 
+		(sm(X,Y) & sm(Y,Z)) => ( sm(X,Z) )
+	)
+).
+
+%--------------------------------------------------------------------
+% Conjecture: the population is reflexive
+
+tff( reflexive_pop, conjecture, 
+	! [X: item] : 
+	( 
+		sm(X,X)
+	)
+).
+
+%--------------------------------------------------------------------
+% Conjecture: functional. This should not hold
+
+tff( sm_is_a_function, conjecture, 
+	! [X: item, Y: item, Z: item] : 
+	( 
+		(sm(X,Y) & sm(X,Z)) => (Y=Z)
+	)
+).
+
+%--------------------------------------------------------------------
+% Conjecture: all elements are related to at least one other element
+
+tff( all_elements_have_a_relation, conjecture, 
+	! [X: item] : 
+	(
+		? [Y: item] : ( sm(X,Y) )
+	)
+).
+
+%--------------------------------------------------------------------

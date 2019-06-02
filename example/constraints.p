@@ -1,2 +1,0 @@
-fof(admin_is_person, conjecture, ( administrator(Administrator2Replace) & person(Administrator2Replace)  ) ).
-fof(manager_is_person, conjecture, ( manager(Manager2Replace) & person(Manager2Replace)  ) ).
