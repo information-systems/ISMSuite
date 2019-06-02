@@ -16,6 +16,7 @@
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
             <fileset dir="/home/jmw/git/DPS/bin"/>
+        	<fileset file="${dir.workspace}/LICENSE" />
             <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="commons-lang3-3.7.jar"/>
             <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.cosimulation_2.2.0.jar"/>
             <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.engine_2.2.0.jar"/>
