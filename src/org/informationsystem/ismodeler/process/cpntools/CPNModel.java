@@ -25,8 +25,6 @@ import org.informationsystem.ismodeler.process.MultiSet;
 import org.informationsystem.ismodeler.process.ProcessModel;
 import org.informationsystem.ismodeler.process.Token;
 
-import com.sun.javafx.css.CalculatedValue;
-
 public class CPNModel implements ProcessModel {
 
 	private static CPNModel model;
