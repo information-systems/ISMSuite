@@ -23,7 +23,10 @@ import java.util.Stack;
  */
 public class World implements Cloneable {
 
-	private Set<Relation> relations = new HashSet<>();
+	/**
+	 * We store relations per label name
+	 */
+	private NamedClauseSet relations = new NamedClauseSet();
 	
 	private Map<String,Set<Element>> elements = new HashMap<>();
 	private Map<String,String> items = new HashMap<>();
@@ -80,7 +83,7 @@ public class World implements Cloneable {
 	}
 	
 	public int relationSize() {
-		return relations.size();
+		return relations.valueSize();
 	}
 	
 	public boolean removeElement(Element e) {
@@ -96,20 +99,22 @@ public class World implements Cloneable {
 		if (r.isAbstract()) {
 			return false;
 		}
-		return relations.add(r);
+		relations.put(r.getLabel(), r);
+		return true;
 	}
 	
 	public boolean removeRelation(Relation r) {
-		return relations.remove(r);
+		relations.remove(r.getLabel(), r);
+		return true;
 	}
 	
-	public Iterator<Relation> relations() {
-		return relations.iterator();
+	public Iterator<Clause> relations() {
+		return relations.values().iterator();
 	}
 	
 	public boolean contains(Literal l) {
 		if (l instanceof Relation) {
-			return relations.contains(l);
+			return relations.containsValue(l);
 		} else if (l instanceof Element) {
 			if (elements.containsKey(((Element) l).getType())) {
 				return elements.get(((Element) l).getType()).contains(l);
@@ -181,7 +186,7 @@ public class World implements Cloneable {
 		}
 		sb.append("%%%%%%%%%%%%%%%%%%%%\n");
 		sb.append("%%%   Relation   %%%\n");
-		for(Relation rel: relations) {
+		for(Clause rel: relations.values()) {
 			sb.append(rel);
 			sb.append("\n");
 		}
@@ -205,7 +210,7 @@ public class World implements Cloneable {
 			w.addElement(new Element(e.getKey(), e.getValue()));
 		}
 		
-		for(Relation r: relations) {
+		for(Clause r: relations.values()) {
 			w.addRelation((Relation) r.clone());
 		}
 		

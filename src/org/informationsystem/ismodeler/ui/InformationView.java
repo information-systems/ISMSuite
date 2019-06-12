@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 
 import org.informationsystem.ismodeler.model.Model;
 import org.informationsystem.ismodeler.model.StateChangedListener;
+import org.informationsystem.proving.model.Clause;
 import org.informationsystem.proving.model.Relation;
 
 public class InformationView extends JPanel implements StateChangedListener {
@@ -51,10 +52,10 @@ public class InformationView extends JPanel implements StateChangedListener {
 		}
 		
 		
-		Iterator<Relation> it = model.getWorld().relations();
+		Iterator<Clause> it = model.getWorld().relations();
 		
 		while(it.hasNext()) {
-			Relation r = it.next();
+			Clause r = it.next();
 			relationModel.addElement(r.toTFF());
 		}
 	}
