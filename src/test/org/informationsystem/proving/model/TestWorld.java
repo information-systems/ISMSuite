@@ -74,12 +74,19 @@ class TestWorld {
 		w.addRelation(new Relation("likes", augustine, augustine));
 		
 		assertEquals(3, w.relationSize());
-		
+		assertEquals(3, w.relations("likes").size());
+		Set<Relation> myLikes = w.relations("likes");
+				
 		assertTrue(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
 		assertTrue(w.contains(new Relation("likes", new Element("Plato","human"), new Element("Plato", "human"))));
 		assertTrue(w.contains(new Relation("likes", new Element("Augustine","human"), new Element("Augustine", "human"))));
 		
+		assertTrue(myLikes.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
+		assertTrue(myLikes.contains(new Relation("likes", new Element("Plato","human"), new Element("Plato", "human"))));
+		assertTrue(myLikes.contains(new Relation("likes", new Element("Augustine","human"), new Element("Augustine", "human"))));
+		
 		assertFalse(w.contains(new Relation("likes", new Element("Augustine","human"), new Element("Plato", "human"))));
+		assertFalse(myLikes.contains(new Relation("likes", new Element("Augustine","human"), new Element("Plato", "human"))));
 		
 		Stack<Clause> ex = (new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))).findExplanationFor(w);
 		assertTrue(ex.isEmpty());
@@ -98,7 +105,12 @@ class TestWorld {
 		w.removeRelation(new Relation("likes", new Element("Socrates", "human"), new Element("Socrates", "human")));
 
 		assertEquals(2, w.relationSize());
+		assertEquals(2, w.relations("likes").size());
+		
+		myLikes = w.relations("likes");
 		assertFalse(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
+		assertFalse(myLikes.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
+		
 		ex = (new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))).findExplanationFor(w);
 		assertEquals(1, ex.size());
 		assertTrue(ex.contains(new Not(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human")))));

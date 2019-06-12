@@ -13,6 +13,7 @@ import javax.swing.ListSelectionModel;
 
 import org.informationsystem.ismodeler.model.Model;
 import org.informationsystem.ismodeler.model.StateChangedListener;
+import org.informationsystem.proving.model.Clause;
 import org.informationsystem.proving.model.Relation;
 
 public class InformationView extends JPanel implements StateChangedListener {
