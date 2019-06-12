@@ -52,10 +52,10 @@ public class InformationView extends JPanel implements StateChangedListener {
 		}
 		
 		
-		Iterator<Clause> it = model.getWorld().relations();
+		Iterator<Relation> it = model.getWorld().relations();
 		
 		while(it.hasNext()) {
-			Clause r = it.next();
+			Relation r = it.next();
 			relationModel.addElement(r.toTFF());
 		}
 	}

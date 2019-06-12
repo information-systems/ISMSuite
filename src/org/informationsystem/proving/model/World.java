@@ -26,7 +26,7 @@ public class World implements Cloneable {
 	/**
 	 * We store relations per label name
 	 */
-	private NamedClauseSet relationset = new NamedClauseSet();
+	private NamedClauseSet<String, Relation> relationset = new NamedClauseSet<>();
 	
 	private Map<String,Set<Element>> elements = new HashMap<>();
 	private Map<String,String> items = new HashMap<>();
@@ -108,14 +108,30 @@ public class World implements Cloneable {
 		return true;
 	}
 	
-	public Iterator<Clause> relations() {
+	public Iterator<Relation> relations() {
 		return relationset.values().iterator();
 	}
 	
-	public Set<Clause> relations(String label) {
+	/**
+	 * @param label
+	 * @return all Relation Clauses of "type" label
+	 */
+	public Set<Relation> relations(String label) {
 		return relationset.values(label);
 	}
 	
+	/**
+	 * 
+	 * @return all relation labels present in the world
+	 */
+	public Set<String> relationLabels() {
+		return relationset.keySet();
+	}
+	
+	/**
+	 * @param l
+	 * @return true if l is contained in this World
+	 */
 	public boolean contains(Literal l) {
 		if (l instanceof Relation) {
 			return relationset.containsValue(l);
@@ -142,6 +158,10 @@ public class World implements Cloneable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return true if all Conjectures in this world are valid
+	 */
 	public boolean isValid() {
 		for(Clause c: conjectures.values() ) {
 			if (!c.isValidIn(this)) {
@@ -151,6 +171,10 @@ public class World implements Cloneable {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @return all conjecture labels that are invalid
+	 */
 	public List<String> invalidates() {
 		List<String> invalid = new ArrayList<>();
 		for(Entry<String, Clause> c: conjectures.entrySet() ) {

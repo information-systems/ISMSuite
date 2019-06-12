@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class NamedClauseSet implements Map<String, Clause> {
+public class NamedClauseSet<K, C extends Clause> implements Map<K, C> {
 
-	private HashMap<String,Set<Clause>> items;
-	private HashSet<Clause> values;
+	private HashMap<K,Set<C>> items;
+	private HashSet<C> values;
 	
 	public NamedClauseSet() {
 		items = new HashMap<>();
@@ -38,13 +38,13 @@ public class NamedClauseSet implements Map<String, Clause> {
 	 * Expensive method!!!
 	 */
 	@Override
-	public Set<Entry<String, Clause>> entrySet() {
-		HashSet<Entry<String, Clause>> result = new HashSet<>();
+	public Set<Entry<K, C>> entrySet() {
+		HashSet<Entry<K, C>> result = new HashSet<>();
 		
-		for(Entry<String, Set<Clause>> entry: items.entrySet()) {
+		for(Entry<K, Set<C>> entry: items.entrySet()) {
 			
-			for(Clause clause : entry.getValue()) {
-				result.add(new AbstractMap.SimpleEntry<String, Clause>(entry.getKey(), clause));
+			for(C clause : entry.getValue()) {
+				result.add(new AbstractMap.SimpleEntry<K, C>(entry.getKey(), clause));
 			}
 			
 		}
@@ -57,9 +57,9 @@ public class NamedClauseSet implements Map<String, Clause> {
 	 * Not intended for use!
 	 */
 	@Override
-	public Clause get(Object key) {
+	public C get(Object key) {
 		if (items.containsKey(key)) {
-			for(Clause c: items.get(key)) {
+			for(C c: items.get(key)) {
 				return c;
 			}
 		}
@@ -72,7 +72,7 @@ public class NamedClauseSet implements Map<String, Clause> {
 	}
 
 	@Override
-	public Set<String> keySet() {
+	public Set<K> keySet() {
 		return items.keySet();
 	}
 
@@ -83,13 +83,13 @@ public class NamedClauseSet implements Map<String, Clause> {
 	 * at all.
 	 */
 	@Override
-	public Clause put(String key, Clause clause) {
+	public C put(K key, C clause) {
 		if(values.contains(clause)) {
 			return null;
 		}
 		
 		if(!items.containsKey(key)) {
-			items.put(key, new HashSet<Clause>());
+			items.put(key, new HashSet<C>());
 		}
 		
 		items.get(key).add(clause);
@@ -99,22 +99,22 @@ public class NamedClauseSet implements Map<String, Clause> {
 	}
 
 	@Override
-	public void putAll(Map<? extends String, ? extends Clause> clauseMap) {
-		for(Entry<? extends String, ? extends Clause> entry: clauseMap.entrySet()) {
+	public void putAll(Map<? extends K, ? extends C> clauseMap) {
+		for(Entry<? extends K, ? extends C> entry: clauseMap.entrySet()) {
 			this.put(entry.getKey(), entry.getValue());
 		}
 	}
 	
-	public void putAll(String key, Set<Clause> clauses) {
-		for(Clause clause: clauses) {
+	public void putAll(K key, Set<C> clauses) {
+		for(C clause: clauses) {
 			this.put(key, clause);
 		}
 	}
 
 	@Override
-	public Clause remove(Object key) {
+	public C remove(Object key) {
 		if (items.containsKey(key)) {
-			for(Clause c: items.get(key)) {
+			for(C c: items.get(key)) {
 				values.remove(c);
 			}
 			items.remove(key);
@@ -122,7 +122,7 @@ public class NamedClauseSet implements Map<String, Clause> {
 		return null;
 	}
 	
-	public boolean remove(String key, Clause clause) {
+	public boolean remove(String key, C clause) {
 		if (values.contains(clause)) {
 			items.get(key).remove(clause);
 			values.remove(clause);
@@ -138,11 +138,11 @@ public class NamedClauseSet implements Map<String, Clause> {
 	}
 
 	@Override
-	public Collection<Clause> values() {
+	public Collection<C> values() {
 		return values;
 	}
 	
-	public Set<Clause> values(Object key) {
+	public Set<C> values(Object key) {
 		return items.get(key);
 	}
 

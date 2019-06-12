@@ -75,7 +75,7 @@ class TestWorld {
 		
 		assertEquals(3, w.relationSize());
 		assertEquals(3, w.relations("likes").size());
-		Set<Clause> myLikes = w.relations("likes");
+		Set<Relation> myLikes = w.relations("likes");
 				
 		assertTrue(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
 		assertTrue(w.contains(new Relation("likes", new Element("Plato","human"), new Element("Plato", "human"))));
