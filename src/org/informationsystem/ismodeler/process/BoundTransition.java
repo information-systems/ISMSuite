@@ -1,6 +1,6 @@
 package org.informationsystem.ismodeler.process;
 
-public class BoundTransition {
+public class BoundTransition implements Comparable<BoundTransition> {
 
 	private String name;
 	private Binding binding;
@@ -36,6 +36,14 @@ public class BoundTransition {
 		BoundTransition b = (BoundTransition) o;
 		return (b.getName().equals(this.getName()) 
 				&& (b.getBinding().equals(this.getBinding())));
+	}
+
+	@Override
+	public int compareTo(BoundTransition o) {
+		if (o == null) {
+			return 0;
+		}
+		return this.toString().compareTo(o.toString());
 	}
 	
 	

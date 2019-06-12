@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -27,7 +30,6 @@ public class ProcessView extends JPanel implements StateChangedListener {
 	private DefaultListModel<BoundTransition> transitionListModel;
 	
 	private JButton fireButton;
-	private JButton fireRandomButton;
 	
 	public ProcessView(Controller controller) {		
 		this.controller = controller;
@@ -54,7 +56,7 @@ public class ProcessView extends JPanel implements StateChangedListener {
 		
 		buttonPanel = new JPanel();
 		
-		fireButton = new JButton("Fire selected");
+		fireButton = new JButton("Fire");
 		fireButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -66,10 +68,7 @@ public class ProcessView extends JPanel implements StateChangedListener {
 				}
 			}
 		});
-		fireRandomButton = new JButton("Fire random");
-		
 		buttonPanel.add(fireButton);
-		buttonPanel.add(fireRandomButton);
 		
 		add(buttonPanel, BorderLayout.EAST);
 		
@@ -79,8 +78,11 @@ public class ProcessView extends JPanel implements StateChangedListener {
 	@Override
 	public void update(Model model) {
 		transitionListModel.clear();
+		List<BoundTransition> items = new ArrayList<>(model.enabledTransitions());
 		
-		for(BoundTransition t: model.enabledTransitions()) {
+		Collections.sort(items);
+		
+		for(BoundTransition t: items) {
 			transitionListModel.addElement(t);
 		}
 	}
