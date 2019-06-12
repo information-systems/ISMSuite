@@ -22,10 +22,11 @@ public class MainFrame extends JFrame {
 	public MainFrame(Controller controller) {
 		this.controller = controller;
 		
-		setTitle("ISModeler");
+		setTitle("ISMSuite");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1328, 700); // The bounds of the frame/
+		setBounds(100, 100, 800, 700); // The bounds of the frame/
+		
 		
 		setLayout(new BorderLayout());
 		

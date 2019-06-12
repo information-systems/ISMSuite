@@ -23,7 +23,10 @@ import java.util.Stack;
  */
 public class World implements Cloneable {
 
-	private Set<Relation> relations = new HashSet<>();
+	/**
+	 * We store relations per label name
+	 */
+	private NamedClauseSet<String, Relation> relationset = new NamedClauseSet<>();
 	
 	private Map<String,Set<Element>> elements = new HashMap<>();
 	private Map<String,String> items = new HashMap<>();
@@ -80,7 +83,7 @@ public class World implements Cloneable {
 	}
 	
 	public int relationSize() {
-		return relations.size();
+		return relationset.valueSize();
 	}
 	
 	public boolean removeElement(Element e) {
@@ -96,20 +99,42 @@ public class World implements Cloneable {
 		if (r.isAbstract()) {
 			return false;
 		}
-		return relations.add(r);
+		relationset.put(r.getLabel(), r);
+		return true;
 	}
 	
 	public boolean removeRelation(Relation r) {
-		return relations.remove(r);
+		relationset.remove(r.getLabel(), r);
+		return true;
 	}
 	
 	public Iterator<Relation> relations() {
-		return relations.iterator();
+		return relationset.values().iterator();
 	}
 	
+	/**
+	 * @param label
+	 * @return all Relation Clauses of "type" label
+	 */
+	public Set<Relation> relations(String label) {
+		return relationset.values(label);
+	}
+	
+	/**
+	 * 
+	 * @return all relation labels present in the world
+	 */
+	public Set<String> relationLabels() {
+		return relationset.keySet();
+	}
+	
+	/**
+	 * @param l
+	 * @return true if l is contained in this World
+	 */
 	public boolean contains(Literal l) {
 		if (l instanceof Relation) {
-			return relations.contains(l);
+			return relationset.containsValue(l);
 		} else if (l instanceof Element) {
 			if (elements.containsKey(((Element) l).getType())) {
 				return elements.get(((Element) l).getType()).contains(l);
@@ -133,6 +158,10 @@ public class World implements Cloneable {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return true if all Conjectures in this world are valid
+	 */
 	public boolean isValid() {
 		for(Clause c: conjectures.values() ) {
 			if (!c.isValidIn(this)) {
@@ -142,6 +171,10 @@ public class World implements Cloneable {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @return all conjecture labels that are invalid
+	 */
 	public List<String> invalidates() {
 		List<String> invalid = new ArrayList<>();
 		for(Entry<String, Clause> c: conjectures.entrySet() ) {
@@ -181,7 +214,7 @@ public class World implements Cloneable {
 		}
 		sb.append("%%%%%%%%%%%%%%%%%%%%\n");
 		sb.append("%%%   Relation   %%%\n");
-		for(Relation rel: relations) {
+		for(Clause rel: relationset.values()) {
 			sb.append(rel);
 			sb.append("\n");
 		}
@@ -205,7 +238,7 @@ public class World implements Cloneable {
 			w.addElement(new Element(e.getKey(), e.getValue()));
 		}
 		
-		for(Relation r: relations) {
+		for(Clause r: relationset.values()) {
 			w.addRelation((Relation) r.clone());
 		}
 		
