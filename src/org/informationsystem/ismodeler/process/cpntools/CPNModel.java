@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 
 import org.cpntools.accesscpn.engine.highlevel.HighLevelSimulator;
 import org.cpntools.accesscpn.engine.highlevel.instance.Binding;
@@ -123,14 +124,20 @@ public class CPNModel implements ProcessModel {
 		enabledTransitions = new HashMap<>();
 		try {
 			for(Entry<String, Instance<Transition>> t : transitions.entrySet()) {
-				List<Binding> bindings = simulator.getBindings(t.getValue());
-			
-				for(Binding b: bindings) {
-					org.informationsystem.ismodeler.process.Binding binding = new org.informationsystem.ismodeler.process.Binding();
-					for(ValueAssignment a: b.getAllAssignments()) {
-						binding.set(a.getName(), Long.parseLong(a.getValue()));
+				try {
+					List<Binding> bindings = simulator.getBindings(t.getValue());
+				
+					for(Binding b: bindings) {
+						org.informationsystem.ismodeler.process.Binding binding = new org.informationsystem.ismodeler.process.Binding();
+						for(ValueAssignment a: b.getAllAssignments()) {
+							binding.set(a.getName(), Long.parseLong(a.getValue()));
+						}
+						enabledTransitions.put(new BoundTransition(b.getTransitionInstance().toString(), binding), b);
 					}
-					enabledTransitions.put(new BoundTransition(b.getTransitionInstance().toString(), binding), b);
+				} catch(NoSuchElementException e) {
+					// just ignore the error, apparently, the 
+					// transition does not exist...
+					System.out.println("Could not find transition: " + t.getKey());
 				}
 			}
 		} catch (Exception e) {
