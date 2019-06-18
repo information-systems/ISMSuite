@@ -1,0 +1,102 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% @model   PurchaseOrder
+% @author  Jan Martijn van der Werf, Artem Polyvyanyy
+% @year    2019
+% @version 1.0
+%
+%
+% This model describes a simple information model for Purchase orders
+% Entities / types:
+%  - product
+%  - supplier
+%  - purchaseRequest
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% delivers : Product x Supplier
+% many to many relation
+tff(provides_domain, conjecture,
+  ! [P: product, S: supplier] : 
+	( provides(P,S) => ( product(P) & supplier(S) ) )
+).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for : PurchaseRequest x Product 
+% many to one: each purchaseRequest is for one Product.
+tff(for_domain, conjecture,
+  ! [R: purchaseRequest, P: product] : 
+	( for(R,P) => ( purchaseRequest(R) & product(P) ) )
+).
+
+% a purchase request has at most one product
+tff(for_many_to_one, conjecture, 
+  ! [R: purchaseRequest, P1: product, P2: product] : 
+	( ( for(R,P1) & for(R, P2) ) => ( P1 = P2 ) )
+).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% bid: PurchaseRequest x Supplier
+tff(bid_domain, conjecture,
+  ! [R: purchaseRequest, S: supplier] : 
+    ( bid(R,S) => ( purchaseRequest(R) & supplier(S) ) )
+).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% orders: PurchaseRequest  x Supplier 
+% one to many, each PR is done by one Supplier)
+% subdomain constraint: only Suppliers with a bid on the PR can do
+%                       the order
+
+tff(orders_domain, conjecture,
+  ! [R: purchaseRequest, S: supplier] :
+    ( orders(R,S) => ( purchaseRequest(R) & supplier(S) ) )
+).
+
+tff( orders_many_to_one, conjecture,
+  ! [R: purchaseRequest, S1: supplier, S2: supplier] : 
+	( ( orders(R,S1) & orders(R, S2) ) => ( S1 = S2 ) )
+).
+
+tff( order_subdomain_bid, conjecture,
+  ! [R: purchaseRequest, S: supplier] :
+    ( orders(R,S) => bid(R,S) )
+).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% delivers: PurchaseRequest x Supplier 
+% 1 to many, each PR is done by one Supplier
+% Subdomain constraint: 
+tff( delivers_domain, conjecture,
+  ! [R: purchaseRequest, S: supplier] :
+  ( delivers(R,S) => ( purchaseRequest(R) & supplier(S) ) )
+).
+
+tff( delivers_many_to_one, conjecture,
+  ! [R: purchaseRequest, S1: supplier, S2: supplier] : 
+	( ( delivers(R,S1) & delivers(R, S2) ) => ( S1 = S2 ) )
+).
+
+tff( delivers_subdomain_order, conjecture,
+  ! [R: purchaseRequest, S: supplier] :
+    ( delivers(R,S) => orders(R,S) )
+).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Additional domain constraint 1:
+%  - A Supplier can only bid if they provide the product.
+tff( domain_constraint_bid_only_if_provides, conjecture,
+  ! [R: purchaseRequest, S: supplier] : 
+    ( bid(R, S) => ( ? [P: product] : 
+	                   ( product(P) & provides(P,S) & for(R,P) ) ) 
+	)
+).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Additional domain constraint 2:
+%  - there should be at least two bids before an order can be 
+%    placed at a supplier
+tff( domain_constraint_at_least_two_bids, conjecture,
+  ! [R: purchaseRequest, S: supplier] : 
+    ( orders(R, S) => ( ? [S2: supplier] : ( (S != S2) & bid(R, S2) ) ))
+).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
