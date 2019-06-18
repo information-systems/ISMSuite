@@ -15,7 +15,7 @@
                 <attribute name="Rsrc-Class-Path" value="./ commons-lang3-3.7.jar org.cpntools.accesscpn.cosimulation_2.2.0.jar org.cpntools.accesscpn.engine_2.2.0.jar org.cpntools.accesscpn.engine.highlevel_2.2.0.jar org.cpntools.accesscpn.engine.proxy_2.2.0.jar org.cpntools.accesscpn.model_2.2.0.jar org.cpntools.accesscpn.model.exporter_2.2.0.jar org.cpntools.accesscpn.model.importer_2.2.0.jar org.eclipse.emf.common.jar org.eclipse.emf.ecore-2.7.0.jar google-guava.jar javax.ws.rs-api-2.0.rev.A.jar antlr-4.7.1-complete.jar"/>
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
-            <fileset dir="/home/jmw/git/DPS/bin"/>
+            <fileset dir="${dir.workspace}/bin"/>
         	<fileset file="${dir.workspace}/LICENSE" />
             <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="commons-lang3-3.7.jar"/>
             <zipfileset dir="${dir.workspace}/tool/accesscpn-2.2.0" includes="org.cpntools.accesscpn.cosimulation_2.2.0.jar"/>
