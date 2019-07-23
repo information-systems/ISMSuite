@@ -12,7 +12,7 @@
 %  - purchaseRequest
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% delivers : Product x Supplier
+% provides : Product x Supplier
 % many to many relation
 tff(provides_domain, conjecture,
   ! [P: product, S: supplier] : 
