@@ -56,7 +56,7 @@ public class Exists extends Operator {
 	 * Worst case, all elements in the universe are visited.
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		Iterator<Element> it = world.elementsIn(variable.getType());
 		while(it.hasNext()) {
 			Element element = it.next();
@@ -104,7 +104,7 @@ public class Exists extends Operator {
 	 *  
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		Not dm = new Not(
 				new All(
 						this.getVariable(), 

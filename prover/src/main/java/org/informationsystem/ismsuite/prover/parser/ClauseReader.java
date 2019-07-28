@@ -17,6 +17,7 @@ import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Equality;
 import org.informationsystem.ismsuite.prover.model.Exists;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 import org.informationsystem.ismsuite.prover.model.Implies;
 import org.informationsystem.ismsuite.prover.model.Literal;
 import org.informationsystem.ismsuite.prover.model.Not;
@@ -37,7 +38,7 @@ import org.informationsystem.ismsuite.prover.parser.tff.TFFParser.Tff_fileContex
  */
 public class ClauseReader {
 
-	public static World buildWorldFrom(String tff) {
+	public static FirstOrderLogicWorld buildWorldFrom(String tff) {
 		Tff_fileContext tree = parseStream(CharStreams.fromString(tff));
 		
 		ClauseBuilder b = new ClauseBuilder();
@@ -46,7 +47,7 @@ public class ClauseReader {
 		return b.getWorld();
 	}
 	
-	public static World buildWorldFromFile(String filename) throws IOException {
+	public static FirstOrderLogicWorld buildWorldFromFile(String filename) throws IOException {
 		Tff_fileContext tree = parseStream(CharStreams.fromFileName(filename));
 		
 		ClauseBuilder b = new ClauseBuilder();
@@ -55,7 +56,7 @@ public class ClauseReader {
 		return b.getWorld();
 	}
 	
-	public static World buildWorldFrom(InputStream in) throws IOException {
+	public static FirstOrderLogicWorld buildWorldFrom(InputStream in) throws IOException {
 		Tff_fileContext tree = parseStream(CharStreams.fromStream(in));
 		
 		ClauseBuilder b = new ClauseBuilder();
@@ -71,7 +72,7 @@ public class ClauseReader {
 		ClauseBuilder b = new ClauseBuilder();
 		b.visit(tree);
 		
-		return b.clauses;
+		return b.getClauses();
 	}
 	
 	public static Map<String,Clause> buildClausesFromFile(String filename) throws IOException {
@@ -80,7 +81,7 @@ public class ClauseReader {
 		ClauseBuilder b = new ClauseBuilder();
 		b.visit(tree);
 		
-		return b.clauses;
+		return b.getClauses();
 	}
 	
 	public static Map<String,Clause> buildClausesFrom(InputStream in) throws IOException {
@@ -89,7 +90,7 @@ public class ClauseReader {
 		ClauseBuilder b = new ClauseBuilder();
 		b.visit(tree);
 		
-		return b.clauses;
+		return b.getClauses();
 	}
 	
 	private static Tff_fileContext parseStream(CharStream stream) {
@@ -113,7 +114,7 @@ public class ClauseReader {
 		 */
 		private Map<String, String> currentlyBoundVariables = new HashMap<>();
 
-		public World getWorld() {
+		public FirstOrderLogicWorld getWorld() {
 			return world;
 		}
 

@@ -15,7 +15,7 @@ public class False extends Clause {
 	}
 	
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		return false;
 	}
 	
@@ -32,7 +32,7 @@ public class False extends Clause {
 	public void instantiate(Variable x, Element a) {}
 
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		Stack<Clause> s = new Stack<>();
 		s.add(this);
 		return s;

@@ -58,7 +58,7 @@ public class Variable extends Literal {
 	 * Returns true if the Literal is part of the world.
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		return false;
 	}
 }

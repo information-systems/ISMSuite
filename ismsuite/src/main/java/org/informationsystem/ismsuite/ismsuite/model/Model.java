@@ -6,11 +6,12 @@ import java.util.Map;
 import java.util.Set;
 
 import org.informationsystem.ismsuite.processengine.process.BoundTransition;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 import org.informationsystem.ismsuite.prover.model.World;
 
 public class Model {
 		
-	private World currentWorld;
+	private FirstOrderLogicWorld currentWorld;
 	
 	/**
 	 * This map contains per transaction the next world.
@@ -25,7 +26,7 @@ public class Model {
 		futureWorlds = new HashMap<>();
 	}
 	
-	public World getWorld() {
+	public FirstOrderLogicWorld getWorld() {
 		return currentWorld;
 	}
 	
@@ -50,7 +51,7 @@ public class Model {
 		return disabled;
 	}
 	
-	void update(World w, Map<BoundTransition,World> enabled, Map<BoundTransition, String> disabled) {
+	void update(FirstOrderLogicWorld w, Map<BoundTransition,World> enabled, Map<BoundTransition, String> disabled) {
 		this.currentWorld = w;
 		this.futureWorlds = enabled;
 		this.disabled = disabled;

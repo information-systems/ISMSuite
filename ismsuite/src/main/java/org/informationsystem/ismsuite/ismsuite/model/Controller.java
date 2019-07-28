@@ -11,6 +11,7 @@ import org.informationsystem.ismsuite.processengine.process.ProcessModel;
 import org.informationsystem.ismsuite.processengine.process.Token;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Element;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
 import org.informationsystem.ismsuite.specifier.model.Specification;
@@ -38,7 +39,7 @@ public class Controller {
 		return initial.getConjectures();
 	}
 	
-	public Controller(ProcessModel process, Specification spec, World initialWorld) {
+	public Controller(ProcessModel process, Specification spec, FirstOrderLogicWorld initialWorld) {
 		this(process, spec, initialWorld.getConjectures());
 	}
 	
@@ -105,7 +106,7 @@ public class Controller {
 		return (validWorld(this.state.getWorld()) == null);
 	}
 	
-	private Entry<String, Clause> validWorld(World world) {
+	private Entry<String, Clause> validWorld(FirstOrderLogicWorld world) {
 		for(Entry<String, Clause> c: initial.getConjectures()) {
 			if (!c.getValue().isValidIn(world)) {
 				return c;
@@ -174,7 +175,7 @@ public class Controller {
 		return next;
 	}*/
 	
-	private World initializeTokensAsElements(World world) {
+	private FirstOrderLogicWorld initializeTokensAsElements(World world) {
 		for(Entry<String, MultiSet<Token>> m : processModel.getCurrentMarking().entrySet()) {
 			String place = m.getKey();
 			// check if place is in the specification

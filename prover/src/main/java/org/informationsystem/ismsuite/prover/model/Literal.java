@@ -24,7 +24,7 @@ public abstract class Literal extends Clause {
 	 * we only need to state that the literal is not in the world.
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		Stack<Clause> explain = new Stack<>();
 		if (this.isAbstract()) {
 			explain.add(this);

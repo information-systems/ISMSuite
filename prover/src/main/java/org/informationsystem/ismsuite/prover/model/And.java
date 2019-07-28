@@ -61,7 +61,7 @@ public class And extends Operator {
 	 * directly stop.
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		for(Iterator<Clause> it = operands.iterator() ; it.hasNext() ; ) {
 			if (!it.next().isValidIn(world)) {
 				return false;
@@ -98,7 +98,7 @@ public class And extends Operator {
 	 * Clause itself is also invalid.
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		boolean value = true;
 		for(Clause op: operands) {
 			Stack<Clause> exOp = op.findExplanationFor(world);

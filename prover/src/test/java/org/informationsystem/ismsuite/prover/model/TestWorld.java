@@ -130,7 +130,7 @@ public class TestWorld {
 		w.addRelation(new Relation("likes", plato, plato));
 		w.addRelation(new Relation("likes", augustine, augustine));
 		
-		World w2 = (World) w.clone();
+		FirstOrderLogicWorld w2 = (FirstOrderLogicWorld) w.clone();
 		
 		assertEquals(w.elementSize("human"), w2.elementSize("human"));
 		

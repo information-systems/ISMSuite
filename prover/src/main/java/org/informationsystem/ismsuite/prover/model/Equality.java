@@ -45,7 +45,7 @@ public class Equality extends Operator {
 	 * and left side are identical. 
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		return left.equals(right);
 	}
 
@@ -78,7 +78,7 @@ public class Equality extends Operator {
 	 * Explanation of X=Y is false: not(X=Y) :-)
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		Stack<Clause> s = new Stack<>();
 		if (!this.isValidIn(world)) {
 			s.add(new Not(this));

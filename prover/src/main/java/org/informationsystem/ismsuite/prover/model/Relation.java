@@ -124,7 +124,7 @@ public class Relation extends Literal {
 	 * Returns true if the Literal is part of the world.
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		if (this.isAbstract()) {
 			return false;
 		}
@@ -144,7 +144,7 @@ public class Relation extends Literal {
 	 * we only need to state that the literal is not in the world.
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		Stack<Clause> explain = new Stack<>();
 		
 		if (this.isAbstract()) {

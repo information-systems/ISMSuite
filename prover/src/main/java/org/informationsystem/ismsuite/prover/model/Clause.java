@@ -11,7 +11,7 @@ import java.util.Stack;
  */
 public abstract class Clause implements Cloneable, Comparable<Clause> {
 
-	public abstract boolean isValidIn(World world);
+	public abstract boolean isValidIn(FirstOrderLogicWorld world);
 	
 	/**
 	 * In case the formula is invalid, this function explains
@@ -19,7 +19,7 @@ public abstract class Clause implements Cloneable, Comparable<Clause> {
 	 * @param world
 	 * @return
 	 */
-	public abstract Stack<Clause> findExplanationFor(World world);
+	public abstract Stack<Clause> findExplanationFor(FirstOrderLogicWorld world);
 	
 	/**
 	 * The string representation of the Clause. We keep it here for

@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.informationsystem.ismsuite.prover.model.Clause;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 import org.informationsystem.ismsuite.prover.parser.ClauseReader;
-import org.informationsystem.ismsuite.prover.model.World;
 
 import java.util.Stack;
 
@@ -57,7 +57,7 @@ public class Prover {
 		}
 		
 		try {
-			World world = ClauseReader.buildWorldFromFile(filename);
+			FirstOrderLogicWorld world = ClauseReader.buildWorldFromFile(filename);
 			
 			if (printWorld) {
 				System.out.println(world.toString());

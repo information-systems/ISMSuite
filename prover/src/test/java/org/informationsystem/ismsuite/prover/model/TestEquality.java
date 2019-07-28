@@ -31,7 +31,7 @@ public class TestEquality {
 	private Relation r5;
 	private Relation r6;
 	
-	private World world;
+	private FirstOrderLogicWorld world;
 	
 	@Before
 	public void setUp() throws Exception {

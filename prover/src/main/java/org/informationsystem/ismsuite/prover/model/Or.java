@@ -57,7 +57,7 @@ public class Or extends Operator {
 	 * in the world. If none are true, we return false.
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		for(Iterator<Clause> it = operands.iterator() ; it.hasNext() ; ) {
 			if (it.next().isValidIn(world)) {
 				return true;
@@ -92,7 +92,7 @@ public class Or extends Operator {
 	 * we would like to have!
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		List<Clause> notClauses = new ArrayList<>();
 		for(Clause c: operands) {
 			notClauses.add(new Not((Clause) c.clone()));

@@ -87,7 +87,7 @@ public class TestForAllClass extends WorldTester {
 	
 	@Test
 	public void testEmptyDomain() {
-		World w = createWorld();
+		FirstOrderLogicWorld w = createWorld();
 		All all = new All(
 				new Variable("X", "dog"),
 				new Relation("likes", new Variable("X", "dog"), new Variable("X", "dog"))

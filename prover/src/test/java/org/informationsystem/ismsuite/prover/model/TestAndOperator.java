@@ -9,15 +9,13 @@ import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Not;
 import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.World;
-
 import org.junit.Test;
 
 public class TestAndOperator extends WorldTester {
 
 	@Test
 	public void test() {
-		World world = createWorld();
+		FirstOrderLogicWorld world = createWorld();
 		
 		Element socrates = new Element("Socrates", "human");
 		Element plato = new Element("Plato", "human");

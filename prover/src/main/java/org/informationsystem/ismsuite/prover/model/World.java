@@ -21,7 +21,7 @@ import java.util.Stack;
  *
  * A world is a set of finite sets, and relations
  */
-public class World implements Cloneable {
+public class World implements Cloneable, FirstOrderLogicWorld {
 
 	/**
 	 * We store relations per label name
@@ -33,6 +33,7 @@ public class World implements Cloneable {
 	
 	private Map<String,Clause> conjectures = new HashMap<>();
 	
+	@Override
 	public Set<Entry<String, Clause>> getConjectures() {
 		return conjectures.entrySet();
 	}
@@ -58,10 +59,12 @@ public class World implements Cloneable {
 		}
 	}
 	
+	@Override
 	public boolean containsType(String type) {
 		return elements.containsKey(type);
 	}
 	
+	@Override
 	public Iterator<Element> elementsIn(String type) {
 		if (elements.containsKey(type)) {
 			return elements.get(type).iterator();
@@ -70,6 +73,7 @@ public class World implements Cloneable {
 		}
 	}
 	
+	@Override
 	public int elementSize(String type) {
 		if (elements.containsKey(type)) {
 			return elements.get(type).size();
@@ -78,10 +82,12 @@ public class World implements Cloneable {
 		}
 	}
 	
+	@Override
 	public Iterator<String> elementLabels() {
 		return items.keySet().iterator();
 	}
 	
+	@Override
 	public int relationSize() {
 		return relationset.valueSize();
 	}
@@ -108,6 +114,7 @@ public class World implements Cloneable {
 		return true;
 	}
 	
+	@Override
 	public Iterator<Relation> relations() {
 		return relationset.values().iterator();
 	}
@@ -116,6 +123,7 @@ public class World implements Cloneable {
 	 * @param label
 	 * @return all Relation Clauses of "type" label
 	 */
+	@Override
 	public Set<Relation> relations(String label) {
 		return relationset.values(label);
 	}
@@ -124,6 +132,7 @@ public class World implements Cloneable {
 	 * 
 	 * @return all relation labels present in the world
 	 */
+	@Override
 	public Set<String> relationLabels() {
 		return relationset.keySet();
 	}
@@ -132,6 +141,7 @@ public class World implements Cloneable {
 	 * @param l
 	 * @return true if l is contained in this World
 	 */
+	@Override
 	public boolean contains(Literal l) {
 		if (l instanceof Relation) {
 			return relationset.containsValue(l);
@@ -150,6 +160,7 @@ public class World implements Cloneable {
 		conjectures.put(name, clause);
 	}
 	
+	@Override
 	public Clause getConjecture(String name) {
 		if (conjectures.containsKey(name)) {
 			return conjectures.get(name);
@@ -158,10 +169,15 @@ public class World implements Cloneable {
 		}
 	}
 	
+	public void removeConjecture(String name) {
+		conjectures.remove(name);
+	}
+	
 	/**
 	 * 
 	 * @return true if all Conjectures in this world are valid
 	 */
+	@Override
 	public boolean isValid() {
 		for(Clause c: conjectures.values() ) {
 			if (!c.isValidIn(this)) {
@@ -175,6 +191,7 @@ public class World implements Cloneable {
 	 * 
 	 * @return all conjecture labels that are invalid
 	 */
+	@Override
 	public List<String> invalidates() {
 		List<String> invalid = new ArrayList<>();
 		for(Entry<String, Clause> c: conjectures.entrySet() ) {
@@ -185,6 +202,7 @@ public class World implements Cloneable {
 		return invalid;
 	}
 	
+	@Override
 	public Map<String,Stack<Clause>> invalidateAndExplain() {
 		Map<String,Stack<Clause>> results = new HashMap<>();
 		
@@ -249,6 +267,7 @@ public class World implements Cloneable {
 		return w;
 	}
 	
+	@Override
 	public boolean isEmpty() {
 		return items.isEmpty();
 	}

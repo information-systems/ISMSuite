@@ -8,14 +8,13 @@ import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Not;
 import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.World;
 import org.junit.Test;
 
 public class TestNotOperator extends WorldTester {
 
 	@Test
 	public void testNotOperator() {
-		World w = createWorld();
+		FirstOrderLogicWorld w = createWorld();
 		
 		Relation relation = new Relation("likes", new Element("Socrates", "human"), new Element("Plato", "human"));
 		

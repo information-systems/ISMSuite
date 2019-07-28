@@ -54,7 +54,7 @@ public class All extends Operator {
 	 * fails, and we stop searching.
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		Iterator<Element> it = world.elementsIn(variable.getType());
 		while(it.hasNext()) {
 			Element element = it.next();
@@ -94,7 +94,7 @@ public class All extends Operator {
 	 * Then, return.
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		Iterator<Element> it = world.elementsIn(variable.getType());
 		
 		Stack<Clause> s = new Stack<>();

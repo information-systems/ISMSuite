@@ -10,8 +10,6 @@ import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Implies;
 import org.informationsystem.ismsuite.prover.model.Not;
 import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.World;
-
 import org.junit.Test;
 
 
@@ -19,7 +17,7 @@ public class TestImpliesOperator extends WorldTester {
 
 	@Test
 	public void testImplies() {
-		World world = createWorld();
+		FirstOrderLogicWorld world = createWorld();
 
 		Element socrates = new Element("Socrates", "human");
 		Element plato = new Element("Plato", "human");

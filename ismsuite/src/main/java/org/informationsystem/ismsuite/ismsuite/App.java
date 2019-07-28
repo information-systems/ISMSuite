@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.informationsystem.ismsuite.ismsuite.model.Controller;
 import org.informationsystem.ismsuite.ismsuite.ui.MainFrame;
 import org.informationsystem.ismsuite.processengine.process.cpntools.CPNModel;
-import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 import org.informationsystem.ismsuite.prover.parser.ClauseReader;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.parser.SpecificationReader;
@@ -24,7 +24,7 @@ public class App
 		}
 		
 		// First argument is the data model file in TFF format
-		World world = null;
+		FirstOrderLogicWorld world = null;
 		try {
 			world = ClauseReader.buildWorldFromFile(args[0]);
 		} catch (IOException e1) {

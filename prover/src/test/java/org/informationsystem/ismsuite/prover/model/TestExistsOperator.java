@@ -83,7 +83,7 @@ public class TestExistsOperator extends WorldTester {
 
 	@Test
 	public void testEmptyDomain() {
-		World w = createWorld();
+		FirstOrderLogicWorld w = createWorld();
 		Exists exists = new Exists(
 				new Variable("X", "dog"),
 				new Relation("likes", new Variable("X", "dog"), new Variable("X", "dog"))

@@ -30,7 +30,7 @@ public class Not extends Operator {
 	 * operand is not valid in the world.
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		if (operand.isValidIn(world)) {
 			return false;
 		}
@@ -52,7 +52,7 @@ public class Not extends Operator {
 	 * If Not(A) is not true, its explanation is A. 
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		Stack<Clause> explanation = new Stack<>();
 		if (this.operand.isValidIn(world)) {
 			explanation.add(this.operand);

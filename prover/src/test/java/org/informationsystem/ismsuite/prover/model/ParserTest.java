@@ -5,14 +5,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-import org.informationsystem.ismsuite.prover.model.World;
-
 public class ParserTest {
 
 	@Test
 	public void testParser() {
 	
-		World world = ClauseReader.buildWorldFrom(
+		FirstOrderLogicWorld world = ClauseReader.buildWorldFrom(
 					  "tff(a_type, type, a: human)."
 					+ "tff(b_type, type, b: human)."
 					+ "tff(c_type, type, c: human)."

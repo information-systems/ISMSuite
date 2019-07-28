@@ -38,7 +38,7 @@ public class Implies extends Operator {
 	 * A => B === not(A) | B
 	 */
 	@Override
-	public boolean isValidIn(World world) {
+	public boolean isValidIn(FirstOrderLogicWorld world) {
 		// A => B === not(A) or B
 		Or or = new Or(new Not(premise), conclusion);
 		return or.isValidIn(world);
@@ -69,7 +69,7 @@ public class Implies extends Operator {
 	 * 
 	 */
 	@Override
-	public Stack<Clause> findExplanationFor(World world) {
+	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
 		
 		Not form = new Not(
 				new And(
