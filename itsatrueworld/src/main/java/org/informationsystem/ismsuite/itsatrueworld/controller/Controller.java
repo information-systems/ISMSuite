@@ -3,7 +3,6 @@ package org.informationsystem.ismsuite.itsatrueworld.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
 import org.informationsystem.ismsuite.prover.io.ClauseReader;

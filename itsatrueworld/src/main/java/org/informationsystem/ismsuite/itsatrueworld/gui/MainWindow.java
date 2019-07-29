@@ -4,17 +4,25 @@
 package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 
@@ -68,18 +76,87 @@ public class MainWindow extends JFrame {
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmExit;
 	
+	private JPanel quickValidatorPanel;
 	
+	private JPanel transactionPanel;
+	private JPanel worldPanel;
+	private JPanel conjecturePanel;
+	private JTextArea quickText;
+	
+	
+	/**
+	 * Builds the Frame
+	 * 
+	 * |-----------------------------------------|
+	 * |Menu bar                                 |
+	 * |-----------------------------------------|
+	 * | quickvalidate:                          |
+	 * | textfield to enter a conjecture         |
+	 * |                       validate | add    |
+	 * |-----------------------------------------|
+	 * |  Trans- | tabbed panel    | conjectures |
+	 * | actions | - elements      |             |
+	 * |         | - rel. bucket   |             |
+	 * |         | - axiom list    |             |
+	 * |---------|-----------------|-------------|
+	 *           ^                 ^
+	 *        transSplitter      conjectureSplitter
+	 * 
+	 */
 	protected void initialize() {		
 		setTitle("It's a true world");
 		setLayout(new BorderLayout());
 		
-		buildMenu();
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(500, 500));
+		this.setLayout(new BorderLayout());
 		
+		// Build menu
+		buildMenu();
+		
+		buildQuickValidatorPanel();
+		
+		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 		
 		revalidate();
+	}
+	
+	protected void buildQuickValidatorPanel() {
+		// Build validator panel
+		quickValidatorPanel = new JPanel();
+		quickValidatorPanel.setLayout(new BorderLayout());
+		
+		quickText = new JTextArea(4, 80);
+		JScrollPane scrollPane = new JScrollPane(quickText);
+		
+		quickValidatorPanel.add(scrollPane, BorderLayout.CENTER);
+		quickValidatorPanel.setBorder(
+				BorderFactory.createCompoundBorder(
+						BorderFactory.createEmptyBorder(5, 5, 5, 5),
+						BorderFactory.createCompoundBorder(
+								BorderFactory.createLineBorder(Color.black, 1, true),
+								BorderFactory.createEmptyBorder(5, 5, 5, 5)
+						)
+				)
+		);
+						
+		JPanel quickButtonPanel = new JPanel();
+		quickButtonPanel.setLayout(new BorderLayout());
+		
+		JPanel holder = new JPanel();
+		holder.setLayout(new GridLayout(1, 2));
+		
+		JButton validateButton = new JButton("Validate");
+		holder.add(validateButton);
+		
+		JButton addButton = new JButton("Add");
+		holder.add(addButton);
+		
+		quickButtonPanel.add(holder, BorderLayout.EAST);
+		
+		quickValidatorPanel.add(quickButtonPanel, BorderLayout.SOUTH);
+		
+		this.add(quickValidatorPanel, BorderLayout.NORTH);		
 	}
 	
 	protected void buildMenu() {
