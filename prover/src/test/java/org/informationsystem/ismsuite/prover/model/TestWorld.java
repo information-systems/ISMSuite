@@ -72,8 +72,8 @@ public class TestWorld {
 		w.addRelation(new Relation("likes", augustine, augustine));
 		
 		assertEquals(3, w.relationSize());
-		assertEquals(3, w.relations("likes").size());
-		Set<Relation> myLikes = w.relations("likes");
+		assertEquals(3, w.getRelations("likes").size());
+		Set<Relation> myLikes = w.getRelations("likes");
 				
 		assertTrue(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
 		assertTrue(w.contains(new Relation("likes", new Element("Plato","human"), new Element("Plato", "human"))));
@@ -103,9 +103,9 @@ public class TestWorld {
 		w.removeRelation(new Relation("likes", new Element("Socrates", "human"), new Element("Socrates", "human")));
 
 		assertEquals(2, w.relationSize());
-		assertEquals(2, w.relations("likes").size());
+		assertEquals(2, w.getRelations("likes").size());
 		
-		myLikes = w.relations("likes");
+		myLikes = w.getRelations("likes");
 		assertFalse(w.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
 		assertFalse(myLikes.contains(new Relation("likes", new Element("Socrates","human"), new Element("Socrates", "human"))));
 		

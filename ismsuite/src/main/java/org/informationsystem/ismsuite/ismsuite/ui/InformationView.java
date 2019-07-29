@@ -47,7 +47,7 @@ public class InformationView extends JPanel implements StateChangedListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void update(Model model) {
-		for(String label: model.getWorld().relationLabels()) {
+		for(String label: model.getWorld().getRelationLabels()) {
 			if(!relationPanels.containsKey(label)) {
 				JPanel p = grid.getNewPanel();
 				p.setLayout(new BorderLayout());
@@ -72,7 +72,7 @@ public class InformationView extends JPanel implements StateChangedListener {
 			@SuppressWarnings("rawtypes")
 			DefaultListModel relModel = relationModels.get(label);
 			relModel.clear();
-			for(Relation r: model.getWorld().relations(label)) {
+			for(Relation r: model.getWorld().getRelations(label)) {
 				relModel.addElement(r.toTFF());
 			}
 		}

@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.prover.parser;
+package org.informationsystem.ismsuite.prover.io;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +56,7 @@ public class ClauseReader {
 		return b.getWorld();
 	}
 	
-	public static FirstOrderLogicWorld buildWorldFrom(InputStream in) throws IOException {
+	public static World buildWorldFrom(InputStream in) throws IOException {
 		Tff_fileContext tree = parseStream(CharStreams.fromStream(in));
 		
 		ClauseBuilder b = new ClauseBuilder();
@@ -114,7 +114,7 @@ public class ClauseReader {
 		 */
 		private Map<String, String> currentlyBoundVariables = new HashMap<>();
 
-		public FirstOrderLogicWorld getWorld() {
+		public World getWorld() {
 			return world;
 		}
 

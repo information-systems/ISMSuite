@@ -4,13 +4,11 @@
 package org.informationsystem.ismsuite.prover.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -65,7 +63,12 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	}
 	
 	@Override
-	public Iterator<Element> elementsIn(String type) {
+	public Set<String> getElementTypes() {
+		return elements.keySet();
+	}
+	
+	@Override
+	public Iterator<Element> getElementsIn(String type) {
 		if (elements.containsKey(type)) {
 			return elements.get(type).iterator();
 		} else {
@@ -83,7 +86,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	}
 	
 	@Override
-	public Iterator<String> elementLabels() {
+	public Iterator<String> getElementLabels() {
 		return items.keySet().iterator();
 	}
 	
@@ -115,7 +118,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	}
 	
 	@Override
-	public Iterator<Relation> relations() {
+	public Iterator<Relation> getRelations() {
 		return relationset.values().iterator();
 	}
 	
@@ -124,7 +127,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	 * @return all Relation Clauses of "type" label
 	 */
 	@Override
-	public Set<Relation> relations(String label) {
+	public Set<Relation> getRelations(String label) {
 		return relationset.values(label);
 	}
 	
@@ -133,7 +136,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	 * @return all relation labels present in the world
 	 */
 	@Override
-	public Set<String> relationLabels() {
+	public Set<String> getRelationLabels() {
 		return relationset.keySet();
 	}
 	

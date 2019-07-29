@@ -13,27 +13,27 @@ public interface FirstOrderLogicWorld {
 
 	boolean containsType(String type);
 
-	Iterator<Element> elementsIn(String type);
+	Iterator<Element> getElementsIn(String type);
 
 	int elementSize(String type);
 
-	Iterator<String> elementLabels();
+	Iterator<String> getElementLabels();
 
 	int relationSize();
 
-	Iterator<Relation> relations();
+	Iterator<Relation> getRelations();
 
 	/**
 	 * @param label
 	 * @return all Relation Clauses of "type" label
 	 */
-	Set<Relation> relations(String label);
+	Set<Relation> getRelations(String label);
 
 	/**
 	 * 
 	 * @return all relation labels present in the world
 	 */
-	Set<String> relationLabels();
+	Set<String> getRelationLabels();
 
 	/**
 	 * @param l
@@ -60,5 +60,7 @@ public interface FirstOrderLogicWorld {
 	String toString();
 
 	boolean isEmpty();
+
+	Set<String> getElementTypes();
 
 }

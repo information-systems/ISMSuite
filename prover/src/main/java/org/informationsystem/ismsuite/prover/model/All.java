@@ -55,7 +55,7 @@ public class All extends Operator {
 	 */
 	@Override
 	public boolean isValidIn(FirstOrderLogicWorld world) {
-		Iterator<Element> it = world.elementsIn(variable.getType());
+		Iterator<Element> it = world.getElementsIn(variable.getType());
 		while(it.hasNext()) {
 			Element element = it.next();
 			Clause clause = (Clause) operand.clone();
@@ -95,7 +95,7 @@ public class All extends Operator {
 	 */
 	@Override
 	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
-		Iterator<Element> it = world.elementsIn(variable.getType());
+		Iterator<Element> it = world.getElementsIn(variable.getType());
 		
 		Stack<Clause> s = new Stack<>();
 		

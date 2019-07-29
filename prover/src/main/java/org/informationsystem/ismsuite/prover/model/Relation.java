@@ -15,6 +15,8 @@ public class Relation extends Literal {
 	private List<Literal> parameters;
 	private boolean mIsAbstract;
 	
+	private String id;
+	
 	public Relation(String label, List<Literal> params) {
 		super(label);
 		parameters = params;
@@ -43,8 +45,17 @@ public class Relation extends Literal {
 		sb.append("REL: ");
 		sb.append(getLabel());
 		sb.append("(");
+		
+		StringBuilder idBuilder = new StringBuilder();
+		idBuilder.append(getLabel());
+		idBuilder.append("__");
+		
 		for(Literal p : parameters) {
 			sb.append("[");
+			
+			idBuilder.append("__");
+			idBuilder.append(p.getLabel());
+			
 			sb.append(p.toString());
 			sb.append("] ");
 			if (p.isAbstract()) {
@@ -53,6 +64,7 @@ public class Relation extends Literal {
 		}
 		sb.append(" )");
 		mString = sb.toString();
+		setId(idBuilder.toString());
 	}
 	
 	/**
@@ -163,6 +175,14 @@ public class Relation extends Literal {
 		}
 		
 		return explain;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

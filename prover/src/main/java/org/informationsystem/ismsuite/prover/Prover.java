@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.informationsystem.ismsuite.prover.io.ClauseReader;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
-import org.informationsystem.ismsuite.prover.parser.ClauseReader;
 
 import java.util.Stack;
 
