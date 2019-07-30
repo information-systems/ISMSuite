@@ -9,9 +9,10 @@ import org.informationsystem.ismsuite.processengine.process.BoundTransition;
 import org.informationsystem.ismsuite.processengine.process.MultiSet;
 import org.informationsystem.ismsuite.processengine.process.Token;
 import org.informationsystem.ismsuite.processengine.process.cpntools.CPNModel;
-import org.junit.AfterClass;
+
 import org.junit.Test;
 
+@SuppressWarnings("unused")
 public class CPNModelTester {
 
 	public void testTransitionList() {

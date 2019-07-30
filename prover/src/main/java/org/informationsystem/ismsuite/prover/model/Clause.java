@@ -1,6 +1,5 @@
 package org.informationsystem.ismsuite.prover.model;
 
-import java.util.Iterator;
 import java.util.Stack;
 
 /**

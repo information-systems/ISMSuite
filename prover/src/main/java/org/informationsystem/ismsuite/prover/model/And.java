@@ -99,7 +99,7 @@ public class And extends Operator {
 	 */
 	@Override
 	public Stack<Clause> findExplanationFor(FirstOrderLogicWorld world) {
-		boolean value = true;
+
 		for(Clause op: operands) {
 			Stack<Clause> exOp = op.findExplanationFor(world);
 			// if exOp is empty, the clause holds

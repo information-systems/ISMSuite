@@ -1,7 +1,5 @@
 package org.informationsystem.ismsuite.processengine.process.cpntools;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +15,6 @@ import org.cpntools.accesscpn.engine.highlevel.instance.State;
 import org.cpntools.accesscpn.engine.highlevel.instance.ValueAssignment;
 import org.cpntools.accesscpn.engine.proxy.ProxyDaemon;
 import org.cpntools.accesscpn.engine.proxy.ProxySimulator;
-import org.cpntools.accesscpn.model.PetriNet;
-import org.cpntools.accesscpn.model.Place;
 import org.cpntools.accesscpn.model.PlaceNode;
 import org.cpntools.accesscpn.model.Transition;
 import org.informationsystem.ismsuite.processengine.process.BoundTransition;
@@ -45,8 +41,6 @@ public class CPNModel implements ProcessModel {
 			System.out.println("Waiting for syntax check");
 			while (ps.getPetriNet() == null)
 				Thread.sleep(500);
-			
-			final PetriNet petriNet = ps.getPetriNet();
 			
 			// Check the model's syntax
 			System.out.println("Get Simulator");

@@ -79,7 +79,7 @@ unary_connective     : Not;
 // Initial rule. As we only parse simple TFF formulae, 
 // we stick to this, and keep the grammar as simple as possible.
 // For example, we do not allow for annotations.
-tff_file                : tff_line* EOF;
+tff_file                : (tff_line* | tff_formula ) EOF;
 tff_line                : 'tff' '(' name ',' formula_role ',' tff_formula ').';
 formula_role            : Lower_word; // #RES no restrictions
 

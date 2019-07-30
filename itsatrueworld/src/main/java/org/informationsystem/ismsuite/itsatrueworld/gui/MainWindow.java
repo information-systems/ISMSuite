@@ -7,22 +7,26 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 
@@ -38,7 +42,9 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = -9217156852218912678L;
 	
 	Controller controller;
-	
+
+	private MainWindow parent;
+		
 	public MainWindow() {
 		this(new Controller());
 	}
@@ -50,9 +56,10 @@ public class MainWindow extends JFrame {
 	
 		this.controller = controller;
 		
+		parent = this;
+		
 		initialize();
 	}
-	
 
 	// Invoke/show the UI.
 	public static void invokeUI(Controller controller) throws InvocationTargetException, InterruptedException {
@@ -78,10 +85,11 @@ public class MainWindow extends JFrame {
 	
 	private JPanel quickValidatorPanel;
 	
+	private JPanel mainPanel;
 	private JPanel transactionPanel;
 	private JPanel worldPanel;
 	private JPanel conjecturePanel;
-	private JTextArea quickText;
+	
 	
 	
 	/**
@@ -110,54 +118,81 @@ public class MainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(500, 500));
 		this.setLayout(new BorderLayout());
+		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 		
-		// Build menu
 		buildMenu();
 		
 		buildQuickValidatorPanel();
 		
-		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+		buildMainPanel();
+		
 		
 		revalidate();
 	}
 	
+	
+	
 	protected void buildQuickValidatorPanel() {
 		// Build validator panel
-		quickValidatorPanel = new JPanel();
-		quickValidatorPanel.setLayout(new BorderLayout());
-		
-		quickText = new JTextArea(4, 80);
-		JScrollPane scrollPane = new JScrollPane(quickText);
-		
-		quickValidatorPanel.add(scrollPane, BorderLayout.CENTER);
-		quickValidatorPanel.setBorder(
-				BorderFactory.createCompoundBorder(
-						BorderFactory.createEmptyBorder(5, 5, 5, 5),
-						BorderFactory.createCompoundBorder(
-								BorderFactory.createLineBorder(Color.black, 1, true),
-								BorderFactory.createEmptyBorder(5, 5, 5, 5)
-						)
-				)
-		);
-						
-		JPanel quickButtonPanel = new JPanel();
-		quickButtonPanel.setLayout(new BorderLayout());
-		
-		JPanel holder = new JPanel();
-		holder.setLayout(new GridLayout(1, 2));
-		
-		JButton validateButton = new JButton("Validate");
-		holder.add(validateButton);
-		
-		JButton addButton = new JButton("Add");
-		holder.add(addButton);
-		
-		quickButtonPanel.add(holder, BorderLayout.EAST);
-		
-		quickValidatorPanel.add(quickButtonPanel, BorderLayout.SOUTH);
-		
+		quickValidatorPanel = new QuickValidatorPanel(this, controller);
 		this.add(quickValidatorPanel, BorderLayout.NORTH);		
 	}
+	
+	protected void buildMainPanel() {
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new BorderLayout());
+		
+		transactionPanel = buildTransactionPanel();
+		worldPanel = buildWorldPanel();
+		conjecturePanel = buildConjecturePanel();
+		
+		JSplitPane conjectureSplitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, worldPanel, conjecturePanel);
+		conjectureSplitter.setOneTouchExpandable(true);
+        conjectureSplitter.setContinuousLayout(true);
+        conjectureSplitter.setDividerLocation(0.33);
+        conjectureSplitter.setResizeWeight(0.7);
+        
+		JPanel inBetween = new JPanel();
+		inBetween.setLayout(new BorderLayout());
+		inBetween.add(conjectureSplitter, BorderLayout.CENTER);
+		
+		JSplitPane transactionSplitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, transactionPanel, inBetween);
+		transactionSplitter.setOneTouchExpandable(true);
+        transactionSplitter.setContinuousLayout(true);
+		transactionSplitter.setDividerLocation(0.33);
+		transactionSplitter.setResizeWeight(0.3);
+		
+		mainPanel.add(transactionSplitter);
+		
+		this.add(mainPanel, BorderLayout.CENTER);
+	}
+	
+	protected JPanel buildTransactionPanel() {
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLUE);
+		
+		return panel;
+	}
+	
+	protected JPanel buildWorldPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		
+		JTabbedPane tabs = new JTabbedPane();
+		
+		tabs.addTab("Elements", new ElementListingPanel(this.controller));
+		tabs.addTab("Relations", new RelationListingPanel(this.controller));
+		
+		panel.add(tabs, BorderLayout.CENTER);
+		return panel;
+	}
+	
+	protected JPanel buildConjecturePanel() {
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.GREEN);
+		
+		return panel;
+	}	
 	
 	protected void buildMenu() {
 		menuBar = new JMenuBar();
@@ -170,6 +205,29 @@ public class MainWindow extends JFrame {
 		
 		mntmOpen = new JMenuItem("Open...");
 		mntmOpen.setMnemonic(KeyEvent.VK_O);
+		mntmOpen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Typed First-order logic Formulae", "tff"));
+				
+				int result = fileChooser.showOpenDialog(parent);
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				    try {
+						controller.open(new FileInputStream(selectedFile));
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						System.out.println("File: " + selectedFile + " not found!");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		mntmOpen.getAccessibleContext().setAccessibleDescription("Open a TFF-based world file");
 		mnFile.add(mntmOpen);
 			
@@ -190,5 +248,7 @@ public class MainWindow extends JFrame {
 		
 		setJMenuBar(menuBar);
 	}
+
+	
 
 }

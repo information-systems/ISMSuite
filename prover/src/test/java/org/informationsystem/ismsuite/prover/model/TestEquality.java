@@ -21,7 +21,6 @@ public class TestEquality {
 	private Element a;
 	
 	private Variable x;
-	private Variable y;
 	
 	private Relation r1;
 	private Relation r2;
@@ -42,7 +41,6 @@ public class TestEquality {
 		a = new Element("Augustine", "human");
 		
 		x = new Variable("X", "human");
-		y = new Variable("y", "human");
 		
 		r1 = new Relation("likes", s, p);
 		r2 = new Relation("likes", p, s);

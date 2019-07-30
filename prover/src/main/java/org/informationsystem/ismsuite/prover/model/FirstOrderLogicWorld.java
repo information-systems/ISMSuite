@@ -62,5 +62,7 @@ public interface FirstOrderLogicWorld {
 	boolean isEmpty();
 
 	Set<String> getElementTypes();
+	
+	String findTypeFor(String element);
 
 }
