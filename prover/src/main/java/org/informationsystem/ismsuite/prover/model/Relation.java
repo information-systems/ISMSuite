@@ -185,4 +185,9 @@ public class Relation extends Literal {
 		this.id = id;
 	}
 	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
 }

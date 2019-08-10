@@ -66,4 +66,9 @@ public class Element extends Literal {
 		}
 	}
 	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
 }

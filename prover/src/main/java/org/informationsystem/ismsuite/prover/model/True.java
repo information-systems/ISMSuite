@@ -41,6 +41,9 @@ public class True extends Clause {
 		return "$true";
 	}
 
-	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}	
 
 }

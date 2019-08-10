@@ -129,4 +129,6 @@ public abstract class Clause implements Cloneable, Comparable<Clause> {
 		return this.toString().compareTo(o.toString());
 	}
 	
+	public abstract <T> T accept(ClauseVisitor<T> visitor);
+	
 }

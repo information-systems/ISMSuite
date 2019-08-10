@@ -15,6 +15,14 @@ public class Implies extends Operator {
 	private Clause premise;
 	private Clause conclusion;
 	
+	public Clause getPremise() {
+		return premise;
+	}
+	
+	public Clause getConclusion() {
+		return conclusion;
+	}
+	
 	public Implies(Clause premise, Clause conclusion) {
 		this.premise = premise;
 		this.conclusion = conclusion;
@@ -91,4 +99,8 @@ public class Implies extends Operator {
 		return "( " + premise.toTFF(false) + " => " + conclusion.toTFF(false) + " )";
 	}
 
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 }

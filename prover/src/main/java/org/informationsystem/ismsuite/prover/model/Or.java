@@ -39,6 +39,10 @@ public class Or extends Operator {
 		calculateProperties();
 	}
 	
+	public Iterator<Clause> operands() {
+		return operands.iterator();
+	}
+	
 	@Override
 	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
@@ -114,5 +118,10 @@ public class Or extends Operator {
 			sb.append(c.toTFF(false));
 		}
 		return "(" + sb.substring(2) + " )";
+	}
+	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 }

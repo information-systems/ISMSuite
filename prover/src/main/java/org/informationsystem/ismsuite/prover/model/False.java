@@ -42,4 +42,9 @@ public class False extends Clause {
 	public String toTFF(boolean typed) {
 		return "$false";
 	}
+	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 }

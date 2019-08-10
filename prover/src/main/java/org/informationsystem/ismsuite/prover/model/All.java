@@ -118,4 +118,9 @@ public class All extends Operator {
 		return "( ! [ " + getVariable().toTFF(true) + " ] : ( " + getOperand().toTFF(false) + " ) )";
 	}
 	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
 }

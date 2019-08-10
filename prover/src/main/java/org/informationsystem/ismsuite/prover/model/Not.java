@@ -64,4 +64,13 @@ public class Not extends Operator {
 	public String toTFF(boolean typed) {
 		return "~( " + operand.toTFF(false) + " )";
 	}
+
+	public Clause getOperand() {
+		return operand;
+	}
+	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 }
