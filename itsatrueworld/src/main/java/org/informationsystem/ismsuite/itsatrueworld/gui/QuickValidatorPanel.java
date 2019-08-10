@@ -2,7 +2,7 @@ package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +12,8 @@ import java.util.BitSet;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,6 +27,7 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.gui.clausetree.ClauseTreeVisualizer;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
@@ -42,9 +45,9 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 	
 	private Controller controller;
 	
-	private Component parent;
+	private JFrame parent;
 	
-	public QuickValidatorPanel(Component parent, Controller controller) {
+	public QuickValidatorPanel(JFrame parent, Controller controller) {
 		this.controller = controller;
 		this.controller.register(this);
 		tffClauseVisitor = new TFFClauseVisitor(this.controller.getModel().getWorld());
@@ -98,6 +101,26 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 		
 		JPanel holder = new JPanel();
 		holder.setLayout(new GridLayout(1, 2));
+		
+		JButton visualizeButton = new JButton("Visualize");
+		visualizeButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Clause c = tffClauseVisitor.visit(quickText.getText());
+				if (c != null) {
+					JPanel p = ClauseTreeVisualizer.constructPanel(c);
+					JScrollPane scroll = new JScrollPane(p);
+					p.setPreferredSize(new Dimension(400,400));
+					
+					scroll.getViewport().add(p);
+					
+					JOptionPane.showMessageDialog(parent, scroll, "Visualize clause", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		holder.add(visualizeButton);
+		
 		
 		JButton validateButton = new JButton("Validate");
 		validateButton.addActionListener(new ActionListener() {
