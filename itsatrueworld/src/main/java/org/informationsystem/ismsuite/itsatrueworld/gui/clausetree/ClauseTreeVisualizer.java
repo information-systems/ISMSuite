@@ -37,6 +37,11 @@ public class ClauseTreeVisualizer {
 		
 		p.add(tree, BorderLayout.CENTER);
 		
+		// Expand all its nodes
+		for (int i = 0; i < tree.getRowCount(); i++) {
+		    tree.expandRow(i);
+		}
+		
 		return p;
 	}
 	
