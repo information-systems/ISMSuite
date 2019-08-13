@@ -1,5 +1,8 @@
 package org.informationsystem.ismsuite.itsatrueworld;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
@@ -13,6 +16,14 @@ public class App
 {
     public static void main( String[] args ) throws InvocationTargetException, InterruptedException
     {
-        MainWindow.invokeUI(new Controller());
+    	Controller c = new Controller();
+    	if (args.length > 0) {
+    		try {
+				c.open(new FileInputStream(new File(args[0])));
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+    	}
+        MainWindow.invokeUI(c);
     }
 }

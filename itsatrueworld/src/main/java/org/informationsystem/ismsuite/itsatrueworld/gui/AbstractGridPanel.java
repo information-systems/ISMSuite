@@ -47,6 +47,7 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		grid.addGridListener(this);
 		
 		this.controller.register(this);
+		this.notify(controller.getModel());
 	}
 	
 	protected JPanel getPanelFor(String name) {
