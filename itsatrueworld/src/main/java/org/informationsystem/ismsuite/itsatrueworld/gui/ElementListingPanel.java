@@ -16,7 +16,7 @@ public class ElementListingPanel extends AbstractGridPanel<String> {
 	private static final long serialVersionUID = 8247588857156850L;
 
 	public ElementListingPanel(Controller controller) {
-		super(controller);
+		super(controller, true, true);
 	}
 
 	@Override
