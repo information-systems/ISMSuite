@@ -20,7 +20,6 @@ import org.informationsystem.ismsuite.prover.model.False;
 import org.informationsystem.ismsuite.prover.model.Implies;
 import org.informationsystem.ismsuite.prover.model.Literal;
 import org.informationsystem.ismsuite.prover.model.Not;
-import org.informationsystem.ismsuite.prover.model.Operator;
 import org.informationsystem.ismsuite.prover.model.Or;
 import org.informationsystem.ismsuite.prover.model.Relation;
 import org.informationsystem.ismsuite.prover.model.True;
@@ -67,8 +66,18 @@ public class ClauseTreeVisualizer {
 
 		@Override
 		public DefaultMutableTreeNode visit(Element e) {
+			StringBuilder text = new StringBuilder();
+			text.append("<html>");
+			text.append("<b>");
+			text.append(e.getLabel());
+			text.append("</b>");
+			text.append(" from ");
+			text.append("<i>");
+			text.append(e.getType());
+			text.append("</i>");
+			text.append("</html>");
 			
-			return new DefaultMutableTreeNode(e.getLabel() + " IN " + e.getType());
+			return new DefaultMutableTreeNode(text.toString());
 		}
 
 		@Override
@@ -88,20 +97,25 @@ public class ClauseTreeVisualizer {
 		@Override
 		public DefaultMutableTreeNode visit(Variable v) {
 			
-			String label = v.getLabel() + " OF TYPE " + v.getType();
-			String text;
-			if (context.contains(v)) {
-				text = "<html><i>" 
-						+ label 
-						+ "</i></html>";
-			} else {
-				text = "<html><font color=\"red\">"
-						+ label
-						+ "</font></html>";
-				
-			}
+			StringBuilder text = new StringBuilder();
 			
-			return new DefaultMutableTreeNode(text);
+			text.append("<html>");
+			if (!context.contains(v)) {
+				text.append("<font color=\"red\">");
+			}
+			text.append("<b>");
+			text.append(v.getLabel());
+			text.append("</b>");
+			text.append(" from ");
+			text.append("<i>");
+			text.append(v.getType());
+			text.append("</i>");
+			if (!context.contains(v)) {
+				text.append("</font>");
+			}
+			text.append("</html>");
+			
+			return new DefaultMutableTreeNode(text.toString());
 		}
 
 		@Override
