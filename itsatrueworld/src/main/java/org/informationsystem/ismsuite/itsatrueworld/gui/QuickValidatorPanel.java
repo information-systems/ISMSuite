@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.BitSet;
+import java.util.Stack;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -60,13 +61,11 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 		setLayout(new BorderLayout());
 		
 		quickText = new JTextArea(4, 80);
-		
+		quickText.setText("! [X: universe, Y: universe] : (likes(X, Y) => likes(X, X))");
 		quickText.addKeyListener(new KeyListener() {
 	
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-			}
+			@Override public void keyTyped(KeyEvent e) {}
+			@Override public void keyPressed(KeyEvent e) {}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -75,12 +74,9 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 					Clause c = tffClauseVisitor.visit(quickText.getText());
 					quickLabel.setText(c.toString());
 				} catch(Exception ex) {
-					System.out.println(ex.getMessage());
+					// System.out.println(ex.getMessage());
 				}
 			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {}
 		});
 		JScrollPane scrollPane = new JScrollPane(quickText);
 		
@@ -129,9 +125,11 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 			public void actionPerformed(ActionEvent e) {
 				Clause c = tffClauseVisitor.visit(quickText.getText());
 				if (c != null) {
-					if (c.isValidIn(controller.getModel().getWorld())) {
+					Stack<Clause> expl = c.findExplanationFor(controller.getModel().getWorld());
+					if (expl.isEmpty()) {
 						JOptionPane.showMessageDialog(parent, "Formula is valid!");
 					} else {
+						
 						JOptionPane.showMessageDialog(parent, "Formula is *not* valid!");
 					}
 				}
