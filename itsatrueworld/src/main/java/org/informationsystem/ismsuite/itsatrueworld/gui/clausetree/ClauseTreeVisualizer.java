@@ -157,10 +157,14 @@ public class ClauseTreeVisualizer {
 
 		@Override
 		public DefaultMutableTreeNode visit(Exists e) {
+			context.add(e.getVariable());
+		
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode("EXISTS");
 			
 			node.add(e.getVariable().accept(this));
 			node.add(e.getOperand().accept(this));
+			
+			context.remove(e.getVariable());
 			
 			return node;
 		}
