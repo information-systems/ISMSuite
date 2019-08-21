@@ -28,4 +28,16 @@ public class RelationListingPanel extends AbstractGridPanel<String> {
 		}
 	}
 
+	@Override
+	protected void removeAction(String elem, String label) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void addAction(String label) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

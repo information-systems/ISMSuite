@@ -33,31 +33,15 @@ public class ElementListingPanel extends AbstractGridPanel<String> {
 	}
 	
 	@Override
-	protected JPanel createNewPanel(String label) {
-		LabeledButtonPanel p = new LabeledButtonPanel(label);
-		
-		p.addButtonListener(new ButtonListener() {
-			
-			@Override
-			public void removeAction(String label) {
-				String elem = getSelectedItemOf(label);
-				if (elem != null) {
-					getController().removeElement(elem, label);
-				}
-			}
-			
-			@Override
-			public void addAction(String label) {
-				UpdateElementDialog.createElement(getController(), parent, label);
-			}
-		});
-		
-		JLabel l = new JLabel(label);
-		p.add(l, BorderLayout.NORTH);
-		
-		return p;
+	protected void removeAction(String elem, String label) {
+		getController().removeElement(elem, label);
 	}
-
+	
+	@Override
+	protected void addAction(String label) {
+		UpdateElementDialog.createElement(getController(), parent, label);
+	}
+	
 	@Override
 	public void notify(TrueWorld world) {
 		for(String typ: world.getWorld().getElementTypes()) {
@@ -70,70 +54,5 @@ public class ElementListingPanel extends AbstractGridPanel<String> {
 		}		
 	}
 	
-	public interface ButtonListener {
-		void addAction(String label);
-		void removeAction(String label);
-	}
 	
-	class LabeledButtonPanel extends JPanel {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 4439854118846343197L;
-		
-		private String label;
-		
-		public LabeledButtonPanel(String label) {
-			super();
-			this.label = label;
-			
-			setLayout(new BorderLayout(5,5));
-		
-			JPanel holder = new JPanel(new BorderLayout());
-			
-			JPanel buttons = new JPanel(new GridLayout(1,2));
-			
-			JButton addButton = new JButton("+");
-			addButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					for(ButtonListener l: listeners) {
-						l.addAction(getLabel());
-					}
-				}
-				
-			});
-			JButton removeButton = new JButton("-");
-			removeButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					for(ButtonListener l: listeners) {
-						l.removeAction(getLabel());
-					}
-				}
-				
-			});
-			
-			buttons.add(addButton);
-			buttons.add(removeButton);
-			holder.add(buttons, BorderLayout.EAST);
-			
-			add(holder, BorderLayout.SOUTH);
-			
-		}
-		
-		public String getLabel() {
-			return label;
-		}
-		
-		private Set<ButtonListener> listeners = new HashSet<>();
-		
-		public void addButtonListener(ButtonListener l) {
-			listeners.add(l);
-		}
-		
-	}
 }

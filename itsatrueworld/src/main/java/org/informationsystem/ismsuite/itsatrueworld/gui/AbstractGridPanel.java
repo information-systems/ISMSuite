@@ -2,11 +2,18 @@ package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -67,7 +74,6 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 	public JPanel getPanel(String label) {
 		if (!panels.containsKey(label)) {
 			JPanel p = createNewPanel(label);
-			decoratePanel(p,label);
 			grid.addPanel(p);
 			panels.put(label, p);
 		} 
@@ -76,11 +82,33 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		
 	}
 	
-	protected JPanel createNewPanel(String label) {
-		return new JPanel(new BorderLayout(5,5));
-	}
+	protected abstract void removeAction(E elem, String label);
 	
-	protected void decoratePanel(JPanel p, String label) {
+	protected abstract void addAction(String label);
+	
+	
+	protected JPanel createNewPanel(String label) {
+		LabeledButtonPanel p = new LabeledButtonPanel(label);
+		
+		JLabel l = new JLabel(label);
+		p.add(l, BorderLayout.NORTH);
+		
+		p.addButtonListener(new ButtonListener() {
+			
+			@Override
+			public void onRemove(String label) {
+				E elem = getSelectedItemOf(label);
+				if (elem != null) {
+					removeAction(elem, label);
+				}
+			}
+			
+			@Override
+			public void onAdd(String label) {
+				addAction(label);
+			}
+		});
+		
 		listmodels.put(label, new DefaultListModel<E>());
 		JList<E> list = new JList<E>(listmodels.get(label));
 		lists.put(list, label);
@@ -118,6 +146,8 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 						)
 				)
 		);
+		
+		return p;
 	}
 	
 	public E getSelectedItemOf(String label) {
@@ -126,6 +156,73 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		} else {
 			return null;
 		}
+	}
+	
+	public interface ButtonListener {
+		void onAdd(String label);
+		void onRemove(String label);
+	}
+	
+	class LabeledButtonPanel extends JPanel {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4439854118846343197L;
+		
+		private String label;
+		
+		public LabeledButtonPanel(String label) {
+			super();
+			this.label = label;
+			
+			setLayout(new BorderLayout(5,5));
+		
+			JPanel holder = new JPanel(new BorderLayout());
+			
+			JPanel buttons = new JPanel(new GridLayout(1,2));
+			
+			JButton addButton = new JButton("+");
+			addButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					for(ButtonListener l: listeners) {
+						l.onAdd(getLabel());
+					}
+				}
+				
+			});
+			JButton removeButton = new JButton("-");
+			removeButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					for(ButtonListener l: listeners) {
+						l.onRemove(getLabel());
+					}
+				}
+				
+			});
+			
+			buttons.add(addButton);
+			buttons.add(removeButton);
+			holder.add(buttons, BorderLayout.EAST);
+			
+			add(holder, BorderLayout.SOUTH);
+			
+		}
+		
+		public String getLabel() {
+			return label;
+		}
+		
+		private Set<ButtonListener> listeners = new HashSet<>();
+		
+		public void addButtonListener(ButtonListener l) {
+			listeners.add(l);
+		}
+		
 	}
 	
 }
