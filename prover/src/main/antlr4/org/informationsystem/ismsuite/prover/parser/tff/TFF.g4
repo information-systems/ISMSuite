@@ -12,24 +12,24 @@ fragment Numeric : [0-9];
 fragment Lower_alpha : [a-z];
 fragment Upper_alpha : [A-Z];
 fragment Alpha_numeric : Lower_alpha | Upper_alpha | Numeric | '_';
- 
-Or                   : '|';
-And                  : '&';
-Iff                  : '<=>';
-Impl                 : '=>';
+
+Or                   : '|' | 'OR';
+And                  : '&' | 'AND';
+Iff                  : '<=>'| 'IFF' | 'IF AND ONLY IF';
+Impl                 : '=>' | 'IMPLIES';
 If                   : '<=';
 Niff                 : '<~>';
 Nor                  : '~|';
 Nand                 : '~&';
-Not                  : '~';
+Not                  : '~' | 'NOT';
 ForallComb           : '!!';
 TyForall             : '!>';
 Infix_inequality     : '!=';
 Infix_equality       : '=';
-Forall               : '!';
+Forall               : '!' | 'FORALL' | 'FOR ALL';
 ExistsComb           : '??';
 TyExists             : '?*';
-Exists               : '?';
+Exists               : '?' | 'EXISTS' | 'THERE EXISTS';
 Lambda               : '^';
 ChoiceComb           : '@@+';
 Choice               : '@+';
@@ -70,11 +70,16 @@ WS                   : [ \r\t\n]+ -> skip ;
 Line_comment         : '%' ~[\r\n]* -> skip;
 Block_comment        : '/*' .*? '*/' -> skip;
 
+
+holds                : ':' | 'HOLDS' | 'IT HOLDS' | 'IT HOLDS THAT' | 'SUCH THAT';
+in                   : ':' | 'IN' | 'OF TYPE';
+
+
+
 fof_quantifier       : Forall | Exists;
 binary_connective    : Iff | Impl | If ; // | Niff | Nor | Nand;
 assoc_connective     : Or | And;
 unary_connective     : Not;
-
 
 // Initial rule. As we only parse simple TFF formulae, 
 // we stick to this, and keep the grammar as simple as possible.
@@ -93,9 +98,11 @@ tff_or_formula          : tff_unitary_formula Or tff_unitary_formula
 tff_and_formula         : tff_unitary_formula And tff_unitary_formula
                         | tff_and_formula And tff_unitary_formula;
 tff_unitary_formula     : tff_quantified_formula 
-						| tff_unary_formula
+                        | tff_unary_formula
                         | tff_atomic_formula;
-tff_quantified_formula  : fof_quantifier '[' variable_list ']' ':' tff_unitary_formula ;
+                        
+                        
+tff_quantified_formula  : fof_quantifier '[' variable_list ']' holds tff_unitary_formula ;
 tff_unary_formula       : unary_connective tff_unitary_formula
                         | fof_infix_unary
                         | '(' tff_logic_formula ')'; 
@@ -108,10 +115,10 @@ fof_term                : tff_atomic_formula | variable ;
 argument_list           : argument (',' argument)*;
 argument                : variable | atomic_word;
 
-tff_typed_atom          : atomic_word ':' atomic_word
+tff_typed_atom          : atomic_word in atomic_word
                         | '(' tff_typed_atom ')';
 
-variable                : Upper_word (':' atomic_word)?;
+variable                : Upper_word (in atomic_word)?;
 variable_list           : variable (',' variable)*;
 
 name                    : atomic_word | Integer;
