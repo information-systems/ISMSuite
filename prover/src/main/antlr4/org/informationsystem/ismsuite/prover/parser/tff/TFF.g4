@@ -29,7 +29,7 @@ Infix_equality       : '=';
 Forall               : '!' | 'FORALL' | 'FOR ALL';
 ExistsComb           : '??';
 TyExists             : '?*';
-Exists               : '?' | 'EXISTS' | 'THERE EXISTS';
+Exists               : '?' | 'EXISTS' | 'THERE EXISTS' | 'THERE EXIST' | 'EXIST' | 'THERE EXIST SOME' | 'THERE EXISTS SOME';
 Lambda               : '^';
 ChoiceComb           : '@@+';
 Choice               : '@+';
