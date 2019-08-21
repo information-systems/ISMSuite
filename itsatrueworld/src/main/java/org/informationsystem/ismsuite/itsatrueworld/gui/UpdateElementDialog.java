@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.PlainDocument;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
 
 /**
  * @author jmw
@@ -39,9 +41,13 @@ public class UpdateElementDialog {
 		JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
 		
 		identifier = new JTextField();
+		PlainDocument doc = (PlainDocument) identifier.getDocument();
+		doc.setDocumentFilter(new LowerWordEnforcer());
 		controls.add(identifier);
 		
 		type = new JTextField(initialType);
+		PlainDocument doctype = (PlainDocument) type.getDocument();
+		doctype.setDocumentFilter(new LowerWordEnforcer());
 		controls.add(type);
 		
 		p.add(controls, BorderLayout.CENTER);
@@ -69,8 +75,17 @@ public class UpdateElementDialog {
 	public static void createElement(Controller c, Frame frame, String type) {
 		UpdateElementDialog d = new UpdateElementDialog();
 		
-		JOptionPane.showMessageDialog(
-	            frame, d.buildPane(type), "Create Element", JOptionPane.QUESTION_MESSAGE);
+		int result = JOptionPane.showOptionDialog(
+	            frame, 
+	            d.buildPane(type), 
+	            "Create Element", 
+	            JOptionPane.OK_CANCEL_OPTION, 
+	            JOptionPane.QUESTION_MESSAGE, null, null, d);
+		
+		
+		if (result != JOptionPane.OK_OPTION) {
+			return;
+		}
 		
 		if (d.getIdentifier().isEmpty() || d.getType().isEmpty()) {
 			return;

@@ -11,6 +11,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
@@ -21,6 +23,8 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 
 	private Map<String, DefaultListModel<E>> listmodels = new HashMap<>();
 	private Map<String, JPanel> panels = new HashMap<>();
+	private Map<JList<E>, String> lists = new HashMap<>();
+	private Map<String, E> selectedItem = new HashMap<>();
 	
 	private Controller controller;
 	
@@ -79,10 +83,28 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 	protected void decoratePanel(JPanel p, String label) {
 		listmodels.put(label, new DefaultListModel<E>());
 		JList<E> list = new JList<E>(listmodels.get(label));
+		lists.put(list, label);
 		
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setVisibleRowCount(-1);
+		
+		list.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				try {
+					@SuppressWarnings("rawtypes")
+					JList l = (JList) arg0.getSource();
+					String type = lists.get(l);
+					E item = listmodels.get(type).get(l.getSelectedIndex());
+					
+					selectedItem.put(type, item);
+					
+				} catch(Exception e) {}
+			}
+		});
+		
 		JScrollPane scroller = new JScrollPane(list);
 		
 		p.add(scroller, BorderLayout.CENTER);
@@ -96,6 +118,14 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 						)
 				)
 		);
+	}
+	
+	public E getSelectedItemOf(String label) {
+		if (selectedItem.containsKey(label)) {
+			return selectedItem.get(label);
+		} else {
+			return null;
+		}
 	}
 	
 }

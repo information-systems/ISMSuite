@@ -12,7 +12,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
@@ -41,7 +40,10 @@ public class ElementListingPanel extends AbstractGridPanel<String> {
 			
 			@Override
 			public void removeAction(String label) {
-				JOptionPane.showMessageDialog(parent, "I need to remove something from " + label);	
+				String elem = getSelectedItemOf(label);
+				if (elem != null) {
+					getController().removeElement(elem, label);
+				}
 			}
 			
 			@Override

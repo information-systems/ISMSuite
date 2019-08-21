@@ -97,6 +97,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	}
 	
 	public boolean removeElement(Element e) {
+		// TODO Only if element is not used in a relation!
 		if (elements.containsKey(e.getType())) {
 			items.remove(e.getLabel());
 			return elements.get(e.getType()).remove(e);

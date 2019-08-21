@@ -60,10 +60,18 @@ public class Controller {
 	
 	public void addElement(String name, String type) {
 		this.addElement(new Element(name, type));
+		
+		updateTrueWorldModel();
 	}
 	
-	public void removeElement(String name) {
-		this.removeElement(name);
+	public void removeElement(String name, String type) {
+		this.removeElement(new Element(name, type));
+	}
+	
+	public void removeElement(Element e) {
+		this.world.removeElement(e);
+		
+		updateTrueWorldModel();
 	}
 	
 	public void addRelation(Relation r) {

@@ -77,12 +77,7 @@ public class MainWindow extends JFrame {
 			}
 		});
 	}
-	
-	private JMenuBar menuBar;
-	private JMenu mnFile;
-	private JMenuItem mntmOpen;
-	private JMenuItem mntmExit;
-	
+		
 	private JPanel quickValidatorPanel;
 	
 	private JPanel mainPanel;
@@ -195,15 +190,15 @@ public class MainWindow extends JFrame {
 	}	
 	
 	protected void buildMenu() {
-		menuBar = new JMenuBar();
+		JMenuBar menuBar = new JMenuBar();
 		
 		// File menu
-		mnFile = new JMenu("File");
+		JMenu mnFile = new JMenu("File");
 		mnFile.setMnemonic(KeyEvent.VK_F);
 		mnFile.getAccessibleContext().setAccessibleDescription("File menu");
 		menuBar.add(mnFile);
 		
-		mntmOpen = new JMenuItem("Open...");
+		JMenuItem mntmOpen = new JMenuItem("Open...");
 		mntmOpen.setMnemonic(KeyEvent.VK_O);
 		mntmOpen.addActionListener(new ActionListener() {
 			
@@ -231,7 +226,7 @@ public class MainWindow extends JFrame {
 		mntmOpen.getAccessibleContext().setAccessibleDescription("Open a TFF-based world file");
 		mnFile.add(mntmOpen);
 			
-		mntmExit = new JMenuItem("Exit");
+		JMenuItem mntmExit = new JMenuItem("Exit");
 		mntmExit.setMnemonic(KeyEvent.VK_X);
 		mntmExit.getAccessibleContext().setAccessibleDescription("Exit It's a True World");
 		
@@ -245,6 +240,28 @@ public class MainWindow extends JFrame {
 		
 		mnFile.addSeparator();
 		mnFile.add(mntmExit);
+		
+		
+		JMenu mnWorld = new JMenu("World");
+		mnWorld.setMnemonic(KeyEvent.VK_W);
+		
+		JMenuItem mntmAddElement = new JMenuItem("Add element");
+		mntmAddElement.setMnemonic(KeyEvent.VK_E);
+		mntmAddElement.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				UpdateElementDialog.createElement(controller, parent, "");	
+			}
+		});
+		
+		JMenuItem mntmAddRelation = new JMenuItem("Add relation");
+		mntmAddRelation.setMnemonic(KeyEvent.VK_R);
+		
+		mnWorld.add(mntmAddElement);
+		mnWorld.add(mntmAddRelation);
+		
+		menuBar.add(mnWorld);
 		
 		setJMenuBar(menuBar);
 	}
