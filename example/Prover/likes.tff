@@ -1,0 +1,78 @@
+%--------------------------------------------------------------------
+% TFF: Typed First-Order Form
+% @Author: Jan Martijn van der Werf <j.m.e.m.vanderwerf@uu.nl>
+% @Date: 24 October 2018
+%
+% @Brief A small universe of the likes example of Data Modeling 
+%
+% Example is taken from the Datamodeling course, INFOB1DM at 
+% taught at Utrecht University. 
+%
+% For more information see: 
+% @see http://www.architecturemining.org/tutorial/a-tutorial-on-data-modeling-with-sets-and-first-order-logic/
+%
+% Notation is a subset taken from:
+% @see https://ts.data61.csiro.au/publications/nicta_full_text/4724.pdf
+%
+%--------------------------------------------------------------------
+% The universe:
+%
+
+tff( a_in_universe, type, a: universe ).
+tff( b_in_universe, type, b: universe ).
+tff( c_in_universe, type, c: universe ).
+tff( d_in_universe, type, d: universe ).
+tff( e_in_universe, type, e: universe ).
+tff( f_in_universe, type, f: universe ).
+
+%--------------------------------------------------------------------
+% The sets
+
+tff( a_in_m, axiom, m(a) ).
+tff( b_in_m, axiom, m(b) ).
+tff( c_in_m, axiom, m(c) ).
+
+tff( d_in_v, axiom, v(a) ).
+tff( e_in_v, axiom, v(a) ).
+tff( f_in_v, axiom, v(a) ).
+
+%--------------------------------------------------------------------
+% The likes relation
+
+tff( a_likes_a, axiom, likes(a,a) ).
+tff( a_likes_b, axiom, likes(a,b) ).
+tff( b_likes_b, axiom, likes(b,b) ).
+tff( b_likes_a, axiom, likes(b,a) ).
+tff( b_likes_e, axiom, likes(b,e) ).
+tff( c_likes_d, axiom, likes(c,d) ).
+tff( c_likes_e, axiom, likes(c,e) ).
+tff( c_likes_c, axiom, likes(c,c) ).
+tff( d_likes_d, axiom, likes(d,d) ).
+tff( e_likes_e, axiom, likes(e,e) ).
+tff( e_likes_c, axiom, likes(e,c) ).
+tff( f_likes_e, axiom, likes(f,e) ).
+
+% Adding this axiom makes everything ok:
+% tff( f_likes_f, axiom, likes(f,f) ).
+
+%--------------------------------------------------------------------
+% Conjecture 1: likes is reflexive
+% This conjecture should not hold, as f does not like itself.
+
+tff( likes_is_reflexive, conjecture, 
+  ! [X: universe ] : 
+    (
+      likes(X, X)
+    )
+).
+
+%--------------------------------------------------------------------
+% Conjecture 2: For every x and y we have:x only likes y if x feels good.
+% This conjecture should not hold, as f does not like itself.
+
+tff ( likes_only_if_feels_good, conjecture, 
+  ! [X: universe, Y: universe] : 
+  (
+  	likes(X, Y) => likes(X, X)
+  )
+).
