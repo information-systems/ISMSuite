@@ -7,9 +7,7 @@ import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -19,11 +17,10 @@ import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
 
 
 @SuppressWarnings("serial")
-public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldListener, GridContainerPanel.GridPanelListener {
-
-	private GridContainerPanel grid;
+public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldListener {
 
 	private Map<String, DefaultListModel<E>> listmodels = new HashMap<>();
+	private Map<String, JPanel> panels = new HashMap<>();
 	
 	private Controller controller;
 	
@@ -31,36 +28,57 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		return controller;
 	}
 	
+	protected DynamicGridPanel grid;
+	
 	public AbstractGridPanel(Controller controller) {
-		this(controller, false, false);
+		this(controller, 3);
 	}
-
-	public AbstractGridPanel(Controller controller, boolean withAddButton, boolean withRemoveButton) {
+	
+	public AbstractGridPanel(Controller controller, int columns) {
+		this(controller, columns, 200);
+	}
+	
+	public AbstractGridPanel(Controller controller, int columns, int panelHeight) {
 		this.controller = controller;
 		
-		grid = new GridContainerPanel(4, 100, 200, withAddButton, withRemoveButton);
-		JScrollPane scroller = new JScrollPane(grid);
-		
 		this.setLayout(new BorderLayout());
-		this.add(scroller, BorderLayout.CENTER);		
 		
-		grid.addGridListener(this);
+		grid = new DynamicGridPanel(columns, panelHeight);
+		
+		JScrollPane scrollPanel = new JScrollPane(grid.getPanel());
+		
+		this.add(scrollPanel, BorderLayout.CENTER);
 		
 		this.controller.register(this);
 		this.notify(controller.getModel());
 	}
 	
-	protected JPanel getPanelFor(String name) {
-		if (grid.containsPanel(name)) {
-			return grid.getPanel(name);
+	public DefaultListModel<E> getModel(String label) {
+		if (!panels.containsKey(label)) {
+			getPanel(label);
 		}
+		return listmodels.get(label);
+	}
+	
+	public JPanel getPanel(String label) {
+		if (!panels.containsKey(label)) {
+			JPanel p = createNewPanel(label);
+			decoratePanel(p,label);
+			grid.addPanel(p);
+			panels.put(label, p);
+		} 
 		
-		JPanel p = grid.getPanel(name);
-		p.add(new JLabel(name), BorderLayout.NORTH);
+		return panels.get(label);
 		
-		listmodels.put(name, new DefaultListModel<E>());
-		
-		JList<E> list = new JList<E>(listmodels.get(name));
+	}
+	
+	protected JPanel createNewPanel(String label) {
+		return new JPanel(new BorderLayout(5,5));
+	}
+	
+	protected void decoratePanel(JPanel p, String label) {
+		listmodels.put(label, new DefaultListModel<E>());
+		JList<E> list = new JList<E>(listmodels.get(label));
 		
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL);
@@ -78,26 +96,6 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 						)
 				)
 		);
-		
-		return p;
 	}
 	
-	protected DefaultListModel<E> getModel(String name) {
-		// If the panel does not yet exist, we first need to create
-		// a panel for it.
-		if (!grid.containsPanel(name)) {
-			getPanelFor(name);
-		}
-		return listmodels.get(name);
-	}
-	
-	@Override
-	public void addAction(String label) {
-		JOptionPane.showMessageDialog(this, label);
-	}
-	
-	@Override
-	public void removeAction(String label) {
-		JOptionPane.showMessageDialog(this, label);
-	}
 }

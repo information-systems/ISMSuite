@@ -14,7 +14,7 @@ public class RelationListingPanel extends AbstractGridPanel<String> {
 	private static final long serialVersionUID = 8247588857156850L;
 
 	public RelationListingPanel(Controller controller) {
-		super(controller, true, true);
+		super(controller);
 	}
 
 	@Override
