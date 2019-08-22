@@ -62,12 +62,6 @@ public class ClauseTreeVisualizer {
 			return c.accept(b);
 		}
 		
-		
-		@Override
-		public DefaultMutableTreeNode visit(Clause c) {
-			return new DefaultMutableTreeNode(c.toString());
-		}
-
 		@Override
 		public DefaultMutableTreeNode visit(Element e) {
 			StringBuilder text = new StringBuilder();

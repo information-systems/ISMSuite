@@ -28,7 +28,9 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseToText;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseTreeVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.model.Clause;
 
@@ -118,12 +120,13 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 			public void actionPerformed(ActionEvent e) {
 				Clause c = tffClauseVisitor.visit(quickText.getText());
 				if (c != null) {
+					JOptionPane.showMessageDialog(parent, ClauseToText.convertClause(c));
 					Stack<Clause> expl = c.findExplanationFor(controller.getModel().getWorld());
 					if (expl.isEmpty()) {
-						JOptionPane.showMessageDialog(parent, "Formula is valid!");
+						JOptionPane.showMessageDialog(parent, "Formula is valid!", "Quick validator", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						
-						JOptionPane.showMessageDialog(parent, "Formula is *not* valid!");
+						expl.push(c);
+						ClauseVisualizer.showExplanationDialog(parent, expl);
 					}
 				}
 				
@@ -134,7 +137,7 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 		JButton addButton = new JButton("Add");
 		holder.add(addButton);
 		
-		quickLabel = new JLabel("aad");
+		quickLabel = new JLabel("");
 		quickButtonPanel.add(quickLabel, BorderLayout.CENTER);
 		
 		quickButtonPanel.add(holder, BorderLayout.EAST);

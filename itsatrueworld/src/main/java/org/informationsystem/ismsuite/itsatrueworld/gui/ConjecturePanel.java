@@ -17,11 +17,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseToText;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseTreeVisualizer;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
@@ -48,9 +51,10 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		this.controller = controller;
 		this.owner = owner;
 		
-		grid = new DynamicGridPanel(1, 100);
+		grid = new DynamicGridPanel(1, 150);
 		setLayout(new BorderLayout(5,5));
-		add(grid.getPanel(), BorderLayout.CENTER);
+		JScrollPane scroll = new JScrollPane(grid.getPanel(), ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		add(scroll, BorderLayout.CENTER);
 		
 		this.controller.register(this);
 		
@@ -162,6 +166,8 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 			
 			clauseField = new JTextArea();
 			clauseField.setEditable(false);
+			clauseField.setLineWrap(true);
+			
 			add(clauseField, BorderLayout.CENTER);
 			
 			// Button panel
@@ -208,7 +214,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 				owner.removePanel(this);
 			} else {
 				
-				clauseField.setText(clause.toTFF());
+				clauseField.setText(ClauseToText.convertClause(clause));
 				
 				explanation = clause.findExplanationFor(model.getWorld());
 				

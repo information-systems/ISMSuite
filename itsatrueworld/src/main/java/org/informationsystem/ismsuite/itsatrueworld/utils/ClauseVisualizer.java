@@ -25,7 +25,7 @@ public class ClauseVisualizer {
 		}
 		
 		// Create Message Dialog
-		JOptionPane.showMessageDialog(parent, expl.toString(), "Explanation", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(parent, expl.toString(), "Formula is not valid", JOptionPane.WARNING_MESSAGE);
 	}
 
 	public static String generateName(String id) {
