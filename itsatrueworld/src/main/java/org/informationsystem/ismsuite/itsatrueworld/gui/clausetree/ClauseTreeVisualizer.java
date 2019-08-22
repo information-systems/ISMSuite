@@ -1,11 +1,15 @@
 package org.informationsystem.ismsuite.itsatrueworld.gui.clausetree;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -212,6 +216,20 @@ public class ClauseTreeVisualizer {
 			return node;
 		}
 		
+	}
+	
+	public static void showTreeDialog(JFrame parent, Clause c) { 
+		showTreeDialog(parent, c, "Visualize clause");
+	}
+
+	public static void showTreeDialog(JFrame parent, Clause c, String title) {
+		JPanel p = ClauseTreeVisualizer.constructPanel(c);
+		JScrollPane scroll = new JScrollPane(p);
+		p.setPreferredSize(new Dimension(400,400));
+		
+		scroll.getViewport().add(p);
+		
+		JOptionPane.showMessageDialog(parent, scroll, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 }

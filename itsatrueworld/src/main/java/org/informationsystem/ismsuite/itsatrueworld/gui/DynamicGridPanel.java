@@ -142,7 +142,5 @@ public class DynamicGridPanel {
 		}
 		
 		updateMaxWidth();
-	}
-		
-	
+	}	
 }

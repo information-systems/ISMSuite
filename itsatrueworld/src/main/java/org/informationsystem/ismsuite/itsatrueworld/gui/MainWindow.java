@@ -183,9 +183,8 @@ public class MainWindow extends JFrame {
 	}
 	
 	protected JPanel buildConjecturePanel() {
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.GREEN);
-		
+		JPanel panel = new ConjecturePanel(this, controller);
+				
 		return panel;
 	}	
 	

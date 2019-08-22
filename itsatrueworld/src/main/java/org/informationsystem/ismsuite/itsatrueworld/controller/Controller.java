@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
 import org.informationsystem.ismsuite.prover.io.ClauseReader;
-import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.io.WorldWriter;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Element;

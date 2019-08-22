@@ -2,7 +2,6 @@ package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ import java.util.Stack;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -106,13 +104,7 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 			public void actionPerformed(ActionEvent e) {
 				Clause c = tffClauseVisitor.visit(quickText.getText());
 				if (c != null) {
-					JPanel p = ClauseTreeVisualizer.constructPanel(c);
-					JScrollPane scroll = new JScrollPane(p);
-					p.setPreferredSize(new Dimension(400,400));
-					
-					scroll.getViewport().add(p);
-					
-					JOptionPane.showMessageDialog(parent, scroll, "Visualize clause", JOptionPane.INFORMATION_MESSAGE);
+					ClauseTreeVisualizer.showTreeDialog(parent, c);
 				}
 			}
 		});
