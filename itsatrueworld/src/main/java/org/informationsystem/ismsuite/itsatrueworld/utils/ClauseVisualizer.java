@@ -286,7 +286,7 @@ public class ClauseVisualizer {
 		public String visit(Relation r) {
 			StringBuilder b = new StringBuilder();
 			b.append(r.getLabel());
-			b.append("(");
+			b.append(" ( ");
 			Iterator<Literal> it = r.iterator();
 			noBound = false;
 			boolean first = true;

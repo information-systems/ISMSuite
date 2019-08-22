@@ -4,9 +4,10 @@ import javax.swing.DefaultListModel;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Relation;
 
-public class RelationListingPanel extends AbstractGridPanel<String> {
+public class RelationListingPanel extends AbstractGridPanel<Relation> {
 
 	/**
 	 * 
@@ -20,16 +21,16 @@ public class RelationListingPanel extends AbstractGridPanel<String> {
 	@Override
 	public void notify(TrueWorld world) {
 		for(String typ: world.getWorld().getRelationLabels()) {
-			DefaultListModel<String> model = getModel(typ);
+			DefaultListModel<Relation> model = getModel(typ);
 			model.clear();
 			for(Relation r: world.getWorld().getRelations(typ)) {
-				model.addElement(r.toTFF());
+				model.addElement(r);
 			}
 		}
 	}
 
 	@Override
-	protected void removeAction(String elem, String label) {
+	protected void removeAction(Relation elem, String label) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,5 +40,12 @@ public class RelationListingPanel extends AbstractGridPanel<String> {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	protected String generateItemString(Relation item) {
+		return ClauseVisualizer.clauseToString(item);
+	}
+
+
 
 }

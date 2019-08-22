@@ -7,9 +7,11 @@ import javax.swing.JFrame;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Element;
+import org.informationsystem.ismsuite.prover.model.Relation;
 
-public class ElementListingPanel extends AbstractGridPanel<String> {
+public class ElementListingPanel extends AbstractGridPanel<Element> {
 
 	/**
 	 * 
@@ -24,8 +26,8 @@ public class ElementListingPanel extends AbstractGridPanel<String> {
 	}
 	
 	@Override
-	protected void removeAction(String elem, String label) {
-		getController().removeElement(elem, label);
+	protected void removeAction(Element elem, String label) {
+		getController().removeElement(elem);
 	}
 	
 	@Override
@@ -34,13 +36,20 @@ public class ElementListingPanel extends AbstractGridPanel<String> {
 	}
 	
 	@Override
+	protected String generateItemString(Element item) {
+		return item.getLabel();
+	}
+
+
+	
+	@Override
 	public void notify(TrueWorld world) {
 		for(String typ: world.getWorld().getElementTypes()) {
-			DefaultListModel<String> model = getModel(typ);
+			DefaultListModel<Element> model = getModel(typ);
 			model.clear();
 			Iterator<Element> it = world.getWorld().getElementsIn(typ);
 			while(it.hasNext()) {
-				model.addElement(it.next().getLabel());
+				model.addElement(it.next());
 			}
 		}		
 	}

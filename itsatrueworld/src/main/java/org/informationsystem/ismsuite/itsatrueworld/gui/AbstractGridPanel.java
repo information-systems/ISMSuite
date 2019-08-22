@@ -2,6 +2,7 @@ package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,16 +18,21 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
 
 
 @SuppressWarnings("serial")
-public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldListener {
+public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldListener, ListCellRenderer<E> {
 
 	private Map<String, DefaultListModel<E>> listmodels = new HashMap<>();
 	private Map<String, JPanel> panels = new HashMap<>();
@@ -133,6 +139,8 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 			}
 		});
 		
+		list.setCellRenderer(this);
+		
 		JScrollPane scroller = new JScrollPane(list);
 		
 		p.add(scroller, BorderLayout.CENTER);
@@ -224,5 +232,35 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		}
 		
 	}
+
+	@Override
+	public Component getListCellRendererComponent(JList<? extends E> list, E value, int index, boolean isSelected,
+			boolean cellHasFocus) {
+		JLabel label = new JLabel(generateItemString(value));
+		label.setOpaque(true);
+		label.setHorizontalAlignment(JLabel.LEFT);
+		
+		if (isSelected) {
+			label.setBackground(list.getSelectionBackground());
+			label.setForeground(list.getSelectionForeground());
+		} else {
+			label.setBackground(list.getBackground());
+			label.setForeground(list.getForeground());
+		}
+		label.setEnabled(list.isEnabled());
+		label.setFont(list.getFont());
+		
+		if (cellHasFocus) {
+			setBorder(UIManager.getBorder("List.focusCellHighlightBorder"));
+		} else {
+			setBorder(noFocusBorder);
+		}
+		
+		return label;
+	}
+	
+	protected Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
+	
+	protected abstract String generateItemString(E item);
 	
 }
