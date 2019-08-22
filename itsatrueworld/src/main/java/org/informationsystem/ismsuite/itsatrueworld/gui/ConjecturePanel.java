@@ -24,10 +24,7 @@ import javax.swing.ScrollPaneConstants;
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
-import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseToText;
-import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseTreeVisualizer;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
-import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.model.Clause;
 
 public class ConjecturePanel extends JPanel implements TrueWorldListener {
@@ -46,6 +43,13 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 	private DynamicGridPanel grid;
 	
 	private Map<String, ChildPanel> conjecturePanels = new HashMap<>();
+
+
+
+	private JLabel errorLabel;
+	private JPanel errorPane;
+	
+	private Set<String> errors = new HashSet<>();
 	
 	public ConjecturePanel(JFrame owner, Controller controller) {
 		this.controller = controller;
@@ -56,6 +60,12 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		JScrollPane scroll = new JScrollPane(grid.getPanel(), ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scroll, BorderLayout.CENTER);
 		
+		errorLabel = new JLabel("No errors");
+		errorPane = new JPanel(new BorderLayout(5,5));
+		errorPane.setBackground(Color.GREEN);
+		errorPane.add(errorLabel, BorderLayout.CENTER);
+		add(errorPane, BorderLayout.NORTH);
+		
 		this.controller.register(this);
 		
 		notify(controller.getModel());
@@ -65,6 +75,39 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		return owner;
 	}
 	
+	public void addError(String label) {
+		errors.add(label);
+		updateErrorPane();
+	}
+	
+	public void removeError(String label) {
+		errors.remove(label);
+		updateErrorPane();
+	}
+	
+	private void updateErrorPane() {
+		if (errors.isEmpty()) {
+			errorLabel.setText("No errors");
+			errorPane.setBackground(Color.GREEN);
+			errorPane.setToolTipText("");
+		} else {
+			if (errors.size() > 1) {
+				errorLabel.setText("<html>There are <b>" + errors.size() + "</b> errors!</html>" );
+			} else {
+				errorLabel.setText("<html>There is <b>" + errors.size() + "</b> error!</html>" );
+			}
+			errorPane.setBackground(Color.RED);
+			StringBuilder b = new StringBuilder();
+			b.append("<html>The following conjectures are false:<ul>");
+			for(String e: errors) {
+				b.append("<li>");
+				b.append(ClauseVisualizer.generateName(e));
+				b.append("</li>");
+			}
+			b.append("</ul></html>");
+			errorPane.setToolTipText(b.toString());
+		}
+	}
 
 	@Override
 	public void notify(TrueWorld world) {
@@ -188,7 +231,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ClauseTreeVisualizer.showTreeDialog(owner.getOwner(), getClause(), getId());					
+					ClauseVisualizer.showTreeDialog(owner.getOwner(), getClause(), getId());					
 				}
 			});
 			
@@ -202,28 +245,32 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		}
 
 		private void updateTitleText() {
+			String name = ClauseVisualizer.generateName(getId());
 			title.setText("<html><div style='text-align: center;'><b>" 
-					+ ClauseVisualizer.generateName(getId())
+					+ name
+					+ getId()
 					+ "</b></div></html>");
 		}
 
 		@Override
 		public void notify(TrueWorld model) {
-			clause = model.getWorld().getConjecture(id);
+			clause = model.getWorld().getConjecture(getId());
 			if (clause == null) {
 				owner.removePanel(this);
 			} else {
 				
-				clauseField.setText(ClauseToText.convertClause(clause));
+				clauseField.setText(ClauseVisualizer.clauseToString(clause));
 				
 				explanation = clause.findExplanationFor(model.getWorld());
 				
 				if (explanation.isEmpty()) {
 					titlePanel.setBackground(Color.GREEN);
 					explainButton.setEnabled(false);
+					owner.removeError(getId());
 				} else {
 					titlePanel.setBackground(Color.RED);
 					explainButton.setEnabled(true);
+					owner.addError(getId());
 				}
 				
 			}
