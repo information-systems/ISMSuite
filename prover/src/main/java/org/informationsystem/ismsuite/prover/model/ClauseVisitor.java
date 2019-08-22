@@ -1,8 +1,6 @@
 package org.informationsystem.ismsuite.prover.model;
 
 public interface ClauseVisitor<T> {
-
-	public T visit(Clause c);
 	
 	public T visit(Element e);
 	
