@@ -88,6 +88,21 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		
 	}
 	
+	public boolean removePanel(String label) {
+		if (getModel(label).isEmpty()) {
+			JPanel p = getPanel(label);
+			
+			listmodels.remove(label);
+			panels.remove(label);
+			
+			grid.removePanel(p);
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
 	protected abstract void removeAction(E elem, String label);
 	
 	protected abstract void addAction(String label);
@@ -98,22 +113,6 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		
 		JLabel l = new JLabel(label);
 		p.add(l, BorderLayout.NORTH);
-		
-		p.addButtonListener(new ButtonListener() {
-			
-			@Override
-			public void onRemove(String label) {
-				E elem = getSelectedItemOf(label);
-				if (elem != null) {
-					removeAction(elem, label);
-				}
-			}
-			
-			@Override
-			public void onAdd(String label) {
-				addAction(label);
-			}
-		});
 		
 		listmodels.put(label, new DefaultListModel<E>());
 		JList<E> list = new JList<E>(listmodels.get(label));
@@ -154,6 +153,29 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 						)
 				)
 		);
+		
+		p.addButtonListener(new ButtonListener() {
+			
+			@Override
+			public void onRemove(String label) {
+				E elem = getSelectedItemOf(label);
+				if (elem != null) {
+					removeAction(elem, label);
+					
+					if (getModel(label).getSize() == 0) {
+						removePanel(label);
+					}
+					
+				}
+			}
+			
+			@Override
+			public void onAdd(String label) {
+				addAction(label);
+			}
+		});
+		
+		
 		
 		return p;
 	}
