@@ -181,8 +181,9 @@ public class RelationDialog {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					parameters.addRow("","");
-					
+					if (elementModel.getSize() > 0) {
+						parameters.addRow(elementModel.getElementAt(0),controller.getModel().getWorld().findTypeFor(elementModel.getElementAt(0)));
+					}
 				}
 			});
 			
