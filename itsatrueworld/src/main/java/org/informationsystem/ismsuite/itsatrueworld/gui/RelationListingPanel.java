@@ -1,6 +1,7 @@
 package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
@@ -13,9 +14,12 @@ public class RelationListingPanel extends AbstractGridPanel<Relation> {
 	 * 
 	 */
 	private static final long serialVersionUID = 8247588857156850L;
+	
+	private JFrame owner;
 
-	public RelationListingPanel(Controller controller) {
+	public RelationListingPanel(Controller controller, JFrame owner) {
 		super(controller);
+		this.owner = owner;
 	}
 
 	@Override
@@ -31,14 +35,12 @@ public class RelationListingPanel extends AbstractGridPanel<Relation> {
 
 	@Override
 	protected void removeAction(Relation elem, String label) {
-		// TODO Auto-generated method stub
-		
+		getController().removeRelation(elem);
 	}
 
 	@Override
 	protected void addAction(String label) {
-		// TODO Auto-generated method stub
-		
+		RelationDialog.showCreateRelationDialog(owner, getController(), label);
 	}
 	
 	@Override

@@ -251,9 +251,9 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		label.setFont(list.getFont());
 		
 		if (cellHasFocus) {
-			setBorder(UIManager.getBorder("List.focusCellHighlightBorder"));
+			label.setBorder(UIManager.getBorder("List.focusCellHighlightBorder"));
 		} else {
-			setBorder(noFocusBorder);
+			label.setBorder(noFocusBorder);
 		}
 		
 		return label;

@@ -18,11 +18,11 @@ public class ElementListingPanel extends AbstractGridPanel<Element> {
 	 */
 	private static final long serialVersionUID = 8247588857156850L;
 
-	private JFrame parent;
+	private JFrame owner;
 		
-	public ElementListingPanel(Controller controller, JFrame parent) {
+	public ElementListingPanel(Controller controller, JFrame owner) {
 		super(controller);
-		this.parent = parent;
+		this.owner = owner;
 	}
 	
 	@Override
@@ -32,7 +32,7 @@ public class ElementListingPanel extends AbstractGridPanel<Element> {
 	
 	@Override
 	protected void addAction(String label) {
-		UpdateElementDialog.createElement(getController(), parent, label);
+		UpdateElementDialog.createElement(getController(), owner, label);
 	}
 	
 	@Override

@@ -174,7 +174,7 @@ public class MainWindow extends JFrame {
 		JTabbedPane tabs = new JTabbedPane();
 		
 		tabs.addTab("Elements", new ElementListingPanel(this.controller, this));
-		tabs.addTab("Relations", new RelationListingPanel(this.controller));
+		tabs.addTab("Relations", new RelationListingPanel(this.controller, this));
 		
 		panel.add(tabs, BorderLayout.CENTER);
 		return panel;
