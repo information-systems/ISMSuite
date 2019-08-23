@@ -3,6 +3,7 @@ package org.informationsystem.ismsuite.itsatrueworld.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -113,7 +114,7 @@ public class RelationDialog {
 			});
 			
 			
-			JPanel table = new JPanel(new BorderLayout());
+			JPanel table = new JPanel(new BorderLayout(5,5));
 			
 			JTable parameterTable = new JTable(parameters);
 			parameterTable.setShowHorizontalLines(true);
@@ -135,9 +136,6 @@ public class RelationDialog {
 			
 			TableColumn elementColumn = parameterTable.getColumnModel().getColumn(0);
 			elementColumn.setCellEditor(new DefaultCellEditor(elements));
-			
-			JPanel buttons = new JPanel();
-			buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
 			
 			JButton up = new JButton("up");
 			up.addActionListener(new ActionListener() {
@@ -187,15 +185,19 @@ public class RelationDialog {
 				}
 			});
 			
+			JPanel buttons = new JPanel(new GridLayout(4,1, 5, 5));
+			
 			buttons.add(up);
-			buttons.add(Box.createRigidArea(new Dimension(0,5)));
+			//buttons.add(Box.createRigidArea(new Dimension(0,5)));
 			buttons.add(down);
-			buttons.add(Box.createRigidArea(new Dimension(0,5)));
+			//buttons.add(Box.createRigidArea(new Dimension(0,5)));
 			buttons.add(add);
-			buttons.add(Box.createRigidArea(new Dimension(0,5)));
+			//buttons.add(Box.createRigidArea(new Dimension(0,5)));
 			buttons.add(del);
-						
-			add(buttons, BorderLayout.EAST);
+			
+			JPanel east = new JPanel(new GridBagLayout());
+			east.add(buttons);
+			table.add(east, BorderLayout.EAST);
 			
 			JPanel namePanel = new JPanel(new BorderLayout(5,5));
 			JLabel nameLabel = new JLabel("Relation: ");
