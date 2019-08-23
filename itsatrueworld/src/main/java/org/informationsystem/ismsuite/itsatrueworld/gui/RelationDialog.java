@@ -41,7 +41,7 @@ import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
 
 public class RelationDialog {
 
-	public static void showCreateRelationDialog(JFrame owner, Controller controller, String name) {
+	public static void showCreateRelationDialog(Controller controller, JFrame owner, String name) {
 		DialogPane pane = new DialogPane(controller, name); 
 				
 		int result = JOptionPane.showOptionDialog(
@@ -55,7 +55,7 @@ public class RelationDialog {
 		}
 		
 		List<Literal> parameters = pane.getElements();
-		if (parameters.size() == 0) {
+		if (parameters.size() == 0 || pane.getRelationName().isEmpty()) {
 			return;
 		}
 		

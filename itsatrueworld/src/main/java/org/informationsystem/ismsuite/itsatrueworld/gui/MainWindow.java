@@ -254,6 +254,13 @@ public class MainWindow extends JFrame {
 		
 		JMenuItem mntmAddRelation = new JMenuItem("Add relation");
 		mntmAddRelation.setMnemonic(KeyEvent.VK_R);
+		mntmAddRelation.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				RelationDialog.showCreateRelationDialog(controller, parent, "");
+			}
+		});
 		
 		mnWorld.add(mntmAddElement);
 		mnWorld.add(mntmAddRelation);

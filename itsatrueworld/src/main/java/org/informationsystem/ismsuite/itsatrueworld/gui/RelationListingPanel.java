@@ -40,7 +40,7 @@ public class RelationListingPanel extends AbstractGridPanel<Relation> {
 
 	@Override
 	protected void addAction(String label) {
-		RelationDialog.showCreateRelationDialog(owner, getController(), label);
+		RelationDialog.showCreateRelationDialog(getController(), owner, label);
 	}
 	
 	@Override
