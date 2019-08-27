@@ -107,9 +107,6 @@ public class ConjectureEditor extends JPanel {
 				
 				controller.addConjecture(pane.getId(), newClause);
 				
-				// TODO: remove this line
-				controller.export(System.out);
-				
 				return pane.getId();
 			}
 		}
