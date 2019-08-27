@@ -20,7 +20,7 @@ public class App
     	if (args.length > 0) {
     		try {
     			File f = new File(args[0]);
-				c.open(new FileInputStream(f), f.getName());
+				c.open(new FileInputStream(f), f.getAbsolutePath());
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}

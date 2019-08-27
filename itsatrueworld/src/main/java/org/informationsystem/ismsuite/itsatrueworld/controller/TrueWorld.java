@@ -7,7 +7,7 @@ import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 
 public class TrueWorld {
 	
-	private String name = "New world";
+	private String fileName = "New.tff";
 	
 	private boolean modified = false;
 	
@@ -46,12 +46,12 @@ public class TrueWorld {
 		}
 	}
 	
-	public String getName() {
-		return name;
+	public String getFileName() {
+		return fileName;
 	}
 
-	TrueWorld setName(String name) {
-		this.name = name;
+	TrueWorld setFileName(String name) {
+		this.fileName = name;
 		return this;
 	}
 	

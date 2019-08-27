@@ -10,6 +10,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,7 +49,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	
 	private static FileNameExtensionFilter tffFileFilter = new FileNameExtensionFilter("Typed First-order logic Formulae", "tff");
 	
-	Controller controller;
+	private Controller controller;
 
 	private MainWindow parent;
 		
@@ -65,6 +67,40 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		parent = this;
 		
 		initialize();
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		addWindowListener(new WindowAdapter() {
+		
+			  @Override
+			public void windowClosing(WindowEvent we) {
+				if (parent.controller.getModel().isModified()) {
+					
+					int result = JOptionPane.showOptionDialog(
+							parent, 
+							"Your world contains unsaved elements. Save before exit?", 
+							"Unsaved changes",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+					switch(result) {
+						case JOptionPane.YES_OPTION:
+							exportWorldToFile();
+							System.exit(0);
+							break;
+						case JOptionPane.NO_OPTION:
+							
+							System.exit(0);
+							break;
+						default:
+						case JOptionPane.CANCEL_OPTION:
+							System.out.println("cancel");
+							break;
+					}
+				} else {
+					// nothing changed, just close
+					System.exit(0);
+				}
+			}
+		});
 		
 		this.controller.register(this);
 		notify(this.controller.getModel());
@@ -119,7 +155,8 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		setTitle(TITLE);
 		setLayout(new BorderLayout());
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.setPreferredSize(new Dimension(500, 500));
 		this.setLayout(new BorderLayout());
 		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
@@ -230,25 +267,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				
-				fileChooser.addChoosableFileFilter(tffFileFilter);
-				fileChooser.setFileFilter(tffFileFilter);
-				
-				int result = fileChooser.showOpenDialog(parent);
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    try {
-						controller.open(new FileInputStream(selectedFile), selectedFile.getName());
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						System.out.println("File: " + selectedFile + " not found!");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+				loadWorldFromFile();
 			}
 		});
 		mntmOpenWorld.getAccessibleContext().setAccessibleDescription("Open a TFF-based world file");
@@ -261,44 +280,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser saveDialog = new JFileChooser() {
-
-					@Override
-					public void approveSelection(){
-				        File f = getSelectedFile();
-				        if(f.exists() && getDialogType() == SAVE_DIALOG){
-				            int result = JOptionPane.showConfirmDialog(this,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
-				            switch(result){
-				                case JOptionPane.YES_OPTION:
-				                    super.approveSelection();
-				                    return;
-				                case JOptionPane.NO_OPTION:
-				                    return;
-				                case JOptionPane.CLOSED_OPTION:
-				                    return;
-				                case JOptionPane.CANCEL_OPTION:
-				                    cancelSelection();
-				                    return;
-				            }
-				        }
-				        super.approveSelection();
-					}
-				};
-				
-				saveDialog.addChoosableFileFilter(tffFileFilter);
-				
-				int result = saveDialog.showSaveDialog(parent);
-				
-				if (result == JOptionPane.OK_OPTION) {
-			
-				    try {
-						controller.export(new FileOutputStream(saveDialog.getSelectedFile()));
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				    
-				}
+				exportWorldToFile();
 			}
 		});
 		mnWorld.add(mntmExportWorld);
@@ -336,8 +318,81 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 
 	@Override
 	public void notify(TrueWorld world) {
-		setTitle(TITLE + " (" + world.getName() + ")" + (world.isModified() ? " *" : ""));		
+		setTitle(TITLE + " (" + world.getFileName() + ")" + (world.isModified() ? " *" : ""));		
 	}
 	
+	private void exportWorldToFile() {
+		@SuppressWarnings("serial")
+		JFileChooser saveDialog = new JFileChooser() {
+
+			@Override
+			public void approveSelection(){
+		        File f = getSelectedFile();
+		        if(f.exists() && getDialogType() == SAVE_DIALOG){
+		            int result = JOptionPane.showConfirmDialog(this,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
+		            switch(result){
+		                case JOptionPane.YES_OPTION:
+		                    super.approveSelection();
+		                    return;
+		                case JOptionPane.NO_OPTION:
+		                    return;
+		                case JOptionPane.CLOSED_OPTION:
+		                    return;
+		                case JOptionPane.CANCEL_OPTION:
+		                    cancelSelection();
+		                    return;
+		            }
+		        }
+		        super.approveSelection();
+			}
+		};
+		
+		saveDialog.addChoosableFileFilter(tffFileFilter);
+		saveDialog.setFileFilter(tffFileFilter);
+		
+		if (!controller.getModel().getFileName().isEmpty()) {
+			File f = new File(controller.getModel().getFileName());
+			
+			System.out.println(f);
+			if (f.exists()) saveDialog.setSelectedFile(f);
+		}
+		
+		
+		int result = saveDialog.showSaveDialog(parent);
+		
+		if (result == JOptionPane.OK_OPTION) {
+	
+		    try {
+				controller.export(new FileOutputStream(saveDialog.getSelectedFile()));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		}
+	}
+	
+	
+	private void loadWorldFromFile() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		
+		fileChooser.addChoosableFileFilter(tffFileFilter);
+		fileChooser.setFileFilter(tffFileFilter);
+		
+		int result = fileChooser.showOpenDialog(parent);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    try {
+				controller.open(new FileInputStream(selectedFile), selectedFile.getAbsolutePath());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File: " + selectedFile + " not found!");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

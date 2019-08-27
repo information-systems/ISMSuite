@@ -27,20 +27,20 @@ public class Controller {
 		updateTrueWorldModel();
 	}
 	
-	public void setName(String name) {
-		model.setName(name);
+	public void setFileName(String name) {
+		model.setFileName(name);
 		updateTrueWorldModel();
 	}
 	
-	public void open(InputStream input, String name) throws IOException {
+	public void open(InputStream input, String filename) throws IOException {
 		this.world = ClauseReader.buildWorldFrom(input);
-		this.model.setName(name);
+		this.model.setFileName(filename);
 		
 		updateTrueWorldModel();
 	}
 	
 	public void open(InputStream input) throws IOException {
-		open(input, "Stream");
+		open(input, "New.tff");
 	}
 	
 	public void export(OutputStream output) {
