@@ -58,16 +58,23 @@ public class ClauseVisualizer {
 		while(tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
 			b.append(" ");
-			b.append(token.substring(0,1).toUpperCase());
-			b.append(token.substring(1));
+			b.append(token);
 		}
 		b.delete(0, 1);
+		
+		// Ensure that the first letter is lower.
+		b.replace(0,1, b.toString().substring(0,1).toLowerCase());
 		
 		return b.toString();
 	}
 	
 	public static String generateId(String name) {
-		return name.replaceAll("[^A-Za-z0-9 ]", "").replace(' ', '_').toLowerCase();
+		StringBuilder b = new StringBuilder(name.replaceAll("[^A-Za-z0-9 ]", "").replace(' ', '_'));
+		
+		// Ensure that the first letter is lower case
+		b.replace(0, 1, b.toString().substring(0,1).toLowerCase());
+		
+		return b.toString();
 	}
 	
 	public static void showTreeDialog(JFrame parent, Clause c) { 

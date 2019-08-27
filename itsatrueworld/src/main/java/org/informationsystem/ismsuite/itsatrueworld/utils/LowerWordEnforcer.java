@@ -14,7 +14,7 @@ public class LowerWordEnforcer extends DocumentFilter {
 	}
 	
 	public LowerWordEnforcer(boolean allowSpaces) {
-		this.allowSpaces = false;
+		this.allowSpaces = allowSpaces;
 	}
 	
 	public boolean spacesAreAllowed() {
@@ -49,10 +49,10 @@ public class LowerWordEnforcer extends DocumentFilter {
 			return true;
 		}
 		if (spacesAreAllowed()) {
-			return text.matches("^[a-z][a-zA-Z0-9 ]*$");
+			return text.matches("^[a-z][a-zA-Z0-9\\s]*$");
 		}
 		
-		return text.matches("^[a-z][a-zA-Z0-9]*$");
+		return text.matches("^[a-z][\\w]*$");
 	}
 
 	@Override

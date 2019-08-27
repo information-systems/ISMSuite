@@ -9,9 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.PlainDocument;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
@@ -49,6 +51,8 @@ public class ConjectureEditor extends JPanel {
 		namePanel.add(nameLabel, BorderLayout.WEST);
 		
 		nameField = new JTextField(ClauseVisualizer.generateName(label));
+		((PlainDocument) nameField.getDocument()).setDocumentFilter(new LowerWordEnforcer(true));
+		
 		namePanel.add(nameField, BorderLayout.CENTER);
 		
 		add(namePanel, BorderLayout.NORTH);

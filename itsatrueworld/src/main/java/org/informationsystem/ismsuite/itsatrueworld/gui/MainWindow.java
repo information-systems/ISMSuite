@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -190,7 +191,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		JSplitPane conjectureSplitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, worldPanel, conjecturePanel);
 		conjectureSplitter.setOneTouchExpandable(true);
         conjectureSplitter.setContinuousLayout(true);
-        conjectureSplitter.setDividerLocation(0.33);
+        // conjectureSplitter.setDividerLocation(0.2);
         conjectureSplitter.setResizeWeight(0.7);
         
 		JPanel inBetween = new JPanel();
@@ -200,8 +201,8 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		JSplitPane transactionSplitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, transactionPanel, inBetween);
 		transactionSplitter.setOneTouchExpandable(true);
         transactionSplitter.setContinuousLayout(true);
-		transactionSplitter.setDividerLocation(0.33);
-		transactionSplitter.setResizeWeight(0.3);
+		// transactionSplitter.setDividerLocation(0.2);
+		transactionSplitter.setResizeWeight(0.1);
 		
 		mainPanel.add(transactionSplitter);
 		
@@ -210,7 +211,11 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	
 	protected JPanel buildTransactionPanel() {
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLUE);
+		panel.setBackground(Color.yellow);
+		
+		JLabel msg = new JLabel("In this panel, all transactions will be visible");
+		
+		panel.add(msg);
 		
 		return panel;
 	}
@@ -232,87 +237,111 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		JPanel panel = new ConjecturePanel(this, controller);
 				
 		return panel;
-	}	
+	}
 	
-	protected void buildMenu() {
-		JMenuBar menuBar = new JMenuBar();
-		
+	protected JMenu buildFileMenu() {
 		// File menu
-		JMenu mnFile = new JMenu("File");
-		mnFile.setMnemonic(KeyEvent.VK_F);
-		mnFile.getAccessibleContext().setAccessibleDescription("File menu");
-		menuBar.add(mnFile);
+		JMenu menu = new JMenu("File");
+		menu.setMnemonic(KeyEvent.VK_F);
+		menu.getAccessibleContext().setAccessibleDescription("File menu");
 		
-		JMenuItem mntmExit = new JMenuItem("Exit");
-		mntmExit.setMnemonic(KeyEvent.VK_X);
-		mntmExit.getAccessibleContext().setAccessibleDescription("Exit It's a True World");
 		
-		mntmExit.addActionListener(new ActionListener() {
-			
+		addNewMenuItem("Exit", KeyEvent.VK_X, menu, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();				
 			}
 		});
 		
-		mnFile.add(mntmExit);
+		return menu;
+	}
+	
+	protected JMenu buildWorldMenu() {
+		JMenu menu = new JMenu("World");
+		menu.setMnemonic(KeyEvent.VK_W);
 		
-		
-		JMenu mnWorld = new JMenu("World");
-		mnWorld.setMnemonic(KeyEvent.VK_W);
-		
-		JMenuItem mntmOpenWorld = new JMenuItem("Open ...");
-		mntmOpenWorld.setMnemonic(KeyEvent.VK_O);
-		mntmOpenWorld.addActionListener(new ActionListener() {
-			
+		addNewMenuItem("Open...", KeyEvent.VK_X, menu, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				loadWorldFromFile();
 			}
 		});
-		mntmOpenWorld.getAccessibleContext().setAccessibleDescription("Open a TFF-based world file");
-		mnWorld.add(mntmOpenWorld);
 		
-		JMenuItem mntmExportWorld = new JMenuItem("Export...");
-		mntmExportWorld.setMnemonic(KeyEvent.VK_E);
-		mntmExportWorld.addActionListener(new ActionListener() {
-			
-			
+		addNewMenuItem("Export...", KeyEvent.VK_X, menu, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				exportWorldToFile();
 			}
 		});
-		mnWorld.add(mntmExportWorld);
 		
-		mnWorld.addSeparator();
+		menu.addSeparator();
 		
-		JMenuItem mntmAddElement = new JMenuItem("Add element");
-		mntmAddElement.setMnemonic(KeyEvent.VK_E);
-		mntmAddElement.addActionListener(new ActionListener() {
-			
+		addNewMenuItem("Add element", KeyEvent.VK_E, menu, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				UpdateElementDialog.createElement(controller, parent, "");	
 			}
 		});
 		
-		JMenuItem mntmAddRelation = new JMenuItem("Add relation");
-		mntmAddRelation.setMnemonic(KeyEvent.VK_R);
-		mntmAddRelation.addActionListener(new ActionListener() {
-			
+		addNewMenuItem("Add relation", KeyEvent.VK_R, menu, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				RelationDialog.showCreateRelationDialog(controller, parent, "");
 			}
 		});
 		
-		mnWorld.add(mntmAddElement);
-		mnWorld.add(mntmAddRelation);
+		return menu;
+	}
+	
+	protected JMenu buildTransactionMenu() {
+		JMenu menu = new JMenu("Transactions");
+		menu.setMnemonic(KeyEvent.VK_T);
 		
-		menuBar.add(mnWorld);
+		addNewMenuItem("Open...", KeyEvent.VK_O, menu, null);
+		addNewMenuItem("Export...", KeyEvent.VK_X, menu, null);
 		
+		menu.addSeparator();
+		
+		addNewMenuItem("Add transaction", KeyEvent.VK_A, menu, null);
+		
+		return menu;
+	}
+	
+	protected JMenu buildHelpMenu() {
+		JMenu menu = new JMenu("Help");
+		menu.setMnemonic(KeyEvent.VK_H);
+		menu.getAccessibleContext().setAccessibleDescription("File menu");
+		
+		addNewMenuItem("About", KeyEvent.VK_A, menu, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(parent, "This tool is built by Jan Martijn van der Werf for the project on Information System Modeling");	
+			}
+		});
+		
+		return menu;
+	}
+	
+	protected void buildMenu() {
+		JMenuBar menuBar = new JMenuBar();
+		
+		menuBar.add(buildFileMenu());
+		menuBar.add(buildWorldMenu());
+		menuBar.add(buildTransactionMenu());
+		menuBar.add(buildHelpMenu());
+				
 		setJMenuBar(menuBar);
+	}
+	
+	private JMenuItem addNewMenuItem(String label, int keyEvent, JMenu menu, ActionListener listener) {
+		JMenuItem item = new JMenuItem(label);
+		item.setMnemonic(keyEvent);
+		
+		if (listener != null) item.addActionListener(listener);
+		
+		menu.add(item);
+		
+		return item;
 	}
 
 
