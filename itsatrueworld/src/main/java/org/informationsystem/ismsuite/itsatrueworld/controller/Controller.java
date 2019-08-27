@@ -62,6 +62,8 @@ public class Controller {
 		this.world.removeConjecture(oldName);
 		this.world.addConjecture(newName, clause);
 		
+		this.model.setModified(true);
+		
 		updateTrueWorldModel();
 	}
 	
