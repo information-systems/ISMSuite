@@ -48,7 +48,7 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 	protected DynamicGridPanel grid;
 	
 	public AbstractGridPanel(Controller controller) {
-		this(controller, 3);
+		this(controller, 4);
 	}
 	
 	public AbstractGridPanel(Controller controller, int columns) {

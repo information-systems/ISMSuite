@@ -60,7 +60,7 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 		
 		quickText = new JTextArea(4, 80);
 		// quickText.setText("! [X: universe, Y: universe] : (likes(X, Y) => likes(X, X))");
-		quickText.setText("FOR ALL [ X IN universe] IT HOLDS THAT THERE EXISTS [Y IN universe ] SUCH THAT likes( X, Y)");
+		// quickText.setText("FOR ALL [ X IN universe] IT HOLDS THAT THERE EXISTS [Y IN universe ] SUCH THAT likes( X, Y)");
 		quickText.addKeyListener(new KeyListener() {
 	
 			@Override public void keyTyped(KeyEvent e) {}

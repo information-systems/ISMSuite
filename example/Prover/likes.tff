@@ -73,14 +73,6 @@ tff( rel_likes____e__c, axiom,
 	likes( e, c )
 ).
 
-tff( rel_likes____f__f, axiom, 
-	likes( f, f )
-).
-
-tff( rel_m____g, axiom, 
-	m( g )
-).
-
 tff( rel_m____a, axiom, 
 	m( a )
 ).
