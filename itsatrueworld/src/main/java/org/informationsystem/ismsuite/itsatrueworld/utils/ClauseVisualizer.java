@@ -307,7 +307,7 @@ public class ClauseVisualizer {
 
 		@Override
 		public String visit(Variable v) {
-			return v.getLabel() + (noBound ? " FROM " + v.getType() : "" );
+			return v.getLabel() + (noBound ? " IN " + v.getType() : "" );
 		}
 
 		@Override

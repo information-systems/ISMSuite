@@ -19,7 +19,8 @@ public class App
     	Controller c = new Controller();
     	if (args.length > 0) {
     		try {
-				c.open(new FileInputStream(new File(args[0])));
+    			File f = new File(args[0]);
+				c.open(new FileInputStream(f), f.getName());
 			} catch (IOException e) {
 				System.out.println(e.getMessage());
 			}

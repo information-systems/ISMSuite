@@ -27,17 +27,21 @@ import javax.swing.JTabbedPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 
 /**
  * @author jmw
  *
  */
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements TrueWorldListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9217156852218912678L;
+
+	protected static final String TITLE = "It's a true world";
 	
 	Controller controller;
 
@@ -57,6 +61,9 @@ public class MainWindow extends JFrame {
 		parent = this;
 		
 		initialize();
+		
+		this.controller.register(this);
+		notify(this.controller.getModel());
 	}
 
 	// Invoke/show the UI.
@@ -105,7 +112,7 @@ public class MainWindow extends JFrame {
 	 * 
 	 */
 	protected void initialize() {		
-		setTitle("It's a true world");
+		setTitle(TITLE);
 		setLayout(new BorderLayout());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -268,6 +275,11 @@ public class MainWindow extends JFrame {
 		menuBar.add(mnWorld);
 		
 		setJMenuBar(menuBar);
+	}
+
+	@Override
+	public void notify(TrueWorld world) {
+		setTitle(TITLE + " (" + world.getName() + ")" + (world.isModified() ? " *" : ""));		
 	}
 
 	

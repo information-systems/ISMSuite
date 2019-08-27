@@ -7,6 +7,25 @@ import javax.swing.text.DocumentFilter;
 
 public class LowerWordEnforcer extends DocumentFilter {
 
+	private boolean allowSpaces = false;
+	
+	public LowerWordEnforcer() {
+		this(false);
+	}
+	
+	public LowerWordEnforcer(boolean allowSpaces) {
+		this.allowSpaces = false;
+	}
+	
+	public boolean spacesAreAllowed() {
+		return allowSpaces;
+	}
+	
+	public LowerWordEnforcer setSpacesAreAllowed(boolean allowSpaces) {
+		this.allowSpaces = allowSpaces;
+		return this;
+	}
+	
 	@Override
 	public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
 			throws BadLocationException {
@@ -29,11 +48,11 @@ public class LowerWordEnforcer extends DocumentFilter {
 		if (text.isEmpty()) { 
 			return true;
 		}
-		if (text.matches("^[a-z][a-zA-Z0-9]*$")) {
-			return true;
+		if (spacesAreAllowed()) {
+			return text.matches("^[a-z][a-zA-Z0-9 ]*$");
 		}
 		
-		return false;
+		return text.matches("^[a-z][a-zA-Z0-9]*$");
 	}
 
 	@Override

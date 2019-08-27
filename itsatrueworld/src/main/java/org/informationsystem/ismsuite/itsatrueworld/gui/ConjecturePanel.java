@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Stack;
@@ -22,8 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
-import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Clause;
 
@@ -42,8 +42,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 	
 	private DynamicGridPanel grid;
 	
-	private Map<String, ChildPanel> conjecturePanels = new HashMap<>();
-
+	private Set<String> conjectureSet = new HashSet<>();
 
 
 	private JLabel errorLabel;
@@ -115,9 +114,9 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		
 		for(Entry<String, Clause> conjecture: conjectures) {
 			// If it is not in our list yet, create a panel for it
-			if (!conjecturePanels.containsKey(conjecture.getKey())) {
+			if (!conjectureSet.contains(conjecture.getKey())) {
+				conjectureSet.add(conjecture.getKey());
 				ChildPanel p = createPanel(conjecture.getKey());
-				conjecturePanels.put(conjecture.getKey(), p);
 				grid.addPanel(p);
 			}
 		}
@@ -131,8 +130,19 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 	}
 	
 	public void removePanel(ChildPanel childPanel) {
-		conjecturePanels.remove(childPanel.getId());
 		grid.removePanel(childPanel);
+	}
+	
+	public void renameConjecture(String oldName, String newName) {
+		conjectureSet.remove(oldName);
+		conjectureSet.add(newName);
+		
+		// check if it needs to be renamed in errors
+		if (errors.contains(oldName)) {
+			errors.remove(oldName);
+			errors.add(newName);
+			updateErrorPane();
+		}
 	}
 	
 	
@@ -177,8 +187,13 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 			return this.id;
 		}
 		
+		private void setId(String id) {
+			owner.renameConjecture(getId(), id);
+			this.id = id;
+			updateTitleText();
+		}
+		
 		public Stack<Clause> getExplanation() {
-			// TODO make it look better ;-)
 			return explanation;
 		}
 				
@@ -235,8 +250,30 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 				}
 			});
 			
+			JButton editButton = new JButton("Edit");
+			editButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					ConjectureEditor editor = ConjectureEditor.showDialog(owner.getOwner(), getId(), getClause(), controller.getModel().getWorld());
+					if (editor != null) {
+						if (editor.getClause() == null || editor.getLabel().isEmpty()) {
+							return;
+						}
+						
+						String oldId = getId();
+						setId(editor.getId());
+						
+						controller.updateConjecture(oldId, editor.getId(), editor.getClause());
+					}
+					
+					
+				}
+			});
+			
 			buttons.add(visualizeButton);
 			buttons.add(explainButton);
+			buttons.add(editButton);
 			buttons.add(deleteButton);
 			
 			holder.add(buttons, BorderLayout.EAST);
@@ -248,7 +285,6 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 			String name = ClauseVisualizer.generateName(getId());
 			title.setText("<html><div style='text-align: center;'><b>" 
 					+ name
-					+ getId()
 					+ "</b></div></html>");
 		}
 

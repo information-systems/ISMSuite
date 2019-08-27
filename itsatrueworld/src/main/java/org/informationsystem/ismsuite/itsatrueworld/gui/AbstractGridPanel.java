@@ -27,8 +27,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
-import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 
 
 @SuppressWarnings("serial")

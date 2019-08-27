@@ -6,7 +6,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
-import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Relation;

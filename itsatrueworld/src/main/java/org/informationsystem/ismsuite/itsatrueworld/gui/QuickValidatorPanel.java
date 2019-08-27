@@ -26,8 +26,8 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
-import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.model.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.model.Clause;
@@ -44,7 +44,7 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 	
 	private Controller controller;
 	
-	private JFrame parent;
+	private JFrame owner;
 	
 	public QuickValidatorPanel(JFrame parent, Controller controller) {
 		this.controller = controller;
@@ -104,7 +104,7 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 			public void actionPerformed(ActionEvent e) {
 				Clause c = tffClauseVisitor.visit(quickText.getText());
 				if (c != null) {
-					ClauseVisualizer.showTreeDialog(parent, c);
+					ClauseVisualizer.showTreeDialog(owner, c);
 				}
 			}
 		});
@@ -120,10 +120,10 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 				if (c != null) {
 					Stack<Clause> expl = c.findExplanationFor(controller.getModel().getWorld());
 					if (expl.isEmpty()) {
-						JOptionPane.showMessageDialog(parent, "Formula is valid!", "Quick validator", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(owner, "Formula is valid!", "Quick validator", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						expl.push(c);
-						ClauseVisualizer.showExplanationDialog(parent, expl);
+						ClauseVisualizer.showExplanationDialog(owner, expl);
 					}
 				}
 				
@@ -132,6 +132,17 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 		holder.add(validateButton);
 		
 		JButton addButton = new JButton("Add");
+		addButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Clause c = tffClauseVisitor.visit(quickText.getText());
+				if (c != null) {
+					ConjectureEditor.addNewConjecture(controller, owner, "new conjecture", c);
+				}
+			}
+			
+		});
 		holder.add(addButton);
 		
 		quickLabel = new JLabel("");
