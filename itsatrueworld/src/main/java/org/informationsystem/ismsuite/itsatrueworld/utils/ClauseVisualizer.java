@@ -36,17 +36,32 @@ public class ClauseVisualizer {
 	public static void showExplanationDialog(JFrame parent, Stack<Clause> explanation) {
 		
 		StringBuilder expl = new StringBuilder();
+		Clause last = null;
+		Clause lastSimple = null;
+		
 		boolean first = true;
 		expl.append("Because:\n");
 		for(Clause c: explanation) {
+			Clause simple = c.simplify();
+			
+			System.out.println("S: " + simple);
+			System.out.println("L: " + lastSimple);
+			
+			if (simple.equals(lastSimple)) { continue; }
+			last = c;
+			lastSimple = simple;
 			if(first) {
 				first  = false;
 			}  else {
 				expl.append("hence\n\t");
 			}
-			expl.append(clauseToString(c));
+			last = c;
+			expl.append(clauseToString(simple));
 			expl.append("\n");
 		}
+		
+		expl.append("\nAnd therefore\n\n");
+		expl.append(clauseToString(last));
 		
 		// Create Message Dialog
 		JOptionPane.showMessageDialog(parent, expl.toString(), "Formula is not valid", JOptionPane.WARNING_MESSAGE);

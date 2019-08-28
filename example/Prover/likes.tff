@@ -61,6 +61,10 @@ tff( rel_v____d, axiom,
 	v( d )
 ).
 
+tff( rel_v____b, axiom, 
+	v( b )
+).
+
 tff( rel_likes____b__a, axiom, 
 	likes( b, a )
 ).
@@ -89,10 +93,6 @@ tff( rel_likes____d__d, axiom,
 	likes( d, d )
 ).
 
-tff( rel_v____a, axiom, 
-	v( a )
-).
-
 tff( rel_likes____a__b, axiom, 
 	likes( a, b )
 ).
@@ -106,6 +106,10 @@ tff( likes_is_reflexive, conjecture,
 	( ! [ X: universe ] : ( likes( X, X ) ) )
 ).
 
+tff( everybody_likes_somebody_else, conjecture, 
+	( ! [ X: universe ] : ( ( ? [ Y: universe ] : ( ( ~( ( X = Y ) ) & likes( X, Y ) ) ) ) ) )
+).
+
 tff( all_elements_are_male_or_female, conjecture, 
 	( ! [ X: universe ] : ( ( m( X ) | v( X ) ) ) )
 ).
@@ -115,6 +119,6 @@ tff( likes_only_if_feels_good, conjecture,
 ).
 
 tff( elements_are_either_male_or_female_but_not_both, conjecture, 
-	( ! [ X: universe ] : ( ( ( ~( v( X ) ) => m( X ) ) & ( m( X ) => ~( v( X ) ) ) ) ) )
+	( ! [ X: universe ] : ( ( ( m( X ) => ~( v( X ) ) ) & ( v( X ) => ~( m( X ) ) ) ) ) )
 ).
 
