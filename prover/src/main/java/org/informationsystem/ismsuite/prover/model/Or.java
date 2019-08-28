@@ -132,28 +132,7 @@ public class Or extends Operator {
 		// A || true == true
 		// However, then we lose information...
 		List<Clause> simpleOperands = new ArrayList<>();
-		
-		// First simplication is a negative De Morgan:
-		// if all operands are negative, we just return an And
-		boolean allNegative = true;
-		Iterator<Clause> it = operands.iterator();
-		while(it.hasNext() && allNegative) {
-			if (!(it.next() instanceof Not)) {
-				allNegative = false;
-			}
-		}
-		
-		if (allNegative) {
-			// We make it an And
-			for(Clause c: operands) {
-				Not cast = (Not) c;
-				simpleOperands.add(cast.getOperand().simplify());
-			}
-			
-			return new And(simpleOperands);
-		}
-
-		
+				
 		for(Clause c: operands) {
 			if (c instanceof Or) {
 				// Move them one level up...
