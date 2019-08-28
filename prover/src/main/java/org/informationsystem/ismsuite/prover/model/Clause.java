@@ -130,5 +130,10 @@ public abstract class Clause implements Cloneable, Comparable<Clause> {
 	}
 	
 	public abstract <T> T accept(ClauseVisitor<T> visitor);
-	
+
+	/**
+	 * This function tries to simplify the formula by
+	 * applying the De Morgan rules.
+	 */
+	public abstract Clause simplify();
 }

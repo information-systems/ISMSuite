@@ -129,4 +129,50 @@ public class And extends Operator {
 	public <T> T accept(ClauseVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
+	@Override
+	public Clause simplify() {
+		// Only try to simplify the children
+		// We could simplify by stating that
+		// A && False == False
+		// However, then we lose information...
+		List<Clause> simpleOperands = new ArrayList<>();
+		
+		
+		// First simplication is a negative De Morgan:
+		// if all operands are negative, we just return an Or
+		boolean allNegative = true;
+		Iterator<Clause> it = operands.iterator();
+		while(it.hasNext() && allNegative) {
+			if (!(it.next() instanceof Not)) {
+				allNegative = false;
+			}
+		}
+		
+		if (allNegative) {
+			// We make it an Or
+			for(Clause c: operands) {
+				Not cast = (Not) c;
+				simpleOperands.add(cast.getOperand().simplify());
+			}
+			
+			return new Or(simpleOperands);
+		}
+		
+		
+		for(Clause c: operands) {
+			
+			if (c instanceof And) {
+				// Move them one level up...
+				Iterator<Clause> iter =  ((And) c).operands();
+				while(iter.hasNext()) {
+					simpleOperands.add(iter.next().simplify());
+				}
+			} else {
+				simpleOperands.add(c.simplify());
+			}
+		}
+		
+		return new And(simpleOperands);
+	}
 }

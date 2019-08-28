@@ -71,4 +71,9 @@ public class Element extends Literal {
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public Clause simplify() {
+		return (Element) this.clone();
+	}
+	
 }

@@ -66,4 +66,9 @@ public class Variable extends Literal {
 	public <T> T accept(ClauseVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
+	@Override
+	public Clause simplify() {
+		return (Variable) this.clone();
+	}
 }

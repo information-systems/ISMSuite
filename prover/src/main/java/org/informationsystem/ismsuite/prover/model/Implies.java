@@ -103,4 +103,14 @@ public class Implies extends Operator {
 	public <T> T accept(ClauseVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
+	@Override
+	public Clause simplify() {
+		// ~A => B === ~~A | B === A | B
+		if (premise instanceof Not) {
+			return new Or(((Not) premise).getOperand().simplify() , conclusion.simplify());
+		}
+		
+		return new Implies(premise.simplify(), conclusion.simplify());
+	}
 }

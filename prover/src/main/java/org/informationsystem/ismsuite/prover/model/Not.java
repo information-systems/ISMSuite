@@ -1,5 +1,8 @@
 package org.informationsystem.ismsuite.prover.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -72,5 +75,60 @@ public class Not extends Operator {
 	@Override
 	public <T> T accept(ClauseVisitor<T> visitor) {
 		return visitor.visit(this);
+	}
+	
+	@Override
+	public Clause simplify() {
+		// This is the most interesting part, simplification
+		// through the De Morgan rules:
+		
+		if (operand instanceof And) {
+			// Push the Not inside the And
+			List<Clause> operands = new ArrayList<>();
+			Iterator<Clause> it = ((And) operand).operands();
+			while(it.hasNext()) {
+				Clause c = (Clause) it.next().clone();
+				operands.add((new Not(c)).simplify());
+			}
+			return new Or(operands).simplify();
+		}
+		if (operand instanceof Or) {
+			// Push the Not inside the Or
+			List<Clause> operands = new ArrayList<>();
+			Iterator<Clause> it = ((Or) operand).operands();
+			while(it.hasNext()) {
+				Clause c = (Clause) it.next().clone();
+				operands.add((new Not(c)).simplify());
+			}
+			return new And(operands).simplify();
+		}
+		
+		if (operand instanceof Implies) {
+			// ~(A => B) == ~(~A | B) == A & ~B
+			Implies cast = (Implies) operand;
+			return (new And(
+					cast.getPremise().simplify(),
+					(new Not((Clause) cast.getConclusion().clone())).simplify()
+			)).simplify();
+		}
+		
+		if (operand instanceof Exists) {
+			Exists cast = (Exists) operand;
+			Clause c = new Not((Clause) cast.getOperand().clone());
+			return new All((Variable) cast.getVariable().simplify(), c.simplify());
+		}
+		
+		if (operand instanceof All) {
+			All cast = (All) operand;
+			Clause c = new Not((Clause) cast.getOperand().clone());
+			return new Exists((Variable) cast.getVariable().simplify(), c.simplify());
+		}
+		
+		if (operand instanceof Not) {
+			return ((Not) operand).getOperand().simplify();
+		}
+		
+		return (Clause) this.clone();
+		
 	}
 }

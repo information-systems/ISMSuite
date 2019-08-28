@@ -44,6 +44,11 @@ public class True extends Clause {
 	@Override
 	public <T> T accept(ClauseVisitor<T> visitor) {
 		return visitor.visit(this);
-	}	
+	}
+	
+	@Override
+	public Clause simplify() {
+		return new True();
+	}
 
 }

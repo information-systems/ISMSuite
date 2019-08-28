@@ -190,4 +190,10 @@ public class Relation extends Literal {
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public Clause simplify() {
+		// Nothing can be more simple...
+		return (Relation) this.clone();
+	}
+	
 }
