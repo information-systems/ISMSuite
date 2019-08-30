@@ -31,7 +31,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 
@@ -50,20 +51,27 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	
 	private static FileNameExtensionFilter tffFileFilter = new FileNameExtensionFilter("Typed First-order logic Formulae", "tff");
 	
-	private Controller controller;
+	private WorldController controller;
+	
+	private SpecificationController specification;
 
 	private MainWindow parent;
 		
 	public MainWindow() {
-		this(new Controller());
+		this(new WorldController(), new SpecificationController());
 	}
 	
-	public MainWindow(Controller controller) {
+	public MainWindow(WorldController controller, SpecificationController specification) {
 		if (controller == null) {
-			controller = new Controller();
+			controller = new WorldController();
+		}
+		
+		if (specification == null) {
+			specification = new SpecificationController();
 		}
 	
 		this.controller = controller;
+		this.specification = specification;
 		
 		parent = this;
 		
@@ -108,11 +116,11 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	}
 
 	// Invoke/show the UI.
-	public static void invokeUI(Controller controller) throws InvocationTargetException, InterruptedException {
+	public static void invokeUI(WorldController controller, SpecificationController specification) throws InvocationTargetException, InterruptedException {
 		EventQueue.invokeAndWait(new Runnable() {
 			@Override public void run() {
 				try {
-					final MainWindow frame = new MainWindow(controller);
+					final MainWindow frame = new MainWindow(controller, specification);
 					frame.setPreferredSize(new Dimension(500,500));
 					frame.setMinimumSize(new Dimension(400, 400));
 					frame.setVisible(true);
@@ -202,7 +210,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		transactionSplitter.setOneTouchExpandable(true);
         transactionSplitter.setContinuousLayout(true);
 		// transactionSplitter.setDividerLocation(0.2);
-		transactionSplitter.setResizeWeight(0.1);
+		transactionSplitter.setResizeWeight(0.2);
 		
 		mainPanel.add(transactionSplitter);
 		
@@ -210,14 +218,17 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	}
 	
 	protected JPanel buildTransactionPanel() {
+		/*
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.yellow);
 		
 		JLabel msg = new JLabel("In this panel, all transactions will be visible");
 		
 		panel.add(msg);
+		*/
+		TransactionPanel p = new TransactionPanel(controller, specification, parent);
 		
-		return panel;
+		return p;
 	}
 	
 	protected JPanel buildWorldPanel() {

@@ -37,12 +37,12 @@ import javax.swing.text.PlainDocument;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Literal;
 import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
 
 public class RelationDialog {
 
-	public static void showCreateRelationDialog(Controller controller, JFrame owner, String name) {
+	public static void showCreateRelationDialog(WorldController controller, JFrame owner, String name) {
 		DialogPane pane = new DialogPane(controller, name); 
 				
 		int result = JOptionPane.showOptionDialog(
@@ -85,7 +85,7 @@ public class RelationDialog {
 			return nameField.getText();
 		}
 		
-		public DialogPane(Controller controller, String name) {
+		public DialogPane(WorldController controller, String name) {
 			
 			setLayout(new BorderLayout(5,5));
 			

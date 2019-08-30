@@ -5,7 +5,7 @@ import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Element;
@@ -20,7 +20,7 @@ public class ElementListingPanel extends AbstractGridPanel<Element> {
 
 	private JFrame owner;
 		
-	public ElementListingPanel(Controller controller, JFrame owner) {
+	public ElementListingPanel(WorldController controller, JFrame owner) {
 		super(controller);
 		this.owner = owner;
 	}

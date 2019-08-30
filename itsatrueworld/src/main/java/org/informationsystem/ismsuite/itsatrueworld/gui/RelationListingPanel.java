@@ -3,7 +3,7 @@ package org.informationsystem.ismsuite.itsatrueworld.gui;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Relation;
@@ -17,7 +17,7 @@ public class RelationListingPanel extends AbstractGridPanel<Relation> {
 	
 	private JFrame owner;
 
-	public RelationListingPanel(Controller controller, JFrame owner) {
+	public RelationListingPanel(WorldController controller, JFrame owner) {
 		super(controller);
 		this.owner = owner;
 	}

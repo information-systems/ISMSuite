@@ -11,7 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.PlainDocument;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
@@ -93,11 +93,11 @@ public class ConjectureEditor extends JPanel {
 		
 	}
 	
-	public static String addNewConjecture(Controller controller, JFrame owner, String label) {
+	public static String addNewConjecture(WorldController controller, JFrame owner, String label) {
 		return addNewConjecture(controller, owner, label, null);
 	}
 	
-	public static String addNewConjecture(Controller controller, JFrame owner, String label, Clause c) {
+	public static String addNewConjecture(WorldController controller, JFrame owner, String label, Clause c) {
 		ConjectureEditor pane = ConjectureEditor.showDialog(owner, label, c, controller.getModel().getWorld());
 		
 		if (pane != null) {

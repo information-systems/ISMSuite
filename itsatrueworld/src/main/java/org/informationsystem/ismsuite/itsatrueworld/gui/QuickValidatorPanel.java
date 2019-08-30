@@ -25,7 +25,7 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
@@ -42,11 +42,11 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 	private JTextArea quickText;
 	private TFFClauseVisitor tffClauseVisitor;
 	
-	private Controller controller;
+	private WorldController controller;
 	
 	private JFrame owner;
 	
-	public QuickValidatorPanel(JFrame parent, Controller controller) {
+	public QuickValidatorPanel(JFrame parent, WorldController controller) {
 		this.controller = controller;
 		this.controller.register(this);
 		tffClauseVisitor = new TFFClauseVisitor(this.controller.getModel().getWorld());

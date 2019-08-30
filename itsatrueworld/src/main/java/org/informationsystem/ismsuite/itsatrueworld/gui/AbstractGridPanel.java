@@ -26,7 +26,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 
@@ -39,23 +39,23 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 	private Map<JList<E>, String> lists = new HashMap<>();
 	private Map<String, E> selectedItem = new HashMap<>();
 	
-	private Controller controller;
+	private WorldController controller;
 	
-	public Controller getController() {
+	public WorldController getController() {
 		return controller;
 	}
 	
 	protected DynamicGridPanel grid;
 	
-	public AbstractGridPanel(Controller controller) {
+	public AbstractGridPanel(WorldController controller) {
 		this(controller, 4);
 	}
 	
-	public AbstractGridPanel(Controller controller, int columns) {
+	public AbstractGridPanel(WorldController controller, int columns) {
 		this(controller, columns, 200);
 	}
 	
-	public AbstractGridPanel(Controller controller, int columns, int panelHeight) {
+	public AbstractGridPanel(WorldController controller, int columns, int panelHeight) {
 		this.controller = controller;
 		
 		this.setLayout(new BorderLayout());

@@ -3,24 +3,27 @@ package org.informationsystem.ismsuite.itsatrueworld.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 import org.informationsystem.ismsuite.prover.io.ClauseReader;
 import org.informationsystem.ismsuite.prover.io.WorldWriter;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Relation;
+import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.specifier.model.Transaction;
 
-public class Controller {
+public class WorldController {
 	
 	private World world;
 	private TrueWorld model;	
 	
-	public Controller() {
+	public WorldController() {
 		this(new World());
 	}
 	
-	public Controller(World world) {
+	public WorldController(World world) {
 		this.world = world;
 		this.model = new TrueWorld(this.world);
 		
@@ -126,5 +129,8 @@ public class Controller {
 	public TrueWorld getModel() {
 		return model;
 	}
-
+	
+	public void execute(Transaction t, Map<Variable, Element> binding) {
+		t.apply(binding, world);
+	}
 }

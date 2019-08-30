@@ -16,12 +16,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.Controller;
+import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
@@ -36,7 +37,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 
 	
 	
-	private Controller controller;
+	private WorldController controller;
 	
 	private JFrame owner;
 	
@@ -50,7 +51,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 	
 	private Set<String> errors = new HashSet<>();
 	
-	public ConjecturePanel(JFrame owner, Controller controller) {
+	public ConjecturePanel(JFrame owner, WorldController controller) {
 		this.controller = controller;
 		this.owner = owner;
 		
@@ -155,7 +156,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 
 		private ConjecturePanel owner;
 		
-		private Controller controller;
+		private WorldController controller;
 		
 		private String id;
 		private Clause clause;
@@ -170,7 +171,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 
 		private JButton explainButton;
 		
-		public ChildPanel(Controller controller, ConjecturePanel owner, String conjecture) {
+		public ChildPanel(WorldController controller, ConjecturePanel owner, String conjecture) {
 			this.controller = controller;
 			
 			this.owner = owner;
@@ -230,7 +231,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 			
 			// Button panel
 			JPanel holder = new JPanel(new BorderLayout());
-			JPanel buttons = new JPanel(new GridLayout(1,3));
+			JPanel buttons = new JPanel(new GridLayout(1,4));
 			
 			explainButton = new JButton("Explain");
 			explainButton.addActionListener(new ActionListener() {
@@ -241,6 +242,16 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 				}
 			});
 			JButton deleteButton = new JButton("Delete");
+			deleteButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					int result = JOptionPane.showConfirmDialog(owner.getOwner(), "Are you sure you want to delete conjecture '"+ClauseVisualizer.generateName(getId())+"'?", "Delete conjecture", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					if (result == JOptionPane.YES_OPTION) {
+						controller.removeConjecture(id);
+					}
+				}
+			});
 			JButton visualizeButton = new JButton("Visualize");
 			visualizeButton.addActionListener(new ActionListener() {
 				
