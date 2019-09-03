@@ -14,6 +14,8 @@ import org.informationsystem.ismsuite.specifier.model.Operation;
 
 public class Transaction {
 
+	private String label;
+	
 	private List<Operation> myoperations = new ArrayList<>();
 	private List<Variable> myvariables = new ArrayList<>();
 	private Map<String, Variable> variablelist = new HashMap<>();
@@ -38,7 +40,8 @@ public class Transaction {
 		return variablelist.get(name);
 	}
 	
-	public Transaction(List<Variable> arguments, List<Operation> operations) {
+	public Transaction(String label, List<Variable> arguments, List<Operation> operations) {
+		this.label = label;
 		for(Variable v: arguments) {
 			variablelist.put(v.getLabel(), v);
 		}
@@ -46,7 +49,9 @@ public class Transaction {
 		this.myoperations.addAll(operations);
 	}
 	
-	public Transaction(Map<String, String> arguments, List<Operation> operations) {
+	public Transaction(String label, Map<String, String> arguments, List<Operation> operations) {
+		this.label = label;
+		
 		for(Entry<String, String> e: arguments.entrySet()) {
 			Variable v = new Variable(e.getKey(), e.getValue());
 			this.variablelist.put(v.getLabel(), v);
@@ -57,6 +62,7 @@ public class Transaction {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append(label);
 		
 		for(Variable v: myvariables ) {
 			sb.append(", ");
@@ -72,6 +78,10 @@ public class Transaction {
 		
 		sb.append("\n}\n");
 		return sb.toString();
+	}
+	
+	public String getLabel() {
+		return label;
 	}
 	
 	public void apply(Map<Variable, Element> binding, World world) {

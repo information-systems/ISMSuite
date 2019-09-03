@@ -50,6 +50,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	protected static final String TITLE = "It's a true world";
 	
 	private static FileNameExtensionFilter tffFileFilter = new FileNameExtensionFilter("Typed First-order logic Formulae", "tff");
+	private static FileNameExtensionFilter specFileFilter = new FileNameExtensionFilter("Specification file", "spec");
 	
 	private WorldController controller;
 	
@@ -112,7 +113,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		});
 		
 		this.controller.register(this);
-		notify(this.controller.getModel());
+		notify(this.controller.getModel());		
 	}
 
 	// Invoke/show the UI.
@@ -308,7 +309,13 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		JMenu menu = new JMenu("Transactions");
 		menu.setMnemonic(KeyEvent.VK_T);
 		
-		addNewMenuItem("Open...", KeyEvent.VK_O, menu, null);
+		addNewMenuItem("Open...", KeyEvent.VK_O, menu, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				loadSpecificationFromFile();
+			}
+		});
 		addNewMenuItem("Export...", KeyEvent.VK_X, menu, null);
 		
 		menu.addSeparator();
@@ -412,6 +419,28 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		}
 	}
 	
+	private void loadSpecificationFromFile() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		
+		fileChooser.addChoosableFileFilter(specFileFilter);
+		fileChooser.setFileFilter(specFileFilter);
+		
+		int result = fileChooser.showOpenDialog(parent);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    try {
+				specification.open(new FileInputStream(selectedFile), selectedFile.getAbsolutePath());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				System.out.println("File: " + selectedFile + " not found!");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 	private void loadWorldFromFile() {
 		JFileChooser fileChooser = new JFileChooser();
@@ -426,7 +455,6 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		    try {
 				controller.open(new FileInputStream(selectedFile), selectedFile.getAbsolutePath());
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				System.out.println("File: " + selectedFile + " not found!");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

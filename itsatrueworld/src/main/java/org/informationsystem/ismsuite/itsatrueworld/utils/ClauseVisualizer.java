@@ -43,10 +43,7 @@ public class ClauseVisualizer {
 		expl.append("Because:\n");
 		for(Clause c: explanation) {
 			Clause simple = c.simplify();
-			
-			System.out.println("S: " + simple);
-			System.out.println("L: " + lastSimple);
-			
+						
 			if (simple.equals(lastSimple)) { continue; }
 			last = c;
 			lastSimple = simple;

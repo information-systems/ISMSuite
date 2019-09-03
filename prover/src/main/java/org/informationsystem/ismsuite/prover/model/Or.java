@@ -132,6 +132,21 @@ public class Or extends Operator {
 		// A || true == true
 		// However, then we lose information...
 		List<Clause> simpleOperands = new ArrayList<>();
+		
+		if (operands.size() == 2) {
+			// Is it actually an implies?
+			if (operands.get(0) instanceof Not) {
+				return new Implies(
+						((Not) operands.get(0)).getOperand().simplify(),
+						operands.get(1).simplify()
+						);
+			} else if (operands.get(1) instanceof Not) {
+				return new Implies(
+						((Not) operands.get(1)).getOperand().simplify(),
+						operands.get(0).simplify()
+						);
+			}
+		}
 				
 		for(Clause c: operands) {
 			if (c instanceof Or) {

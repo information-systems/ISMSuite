@@ -88,8 +88,8 @@ public class SpecificationReader {
 			String name = ctx.name().getText();
 			Map<String,String> arguments = buildVariableList(ctx.argument_list());
 			List<Operation> operations = buildOperations(ctx.transaction(), arguments);
-			
-			spec.addPlace(currentProcess + "." + name, new Transaction(arguments, operations));
+			String label = currentProcess + "." + name;
+			spec.addPlace(label, new Transaction(label, arguments, operations));
 			
 			return spec;
 		}
@@ -100,7 +100,8 @@ public class SpecificationReader {
 			Map<String,String> arguments = buildVariableList(ctx.argument_list());
 			List<Operation> operations = buildOperations(ctx.transaction(), arguments);
 			
-			spec.addTransition(currentProcess + "." + name, new Transaction(arguments, operations));
+			String label = currentProcess + "." + name;
+			spec.addTransition(label, new Transaction(label, arguments, operations));
 			
 			return spec;
 		}

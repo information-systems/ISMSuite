@@ -58,6 +58,7 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 		
 		initialize();
 		
+		speccontroller.register(this);
 		onSpecificationChanged();
 	}
 	
@@ -150,6 +151,15 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 			
 			JButton edit = new JButton("Edit");
 			JButton execute = new JButton("Execute");
+			execute.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// Show execute dialog
+					Transaction t = getSpecificationController().getTransaction(label);
+					ExecuteTransactionDialog.executeTransaction(worldController, owner, t);
+				}
+			});
 			
 			buttons.add(delete);
 			buttons.add(edit);

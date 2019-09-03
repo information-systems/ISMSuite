@@ -106,10 +106,6 @@ tff( likes_is_reflexive, conjecture,
 	( ! [ X: universe ] : ( likes( X, X ) ) )
 ).
 
-tff( everybody_likes_somebody_else, conjecture, 
-	( ! [ X: universe ] : ( ( ? [ Y: universe ] : ( ( ~( ( X = Y ) ) & likes( X, Y ) ) ) ) ) )
-).
-
 tff( all_elements_are_male_or_female, conjecture, 
 	( ! [ X: universe ] : ( ( m( X ) | v( X ) ) ) )
 ).
