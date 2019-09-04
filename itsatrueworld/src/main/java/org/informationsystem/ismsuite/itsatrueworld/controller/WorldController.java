@@ -132,5 +132,7 @@ public class WorldController {
 	
 	public void execute(Transaction t, Map<Variable, Element> binding) {
 		t.apply(binding, world);
+		
+		updateTrueWorldModel();
 	}
 }

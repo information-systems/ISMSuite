@@ -1,19 +1,29 @@
 package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.Frame;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractCellEditor;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
+import javax.swing.text.PlainDocument;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
@@ -22,14 +32,25 @@ public class ExecuteTransactionDialog {
 
 	ParameterTableModel parameters = new ParameterTableModel();
 	
-	private JPanel buildPane(Transaction t) {
+	private JPanel buildPane(Transaction t, WorldController world) {
 		JPanel p = new JPanel(new BorderLayout(5,5));
 		
 		JLabel label = new JLabel("Transaction: " + t.getLabel());
 		
-		p.add(label, BorderLayout.NORTH);
+		JTable table = new JTable(parameters);
+		TableColumn elementColumn = table.getColumnModel().getColumn(ParameterTableModel.ELEMENT_NAME);
+		elementColumn.setCellEditor(new ElementTypeBasedCellEditor(world));
 		
-		p.setSize(new Dimension(400, 400));
+		
+		Iterator<Variable> it = t.variables();
+		while(it.hasNext()) {
+			Variable v = it.next();
+			parameters.addRow(v);
+		}
+		
+		p.add(label, BorderLayout.NORTH);
+		p.add(table, BorderLayout.CENTER);
+		
 		return p;
 	}
 	
@@ -43,7 +64,7 @@ public class ExecuteTransactionDialog {
 		
 		int result = JOptionPane.showOptionDialog(
 	            frame, 
-	            d.buildPane(t), 
+	            d.buildPane(t, world), 
 	            "Execute transaction", 
 	            JOptionPane.OK_CANCEL_OPTION, 
 	            JOptionPane.QUESTION_MESSAGE, null, null, d);
@@ -60,6 +81,11 @@ public class ExecuteTransactionDialog {
 	
 	
 	private class ParameterTableModel extends AbstractTableModel {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 3910032699741433959L;
 
 		public class Row {
 			public Variable variable;
@@ -126,7 +152,7 @@ public class ExecuteTransactionDialog {
 				case ELEMENT_NAME:
 					return r.element.getLabel();
 				case ELEMENT_TYPE:
-					return r.element.getType();
+					return r.variable.getType();
 			}
 			
 			return null;
@@ -170,6 +196,46 @@ public class ExecuteTransactionDialog {
 			}
 	    }
 		
+	}
+	
+	class ElementTypeBasedCellEditor extends AbstractCellEditor implements TableCellEditor {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6584073541621874189L;
+		
+		JComboBox<String> component;
+		DefaultComboBoxModel<String> elementModel;
+		WorldController world;
+		
+		public ElementTypeBasedCellEditor(WorldController world) {
+			elementModel = new DefaultComboBoxModel<>();
+			component = new JComboBox<String>(elementModel);
+			component.setEditable(true);
+			((PlainDocument) ((JTextField)component.getEditor().getEditorComponent()).getDocument()).setDocumentFilter(new LowerWordEnforcer());; 
+			this.world = world;
+		}
+		
+
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int col) {
+
+			elementModel.removeAllElements();
+			
+			String type = (String) table.getValueAt(row, ParameterTableModel.ELEMENT_TYPE);
+			Iterator<Element> it = world.getModel().getWorld().getElementsIn(type);
+			while(it.hasNext()) {
+				Element e = it.next();
+				elementModel.addElement(e.getLabel());
+			}
+				
+			return component;
+		}
+
+		public Object getCellEditorValue() {
+			return component.getEditor().getItem();
+		}
 	}
 	
 }
