@@ -142,5 +142,10 @@ public class DynamicGridPanel {
 		}
 		
 		updateMaxWidth();
+	}
+
+	public void clear() {
+		panels.clear();
+		recalculate();
 	}	
 }

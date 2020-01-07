@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -67,7 +68,7 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		this.add(scrollPanel, BorderLayout.CENTER);
 		
 		this.controller.register(this);
-		this.notify(controller.getModel());
+		this.onNotify(controller.getModel());
 	}
 	
 	public DefaultListModel<E> getModel(String label) {
@@ -99,8 +100,22 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 			
 			return true;
 		}
-		
 		return false;
+	}
+	
+	/**
+	 * Removes all elements from the grid
+	 */
+	@Override
+	public void onReset() {
+		for(Entry<String, JPanel> e: panels.entrySet()) {
+			grid.removePanel(e.getValue());
+		}
+		listmodels = new HashMap<>();
+		panels = new HashMap<>();
+		lists = new HashMap<>();
+		selectedItem = new HashMap<>();
+		
 	}
 	
 	protected abstract void removeAction(E elem, String label);

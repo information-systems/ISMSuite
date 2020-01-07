@@ -43,7 +43,7 @@ public class WorldController {
 		this.world = ClauseReader.buildWorldFrom(input);
 		this.model.setFileName(filename);
 		
-		updateTrueWorldModel();
+		this.model.reset(world);
 	}
 	
 	public void open(InputStream input) throws IOException {

@@ -68,7 +68,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		
 		this.controller.register(this);
 		
-		notify(controller.getModel());
+		onNotify(controller.getModel());
 	}
 	
 	public JFrame getOwner() {
@@ -110,7 +110,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 	}
 
 	@Override
-	public void notify(TrueWorld world) {
+	public void onNotify(TrueWorld world) {
 		Set<Entry<String, Clause>> conjectures = world.getWorld().getConjectures();
 		
 		for(Entry<String, Clause> conjecture: conjectures) {
@@ -124,6 +124,14 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		
 		// Notice that the Notify of ChildPanel automatically 
 		// removes itself if it is removed from the world :-)
+	}
+	
+	/**
+	 * This method clears all conjectures
+	 */
+	@Override
+	public void onReset() {
+		// Do nothing, all children will do this themselves.
 	}
 	
 	private ChildPanel createPanel(String name) {
@@ -181,7 +189,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 			initialize();
 			
 			this.controller.register(this);
-			notify(controller.getModel());
+			onNotify(controller.getModel());
 		}
 		
 		public String getId() {
@@ -300,7 +308,7 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 		}
 
 		@Override
-		public void notify(TrueWorld model) {
+		public void onNotify(TrueWorld model) {
 			clause = model.getWorld().getConjecture(getId());
 			if (clause == null) {
 				owner.removePanel(this);
@@ -321,6 +329,11 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 				}
 				
 			}
+		}
+		
+		@Override
+		public void onReset() {
+			owner.removePanel(this);
 		}
 		
 	}

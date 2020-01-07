@@ -39,11 +39,9 @@ public class ElementListingPanel extends AbstractGridPanel<Element> {
 	protected String generateItemString(Element item) {
 		return item.getLabel();
 	}
-
-
 	
 	@Override
-	public void notify(TrueWorld world) {
+	public void onNotify(TrueWorld world) {
 		for(String typ: world.getWorld().getElementTypes()) {
 			DefaultListModel<Element> model = getModel(typ);
 			model.clear();
@@ -53,6 +51,5 @@ public class ElementListingPanel extends AbstractGridPanel<Element> {
 			}
 		}		
 	}
-	
 	
 }

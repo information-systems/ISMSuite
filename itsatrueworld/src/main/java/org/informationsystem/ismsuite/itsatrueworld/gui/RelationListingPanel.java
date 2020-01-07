@@ -23,7 +23,7 @@ public class RelationListingPanel extends AbstractGridPanel<Relation> {
 	}
 
 	@Override
-	public void notify(TrueWorld world) {
+	public void onNotify(TrueWorld world) {
 		for(String typ: world.getWorld().getRelationLabels()) {
 			DefaultListModel<Relation> model = getModel(typ);
 			model.clear();

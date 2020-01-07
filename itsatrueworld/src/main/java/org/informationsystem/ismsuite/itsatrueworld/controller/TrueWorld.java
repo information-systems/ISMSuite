@@ -41,7 +41,20 @@ public class TrueWorld {
 	private void notifyAllListeners() {
 		for(int i = 0 ; i < listeners.size() ; i++) {
 			if (listeners.get(i) != null) {
-				listeners.get(i).notify(this);
+				listeners.get(i).onNotify(this);
+			}
+		}
+	}
+	
+	public void reset(FirstOrderLogicWorld world) {
+		sendResetAllListeners();
+		update(world);
+	}
+	
+	private void sendResetAllListeners() {
+		for(int i = 0 ; i < listeners.size(); i++) {
+			if (listeners.get(i) != null) {
+				listeners.get(i).onReset();
 			}
 		}
 	}

@@ -113,7 +113,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		});
 		
 		this.controller.register(this);
-		notify(this.controller.getModel());		
+		onNotify(this.controller.getModel());		
 	}
 
 	// Invoke/show the UI.
@@ -364,8 +364,13 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 
 
 	@Override
-	public void notify(TrueWorld world) {
+	public void onNotify(TrueWorld world) {
 		setTitle(TITLE + " (" + world.getFileName() + ")" + (world.isModified() ? " *" : ""));		
+	}
+	
+	@Override
+	public void onReset() {
+		// Do nothing
 	}
 	
 	private void exportWorldToFile() {

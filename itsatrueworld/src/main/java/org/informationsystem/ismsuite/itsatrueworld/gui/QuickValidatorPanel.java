@@ -156,8 +156,12 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 
 
 	@Override
-	public void notify(TrueWorld world) {
+	public void onNotify(TrueWorld world) {
 		tffClauseVisitor.setWorld(world.getWorld());
+	}
+	
+	public void onReset() {
+		// Do nothing
 	}
 
 
