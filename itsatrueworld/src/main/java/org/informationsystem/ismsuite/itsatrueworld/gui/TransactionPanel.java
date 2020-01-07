@@ -16,7 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationListener;
@@ -65,11 +67,10 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 	private DynamicGridPanel grid;
 	
 	private void initialize() {
-		this.grid = new DynamicGridPanel(1, 150);
-		
 		setLayout(new BorderLayout(5,5));
-		add(grid.getPanel(), BorderLayout.CENTER);
-		
+		this.grid = new DynamicGridPanel(1, 150);
+		JScrollPane scroll = new JScrollPane(grid.getPanel(), ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED , ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		add(scroll, BorderLayout.CENTER);
 	}
 	
 	private Set<String> transactions = new HashSet<>();
@@ -87,12 +88,12 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 		
 	}
 	
-	private void createNewPanel(String label) {
-		ChildPanel p = new ChildPanel(label);
+	public void createNewPanel(String label) {
+		ChildPanel p = new ChildPanel(label, this);
 		grid.addPanel(p);
 	}
 	
-	private void removePanel(ChildPanel p) {
+	public void removePanel(ChildPanel p) {
 		transactions.remove(p.getLabel());
 		grid.removePanel(p);
 	}
@@ -109,11 +110,11 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 		
 		private JLabel title = new JLabel();
 		private JTextArea transactionField = new JTextArea();
+				
+		private TransactionPanel owner;
 		
-		private ChildPanel myself;
-		
-		public ChildPanel(String label) {
-			myself = this;
+		public ChildPanel(String label, TransactionPanel owner) {
+			this.owner = owner;
 			
 			setLabel(label);
 			transactionField.setLineWrap(true);
@@ -142,9 +143,11 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					int result = JOptionPane.showConfirmDialog(owner, "Are you sure you want to delete transaction '"+getLabel()+"'?", "Delete transaction", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int result = JOptionPane.showConfirmDialog(owner.getOwner(), "Are you sure you want to delete transaction '"+getLabel()+"'?", "Delete transaction", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (result == JOptionPane.YES_OPTION) {
-						removePanel(myself);
+						// Remove transaction
+						getSpecificationController().removeTransaction(label);
+						// removePanel(myself);
 					}
 				}
 			});
@@ -157,7 +160,7 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 				public void actionPerformed(ActionEvent arg0) {
 					// Show execute dialog
 					Transaction t = getSpecificationController().getTransaction(label);
-					ExecuteTransactionDialog.executeTransaction(worldController, owner, t);
+					ExecuteTransactionDialog.executeTransaction(worldController, owner.getOwner(), t);
 				}
 			});
 			
@@ -169,6 +172,7 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 			
 			this.add(holder, BorderLayout.SOUTH);
 			
+			getSpecificationController().register(this);
 			onSpecificationChanged();
 		}
 		
@@ -184,7 +188,11 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 		@Override
 		public void onSpecificationChanged() {
 			Transaction t = getSpecificationController().getTransaction(label);
-			transactionField.setText(label + t.toString().replace("\t", "  "));
+			if (t == null) {
+				owner.removePanel(this);
+			} else {
+				transactionField.setText(label + t.toString().replace("\t", "  "));
+			}
 		}
 		
 	}

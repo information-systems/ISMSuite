@@ -58,5 +58,10 @@ public class Specification {
 	public Transaction getPlace(String place) {
 		return places.get(place);
 	}
+
+	public boolean removeTransaction(String transition) {
+		transitions.remove(transition);
+		return true;
+	}
 	
 }

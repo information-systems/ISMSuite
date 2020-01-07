@@ -57,13 +57,13 @@ public class SpecificationController {
 	}
 	
 	public boolean removeTransaction(String name) {
-		// TODO: add code to specifier.
-		/*
 		boolean result = spec.removeTransaction(name);
-		if (result) modified = true;
+		if (result) {
+			modified = true;
+			notifyAllListeners();
+		}
+		
 		return result;
-		*/
-		return false;
 	}
 	
 	
