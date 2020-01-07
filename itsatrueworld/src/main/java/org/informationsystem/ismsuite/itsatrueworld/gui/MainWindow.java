@@ -32,6 +32,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.gui.conjecture.ConjecturePanel;
+import org.informationsystem.ismsuite.itsatrueworld.gui.transaction.TransactionPanel;
+import org.informationsystem.ismsuite.itsatrueworld.gui.world.ElementListingPanel;
+import org.informationsystem.ismsuite.itsatrueworld.gui.world.RelationDialog;
+import org.informationsystem.ismsuite.itsatrueworld.gui.world.RelationListingPanel;
+import org.informationsystem.ismsuite.itsatrueworld.gui.world.UpdateElementDialog;
 import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;

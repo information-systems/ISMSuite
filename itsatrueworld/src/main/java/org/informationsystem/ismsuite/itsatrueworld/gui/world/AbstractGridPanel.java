@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.gui;
+package org.informationsystem.ismsuite.itsatrueworld.gui.world;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +28,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.gui.DynamicGridPanel;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 

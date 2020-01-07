@@ -18,7 +18,7 @@ Block_comment        : '/*' .*? '*/' -> skip;
 Upper_word           : Upper_alpha Alpha_numeric*;
 Lower_word           : Lower_alpha Alpha_numeric*;
 
-specication_file     : process* EOF;
+specication_file     : ( process* | transaction* ) EOF;
 
 process              : 'process' name '{' process_content '}';
 
@@ -26,7 +26,7 @@ process_content      : ( place | transition )*;
 
 place                : 'place' name '(' argument_list ')' '{' transaction* '}';
 
-transition           : 'transition' name '(' argument_list ')' '{' transaction* '}';
+transition           : ('transition'|'transaction') name '(' argument_list ')' '{' transaction* '}';
 
 argument_list        : variable_declaration (',' variable_declaration )*;
 variable_declaration : variable ':' type;

@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.gui;
+package org.informationsystem.ismsuite.itsatrueworld.gui.world;
 
 import java.util.Iterator;
 

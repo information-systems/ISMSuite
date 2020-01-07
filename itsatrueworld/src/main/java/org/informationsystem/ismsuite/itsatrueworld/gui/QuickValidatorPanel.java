@@ -26,6 +26,7 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.gui.conjecture.ConjectureEditor;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;

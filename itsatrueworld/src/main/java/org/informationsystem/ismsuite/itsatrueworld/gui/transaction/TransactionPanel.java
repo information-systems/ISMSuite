@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.gui;
+package org.informationsystem.ismsuite.itsatrueworld.gui.transaction;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,6 +23,7 @@ import javax.swing.ScrollPaneConstants;
 import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationListener;
 import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.gui.DynamicGridPanel;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 

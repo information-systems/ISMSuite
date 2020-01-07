@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.gui;
+package org.informationsystem.ismsuite.itsatrueworld.gui.conjecture;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.gui.DynamicGridPanel;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;

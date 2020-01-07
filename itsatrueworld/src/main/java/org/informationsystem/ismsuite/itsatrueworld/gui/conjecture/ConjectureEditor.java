@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.gui;
+package org.informationsystem.ismsuite.itsatrueworld.gui.conjecture;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
