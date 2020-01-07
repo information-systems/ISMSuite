@@ -444,8 +444,10 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	
 	private void loadWorldFromFile() {
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-		
+		// fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		if (controller.getFileName() != null || !controller.getFileName().isEmpty()) {
+			fileChooser.setCurrentDirectory(new File(controller.getFileName()));
+		}
 		fileChooser.addChoosableFileFilter(tffFileFilter);
 		fileChooser.setFileFilter(tffFileFilter);
 		

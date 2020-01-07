@@ -35,6 +35,10 @@ public class WorldController {
 		updateTrueWorldModel();
 	}
 	
+	public String getFileName() {
+		return model.getFileName();
+	}
+	
 	public void open(InputStream input, String filename) throws IOException {
 		this.world = ClauseReader.buildWorldFrom(input);
 		this.model.setFileName(filename);
