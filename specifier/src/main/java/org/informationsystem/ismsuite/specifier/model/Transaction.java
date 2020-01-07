@@ -60,23 +60,53 @@ public class Transaction {
 		this.myoperations.addAll(operations);
 	}
 	
+	@Override
 	public String toString() {
+		return toString(false, "", true);
+	}
+	
+	public String toString(String append) {
+		return toString(false, append, true);
+	}
+	
+	public String toString(boolean withTransaction) {
+		return toString(withTransaction, "", true);
+	}
+	
+	public String toString(boolean withTransaction, String append, boolean withProcessName) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(label);
-		
-		for(Variable v: myvariables ) {
-			sb.append(", ");
-			sb.append(v.toTFF(true));
+		if (withTransaction) {
+			sb.append(append);
+			sb.append("transaction ");
 		}
-		sb.append(") {");
-		sb.setCharAt(0, '(');
+		
+		int p = label.indexOf('.');
+		if (withProcessName && (p > 0)) {
+			sb.append(label.substring(p+1));
+		} else {
+			sb.append(label);
+		}
+		
+		StringBuilder vb = new StringBuilder();
+		for(Variable v: myvariables ) {
+			vb.append(", ");
+			vb.append(v.toTFF(true));
+		}
+		vb.append(" )");
+		vb.setCharAt(0, '(');
+		
+		sb.append(vb);
+		sb.append(" {");
 		
 		for(Operation o: myoperations) {
-			sb.append("\n\t");
+			sb.append("\n");
+			sb.append(append);
+			sb.append("\t");
 			sb.append(o.toString());
 		}
-		
-		sb.append("\n}\n");
+		sb.append("\n");
+		sb.append(append);
+		sb.append("}\n");
 		return sb.toString();
 	}
 	

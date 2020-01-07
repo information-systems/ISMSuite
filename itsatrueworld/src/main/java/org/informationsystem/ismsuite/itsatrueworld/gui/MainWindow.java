@@ -33,11 +33,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.conjecture.ConjecturePanel;
+import org.informationsystem.ismsuite.itsatrueworld.gui.transaction.TransactionDialog;
 import org.informationsystem.ismsuite.itsatrueworld.gui.transaction.TransactionPanel;
 import org.informationsystem.ismsuite.itsatrueworld.gui.world.ElementListingPanel;
 import org.informationsystem.ismsuite.itsatrueworld.gui.world.RelationDialog;
 import org.informationsystem.ismsuite.itsatrueworld.gui.world.RelationListingPanel;
 import org.informationsystem.ismsuite.itsatrueworld.gui.world.UpdateElementDialog;
+import org.informationsystem.ismsuite.specifier.model.Transaction;
 import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
@@ -322,11 +324,27 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 				loadSpecificationFromFile();
 			}
 		});
-		addNewMenuItem("Export...", KeyEvent.VK_X, menu, null);
+		addNewMenuItem("Export...", KeyEvent.VK_X, menu, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exportSpecToFile();				
+			}
+		});
 		
 		menu.addSeparator();
 		
-		addNewMenuItem("Add transaction", KeyEvent.VK_A, menu, null);
+		addNewMenuItem("Add transaction", KeyEvent.VK_A, menu, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Transaction t = TransactionDialog.showDialog(parent);
+				if (t != null) {
+					specification.addTransaction(t);
+				}
+			}
+		});
+		
 		
 		return menu;
 	}
@@ -377,6 +395,57 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	@Override
 	public void onReset() {
 		// Do nothing
+	}
+	
+	private void exportSpecToFile() {
+		@SuppressWarnings("serial")
+		JFileChooser saveDialog = new JFileChooser() {
+
+			@Override
+			public void approveSelection(){
+		        File f = getSelectedFile();
+		        if(f.exists() && getDialogType() == SAVE_DIALOG){
+		            int result = JOptionPane.showConfirmDialog(this,"The file exists, overwrite?","Existing file",JOptionPane.YES_NO_CANCEL_OPTION);
+		            switch(result){
+		                case JOptionPane.YES_OPTION:
+		                    super.approveSelection();
+		                    return;
+		                case JOptionPane.NO_OPTION:
+		                    return;
+		                case JOptionPane.CLOSED_OPTION:
+		                    return;
+		                case JOptionPane.CANCEL_OPTION:
+		                    cancelSelection();
+		                    return;
+		            }
+		        }
+		        super.approveSelection();
+			}
+		};
+		
+		saveDialog.addChoosableFileFilter(specFileFilter);
+		saveDialog.setFileFilter(specFileFilter);
+		
+		if (!specification.getFileName().isEmpty()) {
+			File f = new File(specification.getFileName());
+			
+			// System.out.println(f);
+			if (f.exists()) saveDialog.setSelectedFile(f);
+		}
+		
+		
+		int result = saveDialog.showSaveDialog(parent);
+		
+		if (result == JOptionPane.OK_OPTION) {
+	
+		    try {
+				specification.export(new FileOutputStream(saveDialog.getSelectedFile()));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		}
 	}
 	
 	private void exportWorldToFile() {

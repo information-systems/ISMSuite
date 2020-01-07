@@ -154,6 +154,20 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 			});
 			
 			JButton edit = new JButton("Edit");
+			edit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Transaction t = TransactionDialog.showDialog(owner.getOwner(), getSpecificationController().getTransaction(label));
+					if (t != null) {
+						if (!label.equals(t.getLabel())) {
+							getSpecificationController().removeTransaction(label);
+						}
+						getSpecificationController().addTransaction(t);
+					}
+				}
+			});
+			
 			JButton execute = new JButton("Execute");
 			execute.addActionListener(new ActionListener() {
 				
@@ -192,7 +206,7 @@ public class TransactionPanel extends JPanel implements SpecificationListener {
 			if (t == null) {
 				owner.removePanel(this);
 			} else {
-				transactionField.setText(label + t.toString().replace("\t", "  "));
+				transactionField.setText(t.toString().replace("\t", "  "));
 			}
 		}
 		

@@ -65,6 +65,10 @@ public class ClauseVisualizer {
 	}
 
 	public static String generateName(String id) {
+		if (id.isEmpty()) {
+			return id;
+		}
+		
 		StringTokenizer tokenizer = new StringTokenizer(id, "_");
 		StringBuilder b = new StringBuilder();
 		while(tokenizer.hasMoreTokens()) {

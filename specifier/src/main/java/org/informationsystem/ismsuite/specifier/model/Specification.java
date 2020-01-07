@@ -1,5 +1,6 @@
 package org.informationsystem.ismsuite.specifier.model;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,16 +10,22 @@ import org.informationsystem.ismsuite.specifier.model.Transaction;
 import java.util.Set;
 
 public class Specification {
-
+	
 	private Map<String, Transaction> transitions = new HashMap<>();
 	private Map<String, Transaction> places = new HashMap<>();
 	
-	
+	public Collection<Transaction> places() {
+		return places.values();
+	}
+		
 	public void addPlace(String name, Transaction transaction) {
 		places.put(name, transaction);
 	}
 	
 	public void addTransition(String name, Transaction transaction) {
+		if (!name.contains(".")) {
+			
+		}
 		transitions.put(name, transaction);
 	}
 	
@@ -28,14 +35,12 @@ public class Specification {
 		
 		for(Entry<String, Transaction> e: places.entrySet()) {
 			sb.append("place ");
-			sb.append(e.getKey());
 			sb.append(e.getValue().toString());
 			sb.append("\n");
 		}
 		
 		for(Entry<String, Transaction> e: transitions.entrySet()) {
-			sb.append("transition ");
-			sb.append(e.getKey());
+			sb.append("transaction ");
 			sb.append(e.getValue().toString());
 			sb.append("\n");
 		}
@@ -50,9 +55,13 @@ public class Specification {
 	public Transaction getTransactionFor(String transition) {
 		return transitions.get(transition);
 	}
-
-	public Set<String> transitions() {
+	
+	public Set<String> transitionLabels() {
 		return transitions.keySet();
+	}
+
+	public Collection<Transaction> transitions() {
+		return transitions.values();
 	}
 	
 	public Transaction getPlace(String place) {

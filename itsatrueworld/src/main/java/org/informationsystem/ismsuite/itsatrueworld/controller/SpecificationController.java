@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.informationsystem.ismsuite.specifier.io.SpecificationReader;
+import org.informationsystem.ismsuite.specifier.io.SpecificationWriter;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
-import org.informationsystem.ismsuite.specifier.parser.SpecificationReader;
 
 public class SpecificationController {
 
@@ -27,7 +28,7 @@ public class SpecificationController {
 	}
 		
 	public boolean export(OutputStream output) {
-		// TODO: add code;
+		SpecificationWriter.write(spec, output);
 		modified = false;
 		notifyAllListeners();
 		return false;
@@ -46,14 +47,14 @@ public class SpecificationController {
 		return spec.getTransactionFor(name);
 	}
 	
-	public void addTransaction(String name, Transaction transaction) {
-		spec.addTransition(name, transaction);
+	public void addTransaction(Transaction transaction) {
+		spec.addTransition(transaction.getLabel(), transaction);
 		modified = true;
 		notifyAllListeners();
 	}
 	
 	public Set<String> getTransactionLabels() {
-		return spec.transitions();
+		return spec.transitionLabels();
 	}
 	
 	public boolean removeTransaction(String name) {

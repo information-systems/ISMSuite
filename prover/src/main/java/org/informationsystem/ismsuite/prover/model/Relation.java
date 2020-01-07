@@ -126,7 +126,7 @@ public class Relation extends Literal {
 			sb.append(item.toTFF(false));
 		}
 		if (sb.length() > 0) {
-			return sb.substring(1);
+			return sb.substring(2);
 		} else {
 			return "";
 		}

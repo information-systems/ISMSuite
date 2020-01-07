@@ -4,6 +4,5 @@ import org.informationsystem.ismsuite.specifier.model.Specification;
 
 public interface SpecificationListener {
 
-	void onSpecificationChanged();
-	
+	void onSpecificationChanged();	
 }
