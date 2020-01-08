@@ -102,21 +102,35 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 					switch(result) {
 						case JOptionPane.YES_OPTION:
 							exportWorldToFile();
-							System.exit(0);
 							break;
-						case JOptionPane.NO_OPTION:
-							
-							System.exit(0);
+						case JOptionPane.NO_OPTION:							
 							break;
 						default:
 						case JOptionPane.CANCEL_OPTION:
 							System.out.println("cancel");
-							break;
+							return;
 					}
-				} else {
-					// nothing changed, just close
-					System.exit(0);
 				}
+				if (parent.specification.isModified()) {
+					int result = JOptionPane.showOptionDialog(
+							parent, 
+							"Your Transaction List contains unsaved elements. Save before exit?", 
+							"Unsaved changes",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+					switch(result) {
+						case JOptionPane.YES_OPTION:
+							exportSpecToFile();
+							break;
+						case JOptionPane.NO_OPTION:							
+							break;
+						default:
+						case JOptionPane.CANCEL_OPTION:
+							System.out.println("cancel");
+							return;
+					}
+			  	}
+				// nothing changed, just close
+				System.exit(0);
 			}
 		});
 		
@@ -501,7 +515,10 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	
 	private void loadSpecificationFromFile() {
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		// fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		if (specification.getFileName() != null || !specification.getFileName().isEmpty()) {
+			fileChooser.setCurrentDirectory(new File(specification.getFileName()));
+		}
 		
 		fileChooser.addChoosableFileFilter(specFileFilter);
 		fileChooser.setFileFilter(specFileFilter);

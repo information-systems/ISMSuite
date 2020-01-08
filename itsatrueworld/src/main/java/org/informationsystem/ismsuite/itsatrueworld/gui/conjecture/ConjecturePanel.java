@@ -133,6 +133,8 @@ public class ConjecturePanel extends JPanel implements TrueWorldListener {
 	@Override
 	public void onReset() {
 		// Do nothing, all children will do this themselves.
+		errors.clear();
+		updateErrorPane();
 	}
 	
 	private ChildPanel createPanel(String name) {

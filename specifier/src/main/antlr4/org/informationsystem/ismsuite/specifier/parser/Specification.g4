@@ -26,7 +26,7 @@ process_content      : ( place | transition )*;
 
 place                : 'place' processbasedname '(' argument_list ')' '{' transaction* '}';
 
-transition           : ('transition'|'transaction') processbasedname '(' argument_list ')' '{' transaction+ '}';
+transition           : ('transition'|'transaction') processbasedname '(' argument_list ')' '{' transaction* '}';
 
 argument_list        : variable_declaration (',' variable_declaration )*;
 variable_declaration : variable ':' type;
