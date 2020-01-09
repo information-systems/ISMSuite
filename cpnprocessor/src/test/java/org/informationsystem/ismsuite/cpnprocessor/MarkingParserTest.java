@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.processengine.process;
+package org.informationsystem.ismsuite.cpnprocessor;
 
 import static org.junit.Assert.*;
 
