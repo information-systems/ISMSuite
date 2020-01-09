@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -11,7 +13,9 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID;
 import org.informationsystem.ismsuite.modeler.process.validator.PNIDSyntaxChecker;
 import org.informationsystem.ismsuite.modeler.process.validator.SyntaxError;
+import org.pnml.tools.epnk.actions.commands.AddMissingIDsCommand;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
+import org.pnml.tools.epnk.pnmlcoremodel.PetriNetDoc;
 
 public class ValidatorCommand extends AbstractCommand {
 
@@ -36,6 +40,15 @@ public class ValidatorCommand extends AbstractCommand {
 	
 	public static void validate(PetriNet net, Shell shell) {
 		List<SyntaxError> errors = PNIDSyntaxChecker.giveErrorsFor(net);
+		
+		// Add the IDs if not present
+		if (net.eContainer() instanceof PetriNetDoc) {
+			try {
+				PetriNetDoc doc = (PetriNetDoc) net.eContainer();
+				EditingDomain domain = AdapterFactoryEditingDomain.getEditingDomainFor(doc);	
+				domain.getCommandStack().execute(new AddMissingIDsCommand(doc));
+			} catch(Exception ex) {}
+		}
 		
 		String title;
 		if (net.getName() != null && net.getName().getText() != null && !net.getName().getText().isEmpty()) {
