@@ -117,4 +117,17 @@
          </constraints>
       </constraintProvider>
    </extension>
+   
+   <!-- Use our own drawing methods for places and transitions -->
+   <extension 
+   		id="org.pnml.tools.epnk.pntypes.pnids.graphics"
+   		name="PNID graphical extension"
+   		point="org.pnml.tools.epnk.diagram.graphics">
+   		
+   		<graphicsextension
+   			class="org.informationsystem.ismsuite.modeler.process.graphics.PNIDGraphics"
+   			description="Special graphics for PNIDs"
+   			>
+   		</graphicsextension>
+   </extension>
 </plugin>
