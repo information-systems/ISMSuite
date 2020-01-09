@@ -39,6 +39,10 @@ public class Or extends Operator {
 		calculateProperties();
 	}
 	
+	public Iterator<Clause> operands() {
+		return operands.iterator();
+	}
+	
 	@Override
 	protected void calculateProperties() {
 		StringBuilder sb = new StringBuilder();
@@ -114,5 +118,48 @@ public class Or extends Operator {
 			sb.append(c.toTFF(false));
 		}
 		return "(" + sb.substring(2) + " )";
+	}
+	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
+	@Override
+	public Clause simplify() {
+		// Only try to simplify the children
+		// We could simplify by stating that
+		// A || true == true
+		// However, then we lose information...
+		List<Clause> simpleOperands = new ArrayList<>();
+		
+		if (operands.size() == 2) {
+			// Is it actually an implies?
+			if (operands.get(0) instanceof Not) {
+				return new Implies(
+						((Not) operands.get(0)).getOperand().simplify(),
+						operands.get(1).simplify()
+						);
+			} else if (operands.get(1) instanceof Not) {
+				return new Implies(
+						((Not) operands.get(1)).getOperand().simplify(),
+						operands.get(0).simplify()
+						);
+			}
+		}
+				
+		for(Clause c: operands) {
+			if (c instanceof Or) {
+				// Move them one level up...
+				Iterator<Clause> iter =  ((Or) c).operands();
+				while(iter.hasNext()) {
+					simpleOperands.add(iter.next().simplify());
+				}
+			} else {
+				simpleOperands.add(c.simplify());
+			}
+		}
+		
+		return new Or(simpleOperands);
 	}
 }

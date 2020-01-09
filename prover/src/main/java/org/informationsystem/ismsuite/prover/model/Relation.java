@@ -126,7 +126,7 @@ public class Relation extends Literal {
 			sb.append(item.toTFF(false));
 		}
 		if (sb.length() > 0) {
-			return sb.substring(1);
+			return sb.substring(2);
 		} else {
 			return "";
 		}
@@ -183,6 +183,17 @@ public class Relation extends Literal {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
+	@Override
+	public Clause simplify() {
+		// Nothing can be more simple...
+		return (Relation) this.clone();
 	}
 	
 }

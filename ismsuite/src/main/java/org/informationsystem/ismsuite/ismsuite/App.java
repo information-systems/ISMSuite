@@ -7,8 +7,8 @@ import org.informationsystem.ismsuite.ismsuite.ui.MainFrame;
 import org.informationsystem.ismsuite.processengine.process.cpntools.CPNModel;
 import org.informationsystem.ismsuite.prover.io.ClauseReader;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
+import org.informationsystem.ismsuite.specifier.io.SpecificationReader;
 import org.informationsystem.ismsuite.specifier.model.Specification;
-import org.informationsystem.ismsuite.specifier.parser.SpecificationReader;
 
 /**
  * Hello world!

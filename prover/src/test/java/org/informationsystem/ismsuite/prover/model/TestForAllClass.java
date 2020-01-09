@@ -47,7 +47,6 @@ public class TestForAllClass extends WorldTester {
 		Relation lPS = new Relation("likes", p, s);
 		Relation lAS = new Relation("likes", a, s);
 		
-		Variable x = new Variable("X", "human");
 		Variable y = new Variable("Y", "human");
 		Variable z = new Variable("Z", "human");
 		
@@ -55,8 +54,6 @@ public class TestForAllClass extends WorldTester {
 		Relation lPZ = new Relation("likes", p, z);
 		Relation lYZ = new Relation("likes", y, z);
 		Relation lAY = new Relation("likes", a, y);
-		Relation lXY = new Relation("likes", x, y);
-		Relation lXZ = new Relation("likes", x, z);
 		
 		// This should be false, as A > P, P > S, but not A > S.
 		assertFalse(all.isValidIn(w));

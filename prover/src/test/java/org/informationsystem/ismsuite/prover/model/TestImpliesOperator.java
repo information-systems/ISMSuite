@@ -23,7 +23,6 @@ public class TestImpliesOperator extends WorldTester {
 		Element plato = new Element("Plato", "human");
 		Element augustine = new Element("Augustine", "human");
 		Element hume = new Element("Hume", "human");
-		Element descartes = new Element("Descartes", "human");
 		
 		// TRUE: philosopher ( Augustine ) => likes ( Augustine, Augustine )
 		Implies imp1 = new Implies(

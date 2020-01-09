@@ -49,6 +49,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 		return elements.get(e.getType()).add(e);
 	}
 	
+	@Override
 	public String findTypeFor(String element) {
 		if (items.containsKey(element)) {
 			return items.get(element);
@@ -96,6 +97,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	}
 	
 	public boolean removeElement(Element e) {
+		// TODO Only if element is not used in a relation!
 		if (elements.containsKey(e.getType())) {
 			items.remove(e.getLabel());
 			return elements.get(e.getType()).remove(e);
@@ -108,6 +110,15 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 		if (r.isAbstract()) {
 			return false;
 		}
+		
+		// Check if all parameters are set
+		Iterator<Literal> it = r.iterator();
+		while(it.hasNext()) {
+			if (!this.contains(it.next())) {
+				return false;
+			}
+		}
+		
 		relationset.put(r.getLabel(), r);
 		return true;
 	}

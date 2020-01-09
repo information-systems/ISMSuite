@@ -66,4 +66,14 @@ public class Element extends Literal {
 		}
 	}
 	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
+	@Override
+	public Clause simplify() {
+		return (Element) this.clone();
+	}
+	
 }

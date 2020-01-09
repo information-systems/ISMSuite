@@ -18,15 +18,15 @@ Block_comment        : '/*' .*? '*/' -> skip;
 Upper_word           : Upper_alpha Alpha_numeric*;
 Lower_word           : Lower_alpha Alpha_numeric*;
 
-specication_file     : process* EOF;
+specication_file     : ( process | transition | place )* EOF;
 
 process              : 'process' name '{' process_content '}';
 
 process_content      : ( place | transition )*;
 
-place                : 'place' name '(' argument_list ')' '{' transaction* '}';
+place                : 'place' processbasedname '(' argument_list ')' '{' transaction* '}';
 
-transition           : 'transition' name '(' argument_list ')' '{' transaction* '}';
+transition           : ('transition'|'transaction') processbasedname '(' argument_list ')' '{' transaction* '}';
 
 argument_list        : variable_declaration (',' variable_declaration )*;
 variable_declaration : variable ':' type;
@@ -41,6 +41,8 @@ remove_operator      : 'remove' '(' variable_list ')' 'from' Lower_word;
 
 relation             : Lower_word '(' variable_list ')';
 variable_list        : variable (',' variable)*;
+
+processbasedname     : name ('.' name )*;
 
 name                 : Upper_word | Lower_word;
 variable             : Upper_word | Lower_word;

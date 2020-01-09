@@ -90,5 +90,15 @@ public class Equality extends Operator {
 	public String toTFF(boolean typed) {
 		return "( " + left.toTFF(false) + " = " + right.toTFF(false) + " )";
 	}
+	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
+	@Override
+	public Clause simplify() {
+		return (Equality) this.clone();
+	}
 
 }

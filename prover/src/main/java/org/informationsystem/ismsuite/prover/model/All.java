@@ -1,8 +1,6 @@
 package org.informationsystem.ismsuite.prover.model;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -120,4 +118,13 @@ public class All extends Operator {
 		return "( ! [ " + getVariable().toTFF(true) + " ] : ( " + getOperand().toTFF(false) + " ) )";
 	}
 	
+	@Override
+	public <T> T accept(ClauseVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Clause simplify() {
+		return new All((Variable) variable.simplify(), operand.simplify());
+	}
 }

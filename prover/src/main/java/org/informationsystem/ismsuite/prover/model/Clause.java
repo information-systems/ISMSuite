@@ -1,6 +1,5 @@
 package org.informationsystem.ismsuite.prover.model;
 
-import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -130,4 +129,11 @@ public abstract class Clause implements Cloneable, Comparable<Clause> {
 		return this.toString().compareTo(o.toString());
 	}
 	
+	public abstract <T> T accept(ClauseVisitor<T> visitor);
+
+	/**
+	 * This function tries to simplify the formula by
+	 * applying the De Morgan rules.
+	 */
+	public abstract Clause simplify();
 }

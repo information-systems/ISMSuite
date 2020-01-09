@@ -44,5 +44,5 @@ public abstract class Literal extends Clause {
 	public String getLabel() {
 		return label;
 	}
-
+	
 }

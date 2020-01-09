@@ -120,8 +120,6 @@ public class TestRelation {
 		
 		assertTrue(likes1.equals(likes1));
 		
-		Element socrates2 = new Element("Socrates", "human");
-		Element plato2 = new Element("Plato", "human");
 		Relation likes2 = new Relation("likes", socrates, plato);
 		
 		assertTrue(likes1.equals(likes2));

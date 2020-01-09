@@ -10,11 +10,13 @@ import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Relation;
 import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.specifier.io.SpecificationReader;
+import org.informationsystem.ismsuite.specifier.io.TransactionReader;
+import org.informationsystem.ismsuite.specifier.model.InsertOperation;
 import org.informationsystem.ismsuite.specifier.model.Operation;
 import org.informationsystem.ismsuite.specifier.model.RegisterOperation;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
-import org.informationsystem.ismsuite.specifier.parser.SpecificationReader;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -34,10 +36,59 @@ public class TestOperations {
 	}
 	
 	@Test
+	public void testReadWriteTransaction() {
+		String specificationString = "transaction Likes.addHuman(p: person) { register p; insert (p) into human(p); }";
+		
+		Transaction t = TransactionReader.fromString(specificationString);
+		
+		assertNotNull(t);
+		assertEquals("Likes.addHuman", t.getLabel());
+		assertEquals(1, t.variableSize());
+		int counter = 0;
+		for(Iterator<Operation> it = t.operations() ; it.hasNext() ; ) {
+			Operation o = it.next();
+			if (o instanceof RegisterOperation) {
+				assertEquals(0, counter);
+			} else if (o instanceof InsertOperation) {
+				assertEquals(1, counter);
+			} else {
+				fail("Unknown operation");
+			}
+			counter++;
+		}
+	}
+	
+	@Test
+	public void testReadWriteTransactionWithNoProcessName() {
+		String specificationString = "transaction addHuman(p: person) { register p; insert (p) into human(p); }";
+		
+		Transaction t = TransactionReader.fromString(specificationString);
+		
+		assertNotNull(t);
+		assertEquals("addHuman", t.getLabel());
+		assertEquals(1, t.variableSize());
+		int counter = 0;
+		for(Iterator<Operation> it = t.operations() ; it.hasNext() ; ) {
+			Operation o = it.next();
+			if (o instanceof RegisterOperation) {
+				assertEquals(0, counter);
+			} else if (o instanceof InsertOperation) {
+				assertEquals(1, counter);
+			} else {
+				fail("Unknown operation");
+			}
+			counter++;
+		}
+	}
+	
+	@Test
 	public void testRegister() {
+		// System.out.println(spec);
+		
 		World w = new World();
 		
 		Transaction t = spec.getTransactionFor("Likes.addHuman");
+		assertNotNull(t);
 		RegisterOperation register = null;
 		for(Iterator<Operation> it = t.operations(); it.hasNext(); ) {
 			Operation op = it.next();
@@ -61,6 +112,8 @@ public class TestOperations {
 		World w = new World();
 		
 		Transaction t = spec.getTransactionFor("Likes.addHuman");
+		
+		assertNotNull(t);
 		
 		Map<Variable, Element> binding = new HashMap<>();
 		binding.put(new Variable("p", "person"), new Element("augustine", "person"));
