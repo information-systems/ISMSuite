@@ -131,6 +131,28 @@
    		</graphicsextension>
    </extension>
    
+   <!-- Extend the ePNK popup menu -->
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.pnml.tools.epnk.functions.modelchecking.contribution1"
+            objectClass="org.pnml.tools.epnk.pnmlcoremodel.PetriNet">
+         <menu
+               id="org.pnml.tools.epnk.actions.ismsuite"
+               label="ISM Suite"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.informationsystem.ismsuite.modeler.process.validator.PNIDSyntaxCheckerAction"
+               enablesFor="1"
+               id="org.pnml.tools.epnk.functions.typechecking"
+               label="PNID Syntax checker"
+               menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1">
+         </action>
+      </objectContribution>
+   </extension>
    
    <!-- Build the menu structure of ISM Suite -->
    <extension

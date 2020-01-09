@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID;
@@ -28,6 +29,12 @@ public class ValidatorCommand extends AbstractCommand {
 			return null;
 		}
 		
+		ValidatorCommand.validate(net, window.getShell());
+				
+		return null;
+	}
+	
+	public static void validate(PetriNet net, Shell shell) {
 		List<SyntaxError> errors = PNIDSyntaxChecker.giveErrorsFor(net);
 		
 		String title;
@@ -40,8 +47,8 @@ public class ValidatorCommand extends AbstractCommand {
 		}
 		
 		if (errors.isEmpty()) {
-			MessageDialog.openInformation(window.getShell(), "PNID Validator", "Petri net '" + title + "' contains no syntax errors");
-			return null;
+			MessageDialog.openInformation(shell, "PNID Validator", "Petri net '" + title + "' contains no syntax errors");
+			return;
 		}
 		
 		StringBuilder errorText = new StringBuilder();
@@ -55,8 +62,6 @@ public class ValidatorCommand extends AbstractCommand {
 			errorText.append("\n");
 		}
 		
-		MessageDialog.openError(window.getShell(), "PNID Validator", errorText.toString());
-				
-		return null;
+		MessageDialog.openError(shell, "PNID Validator", errorText.toString());
 	}
 }
