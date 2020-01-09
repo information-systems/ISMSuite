@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pnid -->
+      <package
+            uri="http://org.pnml.tools/epnk/types/pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage"
+            genModel="model/pnid.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pnid -->
+      <parser
+            type="pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.util.PnidsResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated pnid -->
+      <factory
+            uri="http://org.pnml.tools/epnk/types/pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.provider.PnidsItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated pnid -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizardID"
+            name="%_UI_PnidsModelWizard_label"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PnidsModelFile.gif">
+         <description>%_UI_PnidsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated pnid -->
+      <editor
+            id="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsEditorID"
+            name="%_UI_PnidsEditor_label"
+            icon="icons/full/obj16/PnidsModelFile.gif"
+            extensions="pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsEditor"
+            contributorClass="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsActionBarContributor">
+      </editor>
+   </extension>
+   
+   <!-- Register PNIDs as a type for the ePNK editor -->
+   <extension
+         id="pnids"
+         name="pnids"
+         point="org.pnml.tools.epnk.pntd_package">
+      <type
+            package_uri="http://org.pnml.tools/epnk/types/pnids">
+      </type>
+   </extension>
+   
+   <!-- Arcs may only be between places and transitions -->
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <constraintProvider
+            cache="true">
+         <package 
+               namespaceUri="http://org.pnml.tools/epnk/types/pnids">
+         </package>    
+       
+         <constraints categories="org.pnml.tools.epnk.validation">
+            <constraint
+                  id="org.pnml.tools.epnk.pntypes.pnids.validation.PT_TP_ArcsOnly"
+                  lang="OCL"
+                  mode="Live"
+                  name="PT or TP Arcs only"
+                  severity="ERROR"
+                  statusCode="301">
+               <message>
+                  The arc {0} must run from a place to a transition or vice versa.
+               </message>
+               <description>
+                 Arcs between two places or transitions are forbidden in PNIDs
+               </description>
+               <target
+                     class="Arc">
+                  <event
+                        name="Set">
+                     <feature
+                           name="source">
+                     </feature>
+                     <feature
+                           name="target">
+                     </feature>
+                  </event>
+               </target>               
+               <![CDATA[
+                 ( self.source.oclIsKindOf(pnmlcoremodel::PlaceNode) and
+                   self.target.oclIsKindOf(pnmlcoremodel::TransitionNode) ) or
+                 ( self.source.oclIsKindOf(pnmlcoremodel::TransitionNode) and
+                   self.target.oclIsKindOf(pnmlcoremodel::PlaceNode) )
+               ]]>
+            </constraint>      
+         </constraints>
+      </constraintProvider>
+   </extension>
+</plugin>
