@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: modeler
+Bundle-SymbolicName: modeler
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.informationsystem.ismsuite.modeler
+Require-Bundle: org.pnml.tools.epnk;bundle-version="1.2.0"
