@@ -6,14 +6,16 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.EntityType;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.EntityTypeLabel;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.EntityTypeSequence;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage;
-
+import org.informationsystem.ismsuite.modeler.process.util.SequenceParser;
 import org.pnml.tools.epnk.structuredpntypemodel.impl.StructuredLabelImpl;
 
 /**
@@ -39,6 +41,22 @@ public class EntityTypeLabelImpl extends StructuredLabelImpl implements EntityTy
 	 * @ordered
 	 */
 	protected EntityTypeSequence structure;
+	
+	/**
+	 * @generated NOT
+	 * This method parses a string to retrieve the entity types as a comma-separated list.
+	 */
+	@Override
+	public EObject parse(String input) {
+		EntityTypeSequence seq = PnidsFactory.eINSTANCE.createEntityTypeSequence();
+		for(String s: SequenceParser.getInstance().parse(input)) {
+			EntityType e = PnidsFactory.eINSTANCE.createEntityType();
+			e.setText(s);
+			seq.getEntityType().add(e);
+		}
+		
+		return seq;
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

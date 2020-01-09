@@ -6,7 +6,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage;
-
+import org.informationsystem.ismsuite.modeler.process.util.PNIDLinker;
+import org.pnml.tools.epnk.structuredpntypemodel.Linker;
 import org.pnml.tools.epnk.structuredpntypemodel.impl.StructuredPetriNetTypeImpl;
 
 /**
@@ -34,6 +35,19 @@ public class PNIDImpl extends StructuredPetriNetTypeImpl implements PNID {
 	@Override
 	protected EClass eStaticClass() {
 		return PnidsPackage.Literals.PNID;
+	}
+	
+	private PNIDLinker linker;
+	
+	/**
+	 * @generated NOT
+	 * Returns a linker, required for parsing labels.
+	 */
+	public Linker getLinker() {
+		if (linker == null) {
+			linker = new PNIDLinker();
+		}
+		return linker;
 	}
 
 } //PNIDImpl
