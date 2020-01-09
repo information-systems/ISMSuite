@@ -4,88 +4,68 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Binding implements Iterable<Binding.BindingElement> {
-	
-	public class BindingElement {
-		private String variable;
-		private long value;
-		
-		public BindingElement(String key, long value) {
-			this.variable = key;
-			this.value = value;
-		}
-		
-		public String getVariable() {
-			return variable;
-		}
-		
-		public long getValue() {
-			return value;
-		}
-	}
-	
-	private Map<String, BindingElement> variables = new HashMap<>();
 
-	
-	public boolean contains(Object o) {
-		return variables.containsKey(o);
-	}
-	
-	public int size() {
-		return variables.size();
-	}
-	
-	public void set(String key, long value) {
-		if (variables.containsKey(key)) {
-			variables.get(key).value = value;
-		} else {
-			variables.put(key, new BindingElement(key, value));
-		}
-		
-	}
-	
-	public long get(String key) {
-		BindingElement item = variables.get(key);
-		if (item == null) {
-			return -1;
-		} else {
-			return item.value;
-		}
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+
+import org.informationsystem.ismsuite.processengine.process.Token;
+
+import java.util.List;
+
+
+public class Binding {
+
+	private String transition;
+	private Map<String, String> valuation;
+
+	public Binding(String transition, Map<String, String> valuation) {
+		this.transition = transition;
+		this.valuation = Collections.unmodifiableMap(valuation);
 	}
 
-	@Override
-	public Iterator<BindingElement> iterator() {
-		return variables.values().iterator();
+	public String getTransition() {
+		return transition;
 	}
-	
+
+	public Map<String, String> getValuation() {
+		return valuation;
+	}
+
+	public Token instantiate(List<String> variables) {
+		String[] varArray = new String[variables.size()];
+		return instantiate(variables.toArray(varArray));
+	}
+
+	public Token instantiate(String... variables) {
+		String[] identities = new String[variables.length];
+		for(int i = 0 ; i < variables.length ; i++) {
+			if (!valuation.containsKey(variables[i])) {
+				return null;
+			}
+			identities[i] = valuation.get(variables[i]);
+		}
+		return new Token(identities);
+	}
+
 	@Override
 	public String toString() {
-		StringBuilder b = new StringBuilder();
-		for(BindingElement e: this) {
-			b.append(", ");
-			b.append(e.variable);
-			b.append(" = ");
-			b.append(e.value);
-		}
-		
-		return b.substring(2);
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if (o.getClass() != this.getClass()) {
-			return false;
-		}
-		Binding b = (Binding) o;
-		if (b.size() != this.size()) {
-			return false;
-		}
-		for(BindingElement var: variables.values()) {
-			if (!(b.contains(var.getVariable()) && b.get(var.getVariable()) == var.getValue())) {
-				return false;
+		StringBuilder sb = new StringBuilder();
+		sb.append(getTransition());
+		sb.append(" [");
+		boolean notfirst = false;
+		for(Map.Entry<String, String> v: valuation.entrySet()) {
+			if (notfirst) {
+				sb.append(", ");
 			}
+			sb.append(v.getKey());
+			sb.append(": ");
+			sb.append(v.getValue());
+			notfirst = true;
 		}
-		return true;
+		sb.append("]");
+		return sb.toString();
 	}
-	
+
 }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.informationsystem.ismsuite.processengine.process.BoundTransition;
+import org.informationsystem.ismsuite.processengine.process.Binding;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 import org.informationsystem.ismsuite.prover.model.World;
 
@@ -17,9 +17,9 @@ public class Model {
 	 * This map contains per transaction the next world.
 	 * A transaction is only in this list, if the resulting world is valid.
 	 */
-	private Map<BoundTransition,World> futureWorlds;
+	private Map<Binding,World> futureWorlds;
 	
-	private Map<BoundTransition, String> disabled;
+	private Map<Binding, String> disabled;
 	
 	public Model() {
 		currentWorld = new World();
@@ -31,27 +31,27 @@ public class Model {
 	}
 	
 	public boolean isEnabled(String transition) {
-		for(BoundTransition b: futureWorlds.keySet()) {
-			if (b.getName().equals(transition)) {
+		for(Binding b: futureWorlds.keySet()) {
+			if (b.getTransition().equals(transition)) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public boolean isEnabled(BoundTransition transition) {
+	public boolean isEnabled(Binding transition) {
 		return futureWorlds.containsKey(transition);
 	}
 		
-	public Set<BoundTransition> enabledTransitions() {
+	public Set<Binding> enabledTransitions() {
 		return futureWorlds.keySet();
 	}
 	
-	public Map<BoundTransition, String> disabledTransitions() {
+	public Map<Binding, String> disabledTransitions() {
 		return disabled;
 	}
 	
-	void update(FirstOrderLogicWorld w, Map<BoundTransition,World> enabled, Map<BoundTransition, String> disabled) {
+	void update(FirstOrderLogicWorld w, Map<Binding,World> enabled, Map<Binding, String> disabled) {
 		this.currentWorld = w;
 		this.futureWorlds = enabled;
 		this.disabled = disabled;
@@ -59,7 +59,7 @@ public class Model {
 		notifyStateChanged();
 	}
 	
-	void addFuture(BoundTransition t, World w) {
+	void addFuture(Binding t, World w) {
 		futureWorlds.put(t, w);
 		notifyStateChanged();
 	}
@@ -82,7 +82,7 @@ public class Model {
 		}
 	}
 
-	public Map<BoundTransition, World> getFutureWorlds() {
+	public Map<Binding, World> getFutureWorlds() {
 		return futureWorlds;
 	}
 

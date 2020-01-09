@@ -4,6 +4,8 @@ package org.informationsystem.ismsuite.pnidprocessor.petrinet;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
+import org.informationsystem.ismsuite.processengine.process.MultiSet;
+
 
 public class IdentitiesBag {
 

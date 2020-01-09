@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 import org.cpntools.accesscpn.engine.highlevel.HighLevelSimulator;
-import org.cpntools.accesscpn.engine.highlevel.instance.Binding;
 import org.cpntools.accesscpn.engine.highlevel.instance.Instance;
 import org.cpntools.accesscpn.engine.highlevel.instance.Marking;
 import org.cpntools.accesscpn.engine.highlevel.instance.State;
@@ -17,7 +16,7 @@ import org.cpntools.accesscpn.engine.proxy.ProxyDaemon;
 import org.cpntools.accesscpn.engine.proxy.ProxySimulator;
 import org.cpntools.accesscpn.model.PlaceNode;
 import org.cpntools.accesscpn.model.Transition;
-import org.informationsystem.ismsuite.processengine.process.BoundTransition;
+import org.informationsystem.ismsuite.processengine.process.Binding;
 import org.informationsystem.ismsuite.processengine.process.MultiSet;
 import org.informationsystem.ismsuite.processengine.process.ProcessModel;
 import org.informationsystem.ismsuite.processengine.process.Token;
@@ -100,10 +99,10 @@ public class CPNModel implements ProcessModel {
 		return transitions.keySet();
 	}
 	
-	private Map<BoundTransition, Binding> enabledTransitions; 
+	private Map<Binding, org.cpntools.accesscpn.engine.highlevel.instance.Binding> enabledTransitions; 
 
 	@Override
-	public Collection<BoundTransition> getEnabledTransitions() {
+	public Collection<Binding> getEnabledTransitions() {
 		if (enabledTransitions == null) {
 			updateEnabledTransitions();
 		}
@@ -119,14 +118,16 @@ public class CPNModel implements ProcessModel {
 		try {
 			for(Entry<String, Instance<Transition>> t : transitions.entrySet()) {
 				try {
-					List<Binding> bindings = simulator.getBindings(t.getValue());
+					List<org.cpntools.accesscpn.engine.highlevel.instance.Binding> bindings = simulator.getBindings(t.getValue());
 				
-					for(Binding b: bindings) {
-						org.informationsystem.ismsuite.processengine.process.Binding binding = new org.informationsystem.ismsuite.processengine.process.Binding();
+					for(org.cpntools.accesscpn.engine.highlevel.instance.Binding b: bindings) {
+						Map<String, String> valuation = new HashMap<>();
 						for(ValueAssignment a: b.getAllAssignments()) {
-							binding.set(a.getName(), Long.parseLong(a.getValue()));
+							valuation.put(a.getName(), a.getValue());
 						}
-						enabledTransitions.put(new BoundTransition(b.getTransitionInstance().toString(), binding), b);
+						Binding binding = new Binding(b.getTransitionInstance().toString(), valuation );
+						
+						enabledTransitions.put(binding, b);
 					}
 				} catch(NoSuchElementException e) {
 					// just ignore the error, apparently, the 
@@ -142,16 +143,14 @@ public class CPNModel implements ProcessModel {
 	
 
 	@Override
-	public boolean fire(BoundTransition transition) {
+	public boolean fire(Binding binding) {
 		// Get the binding from the enabled transitions
-		if (!enabledTransitions.containsKey(transition)) {
+		if (!enabledTransitions.containsKey(binding)) {
 			return false;
 		}
-		
-		Binding b = enabledTransitions.get(transition);
-		
+				
 		try {
-			simulator.execute(b);
+			simulator.execute(enabledTransitions.get(binding));
 			// Update the CPN Tools view
 			simulator.refreshViews();
 			

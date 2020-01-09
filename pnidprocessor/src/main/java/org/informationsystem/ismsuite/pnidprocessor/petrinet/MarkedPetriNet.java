@@ -8,6 +8,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
+
+import org.informationsystem.ismsuite.processengine.process.Binding;
+import org.informationsystem.ismsuite.processengine.process.Token;
+
 import java.util.HashSet;
 
 public class MarkedPetriNet {

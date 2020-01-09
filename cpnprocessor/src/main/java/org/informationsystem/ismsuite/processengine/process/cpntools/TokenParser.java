@@ -1,5 +1,8 @@
 package org.informationsystem.ismsuite.processengine.process.cpntools;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.informationsystem.ismsuite.processengine.process.MultiSet;
@@ -48,22 +51,18 @@ public class TokenParser {
 		}
 		
 		@Override 
-		public Object visitToken_value(CPNTokenParser.Token_valueContext ctx) {
-			Token t;
+		public Object visitToken_value(CPNTokenParser.Token_valueContext ctx) {	
+			List<String> entities = new ArrayList<>();
+			
 			if (ctx.id() != null) {
-				t = new Token(1);
-				t.set(0, Long.parseLong(ctx.id().getText()));
+				entities.add(ctx.id().getText());
 			} else if (ctx.id_list() != null) {
-				t = new Token(ctx.id_list().id().size());
-				int counter = 0;
-				for(IdContext idctx : ctx.id_list().id()) {
-					t.set(counter, Long.parseLong(idctx.getText()));
-					counter++;
+				for(IdContext id: ctx.id_list().id()) {
+					entities.add(id.getText());
 				}
-			} else {
-				t = null;
 			}
-			return t; 
+			
+			return new Token(entities); 
 		}
 		
 		

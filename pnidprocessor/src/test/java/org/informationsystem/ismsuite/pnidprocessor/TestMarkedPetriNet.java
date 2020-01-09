@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.informationsystem.ismsuite.pnidprocessor.petrinet.Binding;
 import org.informationsystem.ismsuite.pnidprocessor.petrinet.MarkedPetriNet;
 import org.informationsystem.ismsuite.pnidprocessor.petrinet.Marking;
-import org.informationsystem.ismsuite.pnidprocessor.petrinet.Token;
+import org.informationsystem.ismsuite.processengine.process.Binding;
+import org.informationsystem.ismsuite.processengine.process.Token;
 import org.junit.Test;
 
 public class TestMarkedPetriNet {
@@ -23,6 +23,7 @@ public class TestMarkedPetriNet {
 		MarkedPetriNet net = getBasicNet();
 		Marking m;
 		Token blackToken = new Token();
+		Binding b;
 		
 		assertEquals(2, net.places().size());
 		assertTrue(net.places().contains("p1"));
@@ -40,7 +41,7 @@ public class TestMarkedPetriNet {
 		assertTrue(net.transitions().contains("t2"));
 		
 		assertEquals(1, net.getBindings().size());
-		Binding b = net.getBindings().get(0);
+		b = net.getBindings().get(0);
 		validateBinding("t1", Collections.emptyMap(), b);
 
 		// Fire transition t1

@@ -1,10 +1,14 @@
 package org.informationsystem.ismsuite.pnidprocessor.petrinet;
 
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import org.informationsystem.ismsuite.processengine.process.MultiSet;
+import org.informationsystem.ismsuite.processengine.process.Token;
 
 public class Marking {
 
@@ -23,6 +27,10 @@ public class Marking {
 	 */
 	public int getCounter() {
 		return counter;
+	}
+	
+	public Set<Entry<String, MultiSet<Token>>> tokens() {
+		return tokenBag.entrySet();
 	}
 
 	public void increaseCounter(int size) {
@@ -110,6 +118,10 @@ public class Marking {
 
 
 		return sb.toString();
+	}
+
+	public Map<String, MultiSet<Token>> map() {
+		return Collections.unmodifiableMap(tokenBag);
 	}
 
 }
