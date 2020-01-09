@@ -59,7 +59,7 @@
     </dependency>
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
-    	<artifactId>processengine</artifactId>
+    	<artifactId>cpnprocessor</artifactId>
     	<version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
