@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import org.informationsystem.ismsuite.processengine.process.BoundTransition;
+import org.informationsystem.ismsuite.processengine.process.Binding;
 import org.informationsystem.ismsuite.ismsuite.model.Controller;
 import org.informationsystem.ismsuite.ismsuite.model.Model;
 import org.informationsystem.ismsuite.ismsuite.model.StateChangedListener;
@@ -29,7 +29,7 @@ public class ProcessView extends JPanel implements StateChangedListener {
 	private static final long serialVersionUID = -138817495785697164L;
 		
 	private JPanel buttonPanel;
-	private DefaultListModel<BoundTransition> transitionListModel;
+	private DefaultListModel<Binding> transitionListModel;
 	
 	private JButton fireButton;
 	
@@ -65,7 +65,7 @@ public class ProcessView extends JPanel implements StateChangedListener {
 			public void actionPerformed(ActionEvent arg0) {
 				// get Selected item
 				if (transitionList.getSelectedIndex() >= 0) {
-					BoundTransition item = transitionListModel.getElementAt(transitionList.getSelectedIndex());
+					Binding item = transitionListModel.getElementAt(transitionList.getSelectedIndex());
 					controller.fire(item);
 				}
 			}
@@ -80,11 +80,11 @@ public class ProcessView extends JPanel implements StateChangedListener {
 	@Override
 	public void update(Model model) {
 		transitionListModel.clear();
-		List<BoundTransition> items = new ArrayList<>(model.enabledTransitions());
+		List<Binding> items = new ArrayList<>(model.enabledTransitions());
 		
-		Collections.sort(items);
+		// Collections.sort(items);
 		
-		for(BoundTransition t: items) {
+		for(Binding t: items) {
 			transitionListModel.addElement(t);
 		}
 	}

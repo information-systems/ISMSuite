@@ -140,6 +140,10 @@ public class MultiSet<T> implements Set<T> {
 	public boolean isEmpty() {
 		return items.isEmpty();
 	}
+	
+	public Set<T> getUnique() {
+		return items.keySet();
+	}
 
 	@Override
 	public Iterator<T> iterator() {

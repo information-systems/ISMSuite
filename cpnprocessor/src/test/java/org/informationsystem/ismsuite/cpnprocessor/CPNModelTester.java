@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Collection;
 import java.util.Map;
 
-import org.informationsystem.ismsuite.processengine.process.BoundTransition;
+import org.informationsystem.ismsuite.processengine.process.Binding;
 import org.informationsystem.ismsuite.processengine.process.MultiSet;
 import org.informationsystem.ismsuite.processengine.process.Token;
 import org.informationsystem.ismsuite.processengine.process.cpntools.CPNModel;
@@ -51,17 +51,10 @@ public class CPNModelTester {
 			CPNModel model = CPNModel.getInstance();
 			Map<String, MultiSet<Token>> m = model.getCurrentMarking();
 			
-			Token p1 = new Token(1);
-			p1.set(0, 1);
-			
-			Token p2 = new Token(1);
-			p2.set(0, 2);
-			
-			Token p3 = new Token(1);
-			p3.set(0, 3);
-			
-			Token p4 = new Token(1);
-			p4.set(0, 4);
+			Token p1 = new Token("1");	
+			Token p2 = new Token("2");		
+			Token p3 = new Token("3");		
+			Token p4 = new Token("4");
 			
 			testPlaceWithMarking("Philosophers.Counter", m, p3, 1);
 			
@@ -71,9 +64,9 @@ public class CPNModelTester {
 			testPlaceWithMarking("Philosophers.Philosopher", m, p2, 1);
 			testPlaceWithMarking("Philosophers.Human", m, p2, 1);
 			
-			BoundTransition b = null;
-			for(BoundTransition t: CPNModel.getInstance().getEnabledTransitions()) {
-				if (t.getName().equals("Philosophers.newHuman")) b = t;
+			Binding b = null;
+			for(Binding t: CPNModel.getInstance().getEnabledTransitions()) {
+				if (t.getTransition().equals("Philosophers.newHuman")) b = t;
 			}
 			
 			assertNotNull(b);

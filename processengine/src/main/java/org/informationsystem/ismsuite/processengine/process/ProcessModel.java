@@ -9,9 +9,9 @@ public interface ProcessModel {
 	
 	Collection<String> getPlaces();
 	Collection<String> getTransitions();
-	Collection<BoundTransition> getEnabledTransitions();
+	Collection<Binding> getEnabledTransitions();
 	
-	boolean fire(BoundTransition transition);
+	boolean fire(Binding binding);
 	
 	
 	boolean terminate();

@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.informationsystem.ismsuite.processengine.process.Binding;
-import org.informationsystem.ismsuite.processengine.process.BoundTransition;
 import org.informationsystem.ismsuite.processengine.process.MultiSet;
 import org.informationsystem.ismsuite.processengine.process.ProcessModel;
 import org.informationsystem.ismsuite.processengine.process.Token;
@@ -63,7 +62,7 @@ public class Controller {
 			initializeTokensAsElements(world);
 		}
 		
-		Pair<Map<BoundTransition, World>, Map<BoundTransition, String>> pair = 
+		Pair<Map<Binding, World>, Map<Binding, String>> pair = 
 				calculateFutureWorlds(world);
 		
 		state.update(world, pair.first(), pair.second());
@@ -74,15 +73,15 @@ public class Controller {
 	}
 	
 	public boolean fire(String transition) {
-		for(BoundTransition b: state.enabledTransitions()) {
-			if (b.getName().equals(transition)) {
+		for(Binding b: state.enabledTransitions()) {
+			if (b.getTransition().equals(transition)) {
 				return fire(b);
 			}
 		}
 		return false;
 	}
 	
-	public boolean fire(BoundTransition transition) {
+	public boolean fire(Binding transition) {
 		World next = state.getFutureWorlds().get(transition);
 		if (next == null) {
 			return false;
@@ -91,7 +90,7 @@ public class Controller {
 		if (processModel != null) processModel.fire(transition);
 		
 		
-		Pair<Map<BoundTransition, World>, Map<BoundTransition, String>> pair = calculateFutureWorlds(next);
+		Pair<Map<Binding, World>, Map<Binding, String>> pair = calculateFutureWorlds(next);
 
 		state.update(next, pair.first(), pair.second());
 		
@@ -116,16 +115,16 @@ public class Controller {
 	}
 	
 	public boolean addFutureWorld(String transition, Map<Variable, Element> binding) {
-		if (!specification.containsTransition(transition)) {
-			return false;
+		World next = (World)  state.getWorld();
+		Entry<String, Clause> item = null;
+		
+		if (specification.containsTransition(transition)) {
+			specification.getTransactionFor(transition).apply(binding, next);
+			item = validWorld(next);	
 		}
 		
-		World next = (World)  state.getWorld();
-		specification.getTransactionFor(transition).apply(binding, next);
-		
-		Entry<String, Clause> item = validWorld(next);
 		if (item == null) {
-			state.addFuture(new BoundTransition(transition, new Binding()), next);
+			state.addFuture(new Binding(transition, transformBinding(binding)), next);
 			return true;
 		} else {
 			System.out.println("Transition: " + transition + " NOT valid because of: " + item.getKey());
@@ -134,34 +133,54 @@ public class Controller {
 		return false;
 	}
 	
-	private Pair<Map<BoundTransition, World>, Map<BoundTransition,String>> calculateFutureWorlds(World current) {
-		Map<BoundTransition, World> enabled = new HashMap<>();
-		Map<BoundTransition,String> disabled = new HashMap<>();
+	private Map<String, String> transformBinding(Map<Variable, Element> binding) {
+		Map<String, String> result = new HashMap<>();
+		
+		for(Entry<Variable, Element> b: binding.entrySet()) {
+			result.put(b.getKey().getLabel(), b.getValue().getLabel());
+		}
+		
+		return result;
+	}
+	
+	private Pair<Map<Binding, World>, Map<Binding,String>> calculateFutureWorlds(World current) {
+		Map<Binding, World> enabled = new HashMap<>();
+		Map<Binding,String> disabled = new HashMap<>();
 		if (processModel == null) {
 			return new Pair<>(enabled, disabled);
 		}
 		
-		for(BoundTransition transition : processModel.getEnabledTransitions()) {
-			if(!specification.containsTransition(transition.getName())) {
-				continue;
-			}
-			Transaction t = specification.getTransactionFor(transition.getName());
-			
-			Map<Variable, Element> binding = new HashMap<>();
-			for(Binding.BindingElement bb: transition.getBinding()) {
-				Variable v = t.getVariable(bb.getVariable());
-				if (v != null) binding.put(v, new Element(v.getType() + "_" + bb.getValue(), v.getType()));
-			}
+		for(Binding binding : processModel.getEnabledTransitions()) {
 			
 			World p2 = (World) current.clone();
 			
-			t.apply(binding, p2);
+			if(specification.containsTransition(binding.getTransition())) {
+				Transaction t = specification.getTransactionFor(binding.getTransition());
+				
+				Map<Variable, Element> valuation = new HashMap<>();
+				
+				for(Entry<String, String> val : binding.getValuation().entrySet()) {
+					Variable v = t.getVariable(val.getKey());
+					if (v != null) {
+						valuation.put(v, new Element(val.getValue(), v.getType()));
+					}
+				}
+				
+				// Now apply the transaction on the current world
+				t.apply(valuation, p2);
+				
+				// And check if it is valid
+				Entry<String, Clause> item = validWorld(p2);
 			
-			Entry<String, Clause> item = validWorld(p2);
-			if (item == null) {
-				enabled.put(transition, p2);
+				if (item == null) {
+					enabled.put(binding, p2);
+				} else {
+					disabled.put(binding, item.getKey());
+				}
+				
 			} else {
-				disabled.put(transition, item.getKey());
+				// It is not in the specification, hence, it does not change the world:
+				enabled.put(binding, p2);
 			}
 		}
 		
