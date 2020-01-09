@@ -130,4 +130,41 @@
    			>
    		</graphicsextension>
    </extension>
+   
+   
+   <!-- Build the menu structure of ISM Suite -->
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.informationsystem.ismsuite.modeler.commands.standardcategory"
+            name="Standard Category">
+      </category>
+      <command
+            categoryId="org.informationsystem.ismsuite.modeler.commands.standardcategory"
+            id="ismsuite.modeler.commands.validate"
+            name="Validate PNID">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.informationsystem.ismsuite.modeler.commands.ValidatorCommand"
+            commandId="ismsuite.modeler.commands.validate">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+      	<menu
+      		id="ismsuite.modeler.menus.topmenu"
+      		label="ISM Suite"
+      		mnemonic="I">
+      			<command
+      				commandId="ismsuite.modeler.commands.validate"
+      				id="ismsuite.modeler.menus.topmenu.validate"
+      				mnemonic="V">
+      			</command>
+          </menu>
+      </menuContribution>
+   </extension>
 </plugin>
