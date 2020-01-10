@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pnid -->
+      <package
+            uri="http://org.pnml.tools/epnk/types/pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage"
+            genModel="model/pnid.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pnid -->
+      <parser
+            type="pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.util.PnidsResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated pnid -->
+      <factory
+            uri="http://org.pnml.tools/epnk/types/pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.provider.PnidsItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated pnid -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizardID"
+            name="%_UI_PnidsModelWizard_label"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PnidsModelFile.gif">
+         <description>%_UI_PnidsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated pnid -->
+      <editor
+            id="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsEditorID"
+            name="%_UI_PnidsEditor_label"
+            icon="icons/full/obj16/PnidsModelFile.gif"
+            extensions="pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsEditor"
+            contributorClass="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsActionBarContributor">
+      </editor>
+   </extension>
+   
+   <!-- Register PNIDs as a type for the ePNK editor -->
+   <extension
+         id="pnids"
+         name="pnids"
+         point="org.pnml.tools.epnk.pntd_package">
+      <type
+            package_uri="http://org.pnml.tools/epnk/types/pnids">
+      </type>
+   </extension>
+   
+   <!-- Arcs may only be between places and transitions -->
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <constraintProvider
+            cache="true">
+         <package 
+               namespaceUri="http://org.pnml.tools/epnk/types/pnids">
+         </package>    
+       
+         <constraints categories="org.pnml.tools.epnk.validation">
+            <constraint
+                  id="org.pnml.tools.epnk.pntypes.pnids.validation.PT_TP_ArcsOnly"
+                  lang="OCL"
+                  mode="Live"
+                  name="PT or TP Arcs only"
+                  severity="ERROR"
+                  statusCode="301">
+               <message>
+                  The arc {0} must run from a place to a transition or vice versa.
+               </message>
+               <description>
+                 Arcs between two places or transitions are forbidden in PNIDs
+               </description>
+               <target
+                     class="Arc">
+                  <event
+                        name="Set">
+                     <feature
+                           name="source">
+                     </feature>
+                     <feature
+                           name="target">
+                     </feature>
+                  </event>
+               </target>               
+               <![CDATA[
+                 ( self.source.oclIsKindOf(pnmlcoremodel::PlaceNode) and
+                   self.target.oclIsKindOf(pnmlcoremodel::TransitionNode) ) or
+                 ( self.source.oclIsKindOf(pnmlcoremodel::TransitionNode) and
+                   self.target.oclIsKindOf(pnmlcoremodel::PlaceNode) )
+               ]]>
+            </constraint>      
+         </constraints>
+      </constraintProvider>
+   </extension>
+   
+   <!-- Use our own drawing methods for places and transitions -->
+   <extension 
+   		id="org.pnml.tools.epnk.pntypes.pnids.graphics"
+   		name="PNID graphical extension"
+   		point="org.pnml.tools.epnk.diagram.graphics">
+   		
+   		<graphicsextension
+   			class="org.informationsystem.ismsuite.modeler.process.graphics.PNIDGraphics"
+   			description="Special graphics for PNIDs"
+   			>
+   		</graphicsextension>
+   </extension>
+   
+   <!-- Extend the ePNK popup menu -->
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.pnml.tools.epnk.functions.modelchecking.contribution1"
+            objectClass="org.pnml.tools.epnk.pnmlcoremodel.PetriNet">
+         <menu
+               id="org.pnml.tools.epnk.actions.ismsuite"
+               label="ISM Suite"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.informationsystem.ismsuite.modeler.process.validator.PNIDSyntaxCheckerAction"
+               enablesFor="1"
+               id="org.pnml.tools.epnk.functions.typechecking"
+               label="PNID Syntax checker"
+               menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1">
+         </action>
+      </objectContribution>
+      <objectContribution
+      	id="org.pnml.tools.epnk.pnids.simulator.startsimulatorapp"
+      	objectClass="org.pnml.tools.epnk.pnmlcoremodel.PetriNet">
+      	
+      	<menu
+               id="org.pnml.tools.epnk.actions.standardmenu"
+               label="ePNK"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.informationsystem.ismsuite.modeler.process.simulator.StartSimulator"
+               enablesFor="1"
+               id="org.informationsystem.ismsuite.modeler.process.simulator.startsimulatorapp"
+               label="Start PNID Simulator"
+               menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1"
+               tooltip="Start PNID Simulator">
+         </action>
+     	 	
+     </objectContribution>
+   </extension>
+   
+   <!-- Register the PNID Simulator as an ePNK application -->
+   <extension
+         id="org.informationsystem.ismsuite.modeler.process.simulator.PNIDSimulator"
+         name="PNID Simulator"
+         point="org.pnml.tools.epnk.applications.applicationfactory">
+      <applicationfactory
+            class="org.informationsystem.ismsuite.modeler.process.simulator.SimulatorFactory"
+            description="PNID Simulator">
+      </applicationfactory>
+   </extension>
+   
+   <!-- Build the menu structure of ISM Suite -->
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.informationsystem.ismsuite.modeler.commands.standardcategory"
+            name="Standard Category">
+      </category>
+      <command
+            categoryId="org.informationsystem.ismsuite.modeler.commands.standardcategory"
+            id="ismsuite.modeler.commands.validate"
+            name="Validate PNID">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.informationsystem.ismsuite.modeler.process.commands.ValidatorCommand"
+            commandId="ismsuite.modeler.commands.validate">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+      	<menu
+      		id="ismsuite.modeler.menus.topmenu"
+      		label="ISM Suite"
+      		mnemonic="I">
+      			<command
+      				commandId="ismsuite.modeler.commands.validate"
+      				id="ismsuite.modeler.menus.topmenu.validate"
+      				mnemonic="V">
+      			</command>
+          </menu>
+      </menuContribution>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pnid-simulator-annotations -->
+      <package
+            uri="http://org.pnml.tools/epnk/applications/pnids/simulator"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PnidsimulatorPackage"
+            genModel="model/Simulator.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated pnid-simulator-annotations -->
+      <factory
+            uri="http://org.pnml.tools/epnk/applications/pnids/simulator"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider.PnidsimulatorItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated pnid-simulator-annotations -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorModelWizardID"
+            name="%_UI_PnidsimulatorModelWizard_label"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PnidsimulatorModelFile.gif">
+         <description>%_UI_PnidsimulatorModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated pnid-simulator-annotations -->
+      <editor
+            id="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorEditorID"
+            name="%_UI_PnidsimulatorEditor_label"
+            icon="icons/full/obj16/PnidsimulatorModelFile.gif"
+            extensions="pnidsimulator"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorEditor"
+            contributorClass="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorActionBarContributor">
+      </editor>
+   </extension>
+</plugin>

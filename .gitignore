@@ -2,3 +2,5 @@
 /bin/
 target
 *.dump
+*-workspace
+runtime-EclipseApplication

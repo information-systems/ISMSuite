@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/modeler/src/main/java/" editDirectory="/modeler/edit/src/"
+    editorDirectory="/modeler/editor/src" modelPluginID="ISMSuite" modelName="Pnid"
+    testsDirectory="/modeler/tests/src" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="ISMSuite" editorPluginID="ISMSuite"
+    usedGenPackages="../../org.pnml.tools.epnk/model/PNMLCoreModel.genmodel#//pnmlcoremodel ../../org.pnml.tools.epnk/model/PNMLStructuredPNTypeModel.genmodel#//structuredpntypemodel">
+  <foreignModel>PNID.ecore</foreignModel>
+  <genPackages prefix="Pnids" basePackage="org.informationsystem.ismsuite.modeler.process.pnid"
+      resource="XML" disposableProviderFactory="true" ecorePackage="PNID.ecore#/">
+    <genClasses ecoreClass="PNID.ecore#//PNID"/>
+    <genClasses ecoreClass="PNID.ecore#//Place">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//Place/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//Place/initialMarking"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//EntityTypeLabel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//EntityTypeLabel/structure"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//EntityTypeSequence">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//EntityTypeSequence/entityType"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//Arc">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PNID.ecore#//Arc/inscription"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//VariableInscriptionLabel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//VariableInscriptionLabel/structure"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//Token">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//Token/entity"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//EntityType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PNID.ecore#//EntityType/text"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//Variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PNID.ecore#//Variable/text"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//VariableSequence">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//VariableSequence/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//Entity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PNID.ecore#//Entity/text"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//PNIDMarking">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//PNIDMarking/structure"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//TokenBag">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//TokenBag/token"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
