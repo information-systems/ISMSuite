@@ -4,7 +4,9 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: ISMSuite;singleton:=true
 Automatic-Module-Name: ISMSuite
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ target/jar/pnidprocessor.jar,
+ target/jar/processengine.jar
 Bundle-Activator: org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider.PnidsimulatorannotationsEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
