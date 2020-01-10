@@ -152,6 +152,39 @@
                menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1">
          </action>
       </objectContribution>
+      <objectContribution
+      	id="org.pnml.tools.epnk.pnids.simulator.startsimulatorapp"
+      	objectClass="org.pnml.tools.epnk.pnmlcoremodel.PetriNet">
+      	
+      	<menu
+               id="org.pnml.tools.epnk.actions.standardmenu"
+               label="ePNK"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.informationsystem.ismsuite.modeler.process.simulator.StartSimulator"
+               enablesFor="1"
+               id="org.informationsystem.ismsuite.modeler.process.simulator.startsimulatorapp"
+               label="Start PNID Simulator"
+               menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1"
+               tooltip="Start PNID Simulator">
+         </action>
+     	 	
+     </objectContribution>
+   </extension>
+   
+   <!-- Register the PNID Simulator as an ePNK application -->
+   <extension
+         id="org.informationsystem.ismsuite.modeler.process.simulator.PNIDSimulator"
+         name="PNID Simulator"
+         point="org.pnml.tools.epnk.applications.applicationfactory">
+      <applicationfactory
+            class="org.informationsystem.ismsuite.modeler.process.simulator.SimulatorFactory"
+            description="PNID Simulator">
+      </applicationfactory>
    </extension>
    
    <!-- Build the menu structure of ISM Suite -->

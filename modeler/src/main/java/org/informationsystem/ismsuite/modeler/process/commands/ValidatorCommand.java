@@ -39,7 +39,11 @@ public class ValidatorCommand extends AbstractCommand {
 		return null;
 	}
 	
-	public static void validate(PetriNet net, Shell shell) {
+	public static boolean validate(PetriNet net, Shell shell) {
+		return validate(net, shell, true);
+	}
+	
+	public static boolean validate(PetriNet net, Shell shell, boolean showMessageOnSuccess) {
 		List<SyntaxError> errors = PNIDSyntaxChecker.giveErrorsFor(net);
 		
 		// Add the IDs if not present
@@ -61,8 +65,10 @@ public class ValidatorCommand extends AbstractCommand {
 		}
 		
 		if (errors.isEmpty()) {
-			MessageDialog.openInformation(shell, "PNID Validator", "Petri net '" + title + "' contains no syntax errors");
-			return;
+			if (showMessageOnSuccess) {
+				MessageDialog.openInformation(shell, "PNID Validator", "Petri net '" + title + "' contains no syntax errors");
+			}
+			return true;
 		}
 		
 		StringBuilder errorText = new StringBuilder();
@@ -77,5 +83,7 @@ public class ValidatorCommand extends AbstractCommand {
 		}
 		
 		MessageDialog.openError(shell, "PNID Validator", errorText.toString());
+		
+		return false;
 	}
 }
