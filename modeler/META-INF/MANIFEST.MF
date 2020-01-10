@@ -1,16 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
-Bundle-SymbolicName: ISMSuite;singleton:=true
+Bundle-Name: ISMSuite Process Modeler
+Bundle-SymbolicName: org.informationsystem.ismsuite.modeler.process;singleton:=true
 Automatic-Module-Name: ISMSuite
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
  target/jar/pnidprocessor.jar,
  target/jar/processengine.jar
 Bundle-Activator: org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider.PnidsimulatorannotationsEditPlugin$Implementation
-Bundle-Vendor: %providerName
+Bundle-Vendor: InformationSystem.org
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-11,
+ JavaSE-12,
+ JavaSE-13
 Export-Package: org.informationsystem.ismsuite.modeler.process.pnid.pnids,
  org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl,
  org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation,
@@ -38,7 +40,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.ide;visibility:=reexport,
  org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.5.0",
  org.pnml.tools.epnk.annotations;visibility:=reexport,
- ISMSuite;visibility:=reexport,
  org.pnml.tools.epnk;bundle-version="1.2.0";visibility:=reexport,
  org.pnml.tools.epnk.diagram;bundle-version="1.2.0";visibility:=reexport,
  org.pnml.tools.epnk.actions;visibility:=reexport,
