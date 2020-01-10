@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.modeler.commands;
+package org.informationsystem.ismsuite.modeler.process.commands;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.informationsystem.ismsuite.modeler.commands.AbstractCommand;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID;
 import org.informationsystem.ismsuite.modeler.process.validator.PNIDSyntaxChecker;
 import org.informationsystem.ismsuite.modeler.process.validator.SyntaxError;

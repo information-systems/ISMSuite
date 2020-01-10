@@ -1,6 +1,6 @@
 package org.informationsystem.ismsuite.modeler.process.validator;
 
-import org.informationsystem.ismsuite.modeler.commands.ValidatorCommand;
+import org.informationsystem.ismsuite.modeler.process.commands.ValidatorCommand;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID;
 import org.pnml.tools.epnk.actions.framework.jobs.AbstractEPNKAction;
 import org.pnml.tools.epnk.actions.framework.jobs.AbstractEPNKJob;
