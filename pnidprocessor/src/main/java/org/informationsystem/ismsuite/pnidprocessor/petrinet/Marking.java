@@ -13,7 +13,6 @@ import org.informationsystem.ismsuite.processengine.process.Token;
 public class Marking {
 
 	private Map<String, MultiSet<Token>> tokenBag = new HashMap<>();
-	private Map<String, IdentitiesBag> identitiesBag = new HashMap<>();
 
 	private int counter;
 
@@ -28,6 +27,11 @@ public class Marking {
 	public int getCounter() {
 		return counter;
 	}
+
+	public Map<String, MultiSet<Token>> map() {
+		return Collections.unmodifiableMap(tokenBag);
+	}
+
 	
 	public Set<Entry<String, MultiSet<Token>>> tokens() {
 		return tokenBag.entrySet();
@@ -46,10 +50,19 @@ public class Marking {
 	}
 
 	public Set<String> getIdentities(String place, int index) {
-		if (identitiesBag.containsKey(place)) {
-			return identitiesBag.get(place).get(index);
+		if (index < 0 || tokenBag.containsKey(place)) {
+			HashSet<String> result = new HashSet<>();
+			
+			for(Token t: tokenBag.get(place)) {
+				if (t.size() < index ) {
+					return Collections.emptySet();
+				}
+				result.add(t.get(index));
+			}
+			
+			return result;
 		} else {
-			return new HashSet<>();
+			return Collections.emptySet();
 		}
 	}
 
@@ -59,7 +72,11 @@ public class Marking {
 
 	public boolean remove(String place, Token token) {
 		if (tokenBag.containsKey(place)) {
-			return tokenBag.get(place).remove(token);
+			tokenBag.get(place).remove(token);
+			if (tokenBag.get(place).isEmpty()) {
+				tokenBag.remove(place);
+			}
+			return true;
 		} else {
 			return false;
 		}
@@ -72,19 +89,16 @@ public class Marking {
 	public void add(String place, Token token) {
 		if (!tokenBag.containsKey(place)) {
 			tokenBag.put(place, new MultiSet<>());
-			identitiesBag.put(place, new IdentitiesBag());
 		}
 		tokenBag.get(place).add(token);
-		for(int i = 0 ; i < token.getEntities().length; i++) {
-			identitiesBag.get(place).add(i, token.getEntities()[i]);
-		}
 	}
 
-	public String print() {
-		return print(false);
+	@Override
+	public String toString() {
+		return toString(false);
 	}
 
-	public String print(boolean full) {
+	public String toString(boolean full) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("MARKING:\n");
 		sb.append("\tcounter: ");
@@ -109,19 +123,10 @@ public class Marking {
 				sb.append(e.getValue().size(token));
 			}
 			sb.append("]");
-			if (full) {
-				sb.append(" identities: ");
-				sb.append(identitiesBag.get(e.getKey()).toString());
-			}
 			sb.append("\n");
 		}
 
 
 		return sb.toString();
 	}
-
-	public Map<String, MultiSet<Token>> map() {
-		return Collections.unmodifiableMap(tokenBag);
-	}
-
 }

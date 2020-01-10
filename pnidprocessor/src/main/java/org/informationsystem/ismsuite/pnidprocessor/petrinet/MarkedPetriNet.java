@@ -169,7 +169,8 @@ public class MarkedPetriNet {
 		marking.remove(place, token);
 	}
 
-	public String print() {
+	@Override
+	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("PLACES:\n");
@@ -198,7 +199,7 @@ public class MarkedPetriNet {
 			sb.append("\n");
 		}
 		sb.append("\n");
-		sb.append(marking.print());
+		sb.append(marking.toString());
 		return sb.toString();
 	}
 
@@ -212,7 +213,7 @@ public class MarkedPetriNet {
 
 	public List<Binding> getBindings(String transition) {
 		Map<String, Set<String>> candidateValuations = new HashMap<>();
-
+		
 		// Build the valuations for existing tokens.
 		// Notice that if two places share a variable, only the
 		// intersection of the entities gives the possible enabled values...
@@ -287,7 +288,9 @@ public class MarkedPetriNet {
 			if (!marking.getTokens(place).contains(token)) {
 				return false;
 			} else {
+				// int countbefore = marking.getTokens(place).size();
 				marking.remove(place, token);
+				// assert(marking.getTokens(place).size() == countbefore-1);
 			}
 		}
 		// Add a token to all output places
