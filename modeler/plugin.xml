@@ -189,4 +189,52 @@
           </menu>
       </menuContribution>
    </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pnid-simulator-annotations -->
+      <package
+            uri="http://org.pnml.tools/epnk/applications/pnids/simulator"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PnidsimulatorPackage"
+            genModel="model/Simulator.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated pnid-simulator-annotations -->
+      <factory
+            uri="http://org.pnml.tools/epnk/applications/pnids/simulator"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider.PnidsimulatorItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated pnid-simulator-annotations -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorModelWizardID"
+            name="%_UI_PnidsimulatorModelWizard_label"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PnidsimulatorModelFile.gif">
+         <description>%_UI_PnidsimulatorModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated pnid-simulator-annotations -->
+      <editor
+            id="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorEditorID"
+            name="%_UI_PnidsimulatorEditor_label"
+            icon="icons/full/obj16/PnidsimulatorModelFile.gif"
+            extensions="pnidsimulator"
+            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorEditor"
+            contributorClass="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorActionBarContributor">
+      </editor>
+   </extension>
 </plugin>
