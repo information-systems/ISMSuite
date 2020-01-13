@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="feature_export" name="build">
 	<target name="feature_export">
-		<pde.exportFeatures destination="/home/jmw/git/ISMSuite/tool/modeler" exportSource="false" exportType="directory" features="org.informationsystem.ismsuite.modeler.process" useJARFormat="true"/>
+		<pde.exportFeatures destination="/home/jmw/git/ISMSuite/tool/modeler/0.1" exportSource="false" exportType="directory" features="org.informationsystem.ismsuite.modeler.process" useJARFormat="true"/>
 	</target>
 </project>

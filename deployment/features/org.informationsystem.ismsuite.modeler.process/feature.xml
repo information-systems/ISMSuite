@@ -104,7 +104,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
-      <update label="ISM Suite" url="http://ismsuite.architecturemining.org/"/>
+      <update label="ISM Suite" url="http://ismsuite.informationsystem.org/ismsuite/modeler/0.1/update/"/>
    </url>
 
    <requires>
@@ -115,7 +115,7 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.informationsystem.ismsuite.modeler.process"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.0.0.qualifier"
          unpack="false"/>
 
 </feature>
