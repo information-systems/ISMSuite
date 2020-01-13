@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
+   <feature id="org.informationsystem.ismsuite.modeler.process">
+      <category name="ISMSuiteModeler"/>
+   </feature>
    <category-def name="ISMSuiteModeler" label="ISM Suite Modeler"/>
    <repository-reference location="http://www2.compute.dtu.dk/~ekki/projects/ePNK/1.2/update/" enabled="true" />
 </site>
