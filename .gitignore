@@ -1,4 +1,6 @@
 *.class
 /bin/
-/target/
+target
 *.dump
+*-workspace
+runtime-EclipseApplication

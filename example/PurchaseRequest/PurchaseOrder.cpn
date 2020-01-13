@@ -2186,15 +2186,15 @@
     </options>
     <binders>
       <cpnbinder id="ID2222"
-                 x="280"
-                 y="54"
+                 x="-96"
+                 y="20"
                  width="1093"
                  height="375">
         <sheets>
           <cpnsheet id="ID2215"
-                    panx="-140.000000"
-                    pany="-61.000000"
-                    zoom="1.000000"
+                    panx="-133.050000"
+                    pany="-72.150000"
+                    zoom="0.800000"
                     instance="ID2149">
             <zorder>
               <position value="0"/>
