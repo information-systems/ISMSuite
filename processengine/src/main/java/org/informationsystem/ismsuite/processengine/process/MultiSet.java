@@ -58,9 +58,16 @@ public class MultiSet<T> implements Set<T> {
 		 * the decrease made the item empty;
 		 * @return true if count > 0
 		 */
+		@SuppressWarnings("unused")
 		public boolean decrease() {
-			if (!isEmpty()) {
-				this.count--;
+			return decrease(1);
+		}
+		
+		public boolean decrease(int amount) {
+			if (count >= amount) {
+				count -= amount;
+			} else {
+				count = 0;
 			}
 			return (this.isEmpty());
 		}
@@ -125,6 +132,10 @@ public class MultiSet<T> implements Set<T> {
 			return items.get(o).getCount();
 		}
 	}
+	
+	public boolean containsSufficient(Object o, int amount) {
+		return (size(o) >= amount);
+	}
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
@@ -135,7 +146,7 @@ public class MultiSet<T> implements Set<T> {
 		}
 		return true;
 	}
-
+	
 	@Override
 	public boolean isEmpty() {
 		return items.isEmpty();
@@ -152,14 +163,24 @@ public class MultiSet<T> implements Set<T> {
 
 	@Override
 	public boolean remove(Object o) {
+		return remove(o, 1);
+	}
+	
+	public boolean remove(Object o, int amount) {
 		if (!items.containsKey(o)) {
 			return false;
 		}
 		MultiSetItem item = items.get(o);
-		if (item.decrease()) {
+		
+		if (item.getCount() < amount) {
+			return false;
+		}
+		
+		if (item.decrease(amount)) {
 			items.remove(o);
 		}
-		this.totalCount--;
+		
+		this.totalCount -= amount;
 		
 		return true;
 	}
