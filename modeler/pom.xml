@@ -28,7 +28,7 @@
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>pnidprocessor</artifactId>
-    	<version>1.0.0-SNAPSHOT</version>
+    	<version>1.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
@@ -52,7 +52,7 @@
             				<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>pnidprocessor</artifactId>
-    							<version>1.0.0-SNAPSHOT</version>
+    							<version>1.0.1-SNAPSHOT</version>
     						</artifactItem>
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
