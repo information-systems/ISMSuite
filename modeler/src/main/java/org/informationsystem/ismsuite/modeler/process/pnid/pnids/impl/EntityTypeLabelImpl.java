@@ -49,12 +49,13 @@ public class EntityTypeLabelImpl extends StructuredLabelImpl implements EntityTy
 	@Override
 	public EObject parse(String input) {
 		EntityTypeSequence seq = PnidsFactory.eINSTANCE.createEntityTypeSequence();
+		/*
 		for(String s: SequenceParser.getInstance().parse(input)) {
 			EntityType e = PnidsFactory.eINSTANCE.createEntityType();
 			e.setText(s);
 			seq.getEntityType().add(e);
 		}
-		
+		*/
 		return seq;
 	}
 

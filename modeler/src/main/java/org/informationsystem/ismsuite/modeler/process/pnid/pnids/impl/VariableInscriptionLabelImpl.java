@@ -47,14 +47,7 @@ public class VariableInscriptionLabelImpl extends StructuredLabelImpl implements
 	 */
 	@Override
 	public EObject parse(String input) {
-		System.out.println("here, parsing: " + input);
-		VariableSequence seq = PnidsFactory.eINSTANCE.createVariableSequence();
-		for(String s: SequenceParser.getInstance().parse(input)) {
-			Variable e = PnidsFactory.eINSTANCE.createVariable();
-			e.setText(s);
-			seq.getVariable().add(e);
-		}
-		
+		VariableSequence seq = SequenceParser.parse(input);
 		return seq;
 	}
 

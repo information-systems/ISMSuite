@@ -6,7 +6,8 @@ Automatic-Module-Name: ISMSuite
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
  target/jar/pnidprocessor.jar,
- target/jar/processengine.jar
+ target/jar/processengine.jar,
+ target/jar/antlr4-runtime.jar
 Bundle-Activator: org.informationsystem.ismsuite.modeler.process.pnid.pnids.provider.PnidEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
