@@ -29,12 +29,20 @@ public class MarkedPetriNet {
 	 * @param variables
 	 */
 	public void addInArc(String transition, String place, List<String> variables) {
+		addInArc(transition, place, 1, variables);
+	}
+	public void addInArc(String transition, String place, int multiplicity, List<String> variables) {
+	
 		addTransition(transition);
-		in.set(transition, place, variables);
+		in.set(transition, place, multiplicity, variables);
 		mapInsertAll(transition, variables, variableMapping);
 		if (creatorVariables.containsKey(transition)) {
 			creatorVariables.get(transition).removeAll(variables);
 		}
+	}
+	
+	public void addInArc(String transition, String place, String... variableArray) {
+		addInArc(transition, place, 1, variableArray);
 	}
 
 	/**
@@ -43,8 +51,8 @@ public class MarkedPetriNet {
 	 * @param place
 	 * @param variables
 	 */
-	public void addInArc(String transition, String place, String... variableArray) {
-		addInArc(transition, place, List.of(variableArray));
+	public void addInArc(String transition, String place, int multiplicity, String... variableArray) {
+		addInArc(transition, place, multiplicity, List.of(variableArray));
 	}
 
 	/**
@@ -54,8 +62,12 @@ public class MarkedPetriNet {
 	 * @param variables
 	 */
 	public void addOutArc(String transition, String place, List<String> variables) {
+		addOutArc(transition, place, 1, variables);
+	}
+	
+	public void addOutArc(String transition, String place, int multiplicity, List<String> variables) {
 		addTransition(transition);
-		out.set(transition, place, variables);
+		out.set(transition, place, multiplicity, variables);
 		mapInsertAll(transition, variables, variableMapping);
 		for(String var: variables) {
 			if (!in.getVariables(transition).contains(var)) {
@@ -71,7 +83,11 @@ public class MarkedPetriNet {
 	 * @param variables
 	 */
 	public void addOutArc(String transition, String place, String... variableArray) {
-		addOutArc(transition, place, List.of(variableArray));
+		addOutArc(transition, place, 1, variableArray);
+	}
+	
+	public void addOutArc(String transition, String place, int multiplicity, String... variableArray) {
+		addOutArc(transition, place, multiplicity, List.of(variableArray));
 	}
 
 	private <S,T> void mapInsert(S key, T value, Map<S,Set<T>> mapping) {
@@ -218,8 +234,9 @@ public class MarkedPetriNet {
 		// Notice that if two places share a variable, only the
 		// intersection of the entities gives the possible enabled values...
 		for(String place: in.getPlaces(transition)) {
-			for(int i = 0; i < in.get(transition, place).size() ; i++) {
-				String var = in.get(transition, place).get(i);
+			IncidenceArray.Arc arc = in.get(transition, place);
+			for(int i = 0; i < arc.getVariableList().size() ; i++) {
+				String var = arc.getVariableList().get(i);
 				Set<String> values = marking.getIdentities(place, i);
 				if (candidateValuations.containsKey(var)) {
 					candidateValuations.get(var).retainAll(values);
@@ -273,7 +290,7 @@ public class MarkedPetriNet {
 
 	public boolean validateBinding(Binding binding) {
 		for(String place: in.getPlaces(binding.getTransition())) {
-			Token token = binding.instantiate(in.get(binding.getTransition(), place));
+			Token token = binding.instantiate(in.get(binding.getTransition(), place).getVariableList());
 			if (!marking.getTokens(place).contains(token)) {
 				return false;
 			}
@@ -284,19 +301,21 @@ public class MarkedPetriNet {
 	public boolean fire(Binding binding) {
 		// Remove all tokens from the input places
 		for(String place: in.getPlaces(binding.getTransition())) {
-			Token token = binding.instantiate(in.get(binding.getTransition(), place));
+			IncidenceArray.Arc arc = in.get(binding.getTransition(), place);
+			Token token = binding.instantiate(arc.getVariableList());
 			if (!marking.getTokens(place).contains(token)) {
 				return false;
 			} else {
 				// int countbefore = marking.getTokens(place).size();
-				marking.remove(place, token);
+				marking.remove(place, arc.getMultiplicity(), token);
 				// assert(marking.getTokens(place).size() == countbefore-1);
 			}
 		}
 		// Add a token to all output places
 		for(String place: out.getPlaces(binding.getTransition())) {
-			Token token = binding.instantiate(out.get(binding.getTransition(), place));
-			marking.add(place, token);
+			IncidenceArray.Arc arc = out.get(binding.getTransition(), place);
+			Token token = binding.instantiate(arc.getVariableList());
+			marking.add(place, arc.getMultiplicity(), token);
 		}
 
 		// And last, update the counter for the creatorVariables

@@ -397,6 +397,16 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getVariableSequence_Multiplicity() {
+		return (EAttribute)variableSequenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getEntity() {
 		return entityEClass;
 	}
@@ -509,6 +519,7 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 
 		variableSequenceEClass = createEClass(VARIABLE_SEQUENCE);
 		createEReference(variableSequenceEClass, VARIABLE_SEQUENCE__VARIABLE);
+		createEAttribute(variableSequenceEClass, VARIABLE_SEQUENCE__MULTIPLICITY);
 
 		entityEClass = createEClass(ENTITY);
 		createEAttribute(entityEClass, ENTITY__TEXT);
@@ -592,6 +603,7 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 
 		initEClass(variableSequenceEClass, VariableSequence.class, "VariableSequence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVariableSequence_Variable(), this.getVariable(), null, "variable", null, 0, -1, VariableSequence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariableSequence_Multiplicity(), ecorePackage.getEInt(), "multiplicity", "1", 0, 1, VariableSequence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(entityEClass, Entity.class, "Entity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEntity_Text(), ecorePackage.getEString(), "text", null, 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

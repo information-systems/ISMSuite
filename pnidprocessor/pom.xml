@@ -6,7 +6,7 @@
 
   <groupId>org.informationsystem.ismsuite</groupId>
   <artifactId>pnidprocessor</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.1.0</version>
 
   <name>pnidprocessor</name>
   <!-- FIXME change it to the project's website -->
@@ -28,7 +28,7 @@
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>processengine</artifactId>
-    	<version>1.0.0-SNAPSHOT</version>
+    	<version>1.1.0</version>
     </dependency>
   </dependencies>
 

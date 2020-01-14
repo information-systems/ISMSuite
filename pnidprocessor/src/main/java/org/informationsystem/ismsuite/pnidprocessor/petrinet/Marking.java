@@ -36,6 +36,22 @@ public class Marking {
 	public Set<Entry<String, MultiSet<Token>>> tokens() {
 		return tokenBag.entrySet();
 	}
+	
+	public int size() {
+		int count = 0;
+		for(MultiSet<Token> bag: tokenBag.values()) {
+			count += bag.size();
+		}
+		return count;
+	}
+	
+	public int size(String place) {
+		if (tokenBag.containsKey(place)) {
+			return tokenBag.get(place).size();
+		} else {
+			return 0;
+		}
+	}
 
 	public void increaseCounter(int size) {
 		counter += size;
@@ -67,12 +83,16 @@ public class Marking {
 	}
 
 	public boolean remove(String place, String... identities) {
-		return remove(place, new Token(identities));
+		return remove(place, 1, new Token(identities));
+	}
+	
+	public boolean remove(String place, Token token) {
+		return remove(place, 1, token);
 	}
 
-	public boolean remove(String place, Token token) {
-		if (tokenBag.containsKey(place)) {
-			tokenBag.get(place).remove(token);
+	public boolean remove(String place, int amount, Token token) {
+		if (tokenBag.containsKey(place) && tokenBag.get(place).containsSufficient(token, amount) ) {
+			tokenBag.get(place).remove(token, amount);
 			if (tokenBag.get(place).isEmpty()) {
 				tokenBag.remove(place);
 			}
@@ -81,16 +101,25 @@ public class Marking {
 			return false;
 		}
 	}
-
+	
 	public void add(String place, String... identities) {
-		add(place, new Token(identities));
+		add(place, 1, new Token(identities));
 	}
 
+	public void add(String place, int amount, String... identities) {
+		add(place, amount, new Token(identities));
+	}
+	
 	public void add(String place, Token token) {
+		add(place, 1, token);
+	}
+		
+
+	public void add(String place, int amount, Token token) {
 		if (!tokenBag.containsKey(place)) {
 			tokenBag.put(place, new MultiSet<>());
 		}
-		tokenBag.get(place).add(token);
+		tokenBag.get(place).add(token, amount);
 	}
 
 	@Override

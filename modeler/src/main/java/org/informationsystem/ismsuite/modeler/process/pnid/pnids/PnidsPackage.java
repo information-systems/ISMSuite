@@ -583,13 +583,22 @@ public interface PnidsPackage extends EPackage {
 	int VARIABLE_SEQUENCE__VARIABLE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Multiplicity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_SEQUENCE__MULTIPLICITY = 1;
+
+	/**
 	 * The number of structural features of the '<em>Variable Sequence</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_SEQUENCE_FEATURE_COUNT = 1;
+	int VARIABLE_SEQUENCE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.EntityImpl <em>Entity</em>}' class.
@@ -950,6 +959,17 @@ public interface PnidsPackage extends EPackage {
 	EReference getVariableSequence_Variable();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence#getMultiplicity <em>Multiplicity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multiplicity</em>'.
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence#getMultiplicity()
+	 * @see #getVariableSequence()
+	 * @generated
+	 */
+	EAttribute getVariableSequence_Multiplicity();
+
+	/**
 	 * Returns the meta object for class '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Entity <em>Entity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1213,6 +1233,14 @@ public interface PnidsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference VARIABLE_SEQUENCE__VARIABLE = eINSTANCE.getVariableSequence_Variable();
+
+		/**
+		 * The meta object literal for the '<em><b>Multiplicity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE_SEQUENCE__MULTIPLICITY = eINSTANCE.getVariableSequence_Multiplicity();
 
 		/**
 		 * The meta object literal for the '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.EntityImpl <em>Entity</em>}' class.

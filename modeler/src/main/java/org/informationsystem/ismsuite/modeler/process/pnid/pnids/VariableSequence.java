@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence#getVariable <em>Variable</em>}</li>
+ *   <li>{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence#getMultiplicity <em>Multiplicity</em>}</li>
  * </ul>
  *
  * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage#getVariableSequence()
@@ -34,5 +35,28 @@ public interface VariableSequence extends EObject {
 	 * @generated
 	 */
 	EList<Variable> getVariable();
+
+	/**
+	 * Returns the value of the '<em><b>Multiplicity</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multiplicity</em>' attribute.
+	 * @see #setMultiplicity(int)
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage#getVariableSequence_Multiplicity()
+	 * @model default="1"
+	 * @generated
+	 */
+	int getMultiplicity();
+
+	/**
+	 * Sets the value of the '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence#getMultiplicity <em>Multiplicity</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Multiplicity</em>' attribute.
+	 * @see #getMultiplicity()
+	 * @generated
+	 */
+	void setMultiplicity(int value);
 
 } // VariableSequence
