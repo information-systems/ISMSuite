@@ -196,15 +196,24 @@
       </category>
       <command
             categoryId="org.informationsystem.ismsuite.modeler.commands.standardcategory"
-            id="ismsuite.modeler.commands.validate"
+            id="ismsuite.modeler.process.commands.validate"
             name="Validate PNID">
+      </command>
+      <command
+            categoryId="org.informationsystem.ismsuite.modeler.commands.standardcategory"
+            id="ismsuite.modeler.process.commands.simulatepnid"
+            name="Simulate PNID">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="org.informationsystem.ismsuite.modeler.process.commands.ValidatorCommand"
-            commandId="ismsuite.modeler.commands.validate">
+            commandId="ismsuite.modeler.process.commands.validate">
+      </handler>
+      <handler
+      		class="org.informationsystem.ismsuite.modeler.process.commands.PNIDSimulatorCommand"
+      		commandId="ismsuite.modeler.process.commands.simulatepnid">
       </handler>
    </extension>
    <extension
@@ -215,9 +224,15 @@
       		label="ISM Suite"
       		mnemonic="I">
       			<command
-      				commandId="ismsuite.modeler.commands.validate"
+      				commandId="ismsuite.modeler.process.commands.validate"
       				id="ismsuite.modeler.menus.topmenu.validate"
       				mnemonic="V">
+      			</command>
+      			<separator name="separator-process-run" visible="true"/>
+      			<command
+      				commandId="ismsuite.modeler.process.commands.simulatepnid"
+      				id="ismsuite.modeler.menus.topmenu.simulatepnid"
+      				mnemonic="P">
       			</command>
           </menu>
       </menuContribution>
