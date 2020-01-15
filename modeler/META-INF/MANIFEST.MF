@@ -26,8 +26,7 @@ Export-Package: org.informationsystem.ismsuite.modeler.process.pnid.pnids,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.tests,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.util,
- org.informationsystem.ismsuite.modeler.commands,
- org.informationsystem.ismsuite.modeler.process.commands
+  org.informationsystem.ismsuite.modeler.process.commands
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,
