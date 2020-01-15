@@ -15,7 +15,7 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.EntityTypeLabel
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.EntityTypeSequence;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage;
-import org.informationsystem.ismsuite.modeler.process.util.SequenceParser;
+import org.informationsystem.ismsuite.modeler.process.util.VariableSequenceParser;
 import org.pnml.tools.epnk.structuredpntypemodel.impl.StructuredLabelImpl;
 
 /**

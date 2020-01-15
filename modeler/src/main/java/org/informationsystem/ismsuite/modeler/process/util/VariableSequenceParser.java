@@ -22,7 +22,7 @@ import org.informationsystem.ismsuite.modeler.process.util.variableparser.Variab
 import org.informationsystem.ismsuite.modeler.process.util.variableparser.VariableDescriptionParser;
 import org.informationsystem.ismsuite.modeler.process.util.variableparser.VariableDescriptionParser.SequenceContext;
 
-public class SequenceParser {
+public class VariableSequenceParser {
 
 
 	public static VariableSequence parse(String input) {
