@@ -98,6 +98,114 @@ public class TestMarking {
 		
 	}
 	
+	@Test
+	public void addMultipleTokens() {
+		Marking m = new Marking();
+		Token t1 = new Token("e1","e2", "e3");
+		Token t2 = new Token("e4","e5", "e6");
+		Token t3 = new Token("e1","e5", "e3");
+		
+		m.add("p1", 4, t1);
+		assertEquals(4, m.getTokens("p1").size());
+		
+		Set<String> ids = m.getIdentities("p1", 0);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e1"));	
+		
+		ids = m.getIdentities("p1", 1);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e2"));
+		
+		ids = m.getIdentities("p1", 2);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e3"));
+		
+		m.add("p1", t2);
+		assertEquals(5, m.getTokens("p1").size());
+		
+		ids = m.getIdentities("p1", 0);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e1"));
+		assertTrue(ids.contains("e4"));
+		
+		ids = m.getIdentities("p1", 1);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e2"));
+		assertTrue(ids.contains("e5"));
+		
+		ids = m.getIdentities("p1", 2);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e3"));
+		assertTrue(ids.contains("e6"));
+		
+		m.add("p1", t3);
+		assertEquals(6, m.getTokens("p1").size());
+		
+		ids = m.getIdentities("p1", 0);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e1"));
+		assertTrue(ids.contains("e4"));
+		
+		ids = m.getIdentities("p1", 1);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e2"));
+		assertTrue(ids.contains("e5"));
+		
+		ids = m.getIdentities("p1", 2);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e3"));
+		assertTrue(ids.contains("e6"));
+		
+		// Remove token t2
+		m.remove("p1", t2);
+		assertEquals(5, m.getTokens("p1").size());
+		
+		ids = m.getIdentities("p1", 0);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e1"));
+		
+		ids = m.getIdentities("p1", 1);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e2"));
+		assertTrue(ids.contains("e5"));
+		
+		ids = m.getIdentities("p1", 2);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e3"));
+		
+		m.remove("p1", 2, t1);
+		assertEquals(3, m.getTokens("p1").size());
+		
+		ids = m.getIdentities("p1", 0);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e1"));
+		
+		ids = m.getIdentities("p1", 1);
+		assertEquals(2, ids.size());
+		assertTrue(ids.contains("e2"));
+		assertTrue(ids.contains("e5"));
+		
+		ids = m.getIdentities("p1", 2);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e3"));
+		
+		m.remove("p1", 2, t1);
+		assertEquals(1, m.getTokens("p1").size());
+		
+		// Only token left: Token("e1","e5", "e3");
+		ids = m.getIdentities("p1", 0);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e1"));
+		
+		ids = m.getIdentities("p1", 1);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e5"));
+		
+		ids = m.getIdentities("p1", 2);
+		assertEquals(1, ids.size());
+		assertTrue(ids.contains("e3"));
+	}
+	
 	
 	
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="org.informationsystem.ismsuite.modeler.process">
+   <feature url="features/org.informationsystem.ismsuite.modeler.process_0.1.0.jar" id="org.informationsystem.ismsuite.modeler.process" version="0.1">
       <category name="ISMSuiteModeler"/>
    </feature>
    <category-def name="ISMSuiteModeler" label="ISM Suite Modeler"/>

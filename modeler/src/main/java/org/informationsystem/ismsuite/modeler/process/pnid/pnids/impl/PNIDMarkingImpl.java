@@ -47,7 +47,7 @@ public class PNIDMarkingImpl extends StructuredLabelImpl implements PNIDMarking 
 	 */
 	@Override
 	public EObject parse(String input) {
-		return TokenParser.getInstance().parse(input);
+		return TokenParser.parse(input);
 	}
 
 	/**

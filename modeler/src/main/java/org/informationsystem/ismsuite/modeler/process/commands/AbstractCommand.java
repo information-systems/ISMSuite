@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.modeler.commands;
+package org.informationsystem.ismsuite.modeler.process.commands;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -20,6 +20,10 @@ public abstract class AbstractCommand extends AbstractHandler {
 	
 	protected PetriNet getActivePetriNet(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		return getActivePetriNet(window);
+	}
+	
+	protected PetriNet getActivePetriNet(IWorkbenchWindow window) throws ExecutionException {
 		if (window.getActivePage() == null) {
 			return null;
 		}

@@ -6,19 +6,19 @@
 
 <plugin>
 
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pnid -->
+      <parser
+            type="pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.util.PnidsResourceFactoryImpl"/>
+   </extension>
+
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated pnid -->
       <package
             uri="http://org.pnml.tools/epnk/types/pnids"
             class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage"
             genModel="model/pnid.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated pnid -->
-      <parser
-            type="pnids"
-            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.util.PnidsResourceFactoryImpl"/>
    </extension>
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
@@ -196,15 +196,24 @@
       </category>
       <command
             categoryId="org.informationsystem.ismsuite.modeler.commands.standardcategory"
-            id="ismsuite.modeler.commands.validate"
+            id="ismsuite.modeler.process.commands.validate"
             name="Validate PNID">
+      </command>
+      <command
+            categoryId="org.informationsystem.ismsuite.modeler.commands.standardcategory"
+            id="ismsuite.modeler.process.commands.simulatepnid"
+            name="Simulate PNID">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="org.informationsystem.ismsuite.modeler.process.commands.ValidatorCommand"
-            commandId="ismsuite.modeler.commands.validate">
+            commandId="ismsuite.modeler.process.commands.validate">
+      </handler>
+      <handler
+      		class="org.informationsystem.ismsuite.modeler.process.commands.PNIDSimulatorCommand"
+      		commandId="ismsuite.modeler.process.commands.simulatepnid">
       </handler>
    </extension>
    <extension
@@ -215,9 +224,15 @@
       		label="ISM Suite"
       		mnemonic="I">
       			<command
-      				commandId="ismsuite.modeler.commands.validate"
+      				commandId="ismsuite.modeler.process.commands.validate"
       				id="ismsuite.modeler.menus.topmenu.validate"
       				mnemonic="V">
+      			</command>
+      			<separator name="separator-process-run" visible="true"/>
+      			<command
+      				commandId="ismsuite.modeler.process.commands.simulatepnid"
+      				id="ismsuite.modeler.menus.topmenu.simulatepnid"
+      				mnemonic="P">
       			</command>
           </menu>
       </menuContribution>
@@ -242,32 +257,62 @@
                org.eclipse.emf.edit.provider.IItemLabelProvider
                org.eclipse.emf.edit.provider.IItemPropertySource"/>
    </extension>
-
-   <extension point="org.eclipse.ui.newWizards">
-      <!-- @generated pnid-simulator-annotations -->
-      <category
-            id="org.eclipse.emf.ecore.Wizard.category.ID"
-            name="%_UI_Wizard_category"/>
-      <wizard
-            id="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorModelWizardID"
-            name="%_UI_PnidsimulatorModelWizard_label"
-            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/PnidsimulatorModelFile.gif">
-         <description>%_UI_PnidsimulatorModelWizard_description</description>
-         <selection class="org.eclipse.core.resources.IResource"/>
-      </wizard>
-   </extension>
-
-   <extension point="org.eclipse.ui.editors">
-      <!-- @generated pnid-simulator-annotations -->
-      <editor
-            id="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorEditorID"
-            name="%_UI_PnidsimulatorEditor_label"
-            icon="icons/full/obj16/PnidsimulatorModelFile.gif"
-            extensions="pnidsimulator"
-            class="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorEditor"
-            contributorClass="org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.presentation.PnidsimulatorActionBarContributor">
-      </editor>
-   </extension>
+   
+	<!-- Creating the perspective -->
+	<extension point="org.eclipse.ui.perspectives">
+		<perspective
+		class="org.informationsystem.ismsuite.modeler.ui.PerspectiveFactory"
+		fixed="true"
+		id="org.informationsystem.ismsuite.modeler.ui.perspective"
+		name="ISMSuite"
+	>
+		</perspective>
+	</extension>
+	<extension point="org.eclipse.ui.perspectiveExtensions">
+		<perspectiveExtension targetID="org.informationsystem.ismsuite.modeler.ui.perspective">
+			<view
+				id="org.eclipse.jdt.ui.PackageExplorer"
+				minimized="false"
+				moveable="false"
+				ratio="0.2"
+				relationship="left"
+				relative="org.pnml.tools.epnk.applications.view"
+				visible="true">
+			</view>
+		    <view
+		        id="org.eclipse.ui.views.ContentOutline"
+		        minimized="false"
+		        moveable="true"
+		        ratio="0.5"
+		        relationship="bottom"
+		        relative="org.eclipse.jdt.ui.PackageExplorer"
+		        visible="true"
+		    >
+		    </view>
+		    <view
+		        closeable="true"
+		        id="org.eclipse.ui.views.PropertySheet"
+		        minimized="false"
+		        moveable="true"
+		        ratio="0.8"
+		        relationship="bottom"
+		        relative="org.eclipse.ui.navigator.ProjectExplorer"
+		        visible="true">
+		    </view>
+		    <view
+		        closeable="true"
+		        id="org.pnml.tools.epnk.applications.view"
+		        minimized="false"
+		        moveable="true"
+		        relationship="stack"
+		        relative="org.eclipse.ui.views.PropertySheet"
+		        showTitle="true"
+		        visible="true">
+		    </view>
+		    <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
+		    <newWizardShortcut id="org.pnml.tools.epnk.pnmlcoremodel.presentation.PnmlcoremodelModelPNMLWizardID">
+		    </newWizardShortcut>
+		    
+		</perspectiveExtension>
+	</extension>
 </plugin>

@@ -15,7 +15,7 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableInscriptionLabel;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence;
-import org.informationsystem.ismsuite.modeler.process.util.SequenceParser;
+import org.informationsystem.ismsuite.modeler.process.util.VariableSequenceParser;
 import org.pnml.tools.epnk.structuredpntypemodel.impl.StructuredLabelImpl;
 
 /**
@@ -47,14 +47,7 @@ public class VariableInscriptionLabelImpl extends StructuredLabelImpl implements
 	 */
 	@Override
 	public EObject parse(String input) {
-		System.out.println("here, parsing: " + input);
-		VariableSequence seq = PnidsFactory.eINSTANCE.createVariableSequence();
-		for(String s: SequenceParser.getInstance().parse(input)) {
-			Variable e = PnidsFactory.eINSTANCE.createVariable();
-			e.setText(s);
-			seq.getVariable().add(e);
-		}
-		
+		VariableSequence seq = VariableSequenceParser.parse(input);
 		return seq;
 	}
 

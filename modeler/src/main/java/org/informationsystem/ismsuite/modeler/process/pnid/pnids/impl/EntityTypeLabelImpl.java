@@ -15,7 +15,8 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.EntityTypeLabel
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.EntityTypeSequence;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage;
-import org.informationsystem.ismsuite.modeler.process.util.SequenceParser;
+import org.informationsystem.ismsuite.modeler.process.util.EntityTypeParser;
+import org.informationsystem.ismsuite.modeler.process.util.VariableSequenceParser;
 import org.pnml.tools.epnk.structuredpntypemodel.impl.StructuredLabelImpl;
 
 /**
@@ -48,14 +49,7 @@ public class EntityTypeLabelImpl extends StructuredLabelImpl implements EntityTy
 	 */
 	@Override
 	public EObject parse(String input) {
-		EntityTypeSequence seq = PnidsFactory.eINSTANCE.createEntityTypeSequence();
-		for(String s: SequenceParser.getInstance().parse(input)) {
-			EntityType e = PnidsFactory.eINSTANCE.createEntityType();
-			e.setText(s);
-			seq.getEntityType().add(e);
-		}
-		
-		return seq;
+		return EntityTypeParser.parse(input);
 	}
 
 	/**

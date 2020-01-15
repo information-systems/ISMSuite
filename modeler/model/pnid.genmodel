@@ -36,6 +36,7 @@
     </genClasses>
     <genClasses ecoreClass="PNID.ecore#//VariableSequence">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//VariableSequence/variable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PNID.ecore#//VariableSequence/multiplicity"/>
     </genClasses>
     <genClasses ecoreClass="PNID.ecore#//Entity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PNID.ecore#//Entity/text"/>

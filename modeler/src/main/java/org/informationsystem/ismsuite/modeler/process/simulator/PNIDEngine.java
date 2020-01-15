@@ -17,6 +17,7 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Token;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.TokenBag;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidPNID;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.UnknownNetType;
 import org.informationsystem.ismsuite.modeler.process.validator.PNIDSyntaxChecker;
@@ -83,14 +84,19 @@ public class PNIDEngine {
 				// It is an In-arc, hence, the Source is a place
 				Place place = (Place) flat.resolve((PlaceNode) a.getSource());
 				List<String> vars = new ArrayList<>();
+				int multiplicity = 1;
 				if (a instanceof Arc) {
 					if ((((Arc) a).getInscription()!= null) && (((Arc) a).getInscription().getStructure() != null)) {
-						for(Variable v: ((Arc) a).getInscription().getStructure().getVariable()) {
+						VariableSequence inscription = ((Arc) a).getInscription().getStructure();
+						for(Variable v: inscription.getVariable()) {
 							vars.add(v.getText());
+						}
+						if (inscription.getMultiplicity() > 1) {
+							multiplicity = inscription.getMultiplicity();
 						}
 					}
 				}
-				markedNet.addInArc(transition.getId(), place.getId(), vars);
+				markedNet.addInArc(transition.getId(), place.getId(), multiplicity, vars);
 			}
 			
 			// Add the outgoing arcs
@@ -98,14 +104,19 @@ public class PNIDEngine {
 				// It is an in arc, hence, the source is this transition
 				Place place = (Place) flat.resolve((PlaceNode) a.getTarget());
 				List<String> vars = new ArrayList<>();
+				int multiplicity = 1;
 				if (a instanceof Arc) {
 					if ((((Arc) a).getInscription()!= null) && (((Arc) a).getInscription().getStructure() != null)) {
-						for(Variable v: ((Arc) a).getInscription().getStructure().getVariable()) {
+						VariableSequence inscription = ((Arc) a).getInscription().getStructure();
+						for(Variable v: inscription.getVariable()) {
 							vars.add(v.getText());
+						}
+						if (inscription.getMultiplicity() > 1) {
+							multiplicity = inscription.getMultiplicity();
 						}
 					}
 				}
-				markedNet.addOutArc(transition.getId(), place.getId(), vars);
+				markedNet.addOutArc(transition.getId(), place.getId(), multiplicity, vars);
 			}
 		}
 		

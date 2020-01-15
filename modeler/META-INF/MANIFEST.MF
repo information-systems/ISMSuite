@@ -1,14 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ISMSuite Process Modeler
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.informationsystem.ismsuite.modeler.process;singleton:=true
 Automatic-Module-Name: ISMSuite
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ClassPath: .,
  target/jar/pnidprocessor.jar,
- target/jar/processengine.jar
-Bundle-Activator: org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider.PnidsimulatorannotationsEditPlugin$Implementation
-Bundle-Vendor: InformationSystem.org
+ target/jar/processengine.jar,
+ target/jar/antlr4-runtime.jar
+Bundle-Activator: org.informationsystem.ismsuite.modeler.process.pnid.pnids.provider.PnidEditPlugin$Implementation
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11,
  JavaSE-12,
@@ -25,8 +26,7 @@ Export-Package: org.informationsystem.ismsuite.modeler.process.pnid.pnids,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.tests,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.util,
- org.informationsystem.ismsuite.modeler.commands,
- org.informationsystem.ismsuite.modeler.process.commands
+  org.informationsystem.ismsuite.modeler.process.commands
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,
