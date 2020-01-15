@@ -6,19 +6,19 @@
 
 <plugin>
 
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pnid -->
+      <parser
+            type="pnids"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.util.PnidsResourceFactoryImpl"/>
+   </extension>
+
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated pnid -->
       <package
             uri="http://org.pnml.tools/epnk/types/pnids"
             class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage"
             genModel="model/pnid.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated pnid -->
-      <parser
-            type="pnids"
-            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.util.PnidsResourceFactoryImpl"/>
    </extension>
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
