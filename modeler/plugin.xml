@@ -257,4 +257,62 @@
                org.eclipse.emf.edit.provider.IItemLabelProvider
                org.eclipse.emf.edit.provider.IItemPropertySource"/>
    </extension>
+   
+	<!-- Creating the perspective -->
+	<extension point="org.eclipse.ui.perspectives">
+		<perspective
+		class="org.informationsystem.ismsuite.modeler.ui.PerspectiveFactory"
+		fixed="true"
+		id="org.informationsystem.ismsuite.modeler.ui.perspective"
+		name="ISMSuite"
+	>
+		</perspective>
+	</extension>
+	<extension point="org.eclipse.ui.perspectiveExtensions">
+		<perspectiveExtension targetID="org.informationsystem.ismsuite.modeler.ui.perspective">
+			<view
+				id="org.eclipse.jdt.ui.PackageExplorer"
+				minimized="false"
+				moveable="false"
+				ratio="0.2"
+				relationship="left"
+				relative="org.pnml.tools.epnk.applications.view"
+				visible="true">
+			</view>
+		    <view
+		        id="org.eclipse.ui.views.ContentOutline"
+		        minimized="false"
+		        moveable="true"
+		        ratio="0.5"
+		        relationship="bottom"
+		        relative="org.eclipse.jdt.ui.PackageExplorer"
+		        visible="true"
+		    >
+		    </view>
+		    <view
+		        closeable="true"
+		        id="org.eclipse.ui.views.PropertySheet"
+		        minimized="false"
+		        moveable="true"
+		        ratio="0.8"
+		        relationship="bottom"
+		        relative="org.eclipse.ui.navigator.ProjectExplorer"
+		        visible="true">
+		    </view>
+		    <view
+		        closeable="true"
+		        id="org.pnml.tools.epnk.applications.view"
+		        minimized="false"
+		        moveable="true"
+		        relationship="stack"
+		        relative="org.eclipse.ui.views.PropertySheet"
+		        showTitle="true"
+		        visible="true">
+		    </view>
+		    <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
+		    <newWizardShortcut id="org.pnml.tools.epnk.pnmlcoremodel.presentation.PnmlcoremodelModelPNMLWizardID">
+		    </newWizardShortcut>
+		    
+		</perspectiveExtension>
+	</extension>
 </plugin>
