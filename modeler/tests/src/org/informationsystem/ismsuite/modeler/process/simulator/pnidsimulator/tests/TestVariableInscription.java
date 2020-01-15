@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNull;
 
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence;
-import org.informationsystem.ismsuite.modeler.process.util.SequenceParser;
+import org.informationsystem.ismsuite.modeler.process.util.VariableSequenceParser;
 import org.junit.Test;
 
 public class TestVariableInscription {
@@ -15,7 +15,7 @@ public class TestVariableInscription {
 	public void testMultipleSingleWithSign() {
 		String s = "4`a";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(4, seq.getMultiplicity());
@@ -28,7 +28,7 @@ public class TestVariableInscription {
 	public void testMultipleSingle() {
 		String s = "4a";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(4, seq.getMultiplicity());
@@ -41,7 +41,7 @@ public class TestVariableInscription {
 	public void testMultipleVector() {
 		String s = "4(a,def,c)";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(4, seq.getMultiplicity());
@@ -56,7 +56,7 @@ public class TestVariableInscription {
 	public void testMultipleVectorWithSign() {
 		String s = "4`(a,def,c)";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(4, seq.getMultiplicity());
@@ -72,7 +72,7 @@ public class TestVariableInscription {
 	public void testMultipleSingleton() {
 		String s = "4(a)";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(4, seq.getMultiplicity());
@@ -85,7 +85,7 @@ public class TestVariableInscription {
 	public void testMultipleSingletonWithSign() {
 		String s = "4`(a)";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(4, seq.getMultiplicity());
@@ -98,7 +98,7 @@ public class TestVariableInscription {
 	public void testMultipleEmpty() {
 		String s = "2";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(2, seq.getMultiplicity());
@@ -108,7 +108,7 @@ public class TestVariableInscription {
 	public void testEmptyString() {
 		String s = "";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(0, seq.getVariable().size());
@@ -118,7 +118,7 @@ public class TestVariableInscription {
 	public void testEmptyVariableVector() {
 		String s = "()";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNull(seq);
 	}
@@ -127,7 +127,7 @@ public class TestVariableInscription {
 	public void testSingleton() {
 		String s = "variable";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(1, seq.getVariable().size());
@@ -138,7 +138,7 @@ public class TestVariableInscription {
 	public void testSingletonVector() {
 		String s = "( variable )";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(1, seq.getVariable().size());
@@ -149,7 +149,7 @@ public class TestVariableInscription {
 	public void testMultiplicityInscriptions() {
 		String s = "(a,b)";
 		
-		VariableSequence seq = SequenceParser.parse(s);
+		VariableSequence seq = VariableSequenceParser.parse(s);
 		
 		assertNotNull(seq);
 		assertEquals(2, seq.getVariable().size());
