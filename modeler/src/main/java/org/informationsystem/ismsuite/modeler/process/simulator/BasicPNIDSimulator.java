@@ -5,7 +5,6 @@ import java.util.Set;
 import org.eclipse.emf.common.notify.Adapter;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidPNID;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.UnknownNetType;
-import org.informationsystem.ismsuite.modeler.process.simulator.handlers.FireTransitionHandler;
 import org.informationsystem.ismsuite.modeler.process.simulator.handlers.SimulatorPresentationHandler;
 import org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PlaceMarkingAnnotation;
 import org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PnidsimulatorFactory;
@@ -22,18 +21,26 @@ import org.pnml.tools.epnk.pnmlcoremodel.PlaceNode;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 import org.pnml.tools.epnk.pnmlcoremodel.TransitionNode;
 
-public class Simulator extends ApplicationWithUIManager {
+public class BasicPNIDSimulator extends ApplicationWithUIManager {
 
 	private PNIDEngine engine;
 	private FlatAccess flatAccess;
 	private Adapter adapter;
 	
-	public Simulator(PetriNet petrinet) {
+	public BasicPNIDSimulator(PetriNet petrinet) {
 		super(petrinet);		
+	}
+	
+	public PNIDEngine getEngine() {
+		return engine;
 	}
 	
 	@Override
 	public void initializeContents() {
+		initializeSimulator();
+	}
+	
+	protected void initializeSimulator() {
 		flatAccess = FlatAccess.getFlatAccess(this.getPetrinet());
 		adapter = new InvalidatorAdapter(this);
 		flatAccess.addInvalidationListener(adapter);
@@ -43,7 +50,6 @@ public class Simulator extends ApplicationWithUIManager {
 			generateCurrentAnnotations();
 			
 			ApplicationUIManager manager = this.getPresentationManager();
-			manager.addActionHandler(new FireTransitionHandler(this));
 			manager.addPresentationHandler(new SimulatorPresentationHandler());
 			
 		} catch (UnknownNetType | InvalidPNID e) {

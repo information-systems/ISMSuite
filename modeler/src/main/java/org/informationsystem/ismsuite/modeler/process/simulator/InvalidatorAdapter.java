@@ -8,9 +8,9 @@ import org.eclipse.swt.widgets.Display;
 
 public class InvalidatorAdapter implements Adapter {
 	
-	private Simulator simulator;
+	private BasicPNIDSimulator simulator;
 	
-	public InvalidatorAdapter(Simulator simulator) {
+	public InvalidatorAdapter(BasicPNIDSimulator simulator) {
 		this.simulator = simulator;
 	}
 
