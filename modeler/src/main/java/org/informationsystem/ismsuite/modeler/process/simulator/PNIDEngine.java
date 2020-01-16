@@ -46,6 +46,10 @@ public class PNIDEngine {
 	private Stack<PNIDBinding> history = new Stack<>();
 	
 	public PNIDEngine(PetriNet net) throws UnknownNetType, InvalidPNID {
+		setPetrinet(net);
+	}
+	
+	public void setPetrinet(PetriNet petrinet) throws UnknownNetType, InvalidPNID {
 		if (net.getType() == null || !(net.getType() instanceof PNID)) {
 			throw new UnknownNetType(net);
 		}
@@ -58,8 +62,13 @@ public class PNIDEngine {
 		reset();
 	}
 	
+	
 	public PetriNet getPetriNet() {
 		return net;
+	}
+	
+	public MarkedPetriNet getMarkedPetriNet() {
+		return markedNet;
 	}
 	
 	public boolean reset() {
@@ -304,5 +313,4 @@ public class PNIDEngine {
 		String id = place.getId();
 		return markedNet.getMarking().getTokens(id).size();
 	}
-	
 }
