@@ -204,6 +204,11 @@
             id="ismsuite.modeler.process.commands.simulatepnid"
             name="Simulate PNID">
       </command>
+      <command
+            categoryId="org.informationsystem.ismsuite.modeler.commands.standardcategory"
+            id="ismsuite.modeler.process.commands.ismsimulator"
+            name="Start ISM Simulator">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -214,6 +219,10 @@
       <handler
       		class="org.informationsystem.ismsuite.modeler.process.commands.PNIDSimulatorCommand"
       		commandId="ismsuite.modeler.process.commands.simulatepnid">
+      </handler>
+      <handler
+      		class="org.informationsystem.ismsuite.modeler.process.commands.ISMSimulatorCommand"
+      		commandId="ismsuite.modeler.process.commands.ismsimulator">
       </handler>
    </extension>
    <extension
@@ -228,11 +237,16 @@
       				id="ismsuite.modeler.menus.topmenu.validate"
       				mnemonic="V">
       			</command>
-      			<separator name="separator-process-run" visible="true"/>
       			<command
       				commandId="ismsuite.modeler.process.commands.simulatepnid"
       				id="ismsuite.modeler.menus.topmenu.simulatepnid"
       				mnemonic="P">
+      			</command>
+      			<separator name="separator-process-run" visible="true"/>
+      			<command
+      				commandId="ismsuite.modeler.process.commands.ismsimulator"
+      				id="ismsuite.modeler.menus.topmenu.simulateism"
+      				mnemonic="I">
       			</command>
           </menu>
       </menuContribution>
