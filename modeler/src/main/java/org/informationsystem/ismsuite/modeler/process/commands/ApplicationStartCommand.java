@@ -10,7 +10,7 @@ import org.pnml.tools.epnk.applications.ApplicationFactory;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 
-public class ApplicationStartCommand  extends AbstractCommand {
+public class ApplicationStartCommand  extends AbstractPetriNetCommand {
 
 	private ApplicationFactory factory;
 	
@@ -26,6 +26,15 @@ public class ApplicationStartCommand  extends AbstractCommand {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		
 		PetriNet net = getActivePetriNet(window);
+		
+		if (net == null) {
+			MessageDialog.openError(
+					window.getShell(),
+					"ISMSuite - " + factory.getName(),
+					"No Petri net is selected!");
+			
+			return null;
+		}
 
 		if (!factory.isApplicable(net)) {
 			String name = "";

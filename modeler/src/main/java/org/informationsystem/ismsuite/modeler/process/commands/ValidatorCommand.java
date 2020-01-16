@@ -17,7 +17,7 @@ import org.pnml.tools.epnk.actions.commands.AddMissingIDsCommand;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNetDoc;
 
-public class ValidatorCommand extends AbstractCommand {
+public class ValidatorCommand extends AbstractPetriNetCommand {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {

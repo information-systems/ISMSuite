@@ -15,7 +15,7 @@ import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNetDoc;
 import org.pnml.tools.epnk.pnmlcoremodel.presentation.PnmlcoremodelEditor;
 
-public abstract class AbstractCommand extends AbstractHandler {
+public abstract class AbstractPetriNetCommand extends AbstractHandler {
 	
 	
 	protected PetriNet getActivePetriNet(ExecutionEvent event) throws ExecutionException {
@@ -29,6 +29,9 @@ public abstract class AbstractCommand extends AbstractHandler {
 		}
 		
 		IEditorPart edit = window.getActivePage().getActiveEditor();
+		if (edit == null) {
+			return null;
+		}
 		
 		if (edit.getEditorInput() instanceof PNMLPageEditorInput) {
 			 EObject container = ((PNMLPageEditorInput) edit.getEditorInput()).getInputPage().eContainer();
