@@ -13,6 +13,10 @@ public class PNIDModel implements ProcessModel {
 	
 	private MarkedPetriNet net;
 	
+	public MarkedPetriNet getPetriNet() {
+		return net;
+	}
+	
 	public PNIDModel(MarkedPetriNet petriNet) {
 		this.net = petriNet;
 	}

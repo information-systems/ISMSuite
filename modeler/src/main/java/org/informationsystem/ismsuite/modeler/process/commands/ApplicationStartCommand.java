@@ -10,9 +10,9 @@ import org.pnml.tools.epnk.applications.ApplicationFactory;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 
-public class ApplicationStartCommand  extends AbstractCommand {
+public class ApplicationStartCommand  extends AbstractPetriNetCommand {
 
-	private ApplicationFactory factory;
+	protected ApplicationFactory factory;
 	
 	public ApplicationStartCommand(ApplicationFactory factory) {
 		super();
@@ -20,12 +20,44 @@ public class ApplicationStartCommand  extends AbstractCommand {
 		this.factory = factory;
 	}
 	
-	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
+		return startApplication(event);
+	}
+	
+	protected Object startApplication(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		
+		PetriNet net = tryToGetNet(window);
+		if (net == null) {
+			return null;
+		}
+		
+		Activator applicationFactoryRegistry = Activator.getInstance();
+		
+		Application application = factory.startApplication(net);
+		if (application != null) {
+			application.initialize(null);
+			application.setName(factory.getName());
+			application.getNetAnnotations().setAppId(factory.getID());
+			application.getNetAnnotations().setAppVersion(factory.getVersion());
+			applicationFactoryRegistry.getApplicationRegistry().addApplication(application);
+		}
+		
+		return null;
+	}
+	
+	protected PetriNet tryToGetNet(IWorkbenchWindow window) throws ExecutionException {
 		PetriNet net = getActivePetriNet(window);
+		
+		if (net == null) {
+			MessageDialog.openError(
+					window.getShell(),
+					"ISMSuite - " + factory.getName(),
+					"No Petri net is selected!");
+			
+			return null;
+		}
 
 		if (!factory.isApplicable(net)) {
 			String name = "";
@@ -45,18 +77,7 @@ public class ApplicationStartCommand  extends AbstractCommand {
 			return null;
 		}
 		
-		Activator applicationFactoryRegistry = Activator.getInstance();
-		
-		Application application = factory.startApplication(net);
-		if (application != null) {
-			application.initialize(null);
-			application.setName(factory.getName());
-			application.getNetAnnotations().setAppId(factory.getID());
-			application.getNetAnnotations().setAppVersion(factory.getVersion());
-			applicationFactoryRegistry.getApplicationRegistry().addApplication(application);
-		}
-		
-		return null;
+		return net;
 	}
 	
 

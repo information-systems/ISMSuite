@@ -45,21 +45,30 @@ public class PNIDEngine {
 	
 	private Stack<PNIDBinding> history = new Stack<>();
 	
-	public PNIDEngine(PetriNet net) throws UnknownNetType, InvalidPNID {
-		if (net.getType() == null || !(net.getType() instanceof PNID)) {
-			throw new UnknownNetType(net);
+	public PNIDEngine(PetriNet petrinet) throws UnknownNetType, InvalidPNID {
+		if (petrinet.getType() == null) {
+			throw new UnknownNetType(petrinet);
 		}
-		if (!PNIDSyntaxChecker.checkPetrinet(net)) {
-			throw new InvalidPNID(net);
+		if (!(petrinet.getType() instanceof PNID)) {
+			throw new UnknownNetType(petrinet);
 		}
+		if (!PNIDSyntaxChecker.checkPetrinet(petrinet)) {
+			throw new InvalidPNID(petrinet);
+		}
+		this.net = petrinet;
 		
 		this.flat = FlatAccess.getFlatAccess(net);
 		
 		reset();
 	}
 	
+	
 	public PetriNet getPetriNet() {
 		return net;
+	}
+	
+	public MarkedPetriNet getMarkedPetriNet() {
+		return markedNet;
 	}
 	
 	public boolean reset() {
@@ -304,5 +313,4 @@ public class PNIDEngine {
 		String id = place.getId();
 		return markedNet.getMarking().getTokens(id).size();
 	}
-	
 }

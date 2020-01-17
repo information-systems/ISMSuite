@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.informationsystem.ismsuite.modeler.process.simulator.PNIDBinding;
-import org.informationsystem.ismsuite.modeler.process.simulator.Simulator;
+import org.informationsystem.ismsuite.modeler.process.simulator.BasicPNIDSimulator;
 import org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.TransitionActivationAnnotation;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
 import org.pnml.tools.epnk.applications.ui.IActionHandler;
@@ -20,9 +20,9 @@ public class FireTransitionHandler implements IActionHandler, SelectionListener 
 
 	public static final String BINDING = "org.pnml.tools.epnk.pnids.engine.Binding";
 	
-	private Simulator simulator;
+	private BasicPNIDSimulator simulator;
 	
-	public FireTransitionHandler(Simulator simulator) {
+	public FireTransitionHandler(BasicPNIDSimulator simulator) {
 		super();
 		this.simulator = simulator;
 	}

@@ -23,7 +23,7 @@ public class StartSimulator implements IObjectActionDelegate {
 		
 	@Override
 	public void run(IAction action) {
-		Simulator application = new Simulator(petrinet);
+		BasicPNIDSimulator application = new BasicPNIDSimulator(petrinet);
 		Activator activator = Activator.getInstance();
 		ApplicationRegistry registry = activator.getApplicationRegistry();
 		application.initialize(null);
