@@ -329,4 +329,14 @@
 		    
 		</perspectiveExtension>
 	</extension>
+ <extension
+       point="org.eclipse.ui.views">
+    <view
+          allowMultiple="false"
+          class="org.informationsystem.ismsuite.modeler.simulator.SimulationView"
+          id="org.informationsystem.ismsuite.modeler.simulator.view"
+          name="IMSuite: Simulation"
+          restorable="true">
+    </view>
+ </extension>
 </plugin>

@@ -27,9 +27,8 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 	private FlatAccess flatAccess;
 	private Adapter adapter;
 	
-	public BasicPNIDSimulator(PetriNet petrinet) throws UnknownNetType, InvalidPNID {
+	public BasicPNIDSimulator(PetriNet petrinet) {
 		super(petrinet);
-		engine = new PNIDEngine(getPetrinet());
 	}
 	
 	public PNIDEngine getEngine() {
@@ -47,6 +46,7 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 		flatAccess.addInvalidationListener(adapter);
 		
 		try {
+			engine = new PNIDEngine(this.getPetrinet());
 			// engine.setPetrinet(getPetrinet());
 			generateCurrentAnnotations();
 			
@@ -67,9 +67,9 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 		highlightCurrentMarking(netAnnotation);
 		highlightEnabledTransitions(netAnnotation);
 		
-		netAnnotations.getNetAnnotations().clear();
+		// netAnnotations.getNetAnnotations().clear();
 		netAnnotations.getNetAnnotations().add(netAnnotation);
-		netAnnotations.setCurrent(netAnnotation);		
+		netAnnotations.setCurrent(netAnnotation);
 	}
 	
 	private NetAnnotation highlightCurrentMarking(NetAnnotation annotation) {

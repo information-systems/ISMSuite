@@ -45,6 +45,7 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 		
 		// Show a dialog to open two files: the TFF file and the Specification File
 		SelectWorldAndSpecificationDialog dialog = new SelectWorldAndSpecificationDialog(window.getShell());
+		dialog.create();
 		if (dialog.open() == Window.OK) {
 			
 			try {
@@ -65,10 +66,11 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 						e.getMessage());
 				return null;
 			}
-			
+			dialog.close();
+
 			return startApplication(event);
 		}
-		
+		dialog.close();
 		return null;
 		
 		// 

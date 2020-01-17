@@ -45,17 +45,17 @@ public class PNIDEngine {
 	
 	private Stack<PNIDBinding> history = new Stack<>();
 	
-	public PNIDEngine(PetriNet net) throws UnknownNetType, InvalidPNID {
-		setPetrinet(net);
-	}
-	
-	public void setPetrinet(PetriNet petrinet) throws UnknownNetType, InvalidPNID {
-		if (net.getType() == null || !(net.getType() instanceof PNID)) {
-			throw new UnknownNetType(net);
+	public PNIDEngine(PetriNet petrinet) throws UnknownNetType, InvalidPNID {
+		if (petrinet.getType() == null) {
+			throw new UnknownNetType(petrinet);
 		}
-		if (!PNIDSyntaxChecker.checkPetrinet(net)) {
-			throw new InvalidPNID(net);
+		if (!(petrinet.getType() instanceof PNID)) {
+			throw new UnknownNetType(petrinet);
 		}
+		if (!PNIDSyntaxChecker.checkPetrinet(petrinet)) {
+			throw new InvalidPNID(petrinet);
+		}
+		this.net = petrinet;
 		
 		this.flat = FlatAccess.getFlatAccess(net);
 		
