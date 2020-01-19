@@ -5,6 +5,7 @@ import java.util.Set;
 import org.eclipse.emf.common.notify.Adapter;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidPNID;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.UnknownNetType;
+import org.informationsystem.ismsuite.modeler.process.simulator.handlers.FireTransitionHandler;
 import org.informationsystem.ismsuite.modeler.process.simulator.handlers.SimulatorPresentationHandler;
 import org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PlaceMarkingAnnotation;
 import org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PnidsimulatorFactory;
@@ -35,6 +36,10 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 		return engine;
 	}
 	
+	public FlatAccess getFlatAccess() {
+		return flatAccess;
+	}
+	
 	@Override
 	public void initializeContents() {
 		initializeSimulator();
@@ -52,6 +57,7 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 			
 			ApplicationUIManager manager = this.getPresentationManager();
 			manager.addPresentationHandler(new SimulatorPresentationHandler());
+			manager.addActionHandler(new FireTransitionHandler(this));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,7 +106,7 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 			return annotation;
 		}
 		
-		for(Transition transition: engine.getEnabledTransitions()) {
+		for(Transition transition: getEnabledTransitions()) {
 			TransitionActivationAnnotation ann = PnidsimulatorFactory.eINSTANCE.createTransitionActivationAnnotation();
 			ann.setObject(transition);
 			annotation.getObjectAnnotations().add(ann);
@@ -110,7 +116,20 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 		return annotation;
 	}
 	
+	@Override
+	protected void shutDown() {
+		super.shutDown();
+		
+		if (adapter != null && flatAccess != null) {
+			flatAccess.removeInvalidationListener(adapter);
+		}
+		
+	}
 	
+	
+	public Set<Transition> getEnabledTransitions() {
+		return engine.getEnabledTransitions();
+	}
 	
 	
 	public Set<PNIDBinding> getBindings(TransitionNode transitionNode) {
@@ -121,6 +140,8 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 		engine.fire(b);
 		generateCurrentAnnotations();
 	}
+	
+	
 	
 	
 }

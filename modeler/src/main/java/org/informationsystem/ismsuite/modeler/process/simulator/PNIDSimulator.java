@@ -14,9 +14,6 @@ public class PNIDSimulator extends BasicPNIDSimulator {
 	@Override
 	public void initializeContents() {
 		initializeSimulator();
-		
-		ApplicationUIManager manager = this.getPresentationManager();
-		manager.addActionHandler(new FireTransitionHandler(this));
 	}
 
 	

@@ -227,6 +227,10 @@ public class PNIDEngine {
 		return enabledTransitions.containsKey(transition);
 	}
 	
+	public Transition getTransition(String id) {
+		return transitions.get(id);
+	}
+	
 	/**
 	 * 
 	 * @return the current marking of the net
