@@ -11,8 +11,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Group;
@@ -51,9 +54,9 @@ public class SimulationView extends ViewPart implements StateChangedListener {
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new FillLayout());
-
-		final TabFolder tabFolder = new TabFolder (parent, SWT.BORDER);
+		parent.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 		
+		final TabFolder tabFolder = new TabFolder (parent, SWT.BORDER);
 		// We create three tabs: 
 		// 0. World
 		TabItem worldItem = new TabItem(tabFolder, SWT.NONE);
@@ -77,14 +80,22 @@ public class SimulationView extends ViewPart implements StateChangedListener {
 	private ExpandBar conjectureBar;
 	
 	private Composite createWorldComposite(Composite parent) {
-		world = new Composite(parent, SWT.FILL | SWT.V_SCROLL);
+		Composite container = new Composite(parent, SWT.FILL);
+		FillLayout layout = new FillLayout();
+		layout.type = SWT.VERTICAL;
+		container.setLayout(layout);
+		container.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		world = new Composite(container, SWT.FILL);
 		world.setLayout(new FillLayout());
-		return world;
+		return container;
 	}
 	
 	private Composite createDisabledTransitionsComposite(Composite parent) {
 		Composite container = new Composite(parent, SWT.V_SCROLL);
 		GridLayout gridLayout = new GridLayout(2, true);
+		gridLayout.horizontalSpacing = SWT.FILL;
+		gridLayout.verticalSpacing = SWT.FILL|SWT.TOP;
 		container.setLayout(gridLayout);
 		
 		disabledTransitionsList = new List(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
@@ -119,22 +130,38 @@ public class SimulationView extends ViewPart implements StateChangedListener {
 			for(Control c: world.getChildren()) {
 				c.dispose();
 			}
+			GridLayout gridLayout = new GridLayout(3, true);
+			gridLayout.horizontalSpacing = SWT.FILL;
+			gridLayout.verticalSpacing = SWT.TOP;
+			gridLayout.makeColumnsEqualWidth = true;
 			
-			world.setLayout(new GridLayout(3, true));
+			world.setLayout(gridLayout);
+			world.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 			
 			for(String rel: model.getWorld().getRelationLabels()) {
-				Group group = new Group(world, SWT.BORDER_SOLID |  SWT.TOP);
-				group.setLayout(new FillLayout());
-				group.setText(rel);
-				List relations = new List(group, SWT.V_SCROLL);
+				Group group = new Group(world, SWT.BORDER_SOLID | SWT.FILL | SWT.BOLD);
+				
+				RowLayout layout = new RowLayout(SWT.VERTICAL);
+				layout.fill = true;
+				layout.justify = true;
+				layout.pack = true;
+				group.setLayout(layout);
+				
+				group.setText(rel + " (" + model.getWorld().getRelations(rel).size() + ")");
+				List relations = new List(group, SWT.BORDER_SOLID| SWT.V_SCROLL|SWT.FILL);
+				RowData rd = new RowData();
+				rd.height = 150;
+				relations.setLayoutData(rd);
+				
 				for(Relation relation: model.getWorld().getRelations(rel)) {
 					relations.add(relation.toTFF());
 				}
+				
 				group.pack();
-				group.layout();
+				group.requestLayout();
 			}
 			world.pack();
-			world.layout();
+			world.requestLayout();
 		}
 		
 		if (disabledTransitionsList != null) {
