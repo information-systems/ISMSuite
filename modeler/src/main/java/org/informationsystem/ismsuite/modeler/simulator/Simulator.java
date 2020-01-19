@@ -46,6 +46,7 @@ public class Simulator extends BasicPNIDSimulator implements StateChangedListene
 				specification,
 				world
 				);
+		controller.getModel().addListener(this);
 		
 		try {
 			viewer = (SimulationView) PlatformUI.getWorkbench()

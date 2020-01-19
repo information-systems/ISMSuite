@@ -24,6 +24,16 @@ public class Controller {
 	private Specification specification;
 	private World initial;
 	
+	private boolean allowEmptySpecifications = false;
+	
+	public boolean emptySpecificationsAllowed() {
+		return allowEmptySpecifications;
+	}
+	
+	public void setEmptySpecificationsAllowed(boolean allowed) {
+		allowEmptySpecifications = allowed;
+	}
+	
 	private Model state;
 	
 	public ProcessModel getProcessModel() {
@@ -121,13 +131,16 @@ public class Controller {
 		if (specification.containsTransition(transition)) {
 			specification.getTransactionFor(transition).apply(binding, next);
 			item = validWorld(next);	
-		}
-		
-		if (item == null) {
+				
+			if (item == null) {
+				state.addFuture(new Binding(transition, transformBinding(binding)), next);
+				return true;
+			} else {
+				return false;
+			}
+		} else if (allowEmptySpecifications) {
 			state.addFuture(new Binding(transition, transformBinding(binding)), next);
 			return true;
-		} else {
-			System.out.println("Transition: " + transition + " NOT valid because of: " + item.getKey());
 		}
 		
 		return false;

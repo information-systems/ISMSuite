@@ -1,23 +1,32 @@
 package org.informationsystem.ismsuite.modeler.simulator;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.awt.SWT_AWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.ExpandBar;
+import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 import org.informationsystem.ismsuite.ismsuite.model.Controller;
 import org.informationsystem.ismsuite.ismsuite.model.Model;
 import org.informationsystem.ismsuite.ismsuite.model.StateChangedListener;
-import org.informationsystem.ismsuite.ismsuite.ui.ProcessView;
 import org.informationsystem.ismsuite.processengine.process.Binding;
+import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Relation;
 
 public class SimulationView extends ViewPart implements StateChangedListener {
@@ -38,72 +47,106 @@ public class SimulationView extends ViewPart implements StateChangedListener {
 	public Controller getController() {
 		return controller;
 	}
-	
-	private Composite container;
 		
 	@Override
 	public void createPartControl(Composite parent) {
-		container = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
-		update(null);
+		parent.setLayout(new FillLayout());
+
+		final TabFolder tabFolder = new TabFolder (parent, SWT.BORDER);
+		
+		// We create three tabs: 
+		// 0. World
+		TabItem worldItem = new TabItem(tabFolder, SWT.NONE);
+		worldItem.setText("Current world");
+		worldItem.setControl(createWorldComposite(tabFolder));
+		
+		// 1. disabled transitions
+		TabItem disabledTransitionsItem = new TabItem(tabFolder, SWT.NONE);
+		disabledTransitionsItem.setText("Disabled transitions");
+		disabledTransitionsItem.setControl(createDisabledTransitionsComposite(tabFolder));
+		
+		// 2. Conjectures in the model
+		TabItem conjecturesItem = new TabItem(tabFolder, SWT.NONE);
+		conjecturesItem.setText("Conjectures");
+		conjecturesItem.setControl(createConjectureComposite(tabFolder));
+	}
+	
+	private Composite world;
+	private List disabledTransitionsList;
+	private Map<String, String> disabledExplanation = new HashMap<>();
+	private ExpandBar conjectureBar;
+	
+	private Composite createWorldComposite(Composite parent) {
+		world = new Composite(parent, SWT.FILL | SWT.V_SCROLL);
+		world.setLayout(new FillLayout());
+		return world;
+	}
+	
+	private Composite createDisabledTransitionsComposite(Composite parent) {
+		Composite container = new Composite(parent, SWT.V_SCROLL);
+		GridLayout gridLayout = new GridLayout(2, true);
+		container.setLayout(gridLayout);
+		
+		disabledTransitionsList = new List(parent, SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
+		Label explanation = new Label(parent, SWT.NONE);
+		explanation.setText("Select a transition");
+		disabledTransitionsList.addListener (SWT.Selection, e -> {
+			for(String item: disabledTransitionsList.getSelection()) {
+				if(disabledExplanation.containsKey(item)) {
+					explanation.setText(disabledExplanation.get(item));
+					return;
+				}
+			}
+			explanation.setText("No explanation found");
+		});	
+		
+		return container;
+	}
+	
+	private Composite createConjectureComposite(Composite parent) {
+		conjectureBar = new ExpandBar(parent, SWT.V_SCROLL);
+		
+		return conjectureBar;
 	}
 
 	@Override
 	public void setFocus() {
-		if (getController() != null) {
-			update(getController().getModel());
-		} else {
-			update(null);
-		}
 	}
 
 	@Override
 	public void update(Model model) {
-		System.out.println("Repopulate!");
-		if (container == null) {
-			return;
-		}
-		
-		if (model == null) {
-			Label l = new Label(container, SWT.NONE);
-			l.setText("No IS Model connected");
-			return;
-		}
-		
-		for(Control c: container.getChildren()) {
-			c.dispose();
-		}
-		
-		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 3;
-		gridLayout.makeColumnsEqualWidth = true;
-		
-		
-		container.setLayout(gridLayout);
-		
-		if (model.getWorld().getRelationLabels().isEmpty()) {
-			Label l = new Label(container, SWT.NONE);
-			l.setText("Model has no relations");
-		}
-		System.out.println("=== Repopulating! === ");
-		
-		for(String s: model.getWorld().getRelationLabels()) {
-			System.out.println("Adding relation: " + s);
-			Group gr = new Group(container, SWT.BORDER_SOLID);
-			FillLayout layout = new FillLayout();
-			layout.type = SWT.VERTICAL;
-			gr.setLayout(layout);
-			gr.setText(s);
-			List l = new List(gr,  SWT.BORDER | SWT.SINGLE | SWT.V_SCROLL);
-			for(Relation item: model.getWorld().getRelations(s)) {
-				l.add(item.toString());
-				System.out.println("  element: " + item.toString());
+		if (world != null) {
+			for(Control c: world.getChildren()) {
+				c.dispose();
 			}
-			gr.pack();
+			
+			world.setLayout(new GridLayout(3, true));
+			
+			for(String rel: model.getWorld().getRelationLabels()) {
+				Group group = new Group(world, SWT.BORDER_SOLID |  SWT.TOP);
+				group.setLayout(new FillLayout());
+				group.setText(rel);
+				List relations = new List(group, SWT.V_SCROLL);
+				for(Relation relation: model.getWorld().getRelations(rel)) {
+					relations.add(relation.toTFF());
+				}
+				group.pack();
+				group.layout();
+			}
+			world.pack();
+			world.layout();
 		}
 		
-		System.out.println("=== Finished repopulation ===");
-		
-		container.pack();
+		if (disabledTransitionsList != null) {
+			disabledTransitionsList.removeAll();
+			disabledExplanation.clear();
+			for(Entry<Binding, String> entry: model.disabledTransitions().entrySet()) {
+				String key = entry.getKey().toString();
+				disabledTransitionsList.add(key);
+				disabledExplanation.put(key, entry.getValue());
+			}
+		}
 	}
+	
 
 }
