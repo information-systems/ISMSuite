@@ -34,6 +34,9 @@ public class InsertOperation extends Operation {
 		Relation newRelation = (Relation) relation.clone();
 		
 		for(Entry<Variable, Element> e: binding.entrySet()) {
+			if (!world.contains(e.getValue())) {
+				throw new ElementNotExistingInWorldException(this, e.getValue());
+			}
 			newRelation.instantiate(e.getKey(), e.getValue());
 		}
 		

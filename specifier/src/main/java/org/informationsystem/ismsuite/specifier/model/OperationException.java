@@ -17,4 +17,8 @@ public class OperationException extends Exception {
 		super("Operation: '" + op.toString() + "' gave an exception");
 	}
 	
+	public OperationException(String msg) {
+		super(msg);
+	}
+	
 }
