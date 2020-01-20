@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.informationsystem.ismsuite.modeler.simulator.Factory;
 import org.informationsystem.ismsuite.prover.io.ClauseReader;
+import org.informationsystem.ismsuite.prover.model.World;
 import org.informationsystem.ismsuite.specifier.io.SpecificationReader;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 
@@ -49,7 +50,7 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 		if (dialog.open() == Window.OK) {
 			
 			try {
-				((Factory) factory).setWorld(ClauseReader.buildWorldFromFile(dialog.getWorldFileName()));
+				((Factory) factory).setWorld((World) ClauseReader.buildWorldFromFile(dialog.getWorldFileName()));
 			} catch (IOException e) {
 				MessageDialog.openError(
 						window.getShell(),

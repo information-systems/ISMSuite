@@ -8,7 +8,6 @@ Bundle-ClassPath: .,
  target/jar/pnidprocessor.jar,
  target/jar/processengine.jar,
  target/jar/antlr4-runtime.jar,
- target/jar/ismsuite.jar,
  target/jar/prover.jar,
  target/jar/specifier.jar
 Bundle-Activator: org.informationsystem.ismsuite.modeler.process.pnid.pnids.provider.PnidEditPlugin$Implementation

@@ -231,6 +231,14 @@ public class PNIDEngine {
 		return transitions.get(id);
 	}
 	
+	public Binding getBindingFor(PNIDBinding b) {
+		if (enabledBindings.containsKey(b)) {
+			return enabledBindings.get(b);
+		} else {
+			return null;
+		}
+	}
+	
 	/**
 	 * 
 	 * @return the current marking of the net

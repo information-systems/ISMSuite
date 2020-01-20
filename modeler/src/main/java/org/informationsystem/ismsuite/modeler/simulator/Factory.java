@@ -2,6 +2,7 @@ package org.informationsystem.ismsuite.modeler.simulator;
 
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
+import org.informationsystem.ismsuite.prover.model.World;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.ApplicationFactory;
@@ -34,13 +35,13 @@ public class Factory  extends ApplicationFactory {
 		this.specification = specification;
 	}
 	
-	private FirstOrderLogicWorld world;
+	private World world;
 	
-	public FirstOrderLogicWorld getWorld() {
+	public World getWorld() {
 		return world;
 	}
 	
-	public void setWorld(FirstOrderLogicWorld world) {
+	public void setWorld(World world) {
 		this.world = world;
 	}
 	
