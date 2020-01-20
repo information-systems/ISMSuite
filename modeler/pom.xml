@@ -35,7 +35,7 @@
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>pnidprocessor</artifactId>
-    	<version>1.1.0</version>
+    	<version>1.1.1</version>
     </dependency>
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
@@ -50,7 +50,7 @@
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>processengine</artifactId>
-    	<version>1.1.0</version>
+    	<version>1.1.1</version>
     </dependency>
   </dependencies>
 
@@ -79,12 +79,12 @@
             				<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>pnidprocessor</artifactId>
-    							<version>1.1.0</version>
+    							<version>1.1.1</version>
     						</artifactItem>
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>processengine</artifactId>
-    							<version>1.1.0</version>
+    							<version>1.1.1</version>
     						</artifactItem>
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>

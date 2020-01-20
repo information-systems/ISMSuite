@@ -91,7 +91,7 @@ public class Marking {
 	}
 
 	public boolean remove(String place, int amount, Token token) {
-		if (tokenBag.containsKey(place) && tokenBag.get(place).containsSufficient(token, amount) ) {
+		if (tokenBag.containsKey(place) && tokenBag.get(place).contains(token, amount) ) {
 			tokenBag.get(place).remove(token, amount);
 			if (tokenBag.get(place).isEmpty()) {
 				tokenBag.remove(place);

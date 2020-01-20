@@ -290,8 +290,9 @@ public class MarkedPetriNet {
 
 	public boolean validateBinding(Binding binding) {
 		for(String place: in.getPlaces(binding.getTransition())) {
+			IncidenceArray.Arc arc = in.get(binding.getTransition(), place);
 			Token token = binding.instantiate(in.get(binding.getTransition(), place).getVariableList());
-			if (!marking.getTokens(place).contains(token)) {
+			if (!marking.getTokens(place).contains(token, arc.getMultiplicity())) {
 				return false;
 			}
 		}
