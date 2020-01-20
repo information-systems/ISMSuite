@@ -14,6 +14,7 @@ import org.informationsystem.ismsuite.specifier.io.SpecificationReader;
 import org.informationsystem.ismsuite.specifier.io.TransactionReader;
 import org.informationsystem.ismsuite.specifier.model.InsertOperation;
 import org.informationsystem.ismsuite.specifier.model.Operation;
+import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.RegisterOperation;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
@@ -117,14 +118,22 @@ public class TestOperations {
 		
 		Map<Variable, Element> binding = new HashMap<>();
 		binding.put(new Variable("p", "person"), new Element("augustine", "person"));
-		t.apply(binding, w);
+		try {
+			t.apply(binding, w);
+		} catch (OperationException e) {
+			fail("Should not happen: " + e.getMessage());
+		}
 		
 		Element a = new Element("augustine", "person");
 		
 		assertTrue(w.contains(a));
 		assertTrue(w.contains(new Relation("human", a)));
 		
-		spec.getTransactionFor("Likes.removeHuman").apply(binding, w);
+		try {
+			spec.getTransactionFor("Likes.removeHuman").apply(binding, w);
+		} catch (OperationException e) {
+			fail("Should not happen: " + e.getMessage());
+		}
 		assertFalse(w.contains(new Relation("human", a)));
 		
 	}

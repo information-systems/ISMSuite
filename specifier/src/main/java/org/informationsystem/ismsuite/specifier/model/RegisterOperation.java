@@ -31,12 +31,13 @@ public class RegisterOperation extends Operation {
 	 * to the world as an element 
 	 */
 	@Override
-	public void apply(Map<Variable, Element> binding, World world) {
+	public boolean apply(Map<Variable, Element> binding, World world) {
 		if (binding.containsKey(var)) {
 			if (var.getType().equals(binding.get(var).getType())) {
-				world.addElement(binding.get(var));
+				return world.addElement(binding.get(var));
 			}
 		}
+		return false;
 	}
 
 }

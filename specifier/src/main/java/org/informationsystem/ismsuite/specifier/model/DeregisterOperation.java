@@ -27,12 +27,15 @@ public class DeregisterOperation extends Operation {
 	}
 	
 	@Override
-	public void apply(Map<Variable, Element> binding, World world) {
+	public boolean apply(Map<Variable, Element> binding, World world) {
 		if (binding.containsKey(var)) {
 			if (var.getType().equals(binding.get(var).getType())) {
-				world.removeElement(binding.get(var));
+				return world.removeElement(binding.get(var));
+			} else {
+				return false;
 			}
-		}		
+		} 
+		return true;
 	}
 
 }
