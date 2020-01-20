@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
@@ -172,6 +173,36 @@ public class SimulationView extends ViewPart implements StateChangedListener {
 				disabledTransitionsList.add(key);
 				disabledExplanation.put(key, entry.getValue());
 			}
+		}
+		
+		if (conjectureBar != null) {
+			for(Control c: conjectureBar.getChildren()) {
+				c.dispose();
+			}
+			for(ExpandItem item: conjectureBar.getItems()) {
+				item.dispose();
+			}
+			
+			for(Entry<String, Clause> entry: controller.getConjectures()) {
+				Composite container = new Composite(conjectureBar, SWT.NONE);
+				// container.setLayout(new FillLayout());
+				Text label = new Text(container, SWT.NONE);
+				label.setEditable(false);
+				/*
+				GridData gd = new GridData();
+				gd.grabExcessHorizontalSpace = true;
+				gd.horizontalAlignment = SWT.FILL;
+				label.setLayoutData(gd);
+				*/
+				label.setText(entry.getValue().toTFF());
+				// System.out.println(entry.getValue().toTFF());
+				ExpandItem item = new ExpandItem(conjectureBar, SWT.NONE);
+				item.setText(entry.getKey());
+				item.setImage(Display.getCurrent().getSystemImage(SWT.ICON_WORKING));
+				item.setHeight(container.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
+				item.setControl(container);
+			}
+			
 		}
 	}
 	
