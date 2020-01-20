@@ -1,7 +1,6 @@
 package org.informationsystem.ismsuite.modeler.simulator;
 
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -37,6 +36,14 @@ import org.informationsystem.ismsuite.prover.model.World;
 
 public class SimulationView extends ViewPart implements FiringListener {
 
+	private TabFolder tabFolder;
+	private Composite worldComposite;
+	private ExpandBar conjectureBar;
+	private Composite disabledTransitionsComposite;
+	private Simulator simulator;
+	private ScrolledComposite worldContainer;
+	private ExpandBar disabledTransitionBar;
+		
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
@@ -64,13 +71,6 @@ public class SimulationView extends ViewPart implements FiringListener {
 		conjecturesItem.setText("Conjectures");
 		conjecturesItem.setControl(createConjectureComposite(tabFolder));
 	}
-	
-	private TabFolder tabFolder;
-	private Composite worldComposite;
-	private ExpandBar conjectureBar;
-	private Composite disabledTransitionsComposite;
-	private Simulator simulator;
-	private ScrolledComposite worldContainer;
 	
 	private Composite createWorldComposite(Composite parent) {
 		worldContainer = new ScrolledComposite(parent, SWT.NONE | SWT.V_SCROLL );
@@ -129,6 +129,8 @@ public class SimulationView extends ViewPart implements FiringListener {
 		updateWorld(world);
 		updateDisabledTransitions(disabledBindings);
 		updateConjectureList();
+		
+		tabFolder.requestLayout();
 	}
 	
 	private void updateWorld(FirstOrderLogicWorld world) {
@@ -143,6 +145,10 @@ public class SimulationView extends ViewPart implements FiringListener {
 			RowLayout layout = new RowLayout(SWT.VERTICAL);
 			layout.fill = true;
 			layout.justify = true;
+			layout.marginHeight = 10;
+			layout.marginTop = 10;
+			layout.marginLeft = 10;
+			layout.marginRight = 10;
 			/// layout.pack = true;
 			group.setLayout(layout);
 			group.setText(rel + " (" + world.getRelations(rel).size() + ")");
@@ -172,7 +178,9 @@ public class SimulationView extends ViewPart implements FiringListener {
 				c.dispose();
 			}
 			
-			ExpandBar bar = new ExpandBar(disabledTransitionsComposite, SWT.V_SCROLL);
+			System.out.println(disabledBindings.size());
+			
+			disabledTransitionBar = new ExpandBar(disabledTransitionsComposite, SWT.V_SCROLL);
 			for(Entry<PNIDBinding, String> entry : disabledBindings.entrySet()) {
 				StringBuilder title = new StringBuilder();
 				title.append(entry.getKey().getTransition().getId());
@@ -185,10 +193,30 @@ public class SimulationView extends ViewPart implements FiringListener {
 					title.append("]");
 				}
 				title.append(" )");
-				createStringExpandItem(bar, title.toString(), entry.getValue(), Display.getCurrent().getSystemImage(SWT.ICON_ERROR));
+				
+				Composite c = new Composite(disabledTransitionBar, SWT.NONE);
+				FillLayout layout = new FillLayout();
+				layout.marginHeight = 10;
+				layout.marginWidth = 10;
+				
+				c.setLayout(layout);
+				Label l = new Label(c, SWT.WRAP);
+				l.setText(entry.getValue());
+				
+				ExpandItem item = new ExpandItem(disabledTransitionBar, SWT.NONE);
+				item.setText(title.toString());
+				item.setControl(c);
+				disabledTransitionBar.addListener(SWT.Resize, new Listener() {
+					public void handleEvent(Event event) {
+						Point size = l.computeSize(disabledTransitionBar.getClientArea().width,SWT.DEFAULT);
+						item.setHeight(size.y+20);
+					}
+				});
+				item.setImage(Display.getCurrent().getSystemImage(SWT.ICON_ERROR));
 			}
+			
+			disabledTransitionBar.requestLayout();
 		}
-		
 	}
 
 	private void updateConjectureList() {
@@ -201,7 +229,11 @@ public class SimulationView extends ViewPart implements FiringListener {
 			for(Entry<String, Clause> entry: simulator.getConjectures()) {
 				// createStringExpandItem(conjectureBar, entry.getKey(), entry.getValue().toTFF(), Display.getCurrent().getSystemImage(SWT.ICON_SEARCH));
 				Composite c = new Composite(conjectureBar, SWT.FILL| SWT.BORDER_SOLID);
-				c.setLayout(new FillLayout());
+				FillLayout layout = new FillLayout();
+				layout.marginHeight = 10;
+				layout.marginWidth = 10;
+				
+				c.setLayout(layout);
 				Label l = new Label(c, SWT.WRAP);
 				l.setText(entry.getValue().toTFF());
 				
@@ -211,36 +243,12 @@ public class SimulationView extends ViewPart implements FiringListener {
 				conjectureBar.addListener(SWT.Resize, new Listener() {
 					public void handleEvent(Event event) {
 						Point size = l.computeSize(conjectureBar.getClientArea().width,SWT.DEFAULT);
-						item.setHeight(size.y);
+						item.setHeight(size.y + 20);
 					}
 				});
-				// item.setImage(Display.getCurrent().getSystemImage(SWT.ICON_QUESTION));
+				item.setImage(Display.getCurrent().getSystemImage(SWT.ICON_QUESTION));
 			}
 			
 		}
 	}
-	
-	private ExpandItem createStringExpandItem(ExpandBar bar, String title, String value, Image icon) {
-		Composite c = new Composite(bar, SWT.NONE);
-		c.setLayout(new FillLayout());
-		Label l = new Label(c, SWT.WRAP);
-		l.setText(value);
-		
-		ExpandItem item = new ExpandItem(bar, SWT.NONE);
-		item.setText(title);
-		item.setControl(c);
-		bar.addListener(SWT.Resize, new Listener() {
-			public void handleEvent(Event event) {
-				Point size = l.computeSize(bar.getClientArea().width,SWT.DEFAULT);
-				item.setHeight(size.y);
-			}
-		});
-		if (icon != null) {
-			item.setImage(icon);
-		}
-		
-		return item;
-	}
-	
-
 }

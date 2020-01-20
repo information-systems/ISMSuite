@@ -84,7 +84,7 @@ public class Simulator extends BasicPNIDSimulator {
 		for(Entry<String, MultiSet<Token>> bag : getEngine().getMarkedPetriNet().getMarking().map().entrySet()) {
 			Transaction transaction = specification.getPlace(bag.getKey());
 			if (transaction != null && !bag.getValue().isEmpty()) {
-				msg += "Transaction found for: " + bag.getKey() + "\n"; 
+				// msg += "Transaction found for: " + bag.getKey() + "\n"; 
 				for(Token token : bag.getValue().getUnique()) {
 					if (token.size() == transaction.variableSize()) {
 						Map<Variable, Element> valuation = new HashMap<>();
@@ -147,6 +147,11 @@ public class Simulator extends BasicPNIDSimulator {
 			currentWorld = enabledBindings.get(b);
 			getEngine().fire(b);
 			
+			/*
+			try {
+				Thread.sleep(500);
+			} catch(Exception e) {}
+			*/
 			// Calculate the new possible states
 			calculateNextPossibleSteps();
 			
