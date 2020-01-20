@@ -10,12 +10,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.informationsystem.ismsuite.modeler.process.simulator.BasicPNIDSimulator;
 import org.informationsystem.ismsuite.modeler.process.simulator.PNIDBinding;
 import org.informationsystem.ismsuite.pnidprocessor.PNIDModel;
 import org.informationsystem.ismsuite.processengine.process.Binding;
+import org.informationsystem.ismsuite.processengine.process.MultiSet;
+import org.informationsystem.ismsuite.processengine.process.Token;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
@@ -25,6 +29,7 @@ import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
+import org.pnml.tools.epnk.pnmlcoremodel.Place;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 import org.pnml.tools.epnk.pnmlcoremodel.TransitionNode;
 
@@ -49,7 +54,7 @@ public class Simulator extends BasicPNIDSimulator {
 		initializeSimulator();
 		
 		try {
-			SimulationView viewer = (SimulationView) PlatformUI.getWorkbench()
+			viewer = (SimulationView) PlatformUI.getWorkbench()
 					.getActiveWorkbenchWindow()
 					.getActivePage()
 					.showView(SimulationView.ID);
@@ -57,7 +62,8 @@ public class Simulator extends BasicPNIDSimulator {
 			viewer.setSimulator(this);
 			addListener(viewer);
 			
-			currentWorld = (World) initialWorld.clone();
+			initializeWorld();			
+						
 			calculateNextPossibleSteps();
 			notifyFiring(null);
 			
@@ -66,6 +72,47 @@ public class Simulator extends BasicPNIDSimulator {
 		} catch (PartInitException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+	}
+	
+	private void initializeWorld() {
+		currentWorld = (World) initialWorld.clone();
+		
+		String msg = "";
+		
+		for(Entry<String, MultiSet<Token>> bag : getEngine().getMarkedPetriNet().getMarking().map().entrySet()) {
+			Transaction transaction = specification.getPlace(bag.getKey());
+			if (transaction != null && !bag.getValue().isEmpty()) {
+				msg += "Transaction found for: " + bag.getKey() + "\n"; 
+				for(Token token : bag.getValue().getUnique()) {
+					if (token.size() == transaction.variableSize()) {
+						Map<Variable, Element> valuation = new HashMap<>();
+						for(int i = 0 ; i < token.size() ; i++) {
+							Variable var = transaction.getVariable(i);
+							Element elem = new Element(token.get(i), var.getType());
+							valuation.put(var, elem);
+						}
+						try {
+							if (!transaction.apply(valuation, currentWorld)) {
+								msg += "Something went wrong in execution " + bag.getKey() + "\n";
+							}
+						} catch(OperationException e) {
+							msg += "* Error on place " + bag.getKey() +":\n"; 
+							msg += e.getMessage();
+							msg += "\n";
+						}
+					} else {
+						msg += "* Variable signature of place " + bag.getKey() + " is incorrect.\n";
+					}
+				}
+			} else {
+				msg += "* No transaction found for place: " + bag.getKey() + "\n";
+			}
+		}
+		
+		if (!msg.isEmpty()) {
+			MessageDialog.openWarning(Display.getCurrent().getActiveShell(), "Warning initializing simulator", msg);
 		}
 		
 	}

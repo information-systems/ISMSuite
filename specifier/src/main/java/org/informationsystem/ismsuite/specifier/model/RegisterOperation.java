@@ -34,7 +34,8 @@ public class RegisterOperation extends Operation {
 	public boolean apply(Map<Variable, Element> binding, World world) {
 		if (binding.containsKey(var)) {
 			if (var.getType().equals(binding.get(var).getType())) {
-				return world.addElement(binding.get(var));
+				world.addElement(binding.get(var));
+				return true;
 			}
 		}
 		return false;

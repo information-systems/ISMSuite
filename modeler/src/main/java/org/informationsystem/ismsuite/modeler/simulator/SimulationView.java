@@ -6,16 +6,21 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
@@ -27,6 +32,7 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable;
 import org.informationsystem.ismsuite.modeler.process.simulator.PNIDBinding;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
+import org.informationsystem.ismsuite.prover.model.Relation;
 import org.informationsystem.ismsuite.prover.model.World;
 
 public class SimulationView extends ViewPart implements FiringListener {
@@ -64,28 +70,35 @@ public class SimulationView extends ViewPart implements FiringListener {
 	private ExpandBar conjectureBar;
 	private Composite disabledTransitionsComposite;
 	private Simulator simulator;
+	private ScrolledComposite worldContainer;
 	
 	private Composite createWorldComposite(Composite parent) {
-		Composite container = new Composite(parent, SWT.FILL);
-		FillLayout layout = new FillLayout();
-		layout.type = SWT.VERTICAL;
-		container.setLayout(layout);
-		container.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		worldContainer = new ScrolledComposite(parent, SWT.NONE | SWT.V_SCROLL );
 		
-		worldComposite = new Composite(container, SWT.FILL);
-		worldComposite.setLayout(new FillLayout());
+		worldContainer.setLayout(new GridLayout(1, false));
 		
-		return container;
+		// container.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		worldComposite = new Composite(worldContainer, SWT.NONE);
+		worldComposite.setLayout(new GridLayout(3, true));
+		worldComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		
+		worldContainer.setContent(worldComposite);
+		worldContainer.setExpandHorizontal(false);
+		worldContainer.setExpandVertical(true);
+		worldContainer.setMinSize(worldComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		
+		return worldContainer;
 	}
 	
 	private Composite createDisabledTransitionsComposite(Composite parent) {
-		Composite container = new Composite(parent, SWT.FILL);
+		Composite container = new Composite(parent, SWT.NONE);
 		FillLayout layout = new FillLayout();
 		layout.type = SWT.VERTICAL;
 		container.setLayout(layout);
 		container.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 		
-		disabledTransitionsComposite = new Composite(container, SWT.FILL);
+		disabledTransitionsComposite = new Composite(container, SWT.NONE);
 		disabledTransitionsComposite.setLayout(new FillLayout());
 		
 		return container;
@@ -103,16 +116,54 @@ public class SimulationView extends ViewPart implements FiringListener {
 
 	public void setSimulator(Simulator simulator) {
 		this.simulator = simulator;
+		
+		if (conjectureBar != null) {
+			updateConjectureList();
+		}
 	}
 
 	@Override
 	public void onBindingFired(PNIDBinding fired, FirstOrderLogicWorld world, Map<PNIDBinding, World> enabledBindings,
 			Map<PNIDBinding, String> disabledBindings) {
 		
+		updateWorld(world);
 		updateDisabledTransitions(disabledBindings);
 		updateConjectureList();
 	}
 	
+	private void updateWorld(FirstOrderLogicWorld world) {
+		for(Control c: worldComposite.getChildren()) {
+			c.dispose();
+		}
+		
+		worldComposite.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		for(String rel: world.getRelationLabels()) {
+			Group group = new Group(worldComposite, SWT.BORDER_SOLID | SWT.FILL);
+			RowLayout layout = new RowLayout(SWT.VERTICAL);
+			layout.fill = true;
+			layout.justify = true;
+			/// layout.pack = true;
+			group.setLayout(layout);
+			group.setText(rel + " (" + world.getRelations(rel).size() + ")");
+			
+			List relations = new List(group, SWT.BORDER_SOLID| SWT.V_SCROLL|SWT.H_SCROLL);
+			RowData rd = new RowData();
+			rd.height = 150;
+			relations.setLayoutData(rd);
+			
+			for(Relation relation: world.getRelations(rel)) {
+				relations.add(relation.toTFF());
+			}
+			group.pack();
+			group.requestLayout();
+		}
+		
+		worldComposite.pack();
+		worldComposite.requestLayout();
+		worldContainer.setMinSize(worldComposite.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		tabFolder.requestLayout();
+	}
 	
 	
 	private void updateDisabledTransitions(Map<PNIDBinding, String> disabledBindings) {
@@ -149,7 +200,7 @@ public class SimulationView extends ViewPart implements FiringListener {
 			
 			for(Entry<String, Clause> entry: simulator.getConjectures()) {
 				// createStringExpandItem(conjectureBar, entry.getKey(), entry.getValue().toTFF(), Display.getCurrent().getSystemImage(SWT.ICON_SEARCH));
-				Composite c = new Composite(conjectureBar, SWT.NONE);
+				Composite c = new Composite(conjectureBar, SWT.FILL| SWT.BORDER_SOLID);
 				c.setLayout(new FillLayout());
 				Label l = new Label(c, SWT.WRAP);
 				l.setText(entry.getValue().toTFF());
