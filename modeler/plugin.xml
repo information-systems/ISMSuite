@@ -333,10 +333,15 @@
        point="org.eclipse.ui.views">
     <view
           allowMultiple="false"
+          category="org.informationsystem.ismsuite.modeler.views"
           class="org.informationsystem.ismsuite.modeler.simulator.SimulationView"
           id="org.informationsystem.ismsuite.modeler.simulator.view"
           name="IMSuite: Simulation"
           restorable="true">
     </view>
+    <category
+          id="org.informationsystem.ismsuite.modeler.views"
+          name="ISM Suite">
+    </category>
  </extension>
 </plugin>
