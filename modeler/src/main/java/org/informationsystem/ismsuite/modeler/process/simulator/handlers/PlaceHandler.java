@@ -66,7 +66,6 @@ public class PlaceHandler implements IActionHandler, SelectionListener {
 					sb.append(" ]");
 					sb.replace(0, 1, "[");
 					set.add(sb.toString());
-					System.out.println(sb.toString());
 				}
 				
 				Menu root = new Menu(shell, SWT.POP_UP);
