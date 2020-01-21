@@ -70,7 +70,7 @@ public class Simulator extends BasicPNIDSimulator {
 			generateCurrentAnnotations();
 			
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

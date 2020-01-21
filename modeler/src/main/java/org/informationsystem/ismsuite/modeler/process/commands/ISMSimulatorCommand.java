@@ -131,7 +131,12 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 			        fileDialog.setFilterNames(new String[] { "Typed First-order Logic File (*.tff)" });
 			        // Open Dialog and save result of selection
 			        worldFileName = fileDialog.open();
-			        lblWorld.setText(worldFileName);
+			        if (worldFileName == null) {
+			        	lblWorld.setText("<no world selected>");
+			        	worldFileName = "";
+			        } else {
+			        	lblWorld.setText(worldFileName);
+			        }
 				}
 			});
 	        			
@@ -156,7 +161,12 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 			        fileDialog.setFilterNames(new String[] { "Specification file (*.spec)" });
 			        // Open Dialog and save result of selection
 			        specificationFileName = fileDialog.open();
-			        lblSpec.setText(specificationFileName);
+			        if (specificationFileName == null) {
+			        	lblSpec.setText("<no specification selected>");
+			        	specificationFileName = "";
+			        } else {
+			        	lblSpec.setText(specificationFileName);
+			        }
 				}
 				});
 	        			

@@ -34,19 +34,20 @@
                org.eclipse.emf.edit.provider.IItemPropertySource"/>
    </extension>
 
-   <extension point="org.eclipse.ui.newWizards">
+   <extension
+         id="org.informationsystem.ismsuite.modeler.wizards"
+         point="org.eclipse.ui.newWizards">
       <!-- @generated pnid -->
       <category
-            id="org.eclipse.emf.ecore.Wizard.category.ID"
-            name="%_UI_Wizard_category"/>
+            id="org.informationsystem.ismsuite.modeler.wizards"
+            name="ISMSuite Models">
+      </category>
       <wizard
-            id="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizardID"
-            name="%_UI_PnidsModelWizard_label"
-            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizard"
-            category="org.eclipse.emf.ecore.Wizard.category.ID"
-            icon="icons/full/obj16/PnidsModelFile.gif">
-         <description>%_UI_PnidsModelWizard_description</description>
-         <selection class="org.eclipse.core.resources.IResource"/>
+            category="org.informationsystem.ismsuite.modeler.wizards"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.wizards.NewPNIDFileWizard"
+            icon="icons/full/obj16/PNID.gif"
+            id="org.informationsystem.ismsuite.modeler.process.pnid.wizards.newprocessfile"
+            name="New ISM Process">
       </wizard>
    </extension>
 
@@ -324,7 +325,7 @@
 		        visible="true">
 		    </view>
 		    <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
-		    <newWizardShortcut id="org.pnml.tools.epnk.pnmlcoremodel.presentation.PnmlcoremodelModelPNMLWizardID">
+		    <newWizardShortcut id="org.informationsystem.ismsuite.modeler.process.pnid.wizards.newprocessfile">
 		    </newWizardShortcut>
 		    
 		</perspectiveExtension>
