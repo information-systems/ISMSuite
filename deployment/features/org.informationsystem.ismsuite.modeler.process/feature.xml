@@ -2,7 +2,7 @@
 <feature
       id="org.informationsystem.ismsuite.modeler.process"
       label="ISMSuite Process Modeler"
-      version="0.1"
+      version="0.3"
       provider-name="InformationSystem.org">
 
    <description url="http://www.informationsystem.org/ismsuite">
@@ -104,18 +104,36 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
-      <update label="ISM Suite" url="http://ismsuite.informationsystem.org/ismsuite/modeler/0.1/update/"/>
+      <update label="ISM Suite" url="http://ismsuite.informationsystem.org/modeler/0.3/update/"/>
    </url>
 
    <requires>
+      <import feature="org.pnml.tools.epnk.core" version="1.2.0"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.pnml.tools.epnk" version="1.2.0" match="greaterOrEqual"/>
+      <import plugin="org.junit"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.pnml.tools.epnk.annotations.edit"/>
+      <import plugin="org.pnml.tools.epnk.edit"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.gmf.runtime.diagram.ui" version="1.5.0" match="greaterOrEqual"/>
+      <import plugin="org.pnml.tools.epnk.annotations"/>
+      <import plugin="org.pnml.tools.epnk.diagram" version="1.2.0" match="greaterOrEqual"/>
+      <import plugin="org.pnml.tools.epnk.actions"/>
+      <import plugin="org.pnml.tools.epnk.pntypes"/>
+      <import plugin="org.pnml.tools.epnk.applications"/>
+      <import plugin="org.pnml.tools.epnk.editor"/>
    </requires>
 
    <plugin
          id="org.informationsystem.ismsuite.modeler.process"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.2.0"
          unpack="false"/>
 
 </feature>
