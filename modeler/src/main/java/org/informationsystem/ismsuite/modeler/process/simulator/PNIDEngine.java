@@ -166,13 +166,15 @@ public class PNIDEngine {
 				if (m.size() > 0) {
 					TokenBag bag = PnidsFactory.eINSTANCE.createTokenBag();
 					for(org.informationsystem.ismsuite.processengine.process.Token token: m) {
-						Token netToken = PnidsFactory.eINSTANCE.createToken();
-						for(String ent: token.getEntities()) {
-							Entity entity = PnidsFactory.eINSTANCE.createEntity();
-							entity.setText(ent);
-							netToken.getEntity().add(entity);
+						for(int i = 0 ; i < m.size(token) ; i++) {
+							Token netToken = PnidsFactory.eINSTANCE.createToken();
+							for(String ent: token.getEntities()) {
+								Entity entity = PnidsFactory.eINSTANCE.createEntity();
+								entity.setText(ent);
+								netToken.getEntity().add(entity);
+							}
+							bag.getToken().add(netToken);
 						}
-						bag.getToken().add(netToken);
 					}
 					marking.put(p, bag);
 				}

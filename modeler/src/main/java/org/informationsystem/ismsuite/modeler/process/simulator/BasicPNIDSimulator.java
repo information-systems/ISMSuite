@@ -3,9 +3,12 @@ package org.informationsystem.ismsuite.modeler.process.simulator;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.Adapter;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.TokenBag;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidPNID;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.UnknownNetType;
 import org.informationsystem.ismsuite.modeler.process.simulator.handlers.FireTransitionHandler;
+import org.informationsystem.ismsuite.modeler.process.simulator.handlers.PlaceHandler;
 import org.informationsystem.ismsuite.modeler.process.simulator.handlers.SimulatorPresentationHandler;
 import org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PlaceMarkingAnnotation;
 import org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.PnidsimulatorFactory;
@@ -58,6 +61,7 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 			ApplicationUIManager manager = this.getPresentationManager();
 			manager.addPresentationHandler(new SimulatorPresentationHandler());
 			manager.addActionHandler(new FireTransitionHandler(this));
+			manager.addActionHandler(new PlaceHandler(this));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,6 +143,15 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 	public void fire(PNIDBinding b) {
 		engine.fire(b);
 		generateCurrentAnnotations();
+	}
+
+	public TokenBag getTokensFor(PlaceNode object) {
+		Place place = flatAccess.resolve(object);
+		if (engine.getCurrentMarking().containsKey(place)) {
+			return engine.getCurrentMarking().get(place);
+		} else {
+			return PnidsFactory.eINSTANCE.createTokenBag();
+		}
 	}
 	
 	
