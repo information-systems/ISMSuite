@@ -114,9 +114,13 @@ public class Transaction {
 		return label;
 	}
 	
-	public void apply(Map<Variable, Element> binding, World world) {
+	public boolean apply(Map<Variable, Element> binding, World world) throws OperationException {
 		for(Operation o: myoperations) {
-			o.apply(binding, world);
+			if(!o.apply(binding, world)) {
+				return false;
+			}
 		}
+		
+		return true;
 	}
 }

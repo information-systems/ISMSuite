@@ -30,14 +30,18 @@ public class RemoveOperation extends Operation {
 	}
 
 	@Override
-	public void apply(Map<Variable, Element> binding, World world) {
+	public boolean apply(Map<Variable, Element> binding, World world) throws OperationException {
 		Relation newRelation = (Relation) relation.clone();
 		
 		for(Entry<Variable, Element> e: binding.entrySet()) {
 			newRelation.instantiate(e.getKey(), e.getValue());
 		}
 		
-		world.removeRelation(newRelation);
+		if (newRelation.isAbstract()) {
+			throw new IsAbstractException(this, newRelation);
+		}
+		
+		return world.removeRelation(newRelation);
 		
 	}
 }

@@ -24,6 +24,6 @@ public class SimulatorFactory extends ApplicationFactory {
 
 	@Override
 	public Application startApplication(PetriNet net) {
-		return new Simulator(net);
+		return new PNIDSimulator(net);
 	}
 }

@@ -1,19 +1,20 @@
 Manifest-Version: 1.0
+Eclipse-BundleShape: dir
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.informationsystem.ismsuite.modeler.process;singleton:=true
 Automatic-Module-Name: ISMSuite
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.2.2
 Bundle-ClassPath: .,
  target/jar/pnidprocessor.jar,
  target/jar/processengine.jar,
- target/jar/antlr4-runtime.jar
+ target/jar/antlr4-runtime.jar,
+ target/jar/prover.jar,
+ target/jar/specifier.jar
 Bundle-Activator: org.informationsystem.ismsuite.modeler.process.pnid.pnids.provider.PnidEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-11,
- JavaSE-12,
- JavaSE-13
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.informationsystem.ismsuite.modeler.process.pnid.pnids,
  org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl,
  org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation,
@@ -43,7 +44,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.pnml.tools.epnk;bundle-version="1.2.0";visibility:=reexport,
  org.pnml.tools.epnk.diagram;bundle-version="1.2.0";visibility:=reexport,
  org.pnml.tools.epnk.actions;visibility:=reexport,
- org.pnml.tools.epnk.pntypes,
  org.pnml.tools.epnk.applications,
  org.pnml.tools.epnk.editor
 Bundle-ActivationPolicy: lazy

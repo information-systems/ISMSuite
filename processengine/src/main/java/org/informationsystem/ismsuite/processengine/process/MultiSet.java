@@ -133,7 +133,7 @@ public class MultiSet<T> implements Set<T> {
 		}
 	}
 	
-	public boolean containsSufficient(Object o, int amount) {
+	public boolean contains(Object o, int amount) {
 		return (size(o) >= amount);
 	}
 

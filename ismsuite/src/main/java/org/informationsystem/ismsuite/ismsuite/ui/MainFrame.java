@@ -19,11 +19,19 @@ public class MainFrame extends JFrame {
 	private InformationView informationView;
 	private JSplitPane splitter;
 	
+	
 	public MainFrame(Controller controller) {
+		this(controller, true);
+	}
+	
+	public MainFrame(Controller controller, boolean exitOnClose) {
 		
+		if (exitOnClose) {
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+
 		setTitle("ISMSuite");
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 700); // The bounds of the frame/
 		
 		
@@ -39,12 +47,17 @@ public class MainFrame extends JFrame {
 		this.add(splitter, BorderLayout.CENTER);
 	}
 	
-	// Invoke/show the UI.
+	
 	public static void invokeUI(Controller controller) throws InvocationTargetException, InterruptedException {
+		invokeUI(controller, true);
+	}
+	
+	// Invoke/show the UI.
+	public static void invokeUI(Controller controller, boolean exitOnClose) throws InvocationTargetException, InterruptedException {
 		EventQueue.invokeAndWait(new Runnable() {
 			@Override public void run() {
 				try {
-					final MainFrame frame = new MainFrame(controller);
+					final MainFrame frame = new MainFrame(controller, exitOnClose);
 					frame.setVisible(true);
 					
 				} catch (Exception e) {

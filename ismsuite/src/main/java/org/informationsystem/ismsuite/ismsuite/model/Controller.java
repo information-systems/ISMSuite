@@ -24,6 +24,26 @@ public class Controller {
 	private Specification specification;
 	private World initial;
 	
+	private boolean verbose = false;
+	
+	public boolean isVerbose() {
+		return verbose;
+	}
+	
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
+	}
+	
+	private boolean allowEmptySpecifications = false;
+	
+	public boolean emptySpecificationsAllowed() {
+		return allowEmptySpecifications;
+	}
+	
+	public void setEmptySpecificationsAllowed(boolean allowed) {
+		allowEmptySpecifications = allowed;
+	}
+	
 	private Model state;
 	
 	public ProcessModel getProcessModel() {
@@ -113,36 +133,7 @@ public class Controller {
 		}
 		return null;
 	}
-	
-	public boolean addFutureWorld(String transition, Map<Variable, Element> binding) {
-		World next = (World)  state.getWorld();
-		Entry<String, Clause> item = null;
 		
-		if (specification.containsTransition(transition)) {
-			specification.getTransactionFor(transition).apply(binding, next);
-			item = validWorld(next);	
-		}
-		
-		if (item == null) {
-			state.addFuture(new Binding(transition, transformBinding(binding)), next);
-			return true;
-		} else {
-			System.out.println("Transition: " + transition + " NOT valid because of: " + item.getKey());
-		}
-		
-		return false;
-	}
-	
-	private Map<String, String> transformBinding(Map<Variable, Element> binding) {
-		Map<String, String> result = new HashMap<>();
-		
-		for(Entry<Variable, Element> b: binding.entrySet()) {
-			result.put(b.getKey().getLabel(), b.getValue().getLabel());
-		}
-		
-		return result;
-	}
-	
 	private Pair<Map<Binding, World>, Map<Binding,String>> calculateFutureWorlds(World current) {
 		Map<Binding, World> enabled = new HashMap<>();
 		Map<Binding,String> disabled = new HashMap<>();
@@ -152,11 +143,30 @@ public class Controller {
 		
 		for(Binding binding : processModel.getEnabledTransitions()) {
 			
+			System.out.println("--- Working on: " + binding.getTransition());
+			
 			World p2 = (World) current.clone();
 			
 			if(specification.containsTransition(binding.getTransition())) {
 				Transaction t = specification.getTransactionFor(binding.getTransition());
 				
+				if (verbose) {
+					System.out.println("--- Checking world for transition: " + binding.getTransition());
+					System.out.print("Binding: ");
+					for(Entry<String, String> e: binding.getValuation().entrySet()) {
+						System.out.print(" [");
+						System.out.print(e.getKey());
+						System.out.print(" -> ");
+						System.out.print(e.getValue());
+						System.out.print("]");
+					}
+					System.out.println();
+					System.out.println("------ Current world:");
+					System.out.println(current.toString());
+					System.out.println("------ Checking transaction:");
+					System.out.println(t.toString());
+				}
+								
 				Map<Variable, Element> valuation = new HashMap<>();
 				
 				for(Entry<String, String> val : binding.getValuation().entrySet()) {
@@ -167,21 +177,47 @@ public class Controller {
 				}
 				
 				// Now apply the transaction on the current world
-				t.apply(valuation, p2);
+				boolean result = t.apply(valuation, p2);
 				
-				// And check if it is valid
-				Entry<String, Clause> item = validWorld(p2);
-			
-				if (item == null) {
-					enabled.put(binding, p2);
+				if (result) {
+					if (verbose) {
+						System.out.println("------ Resulting world");
+						System.out.println(p2.toString());
+					}
+					
+					// And check if it is valid
+					Entry<String, Clause> item = validWorld(p2);
+				
+					if (item == null) {
+						if (verbose) {
+							System.out.println("------ World is valid!");
+						}
+						enabled.put(binding, p2);
+					} else {
+						if (verbose) {
+							System.out.println("------ World is INVALID: " + item.getKey());
+						}
+						disabled.put(binding, item.getKey());
+					}
 				} else {
-					disabled.put(binding, item.getKey());
+					if (verbose) {
+						System.out.println("------ Transaction was unsuccessful!");
+					}
+					disabled.put(binding, "Result of transaction failed");
 				}
 				
-			} else {
+			} else if (allowEmptySpecifications){
 				// It is not in the specification, hence, it does not change the world:
+				if (verbose) {
+					System.out.println("------ Adding empty specification for: " + binding.getTransition());
+				}
 				enabled.put(binding, p2);
+			} else {
+				if (verbose) {
+					System.out.println("------ No specification for: " + binding.getTransition());
+				}
 			}
+			System.out.println("-----------------------------------------");
 		}
 		
 		return new Pair<>(enabled, disabled);

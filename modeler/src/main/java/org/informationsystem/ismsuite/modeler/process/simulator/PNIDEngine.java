@@ -45,21 +45,30 @@ public class PNIDEngine {
 	
 	private Stack<PNIDBinding> history = new Stack<>();
 	
-	public PNIDEngine(PetriNet net) throws UnknownNetType, InvalidPNID {
-		if (net.getType() == null || !(net.getType() instanceof PNID)) {
-			throw new UnknownNetType(net);
+	public PNIDEngine(PetriNet petrinet) throws UnknownNetType, InvalidPNID {
+		if (petrinet.getType() == null) {
+			throw new UnknownNetType(petrinet);
 		}
-		if (!PNIDSyntaxChecker.checkPetrinet(net)) {
-			throw new InvalidPNID(net);
+		if (!(petrinet.getType() instanceof PNID)) {
+			throw new UnknownNetType(petrinet);
 		}
+		if (!PNIDSyntaxChecker.checkPetrinet(petrinet)) {
+			throw new InvalidPNID(petrinet);
+		}
+		this.net = petrinet;
 		
 		this.flat = FlatAccess.getFlatAccess(net);
 		
 		reset();
 	}
 	
+	
 	public PetriNet getPetriNet() {
 		return net;
+	}
+	
+	public MarkedPetriNet getMarkedPetriNet() {
+		return markedNet;
 	}
 	
 	public boolean reset() {
@@ -157,13 +166,15 @@ public class PNIDEngine {
 				if (m.size() > 0) {
 					TokenBag bag = PnidsFactory.eINSTANCE.createTokenBag();
 					for(org.informationsystem.ismsuite.processengine.process.Token token: m) {
-						Token netToken = PnidsFactory.eINSTANCE.createToken();
-						for(String ent: token.getEntities()) {
-							Entity entity = PnidsFactory.eINSTANCE.createEntity();
-							entity.setText(ent);
-							netToken.getEntity().add(entity);
+						for(int i = 0 ; i < m.size(token) ; i++) {
+							Token netToken = PnidsFactory.eINSTANCE.createToken();
+							for(String ent: token.getEntities()) {
+								Entity entity = PnidsFactory.eINSTANCE.createEntity();
+								entity.setText(ent);
+								netToken.getEntity().add(entity);
+							}
+							bag.getToken().add(netToken);
 						}
-						bag.getToken().add(netToken);
 					}
 					marking.put(p, bag);
 				}
@@ -216,6 +227,18 @@ public class PNIDEngine {
 	
 	public boolean isEnabled(Transition transition) {
 		return enabledTransitions.containsKey(transition);
+	}
+	
+	public Transition getTransition(String id) {
+		return transitions.get(id);
+	}
+	
+	public Binding getBindingFor(PNIDBinding b) {
+		if (enabledBindings.containsKey(b)) {
+			return enabledBindings.get(b);
+		} else {
+			return null;
+		}
 	}
 	
 	/**
@@ -304,5 +327,4 @@ public class PNIDEngine {
 		String id = place.getId();
 		return markedNet.getMarking().getTokens(id).size();
 	}
-	
 }

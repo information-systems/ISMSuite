@@ -124,8 +124,7 @@ public class World implements Cloneable, FirstOrderLogicWorld {
 	}
 	
 	public boolean removeRelation(Relation r) {
-		relationset.remove(r.getLabel(), r);
-		return true;
+		return relationset.remove(r.getLabel(), r);
 	}
 	
 	@Override

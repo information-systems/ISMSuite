@@ -30,16 +30,23 @@ public class InsertOperation extends Operation {
 	}
 
 	@Override
-	public void apply(Map<Variable, Element> binding, World world) {
+	public boolean apply(Map<Variable, Element> binding, World world) throws OperationException {
 		Relation newRelation = (Relation) relation.clone();
 		
 		for(Entry<Variable, Element> e: binding.entrySet()) {
+			if (!world.contains(e.getValue())) {
+				throw new ElementNotExistingInWorldException(this, e.getValue());
+			}
 			newRelation.instantiate(e.getKey(), e.getValue());
 		}
+		
+		if (newRelation.isAbstract()) {
+			throw new IsAbstractException(this, newRelation);
+		}
+		
 		// Notice that this fails in case that Relation remains abstract
 		// (i.e., it is not added if not all variables are instantiated
-		world.addRelation(newRelation);
-		
+		return world.addRelation(newRelation);
 	}
 
 }
