@@ -12,6 +12,7 @@ import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Relation;
 import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 
 public class WorldController {
@@ -134,7 +135,7 @@ public class WorldController {
 		return model;
 	}
 	
-	public void execute(Transaction t, Map<Variable, Element> binding) {
+	public void execute(Transaction t, Map<Variable, Element> binding) throws OperationException {
 		t.apply(binding, world);
 		
 		updateTrueWorldModel();
