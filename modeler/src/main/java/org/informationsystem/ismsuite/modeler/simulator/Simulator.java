@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
@@ -28,6 +30,7 @@ import org.informationsystem.ismsuite.prover.model.World;
 import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
+import org.pnml.tools.epnk.helpers.NetFunctions;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pnmlcoremodel.Place;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
@@ -62,13 +65,26 @@ public class Simulator extends BasicPNIDSimulator {
 			viewer.setSimulator(this);
 			addListener(viewer);
 			
-			initializeWorld();			
+			initializeWorld();
+			
+			
+			List<String> reasons = validateWorld(currentWorld);
+			if (reasons.isEmpty()) {
 						
-			calculateNextPossibleSteps();
-			notifyFiring(null);
+				calculateNextPossibleSteps();
+				notifyFiring(null);
 			
-			generateCurrentAnnotations();
-			
+				generateCurrentAnnotations();
+			} else {
+				StringBuilder msg = new StringBuilder();
+				msg.append("Initial world contains the following errors:");
+				for(String reason: reasons) {
+					msg.append("\n * ");
+					msg.append(reason);
+				}
+				MessageDialog.openError(Display.getCurrent().getActiveShell(), "Warning initializing simulator", msg.toString());
+				this.dispose();
+			}
 		} catch (PartInitException e) {
 			
 			e.printStackTrace();
@@ -81,16 +97,27 @@ public class Simulator extends BasicPNIDSimulator {
 		
 		String msg = "";
 		
+		System.out.println(specification);
+		
 		for(Entry<String, MultiSet<Token>> bag : getEngine().getMarkedPetriNet().getMarking().map().entrySet()) {
 			Transaction transaction = specification.getPlace(bag.getKey());
 			if (transaction != null && !bag.getValue().isEmpty()) {
 				// msg += "Transaction found for: " + bag.getKey() + "\n"; 
+				System.out.println("Transaction: " + bag.getKey());
 				for(Token token : bag.getValue().getUnique()) {
 					if (token.size() == transaction.variableSize()) {
 						Map<Variable, Element> valuation = new HashMap<>();
+						org.informationsystem.ismsuite.modeler.process.pnid.pnids.Place p = getEngine().getPlace(bag.getKey());
 						for(int i = 0 ; i < token.size() ; i++) {
-							Variable var = transaction.getVariable(i);
+							String varLabel = p.getType().getStructure().getEntityType().get(i).getText();
+							Variable var = transaction.getVariable(varLabel);
+							
 							Element elem = new Element(token.get(i), var.getType());
+							System.out.print("nr: " + i + ": ");
+							System.out.print(var.getLabel());
+							System.out.print(" -> ");
+							System.out.println(elem.getLabel());
+							
 							valuation.put(var, elem);
 						}
 						try {
@@ -210,12 +237,7 @@ public class Simulator extends BasicPNIDSimulator {
 				if (applied) {
 					
 					// Check whether it is a valid world!
-					List<String> reasons = new ArrayList<>();
-					for( Entry<String, Clause> c : initialWorld.getConjectures()) {
-						if (!c.getValue().isValidIn(next)) {
-							reasons.add(c.getKey());
-						}
-					}
+					List<String> reasons = validateWorld(next);
 					// if reasons is empty, we can continue. Otherwise, 
 					if (reasons.isEmpty()) {
 						enabledBindings.put(binding, next);
@@ -245,6 +267,16 @@ public class Simulator extends BasicPNIDSimulator {
 		}
 	}
 	
+	private List<String> validateWorld(World next) {
+		List<String> reasons = new ArrayList<>();
+		for( Entry<String, Clause> c : initialWorld.getConjectures()) {
+			if (!c.getValue().isValidIn(next)) {
+				reasons.add(c.getKey());
+			}
+		}
+		return reasons;
+	}
+
 	public FirstOrderLogicWorld getWorld() {
 		return currentWorld;
 	}
