@@ -295,11 +295,11 @@
 	<!-- Creating the perspective -->
 	<extension point="org.eclipse.ui.perspectives">
 		<perspective
-		class="org.informationsystem.ismsuite.modeler.ui.PerspectiveFactory"
-		fixed="true"
-		id="org.informationsystem.ismsuite.modeler.ui.perspective"
-		name="ISMSuite"
-	>
+        class="org.informationsystem.ismsuite.modeler.ui.PerspectiveFactory"
+        fixed="true"
+        icon="icons/full/obj16/PNID.gif"
+        id="org.informationsystem.ismsuite.modeler.ui.perspective"
+        name="ISMSuite">
 		</perspective>
 	</extension>
 	<extension point="org.eclipse.ui.perspectiveExtensions">
