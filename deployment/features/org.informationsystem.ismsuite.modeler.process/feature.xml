@@ -2,7 +2,7 @@
 <feature
       id="org.informationsystem.ismsuite.modeler.process"
       label="ISMSuite Process Modeler"
-      version="0.4"
+      version="1.0"
       provider-name="InformationSystem.org">
 
    <description url="http://www.informationsystem.org/ismsuite">
@@ -104,7 +104,8 @@ This Agreement is governed by the laws of the State of New York and the intellec
    </license>
 
    <url>
-      <update label="ISM Suite" url="http://ismsuite.informationsystem.org/modeler/0.4/update/"/>
+      <update label="ISM Suite" url="http://ismsuite.informationsystem.org/modeler/1.0/update/"/>
+      <discovery label="ePNK 1.2" url="http://www2.compute.dtu.dk/~ekki/projects/ePNK/1.2/update/"/>
    </url>
 
    <requires>

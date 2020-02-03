@@ -1,0 +1,137 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% @model    PurchaseOrder
+% @author   Jan Martijn van der Werf, Artem Polyvyanyy
+% @year     2019
+% @version  1.1
+% @created  29-11-2019
+% @modified 13-12-2019
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This information model describes a simple scenario of handling Purchase Orders
+%
+% Entity types:
+%  - product
+%  - supplier
+%  - order
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ENSURING CORRECT TYPING IN RELATION PREDICATES (IMPLICIT FROM THE DEFINITION)
+
+% supplies(S,P): Supplier S *supplies* Product P
+tff(supplies_domain, conjecture,
+  ! [S: universe, P: universe] :
+    ( supplies(S,P) => ( supplier(S) & product(P) ) )
+).
+
+% contains(O,P): Order O *contains* Product P
+tff(contains_domain, conjecture,
+  ! [O: universe, P: universe] :
+    ( contains(O,P) => ( order(O) & product(P) ) )
+).
+
+% bids(S,O): Supplier S *bids* Order O
+tff(bids_domain, conjecture,
+  ! [S: universe, O: universe] :
+    ( bids(S,O) => ( supplier(S) & order(O) ) )
+).
+
+% receives(S,O): Supplier S *receives* Order O
+tff(receives_domain, conjecture,
+  ! [S: universe, O: universe] :
+    ( receives(S,O) => ( supplier(S) & order(O) ) )
+).
+
+% delivers(S,O): Supplier S *delivers* Order O
+tff(receives_domain, conjecture,
+  ! [S: universe, O: universe] :
+    ( delivers(S,O) => ( supplier(S) & order(O) ) )
+).
+
+% CONTROLING SUBTYPE RELATIONS OVER ENTITY TYPES (ENTITY TYPES ARE DISJOINT)
+
+% Supplier is not a Product or Order
+tff(supplier_subtype, conjecture,
+  ! [I: universe] :
+    ( supplier(I) => ( ~product(I) & ~order(I) ) )
+).
+
+% Order is not a Product or Supplier
+tff(order_subtype, conjecture,
+  ! [I: universe] :
+    ( order(I) => ( ~product(I) & ~supplier(I) ) )
+).
+
+% Product is not an Order or Supplier
+tff(product_subtype, conjecture,
+  ! [I: universe] :
+    ( product(I) => ( ~order(I) & ~supplier(I) ) )
+).
+
+% UNIQUENESS CONSTRAINTS
+
+% Order O *contains* at most one Product
+tff(contains_uniqueness_at_most_one_product, conjecture,
+  ! [O: universe, P1: universe, P2: universe] :
+    ( ( contains(O,P1) & contains(O,P2) ) => ( P1 = P2 ) )
+).
+
+% Order O is *delivered* (delivers) by at most one Supplier
+tff(delivers_uniqueness_at_most_one_supplier, conjecture,
+  ! [S1: universe, S2: universe, O: universe] :
+    ( ( delivers(S1,O) & delivers(S2,O) ) => ( S1 = S2 ) )
+).
+
+% Order O is *received* (receives) by at most one Supplier
+tff(receives_uniqueness_at_most_one_supplier, conjecture,
+  ! [S1: universe, S2: universe, O: universe] :
+    ( ( receives(S1,O) & receives(S2,O) ) => ( S1 = S2 ) )
+).
+
+% MANDATORY CONSTRAINTS
+
+% Every Order O *contains* a Product
+tff(order_mandatory_contains, conjecture,
+  ! [O: universe] :
+    ( order(O) => ( ? [P: universe] : contains(O,P) ) )
+).
+
+% SUBSET CONSTRAINTS
+
+% Every Order O *received* (receives) by a Supplier S has a *bid* (bids) by the
+% same Supplier S
+tff(receives_subset_bids, conjecture,
+  ! [S: universe, O: universe] :
+    ( receives(S,O) => bids(S,O) )
+).
+
+% Every Order O *delivered* (delivers) by a Supplier S was *received* (receives)
+% by the same Supplier S
+tff(delivers_subset_receives, conjecture,
+  ! [S: universe, O: universe] :
+    ( delivers(S,O) => receives(S,O) )
+).
+
+% OTHER CONSTRAINTS
+
+% A Supplier S can only *bid* (bids) an Order O if they provide Product P
+% *contained* (contains) in the Order o
+tff(domain_constraint_bid_only_if_supplies, conjecture,
+  ! [S: universe, O: universe] :
+    ( bids(S,O) => ( ? [P: universe] :
+                        ( supplies(S,P) & contains(O,P) )
+                   )
+    )
+).
+
+% If Supplier S1 *receives* (receive) Order O, then some other Supplier S2
+% made a *bid* (bids) for the same Order O
+tff(domain_constraint_at_least_two_bids, conjecture,
+  ! [S1: universe, O: universe] :
+    ( receives(S1,O) => ( ? [S2: universe] :
+                             ( (S1 != S2) & bids(S2,O) )
+                        )
+    )
+).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
