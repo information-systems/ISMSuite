@@ -40,6 +40,8 @@ public class PNIDEngine {
 	
 	private Map<PNIDBinding,Binding> enabledBindings = new HashMap<>();
 	private Map<Transition, Set<PNIDBinding>> enabledTransitions = new HashMap<>();
+	
+	private Map<String, Place> places = new HashMap<>();
 		
 	private Map<String, Transition> transitions = new HashMap<>();
 	
@@ -84,6 +86,7 @@ public class PNIDEngine {
 	private void constructMarkedPetriNet() {
 		markedNet = new MarkedPetriNet();
 		transitions = new HashMap<>();
+		places = new HashMap<>();
 		
 		for(Transition transition: flat.getTransitions()) {
 			transitions.put(transition.getId(), transition );
@@ -132,6 +135,7 @@ public class PNIDEngine {
 		// Process the places,
 		for(org.pnml.tools.epnk.pnmlcoremodel.Place p: flat.getPlaces()) {
 			Place place = (Place) p;
+			places.put(p.getId(), place);
 			
 			// get the cardinality
 			int cardinality = 0;
@@ -231,6 +235,10 @@ public class PNIDEngine {
 	
 	public Transition getTransition(String id) {
 		return transitions.get(id);
+	}
+	
+	public Place getPlace(String id) {
+		return places.get(id);
 	}
 	
 	public Binding getBindingFor(PNIDBinding b) {

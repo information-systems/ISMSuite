@@ -26,6 +26,7 @@ import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Variable;
+import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 
 public class ExecuteTransactionDialog {
@@ -74,7 +75,11 @@ public class ExecuteTransactionDialog {
 			return;
 		}
 		
-		world.execute(t, d.getBinding());
+		try {
+			world.execute(t, d.getBinding());
+		} catch (OperationException e) {
+			JOptionPane.showMessageDialog(frame, e.getMessage(), "Error while executing transaction", JOptionPane.ERROR_MESSAGE);
+		}
 		
 	}
 	
