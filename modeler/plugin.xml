@@ -249,6 +249,25 @@
       				id="ismsuite.modeler.menus.topmenu.simulateism"
       				mnemonic="I">
       			</command>
+	      		<visibleWhen checkEnabled="false">
+					<or>
+						<!-- It is the perspective -->
+						<with variable="activeWorkbenchWindow.activePerspective">
+							<equals value="org.informationsystem.ismsuite.modeler.ui.perspective">
+							</equals>
+						</with>
+						<!-- or, it is the pnml core editor -->
+						<with variable="activeEditorId">
+							<equals value="org.pnml.tools.epnk.pnmlcoremodel.presentation.PnmlcoremodelEditorPNML">
+							</equals>
+						</with>
+						<!-- or, it is the pnml diagram editor -->
+						<with variable="activeEditorId">
+							<equals value="org.pnml.tools.epnk.diagram.part.PNMLCoreModelDiagramEditorID">
+							</equals>
+						</with>
+					</or>
+	            </visibleWhen>
           </menu>
       </menuContribution>
    </extension>
