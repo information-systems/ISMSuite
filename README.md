@@ -11,3 +11,6 @@ For development, Install in Eclipse the following packages
  * ECore tools SDK: http://download.eclipse.org/ecoretools/updates/releases/3.2.0/neon
  * ePNK core and basic extensions: http://www2.compute.dtu.dk/~ekki/projects/ePNK/1.2/update/
 
+To install from source, execute Maven clean and Maven generate-source.
+
+
