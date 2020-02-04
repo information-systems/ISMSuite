@@ -141,7 +141,7 @@
                     <groupId>org.cpntools.accesscpn</groupId>
                     <artifactId>cosimulation</artifactId>
                     <version>2.2.0</version>
-                    <file>${project.basedir}/src/libs/org.cpntools.accesscpn.cosimulation_2.2.0.jar</file>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.cosimulation_2.2.0.jar</file>
                     <packaging>jar</packaging>
                     <generatePom>true</generatePom>
                 </configuration>
@@ -157,7 +157,7 @@
                     <groupId>org.cpntools.accesscpn</groupId>
                     <artifactId>engine</artifactId>
                     <version>2.2.0</version>
-                    <file>${project.basedir}/src/libs/org.cpntools.accesscpn.engine_2.2.0.jar</file>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.engine_2.2.0.jar</file>
                     <packaging>jar</packaging>
                     <generatePom>true</generatePom>
                 </configuration>
@@ -173,7 +173,7 @@
                     <groupId>org.cpntools.accesscpn</groupId>
                     <artifactId>engine.highlevel</artifactId>
                     <version>2.2.0</version>
-                    <file>${project.basedir}/src/libs/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar</file>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar</file>
                     <packaging>jar</packaging>
                     <generatePom>true</generatePom>
                 </configuration>
@@ -189,7 +189,7 @@
                     <groupId>org.cpntools.accesscpn</groupId>
                     <artifactId>engine.proxy</artifactId>
                     <version>2.2.0</version>
-                    <file>${project.basedir}/src/libs/org.cpntools.accesscpn.engine.proxy_2.2.0.jar</file>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.engine.proxy_2.2.0.jar</file>
                     <packaging>jar</packaging>
                     <generatePom>true</generatePom>
                 </configuration>
@@ -205,7 +205,7 @@
                     <groupId>org.cpntools.accesscpn</groupId>
                     <artifactId>model</artifactId>
                     <version>2.2.0</version>
-                    <file>${project.basedir}/src/libs/org.cpntools.accesscpn.model_2.2.0.jar</file>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.model_2.2.0.jar</file>
                     <packaging>jar</packaging>
                     <generatePom>true</generatePom>
                 </configuration>
@@ -221,7 +221,7 @@
                     <groupId>org.cpntools.accesscpn</groupId>
                     <artifactId>model.exporter</artifactId>
                     <version>2.2.0</version>
-                    <file>${project.basedir}/src/libs/org.cpntools.accesscpn.model.exporter_2.2.0.jar</file>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.model.exporter_2.2.0.jar</file>
                     <packaging>jar</packaging>
                     <generatePom>true</generatePom>
                 </configuration>
@@ -237,7 +237,7 @@
                     <groupId>org.cpntools.accesscpn</groupId>
                     <artifactId>model.importer</artifactId>
                     <version>2.2.0</version>
-                    <file>${project.basedir}/src/libs/org.cpntools.accesscpn.model.importer_2.2.0.jar</file>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.model.importer_2.2.0.jar</file>
                     <packaging>jar</packaging>
                     <generatePom>true</generatePom>
                 </configuration>
@@ -247,6 +247,142 @@
             </execution>
         </executions>
       </plugin>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <configuration>
+        	<localRepositoryPath>/home/jmw/git/maven/</localRepositoryPath>
+        </configuration>
+        <executions>
+        	<execution>
+        		<id>install-jar-to-maven</id>
+        		<configuration>
+		        	<groupId>${groupId}</groupId>
+		        	<artifactId>${artifactId}</artifactId>
+		        	<version>${version}</version>
+		        	<generatePom>true</generatePom>
+		        	<packaging>jar</packaging>
+		        	<file>target/${project.build.finalName}.jar</file>
+		        </configuration>
+        		<goals>
+        			<goal>install-file</goal>
+        		</goals>
+        		<phase>install</phase>
+        	</execution>
+        	<execution>
+        		<id>accesscpn cosimulation</id>
+                <phase>install</phase>
+                <configuration>
+                    <repositoryLayout>default</repositoryLayout>
+                    <groupId>org.cpntools.accesscpn</groupId>
+                    <artifactId>cosimulation</artifactId>
+                    <version>2.2.0</version>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.cosimulation_2.2.0.jar</file>
+                    <packaging>jar</packaging>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <goals>
+                    <goal>install-file</goal>
+                </goals>
+            </execution>
+            <execution>
+        		<id>accesscpn engine</id>
+                <phase>install</phase>
+                <configuration>
+                    <repositoryLayout>default</repositoryLayout>
+                    <groupId>org.cpntools.accesscpn</groupId>
+                    <artifactId>engine</artifactId>
+                    <version>2.2.0</version>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.engine_2.2.0.jar</file>
+                    <packaging>jar</packaging>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <goals>
+                    <goal>install-file</goal>
+                </goals>
+            </execution>
+            <execution>
+        		<id>accesscpn engine.highlevel</id>
+                <phase>install</phase>
+                <configuration>
+                    <repositoryLayout>default</repositoryLayout>
+                    <groupId>org.cpntools.accesscpn</groupId>
+                    <artifactId>engine.highlevel</artifactId>
+                    <version>2.2.0</version>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.engine.highlevel_2.2.0.jar</file>
+                    <packaging>jar</packaging>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <goals>
+                    <goal>install-file</goal>
+                </goals>
+            </execution>
+            <execution>
+        		<id>accesscpn engine.proxy</id>
+                <phase>install</phase>
+                <configuration>
+                    <repositoryLayout>default</repositoryLayout>
+                    <groupId>org.cpntools.accesscpn</groupId>
+                    <artifactId>engine.proxy</artifactId>
+                    <version>2.2.0</version>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.engine.proxy_2.2.0.jar</file>
+                    <packaging>jar</packaging>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <goals>
+                    <goal>install-file</goal>
+                </goals>
+            </execution>
+            <execution>
+        		<id>accesscpn model</id>
+                <phase>install</phase>
+                <configuration>
+                    <repositoryLayout>default</repositoryLayout>
+                    <groupId>org.cpntools.accesscpn</groupId>
+                    <artifactId>model</artifactId>
+                    <version>2.2.0</version>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.model_2.2.0.jar</file>
+                    <packaging>jar</packaging>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <goals>
+                    <goal>install-file</goal>
+                </goals>
+            </execution>
+            <execution>
+        		<id>accesscpn model.exporter</id>
+                <phase>install</phase>
+                <configuration>
+                    <repositoryLayout>default</repositoryLayout>
+                    <groupId>org.cpntools.accesscpn</groupId>
+                    <artifactId>model.exporter</artifactId>
+                    <version>2.2.0</version>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.model.exporter_2.2.0.jar</file>
+                    <packaging>jar</packaging>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <goals>
+                    <goal>install-file</goal>
+                </goals>
+            </execution>
+            <execution>
+        		<id>accesscpn model.importer</id>
+                <phase>install</phase>
+                <configuration>
+                    <repositoryLayout>default</repositoryLayout>
+                    <groupId>org.cpntools.accesscpn</groupId>
+                    <artifactId>model.importer</artifactId>
+                    <version>2.2.0</version>
+                    <file>${project.basedir}/libs/org.cpntools.accesscpn.model.importer_2.2.0.jar</file>
+                    <packaging>jar</packaging>
+                    <generatePom>true</generatePom>
+                </configuration>
+                <goals>
+                    <goal>install-file</goal>
+                </goals>
+            </execution>
+        </executions>
+      </plugin>      
     </plugins>  
   </build>
 </project>

@@ -51,6 +51,28 @@
           </execution> 
         </executions>
       </plugin>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <configuration>
+        	<groupId>${groupId}</groupId>
+        	<artifactId>${artifactId}</artifactId>
+        	<version>${version}</version>
+        	<generatePom>true</generatePom>
+        	<packaging>jar</packaging>
+        	<file>target/${project.build.finalName}.jar</file>
+        	<localRepositoryPath>/home/jmw/git/maven/</localRepositoryPath>
+        </configuration>
+        <executions>
+        	<execution>
+        		<id>install-jar-to-maven</id>
+        		<goals>
+        			<goal>install-file</goal>
+        		</goals>
+        		<phase>install</phase>
+        	</execution>
+        </executions>
+      </plugin>
     </plugins>  
   </build>
 
