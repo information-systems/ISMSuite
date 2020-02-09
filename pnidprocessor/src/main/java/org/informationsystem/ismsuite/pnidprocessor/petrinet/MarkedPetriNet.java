@@ -31,6 +31,7 @@ public class MarkedPetriNet {
 	public void addInArc(String transition, String place, List<String> variables) {
 		addInArc(transition, place, 1, variables);
 	}
+	
 	public void addInArc(String transition, String place, int multiplicity, List<String> variables) {
 	
 		addTransition(transition);
@@ -114,14 +115,28 @@ public class MarkedPetriNet {
 			creatorVariables.put(transition, new HashSet<>());
 		}
 	}
-
+	
 	private class PNIDPlace {
 		private String id;
 		private int cardinality = 0;
+		private String[] type;
 
 		public PNIDPlace(String id, int cardinality) {
 			this.id = id;
 			this.cardinality = cardinality;
+			type = new String[cardinality];
+			for(int i = 0 ; i < cardinality ; i++ ) {
+				type[i] = "universe";
+			}
+		}
+		
+		public PNIDPlace(String id, String... entityTypes) {
+			this.id = id;
+			this.cardinality = entityTypes.length;
+			type = new String[cardinality];
+			for(int i = 0; i < cardinality ; i++) {
+				type[i] = entityTypes[i];
+			}
 		}
 
 		@SuppressWarnings("unused")
@@ -132,13 +147,36 @@ public class MarkedPetriNet {
 		public int getCardinality() {
 			return cardinality;
 		}
+		
+		public String getEntityType(int i) {
+			if (i >= 0 && i < cardinality ) {
+				return type[i];
+			} else {
+				return "universe";
+			}
+		}
+	
+		@SuppressWarnings("unused")
+		public void setEntityType(int i, String entityType) {
+			if (i >= 0 && i < cardinality ) {
+				this.type[i] = entityType;
+			}
+		}
 	}
 
 	Map<String, PNIDPlace> places = new HashMap<>();
 	Set<String> transitions = new HashSet<>();
-	
+		
 	public Set<String> places() {
 		return Collections.unmodifiableSet(places.keySet());
+	}
+	
+	public String getPlaceType(String id, int index) {
+		if (places.containsKey(id)) {
+			return places.get(id).getEntityType(index);
+		} else {
+			return null;
+		}
 	}
 	
 	public Set<String> transitions() {
@@ -147,6 +185,10 @@ public class MarkedPetriNet {
 
 	public void addPlace(String place, int cardinality) {
 		places.put(place, new PNIDPlace(place, cardinality));
+	}
+	
+	public void addPlace(String place, String...entityTypes) {
+		places.put(place, new PNIDPlace(place, entityTypes));
 	}
 
 	public void addPlace(String place) {
