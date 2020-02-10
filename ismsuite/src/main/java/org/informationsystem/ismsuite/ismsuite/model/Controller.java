@@ -13,6 +13,7 @@ import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 
@@ -177,7 +178,13 @@ public class Controller {
 				}
 				
 				// Now apply the transaction on the current world
-				boolean result = t.apply(valuation, p2);
+				boolean result = false;
+				try {
+					result = t.apply(valuation, p2);
+				} catch (OperationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				if (result) {
 					if (verbose) {
@@ -245,7 +252,12 @@ public class Controller {
 							Variable v = transaction.getVariable(i);
 							binding.put(v, new Element(v.getType() + "_" + t.get(i), v.getType()));
 						}						
-						transaction.apply(binding, world);
+						try {
+							transaction.apply(binding, world);
+						} catch (OperationException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 			}
