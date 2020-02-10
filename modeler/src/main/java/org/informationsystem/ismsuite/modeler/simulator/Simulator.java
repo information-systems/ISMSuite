@@ -1,40 +1,24 @@
 package org.informationsystem.ismsuite.modeler.simulator;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import javax.swing.JOptionPane;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Entity;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.simulator.BasicPNIDSimulator;
 import org.informationsystem.ismsuite.modeler.process.simulator.PNIDBinding;
-import org.informationsystem.ismsuite.pnidprocessor.PNIDModel;
 import org.informationsystem.ismsuite.processengine.process.Binding;
-import org.informationsystem.ismsuite.processengine.process.MultiSet;
-import org.informationsystem.ismsuite.processengine.process.Token;
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
-import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Specification;
-import org.informationsystem.ismsuite.specifier.model.Transaction;
-import org.pnml.tools.epnk.helpers.NetFunctions;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
-import org.pnml.tools.epnk.pnmlcoremodel.Place;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 import org.pnml.tools.epnk.pnmlcoremodel.TransitionNode;
 
@@ -138,22 +122,21 @@ public class Simulator extends BasicPNIDSimulator {
 	}
 	
 	/**
+	 * This map keeps the binding mapping between PNID net and MarkedPetriNet.
+	 * Note that it is reset after every firing!
+	 */
+	private Map<PNIDBinding, Binding> currentBindings = new HashMap<>();
+	
+	/**
 	 * Transforms a given Binding in terms of a PNID (of the modeler)
-	 * to a Binding in terms of a MarkedPetriNet
+	 * to a Binding in terms of a MarkedPetriNet. Note that we only use
+	 * the mapping of currentBindings!
+	 * 
 	 * @param b
 	 * @return
 	 */
 	private Binding transformToBinding(PNIDBinding b) {
-		String transition = b.getTransition().getId();
-		
-		// Create a valuation in terms of 
-		Map<String, String> valuation = new HashMap<>();
-		
-		for(Entry<org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable, org.informationsystem.ismsuite.modeler.process.pnid.pnids.Entity> val: b.getValuation().entrySet()) {
-			valuation.put(val.getKey().getText(), val.getValue().getText());
-		}
-		
-		return new Binding(transition, valuation);
+		return currentBindings.get(b);
 	}
 	
 	/**
@@ -174,13 +157,19 @@ public class Simulator extends BasicPNIDSimulator {
 			valuation.put(var, entity);
 		}
 		
-		return new PNIDBinding(transition, valuation);
+		PNIDBinding binding = new PNIDBinding(transition, valuation);
+		currentBindings.put(binding, b);
+		
+		return binding;
 	}
 	
 	@Override
 	public void fire(PNIDBinding b) {
 		
 		if (ismEngine.fire(transformToBinding(b))) {
+			this.getEngine().fire(b);
+			// Reset the current bindings
+			currentBindings = new HashMap<>();
 			// Update the annotations
 			generateCurrentAnnotations();
 			// Inform everyone that the firing succeeded. 

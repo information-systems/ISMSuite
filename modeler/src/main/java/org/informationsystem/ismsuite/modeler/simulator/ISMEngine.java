@@ -186,14 +186,16 @@ public class ISMEngine {
 	
 	public boolean fire(Binding b) {
 		if (enabledBindings.containsKey(b)) {
-			currentWorld = enabledBindings.get(b);
+
+			if (petriNet.fire(b)) {
+				currentWorld = enabledBindings.get(b);
 			
-			calculateNextPossibleSteps();
+				calculateNextPossibleSteps();
 			
-			return true;
-		} else {
-			return false;
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	private boolean buildValuation(Iterator<Variable> it, Map<String, String> values, Map<Variable, Element> valuation) {
