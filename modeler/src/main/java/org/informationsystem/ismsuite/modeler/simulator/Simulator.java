@@ -16,6 +16,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Entity;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.simulator.BasicPNIDSimulator;
 import org.informationsystem.ismsuite.modeler.process.simulator.PNIDBinding;
 import org.informationsystem.ismsuite.pnidprocessor.PNIDModel;
@@ -41,8 +43,6 @@ public class Simulator extends BasicPNIDSimulator {
 	private Specification specification;
 	private World initialWorld;
 	
-	private World currentWorld;
-	
 	public Simulator(PetriNet petrinet, Specification specification, World world) {
 		super(petrinet);
 		this.specification = specification;
@@ -51,10 +51,13 @@ public class Simulator extends BasicPNIDSimulator {
 
 	private SimulationView viewer;
 	
+	private ISMEngine ismEngine;
 	
 	@Override
 	public void initializeContents() {
 		initializeSimulator();
+		
+		ismEngine = new ISMEngine(this.initialWorld, this.specification, this.getEngine().getMarkedPetriNet());
 		
 		try {
 			viewer = (SimulationView) PlatformUI.getWorkbench()
@@ -64,27 +67,26 @@ public class Simulator extends BasicPNIDSimulator {
 			
 			viewer.setSimulator(this);
 			addListener(viewer);
-			
-			initializeWorld();
-			
-			
-			List<String> reasons = validateWorld(currentWorld);
-			if (reasons.isEmpty()) {
-						
-				calculateNextPossibleSteps();
-				notifyFiring(null);
-			
-				generateCurrentAnnotations();
-			} else {
-				StringBuilder msg = new StringBuilder();
-				msg.append("Initial world contains the following errors:");
-				for(String reason: reasons) {
-					msg.append("\n * ");
-					msg.append(reason);
-				}
-				MessageDialog.openError(Display.getCurrent().getActiveShell(), "Warning initializing simulator", msg.toString());
-				this.dispose();
+		
+			if (!ismEngine.initializeWorld()) {
+				MessageDialog.openWarning(
+						Display.getCurrent().getActiveShell(), 
+						"Warning initializing simulator", 
+						ismEngine.getError());
 			}
+			
+			if (!ismEngine.initialize()) {
+				MessageDialog.openWarning(
+						Display.getCurrent().getActiveShell(), 
+						"Warning initializing simulator", 
+						ismEngine.getError());
+			}
+			
+			notifyFiring(null);
+			
+			generateCurrentAnnotations();
+
+			
 		} catch (PartInitException e) {
 			
 			e.printStackTrace();
@@ -92,56 +94,16 @@ public class Simulator extends BasicPNIDSimulator {
 		
 	}
 	
-	private void initializeWorld() {
-		currentWorld = (World) initialWorld.clone();
-		
-		String msg = "";
-		
-		System.out.println(specification);
-		
-		for(Entry<String, MultiSet<Token>> bag : getEngine().getMarkedPetriNet().getMarking().map().entrySet()) {
-			Transaction transaction = specification.getPlace(bag.getKey());
-			if (transaction != null && !bag.getValue().isEmpty()) {
-				// msg += "Transaction found for: " + bag.getKey() + "\n"; 
-				System.out.println("Transaction: " + bag.getKey());
-				for(Token token : bag.getValue().getUnique()) {
-					if (token.size() == transaction.variableSize()) {
-						Map<Variable, Element> valuation = new HashMap<>();
-						org.informationsystem.ismsuite.modeler.process.pnid.pnids.Place p = getEngine().getPlace(bag.getKey());
-						for(int i = 0 ; i < token.size() ; i++) {
-							String varLabel = p.getType().getStructure().getEntityType().get(i).getText();
-							Variable var = transaction.getVariable(varLabel);
-							
-							Element elem = new Element(token.get(i), var.getType());
-							System.out.print("nr: " + i + ": ");
-							System.out.print(var.getLabel());
-							System.out.print(" -> ");
-							System.out.println(elem.getLabel());
-							
-							valuation.put(var, elem);
-						}
-						try {
-							if (!transaction.apply(valuation, currentWorld)) {
-								msg += "Something went wrong in execution " + bag.getKey() + "\n";
-							}
-						} catch(OperationException e) {
-							msg += "* Error on place " + bag.getKey() +":\n"; 
-							msg += e.getMessage();
-							msg += "\n";
-						}
-					} else {
-						msg += "* Variable signature of place " + bag.getKey() + " is incorrect.\n";
-					}
-				}
-			} else {
-				msg += "* No transaction found for place: " + bag.getKey() + "\n";
-			}
+	/**
+	 * Do not execute the generateCurrentAnnotations
+	 * if the ismEngine is not set.
+	 */
+	@Override
+	public void generateCurrentAnnotations() {
+		if (ismEngine == null) {
+			return;
 		}
-		
-		if (!msg.isEmpty()) {
-			MessageDialog.openWarning(Display.getCurrent().getActiveShell(), "Warning initializing simulator", msg);
-		}
-		
+		super.generateCurrentAnnotations();
 	}
 	
 	@Override
@@ -155,136 +117,104 @@ public class Simulator extends BasicPNIDSimulator {
 	
 	@Override 
 	public Set<Transition> getEnabledTransitions() {
-		return enabledTransitions.keySet();
+		Set<Transition> result = new HashSet<>();
+		for(String t: ismEngine.getEnabledTransitions()) {
+			Transition transition = getEngine().getTransition(t);
+			result.add(transition);
+		}
+		return result;
 	}
 	
 	@Override
 	public Set<PNIDBinding> getBindings(TransitionNode transitionNode) {
 		Transition transition = getFlatAccess().resolve(transitionNode);
-		if (enabledTransitions.containsKey(transition)) {
-			return enabledTransitions.get(transition);
-		} else {
-			return Collections.emptySet();
+		Set<PNIDBinding> result = new HashSet<>();
+		
+		for(Binding b: ismEngine.getBindings(transition.getId())) {
+			result.add(transformToPNIDBinding(b));
 		}
+		
+		return result;
+	}
+	
+	/**
+	 * Transforms a given Binding in terms of a PNID (of the modeler)
+	 * to a Binding in terms of a MarkedPetriNet
+	 * @param b
+	 * @return
+	 */
+	private Binding transformToBinding(PNIDBinding b) {
+		String transition = b.getTransition().getId();
+		
+		// Create a valuation in terms of 
+		Map<String, String> valuation = new HashMap<>();
+		
+		for(Entry<org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable, org.informationsystem.ismsuite.modeler.process.pnid.pnids.Entity> val: b.getValuation().entrySet()) {
+			valuation.put(val.getKey().getText(), val.getValue().getText());
+		}
+		
+		return new Binding(transition, valuation);
+	}
+	
+	/**
+	 * Transforms a binding in terms of a MarkedPetriNet to a binding in terms of a PNID (modeler)
+	 * @param b
+	 * @return
+	 */
+	private PNIDBinding transformToPNIDBinding(Binding b) {
+		Transition transition = getEngine().getTransition(b.getTransition());
+		
+		Map<org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable, org.informationsystem.ismsuite.modeler.process.pnid.pnids.Entity> valuation = new HashMap<>();
+
+		for(Entry<String, String> val: b.getValuation().entrySet()) {
+			org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable var = PnidsFactory.eINSTANCE.createVariable();
+			var.setText(val.getKey());
+			org.informationsystem.ismsuite.modeler.process.pnid.pnids.Entity entity = PnidsFactory.eINSTANCE.createEntity();
+			entity.setText(val.getValue());
+			valuation.put(var, entity);
+		}
+		
+		return new PNIDBinding(transition, valuation);
 	}
 	
 	@Override
 	public void fire(PNIDBinding b) {
-		if (enabledBindings.containsKey(b)) {
-			currentWorld = enabledBindings.get(b);
-			getEngine().fire(b);
-			
-			/*
-			try {
-				Thread.sleep(500);
-			} catch(Exception e) {}
-			*/
-			// Calculate the new possible states
-			calculateNextPossibleSteps();
-			
+		
+		if (ismEngine.fire(transformToBinding(b))) {
 			// Update the annotations
 			generateCurrentAnnotations();
-			
 			// Inform everyone that the firing succeeded. 
 			notifyFiring(b);
 		}
 	}
 	
-	private Map<PNIDBinding, String> disabledBindings = new HashMap<>();
-	private Map<PNIDBinding, World> enabledBindings = new HashMap<>();
-	private Map<Transition, Set<PNIDBinding>> enabledTransitions = new HashMap<>();
-	
-	private boolean buildValuation(Iterator<Variable> it, Map<String, String> values, Map<Variable, Element> valuation) {
-		while(it.hasNext()) {
-			Variable var = it.next();
-			if (values.containsKey(var.getLabel())) {
-				valuation.put(var, new Element(values.get(var.getLabel()), var.getType()));
-			} else {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	
-	private void calculateNextPossibleSteps() {
-		disabledBindings.clear();
-		enabledBindings.clear();
-		enabledTransitions.clear();
-		
-
-		for(PNIDBinding binding: getEngine().getEnabledBindings()) {
-			Binding b = getEngine().getBindingFor(binding);
-			if (specification.containsTransition(b.getTransition())) {
-				Transaction t = specification.getTransactionFor(b.getTransition());
-				
-				World next = (World) currentWorld.clone();
-				
-				Map<Variable, Element> valuation = new HashMap<>();
-				Iterator<Variable> it = t.variables();
-				if (!buildValuation(it, b.getValuation(), valuation)) {
-					disabledBindings.put(binding, "No valuation for some variables!");
-					continue;
-				}
-				boolean applied = false;
-				try {
-					applied = t.apply(valuation, next);
-				} catch(OperationException e) {
-					disabledBindings.put(binding, "Transaction failed with exception:\n\t" + e.getMessage());
-					continue;
-				}
-				
-				if (applied) {
-					
-					// Check whether it is a valid world!
-					List<String> reasons = validateWorld(next);
-					// if reasons is empty, we can continue. Otherwise, 
-					if (reasons.isEmpty()) {
-						enabledBindings.put(binding, next);
-						if (!enabledTransitions.containsKey(binding.getTransition())) {
-							enabledTransitions.put(binding.getTransition(), new HashSet<>());
-						}
-						enabledTransitions.get(binding.getTransition()).add(binding);
-					} else {
-						StringBuilder sb = new StringBuilder();
-						sb.append("Transaction violates the following conjectures:");
-						for(String r: reasons) {
-							sb.append("\n  * ");
-							sb.append(r);
-						}
-						disabledBindings.put(binding, sb.toString());
-						continue;
-					}
-				} else {
-					disabledBindings.put(binding, "Applying transaction failed:\n" + t.toString(true));
-					continue;
-				}
-				
-			} else {
-				disabledBindings.put(binding, "Transition has an empty transaction");
-				continue;
-			}
-		}
-	}
-	
-	private List<String> validateWorld(World next) {
-		List<String> reasons = new ArrayList<>();
-		for( Entry<String, Clause> c : initialWorld.getConjectures()) {
-			if (!c.getValue().isValidIn(next)) {
-				reasons.add(c.getKey());
-			}
-		}
-		return reasons;
-	}
-
 	public FirstOrderLogicWorld getWorld() {
-		return currentWorld;
+		return ismEngine.getCurrentWorld();
 	}
 	
 	public Set<Entry<String,Clause>> getConjectures() {
 		return initialWorld.getConjectures();
 	}
 	
+	public Set<PNIDBinding> getEnabledBindings() {
+		Set<PNIDBinding> result = new HashSet<>();
+		
+		for(Binding b: ismEngine.getBindings()) {
+			result.add(transformToPNIDBinding(b));
+		}
+		
+		return result;
+	}
+	
+	public Map<PNIDBinding, String> getDisabledBindings() {
+		Map<PNIDBinding, String> result = new HashMap<>();
+		
+		for(Entry<Binding, String> b: ismEngine.getDisabledBindings().entrySet()) {
+			result.put(transformToPNIDBinding(b.getKey()), b.getValue());
+		}
+		
+		return result;
+	}
 	
 	private Set<FiringListener> listeners = new HashSet<>();
 	
@@ -298,7 +228,7 @@ public class Simulator extends BasicPNIDSimulator {
 	
 	private void notifyFiring(PNIDBinding binding) {
 		for(FiringListener f: listeners) {
-			f.onBindingFired(binding, currentWorld, Collections.unmodifiableMap(enabledBindings), Collections.unmodifiableMap(disabledBindings));
+			f.onBindingFired(binding, ismEngine.getCurrentWorld(), getEnabledBindings(), getDisabledBindings());
 		}
 	}
 	

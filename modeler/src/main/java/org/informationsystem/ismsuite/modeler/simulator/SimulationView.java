@@ -3,6 +3,7 @@ package org.informationsystem.ismsuite.modeler.simulator;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -123,7 +124,7 @@ public class SimulationView extends ViewPart implements FiringListener {
 	}
 
 	@Override
-	public void onBindingFired(PNIDBinding fired, FirstOrderLogicWorld world, Map<PNIDBinding, World> enabledBindings,
+	public void onBindingFired(PNIDBinding fired, FirstOrderLogicWorld world, Set<PNIDBinding> enabledBindings,
 			Map<PNIDBinding, String> disabledBindings) {
 		
 		updateWorld(world);
