@@ -220,7 +220,4 @@ public class Simulator extends BasicPNIDSimulator {
 			f.onBindingFired(binding, ismEngine.getCurrentWorld(), getEnabledBindings(), getDisabledBindings());
 		}
 	}
-	
-	
-	
 }

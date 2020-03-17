@@ -3,4 +3,6 @@
 target
 *.dump
 *-workspace
+deployment/updateSite/features
+deployment/updateSite/plugins
 runtime-EclipseApplication

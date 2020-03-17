@@ -6,7 +6,7 @@
 
   <groupId>org.informationsystem.ismsuite</groupId>
   <artifactId>modeler</artifactId>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
 
   <name>modeler</name>
   <url>http://ismsuite.informationsystem.org</url>
@@ -45,7 +45,7 @@
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>specifier</artifactId>
-    	<version>1.1.4</version>
+    	<version>1.1.5</version>
     </dependency>
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
@@ -110,7 +110,7 @@
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>specifier</artifactId>
-    							<version>1.1.4</version>
+    							<version>1.1.5</version>
     						</artifactItem>
     					</artifactItems>
     					<outputDirectory>${project.build.directory}/jar/</outputDirectory>

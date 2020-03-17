@@ -995,7 +995,7 @@
           </graphics>
           <structure multiplicity="1">
             <variable>
-              <text>orde</text>
+              <text>order</text>
             </variable>
             <variable>
               <text>supplier</text>
