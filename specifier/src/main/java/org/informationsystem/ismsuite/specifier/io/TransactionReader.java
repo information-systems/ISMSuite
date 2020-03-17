@@ -10,10 +10,11 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ConsoleErrorListener;
+import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 import org.informationsystem.ismsuite.specifier.parser.SpecificationLexer;
 import org.informationsystem.ismsuite.specifier.parser.SpecificationParser;
-import org.informationsystem.ismsuite.specifier.parser.SpecificationParser.Specication_fileContext;
+import org.informationsystem.ismsuite.specifier.parser.SpecificationParser.SpecificationContext;
 
 public class TransactionReader {
 	
@@ -57,12 +58,17 @@ public class TransactionReader {
 		SpecificationLexer lexer = getLexer(stream);
 		SpecificationParser parser = getParser(lexer);
 		
-        Specication_fileContext spec = parser.specication_file();
+        SpecificationContext spec = parser.specification();
         SpecificationBuilder builder = new SpecificationBuilder();
         
-        spec.accept(builder);
-                
-        return builder.lastTransaction();
+        Specification specification = builder.getSpecification(spec);
+        if (!specification.isEmpty()) {
+        	for (Transaction t: specification.values()) {
+        		return t;
+        	}
+        }
+        
+        return null;
 	}
 	
 	

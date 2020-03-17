@@ -30,7 +30,7 @@ public class TestOperations {
 	 */
 	@BeforeClass
 	public static void setUp() throws Exception {
-		String specificationString = "process Likes {place persons(p: person) {register p;insert (p) into human;}transition addHuman(p: person) {register p;insert (p) into human;}transition addLikes(p1: person, p2: person) {insert (p1, p2) into likes;}transition removeLikes(p1: person, p2: person) {remove (p1, p2) from likes;}transition removeHuman(p: person) {remove (p) from human;}}";
+		String specificationString = "transaction Likes.persons(p: person) { register p; insert (p) into human; } transaction Likes.addHuman(p: person) { register p;insert (p) into human;}transaction Likes.addLikes(p1: person, p2: person) {insert (p1, p2) into likes;}transaction Likes.removeLikes(p1: person, p2: person) {remove (p1, p2) from likes;}transaction Likes.removeHuman(p: person) {remove (p) from human;}";
 		
 		spec = SpecificationReader.fromString(specificationString);
 		
@@ -88,7 +88,7 @@ public class TestOperations {
 		
 		World w = new World();
 		
-		Transaction t = spec.getTransactionFor("Likes.addHuman");
+		Transaction t = spec.get("Likes.addHuman");
 		assertNotNull(t);
 		RegisterOperation register = null;
 		for(Iterator<Operation> it = t.operations(); it.hasNext(); ) {
@@ -112,7 +112,7 @@ public class TestOperations {
 	public void testInsertAndRemoveHuman() {
 		World w = new World();
 		
-		Transaction t = spec.getTransactionFor("Likes.addHuman");
+		Transaction t = spec.get("Likes.addHuman");
 		
 		assertNotNull(t);
 		
@@ -130,7 +130,7 @@ public class TestOperations {
 		assertTrue(w.contains(new Relation("human", a)));
 		
 		try {
-			spec.getTransactionFor("Likes.removeHuman").apply(binding, w);
+			spec.get("Likes.removeHuman").apply(binding, w);
 		} catch (OperationException e) {
 			fail("Should not happen: " + e.getMessage());
 		}
