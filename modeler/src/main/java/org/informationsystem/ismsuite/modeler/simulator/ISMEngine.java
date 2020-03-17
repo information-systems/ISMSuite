@@ -69,7 +69,7 @@ public class ISMEngine {
 		System.out.println(specification);
 		
 		for(Entry<String, MultiSet<Token>> bag : petriNet.getMarking().map().entrySet()) {
-			Transaction transaction = specification.getPlace(bag.getKey());
+			Transaction transaction = specification.get(bag.getKey());
 			if (transaction != null && !bag.getValue().isEmpty()) {
 				// msg += "Transaction found for: " + bag.getKey() + "\n"; 
 				System.out.println("Transaction: " + bag.getKey());
@@ -216,8 +216,8 @@ public class ISMEngine {
 		enabledTransitions.clear();
 		
 		for(Binding binding: petriNet.getBindings()) {
-			if (specification.containsTransition(binding.getTransition())) {
-				Transaction t = specification.getTransactionFor(binding.getTransition());
+			if (specification.containsKey(binding.getTransition())) {
+				Transaction t = specification.get(binding.getTransition());
 				
 				World next = (World) currentWorld.clone();
 				
@@ -257,7 +257,7 @@ public class ISMEngine {
 						continue;
 					}
 				} else {
-					disabledBindings.put(binding, "Applying transaction failed:\n" + t.toString(true));
+					disabledBindings.put(binding, "Applying transaction failed:\n" + t.toString());
 					continue;
 				}
 				
