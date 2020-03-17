@@ -66,13 +66,13 @@ public class ISMEngine {
 		error = "";
 		String msg = "";
 		
-		System.out.println(specification);
+		// System.out.println(specification);
 		
 		for(Entry<String, MultiSet<Token>> bag : petriNet.getMarking().map().entrySet()) {
 			Transaction transaction = specification.get(bag.getKey());
 			if (transaction != null && !bag.getValue().isEmpty()) {
 				// msg += "Transaction found for: " + bag.getKey() + "\n"; 
-				System.out.println("Transaction: " + bag.getKey());
+				// System.out.println("Transaction: " + bag.getKey());
 				for(Token token : bag.getValue().getUnique()) {
 					if (token.size() == transaction.variableSize()) {
 						Map<Variable, Element> valuation = new HashMap<>();
@@ -83,10 +83,13 @@ public class ISMEngine {
 							Variable var = transaction.getVariable(varLabel);
 							
 							Element elem = new Element(token.get(i), var.getType());
+							
+							/*
 							System.out.print("nr: " + i + ": ");
 							System.out.print(var.getLabel());
 							System.out.print(" -> ");
 							System.out.println(elem.getLabel());
+							*/
 							
 							valuation.put(var, elem);
 						}
