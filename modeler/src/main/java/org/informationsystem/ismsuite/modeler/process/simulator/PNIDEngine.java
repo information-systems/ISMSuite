@@ -139,10 +139,19 @@ public class PNIDEngine {
 			
 			// get the cardinality
 			int cardinality = 0;
+			String[] types = null;
 			if ((place.getType() != null) && (place.getType().getStructure() != null) ) {
 				cardinality = place.getType().getStructure().getEntityType().size();
+				types = new String[cardinality];
+				for(int i = 0 ; i < cardinality ; i++) {
+					types[i] = place.getType().getStructure().getEntityType().get(i).getText();
+				}
 			}
-			markedNet.addPlace(p.getId(), cardinality);
+			if (cardinality == 0) {
+				markedNet.addPlace(p.getId(), cardinality);
+			} else {
+				markedNet.addPlace(p.getId(), types);
+			}
 			
 			// Add the tokens
 			Set<String> entities = new HashSet<>();

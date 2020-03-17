@@ -9,68 +9,68 @@ import org.informationsystem.ismsuite.specifier.model.Transaction;
 
 import java.util.Set;
 
-public class Specification {
+public class Specification implements Map<String, Transaction> {
+
+	private Map<String, Transaction> transactions = new HashMap<>();
 	
-	private Map<String, Transaction> transitions = new HashMap<>();
-	private Map<String, Transaction> places = new HashMap<>();
-	
-	public Collection<Transaction> places() {
-		return places.values();
-	}
-		
-	public void addPlace(String name, Transaction transaction) {
-		places.put(name, transaction);
-	}
-	
-	public void addTransition(String name, Transaction transaction) {
-		if (!name.contains(".")) {
-			
-		}
-		transitions.put(name, transaction);
-	}
-	
-	
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		
-		for(Entry<String, Transaction> e: places.entrySet()) {
-			sb.append("place ");
-			sb.append(e.getValue().toString());
-			sb.append("\n");
-		}
-		
-		for(Entry<String, Transaction> e: transitions.entrySet()) {
-			sb.append("transaction ");
-			sb.append(e.getValue().toString());
-			sb.append("\n");
-		}
-			
-		return sb.toString();
+	@Override
+	public int size() {
+		return transactions.size();
 	}
 
-	public boolean containsTransition(String transition) {
-		return transitions.containsKey(transition);
-	}
-	
-	public Transaction getTransactionFor(String transition) {
-		return transitions.get(transition);
-	}
-	
-	public Set<String> transitionLabels() {
-		return transitions.keySet();
+	@Override
+	public boolean isEmpty() {
+		return transactions.isEmpty();
 	}
 
-	public Collection<Transaction> transitions() {
-		return transitions.values();
-	}
-	
-	public Transaction getPlace(String place) {
-		return places.get(place);
+	@Override
+	public boolean containsKey(Object key) {
+		return transactions.containsKey(key);
 	}
 
-	public boolean removeTransaction(String transition) {
-		transitions.remove(transition);
-		return true;
+	@Override
+	public boolean containsValue(Object value) {
+		return transactions.containsValue(value);
+	}
+
+	@Override
+	public Transaction get(Object key) {
+		return transactions.get(key);
+	}
+
+	@Override
+	public Transaction put(String key, Transaction value) {
+		return transactions.put(key, value);
+	}
+
+	@Override
+	public Transaction remove(Object key) {
+		return transactions.remove(key);
+	}
+
+	@Override
+	public void putAll(Map<? extends String, ? extends Transaction> m) {
+		transactions.putAll(m);
+	}
+
+	@Override
+	public void clear() {
+		transactions.clear();
+	}
+
+	@Override
+	public Set<String> keySet() {
+		return transactions.keySet();
+	}
+
+	@Override
+	public Collection<Transaction> values() {
+		return transactions.values();
+	}
+
+	@Override
+	public Set<Entry<String, Transaction>> entrySet() {
+		return transactions.entrySet();
 	}
 	
 }

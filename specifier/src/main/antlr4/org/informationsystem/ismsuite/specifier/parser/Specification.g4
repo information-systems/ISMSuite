@@ -18,32 +18,26 @@ Block_comment        : '/*' .*? '*/' -> skip;
 Upper_word           : Upper_alpha Alpha_numeric*;
 Lower_word           : Lower_alpha Alpha_numeric*;
 
-specication_file     : ( process | transition | place )* EOF;
+specification        : ( transaction )* EOF;
 
-process              : 'process' name '{' process_content '}';
-
-process_content      : ( place | transition )*;
-
-place                : 'place' processbasedname '(' argument_list ')' '{' transaction* '}';
-
-transition           : ('transition'|'transaction') processbasedname '(' argument_list ')' '{' transaction* '}';
+transaction          : 'transaction' transaction_name '(' argument_list ')' '{' operator* '}';
 
 argument_list        : variable_declaration (',' variable_declaration )*;
 variable_declaration : variable ':' type;
 
-transaction          : (register_operator | insert_operator | remove_operator | deregister_operator ) ';' ;
+operator             : (register_operator | insert_operator | remove_operator | deregister_operator ) ';' ;
 
 register_operator    : 'register' variable ;
 deregister_operator  : 'deregister' variable ;
 
-insert_operator      : 'insert' '(' variable_list ')' 'into' Lower_word;
-remove_operator      : 'remove' '(' variable_list ')' 'from' Lower_word;
+insert_operator      : 'insert' '(' variable_list ')' 'into' relation;
+remove_operator      : 'remove' '(' variable_list ')' 'from' relation;
 
-relation             : Lower_word '(' variable_list ')';
 variable_list        : variable (',' variable)*;
 
-processbasedname     : name ('.' name )*;
+transaction_name     : name ('.' name )*;
 
 name                 : Upper_word | Lower_word;
 variable             : Upper_word | Lower_word;
 type                 : Lower_word;
+relation             : Lower_word;

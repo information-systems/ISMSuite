@@ -27,10 +27,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.DynamicGridPanel;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 
 
 @SuppressWarnings("serial")

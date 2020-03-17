@@ -22,8 +22,8 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.text.PlainDocument;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
-import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.util.LowerWordEnforcer;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.specifier.model.OperationException;

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Variable;
@@ -49,43 +48,18 @@ public class Transaction {
 		this.myoperations.addAll(operations);
 	}
 	
-	public Transaction(String label, Map<String, String> arguments, List<Operation> operations) {
-		this.label = label;
-		
-		for(Entry<String, String> e: arguments.entrySet()) {
-			Variable v = new Variable(e.getKey(), e.getValue());
-			this.variablelist.put(v.getLabel(), v);
-			this.myvariables.add(v);
-		}
-		this.myoperations.addAll(operations);
-	}
-	
 	@Override
 	public String toString() {
-		return toString(false, "", true);
+		return toString("");
 	}
 	
 	public String toString(String append) {
-		return toString(false, append, true);
-	}
-	
-	public String toString(boolean withTransaction) {
-		return toString(withTransaction, "", true);
-	}
-	
-	public String toString(boolean withTransaction, String append, boolean withProcessName) {
-		StringBuilder sb = new StringBuilder();
-		if (withTransaction) {
-			sb.append(append);
-			sb.append("transaction ");
-		}
 		
-		int p = label.indexOf('.');
-		if (withProcessName && (p > 0)) {
-			sb.append(label.substring(p+1));
-		} else {
-			sb.append(label);
-		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(append);
+		sb.append("transaction ");
+		sb.append(getLabel());
+		sb.append(" ");
 		
 		StringBuilder vb = new StringBuilder();
 		for(Variable v: myvariables ) {

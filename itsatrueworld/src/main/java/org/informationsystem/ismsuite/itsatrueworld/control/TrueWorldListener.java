@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.controller;
+package org.informationsystem.ismsuite.itsatrueworld.control;
 
 public interface TrueWorldListener {
 

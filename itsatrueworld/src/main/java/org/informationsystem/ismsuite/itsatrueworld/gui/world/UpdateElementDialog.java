@@ -14,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.PlainDocument;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
-import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.util.LowerWordEnforcer;
 
 /**
  * @author jmw

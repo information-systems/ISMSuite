@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.utils;
+package org.informationsystem.ismsuite.itsatrueworld.util;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.utils;
+package org.informationsystem.ismsuite.itsatrueworld.util;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

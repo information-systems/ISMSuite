@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.controller;
+package org.informationsystem.ismsuite.itsatrueworld.control;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,27 +44,25 @@ public class SpecificationController {
 	}
 		
 	public Transaction getTransaction(String name) {
-		return spec.getTransactionFor(name);
+		return spec.get(name);
 	}
 	
 	public void addTransaction(Transaction transaction) {
-		spec.addTransition(transaction.getLabel(), transaction);
+		spec.put(transaction.getLabel(), transaction);
 		modified = true;
 		notifyAllListeners();
 	}
 	
 	public Set<String> getTransactionLabels() {
-		return spec.transitionLabels();
+		return spec.keySet();
 	}
 	
 	public boolean removeTransaction(String name) {
-		boolean result = spec.removeTransaction(name);
-		if (result) {
-			modified = true;
-			notifyAllListeners();
-		}
+		spec.remove(name);
 		
-		return result;
+		modified = true;
+		notifyAllListeners();
+		return true;
 	}
 	
 	
@@ -88,7 +86,7 @@ public class SpecificationController {
 	}
 
 	public boolean containsLabel(String label) {
-		return spec.containsTransition(label);
+		return spec.containsKey(label);
 	}
 	
 }
