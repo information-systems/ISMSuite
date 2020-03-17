@@ -37,8 +37,8 @@ import javax.swing.text.PlainDocument;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Literal;
 import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
-import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.util.LowerWordEnforcer;
 
 public class RelationDialog {
 

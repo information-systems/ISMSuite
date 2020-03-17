@@ -5,7 +5,7 @@
 
 	<groupId>org.informationsystem.ismsuite</groupId>
 	<artifactId>itsatrueworld</artifactId>
-	<version>0.9.0</version>
+	<version>0.10.0</version>
 	<packaging>jar</packaging>
 
 	<name>itsatrueworld</name>
@@ -103,7 +103,7 @@
 		<dependency>
       <groupId>org.informationsystem.ismsuite</groupId>
       <artifactId>specifier</artifactId>
-      <version>1.1.4</version>
+      <version>1.1.5</version>
       <scope>compile</scope>
     </dependency>
 	</dependencies>

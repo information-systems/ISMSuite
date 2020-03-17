@@ -1,39 +1,34 @@
 
-
-process likes {
-
-  transition addPerson(p: universe) {
+transaction addPerson(p: universe) {
     register p;
     insert (p) into person;
-  }
+}
 
-  transition addFemale(v: universe) {
-    register v;
-    insert (v) into v;
-  }
+transaction addFemale(f: universe) {
+  register f;
+  insert (f) into f;
+}
 
-  transition addMale(m: universe) {
-    register m;
-    insert (m) into m;
-  }
+transaction addMale(m: universe) {
+  register m;
+  insert (m) into m;
+}
 
-  transition addLikes(p1: universe, p2: universe) {
-    insert (p1, p2) into likes;
-  }
+transaction addLikes(p1: universe, p2: universe) {
+  insert (p1, p2) into likes;
+}
 
-  transition removeLikes(p1: universe, p2: universe) {
-    remove (p1, p2) from likes;
-  }
+transaction removeLikes(p1: universe, p2: universe) {
+  remove (p1, p2) from likes;
+}
 
-  transition addCouple(m: universe, f: universe) {
-    register m;
-    register f;
+transaction addCouple(m: universe, f: universe) {
+  register m;
+  register f;
 
-    insert (m) into m;
-    insert (f) into f;
+  insert (m) into m;
+  insert (f) into f;
 
-    insert (m,f) into likes;
-    insert (f,m) into likes;
-  }
-
+  insert (m,f) into likes;
+  insert (f,m) into likes;
 }

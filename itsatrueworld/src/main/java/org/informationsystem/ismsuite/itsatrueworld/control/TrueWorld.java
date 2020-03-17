@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.controller;
+package org.informationsystem.ismsuite.itsatrueworld.control;
 
 import java.util.ArrayList;
 import java.util.List;

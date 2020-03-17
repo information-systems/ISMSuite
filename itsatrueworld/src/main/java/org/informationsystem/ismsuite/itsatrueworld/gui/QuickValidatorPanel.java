@@ -25,11 +25,11 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.conjecture.ConjectureEditor;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
-import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.util.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.model.Clause;
 

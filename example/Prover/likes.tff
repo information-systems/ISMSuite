@@ -21,79 +21,79 @@ tff( type_of_g, type, g: universe).
 % Relations
 %%%%%
 
-tff( rel_likes____b__b, axiom, 
+tff( rel_likes____b__b, axiom,
 	likes( b, b )
 ).
 
-tff( rel_likes____f__e, axiom, 
+tff( rel_likes____f__e, axiom,
 	likes( f, e )
 ).
 
-tff( rel_m____b, axiom, 
+tff( rel_m____b, axiom,
 	m( b )
 ).
 
-tff( rel_likes____e__e, axiom, 
+tff( rel_likes____e__e, axiom,
 	likes( e, e )
 ).
 
-tff( rel_likes____c__c, axiom, 
+tff( rel_likes____c__c, axiom,
 	likes( c, c )
 ).
 
-tff( rel_v____f, axiom, 
-	v( f )
+tff( rel_f____f, axiom,
+	f( f )
 ).
 
-tff( rel_likes____a__a, axiom, 
+tff( rel_likes____a__a, axiom,
 	likes( a, a )
 ).
 
-tff( rel_likes____b__e, axiom, 
+tff( rel_likes____b__e, axiom,
 	likes( b, e )
 ).
 
-tff( rel_likes____c__e, axiom, 
+tff( rel_likes____c__e, axiom,
 	likes( c, e )
 ).
 
-tff( rel_v____d, axiom, 
-	v( d )
+tff( rel_f____d, axiom,
+	f( d )
 ).
 
-tff( rel_v____b, axiom, 
-	v( b )
+tff( rel_f____b, axiom,
+	f( b )
 ).
 
-tff( rel_likes____b__a, axiom, 
+tff( rel_likes____b__a, axiom,
 	likes( b, a )
 ).
 
-tff( rel_m____c, axiom, 
+tff( rel_m____c, axiom,
 	m( c )
 ).
 
-tff( rel_likes____e__c, axiom, 
+tff( rel_likes____e__c, axiom,
 	likes( e, c )
 ).
 
-tff( rel_m____a, axiom, 
+tff( rel_m____a, axiom,
 	m( a )
 ).
 
-tff( rel_likes____c__d, axiom, 
+tff( rel_likes____c__d, axiom,
 	likes( c, d )
 ).
 
-tff( rel_v____e, axiom, 
-	v( e )
+tff( rel_f____e, axiom,
+	f( e )
 ).
 
-tff( rel_likes____d__d, axiom, 
+tff( rel_likes____d__d, axiom,
 	likes( d, d )
 ).
 
-tff( rel_likes____a__b, axiom, 
+tff( rel_likes____a__b, axiom,
 	likes( a, b )
 ).
 
@@ -102,19 +102,19 @@ tff( rel_likes____a__b, axiom,
 % Conjectures
 %%%%%
 
-tff( likes_is_reflexive, conjecture, 
+tff( likes_is_reflexive, conjecture,
 	( ! [ X: universe ] : ( likes( X, X ) ) )
 ).
 
-tff( all_elements_are_male_or_female, conjecture, 
-	( ! [ X: universe ] : ( ( m( X ) | v( X ) ) ) )
+tff( all_elements_are_male_or_female, conjecture,
+	( ! [ X: universe ] : ( ( m( X ) | f( X ) ) ) )
 ).
 
-tff( likes_only_if_feels_good, conjecture, 
+tff( likes_only_if_feels_good, conjecture,
 	( ! [ X: universe ] : ( ( ! [ Y: universe ] : ( ( likes( X, Y ) => likes( X, X ) ) ) ) ) )
 ).
 
-tff( elements_are_either_male_or_female_but_not_both, conjecture, 
-	( ! [ X: universe ] : ( ( ( m( X ) => ~( v( X ) ) ) & ( v( X ) => ~( m( X ) ) ) ) ) )
+tff( elements_are_either_male_or_female_but_not_both, conjecture,
+	( ! [ X: universe ] : ( ( ( m( X ) => ~( f( X ) ) ) & ( f( X ) => ~( m( X ) ) ) ) ) )
 ).
 

@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.control.SpecificationController;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.MainWindow;
 
 /**

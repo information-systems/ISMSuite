@@ -20,11 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
-import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationListener;
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.control.SpecificationController;
+import org.informationsystem.ismsuite.itsatrueworld.control.SpecificationListener;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.DynamicGridPanel;
-import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.util.ClauseVisualizer;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 
 public class TransactionPanel extends JPanel implements SpecificationListener {

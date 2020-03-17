@@ -22,11 +22,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.DynamicGridPanel;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
-import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.util.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Clause;
 
 public class ConjecturePanel extends JPanel implements TrueWorldListener {

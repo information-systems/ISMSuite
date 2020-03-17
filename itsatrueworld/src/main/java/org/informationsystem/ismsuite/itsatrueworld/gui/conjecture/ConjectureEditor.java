@@ -11,9 +11,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.PlainDocument;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
-import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
-import org.informationsystem.ismsuite.itsatrueworld.utils.LowerWordEnforcer;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.util.ClauseVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.util.LowerWordEnforcer;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;

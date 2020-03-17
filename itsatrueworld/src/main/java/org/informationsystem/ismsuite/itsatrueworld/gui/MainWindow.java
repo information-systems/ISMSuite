@@ -4,7 +4,6 @@
 package org.informationsystem.ismsuite.itsatrueworld.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -21,7 +20,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -31,7 +29,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.control.SpecificationController;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorldListener;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.conjecture.ConjecturePanel;
 import org.informationsystem.ismsuite.itsatrueworld.gui.transaction.TransactionDialog;
 import org.informationsystem.ismsuite.itsatrueworld.gui.transaction.TransactionPanel;
@@ -40,9 +41,6 @@ import org.informationsystem.ismsuite.itsatrueworld.gui.world.RelationDialog;
 import org.informationsystem.ismsuite.itsatrueworld.gui.world.RelationListingPanel;
 import org.informationsystem.ismsuite.itsatrueworld.gui.world.UpdateElementDialog;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
-import org.informationsystem.ismsuite.itsatrueworld.controller.SpecificationController;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorldListener;
 
 /**
  * @author jmw

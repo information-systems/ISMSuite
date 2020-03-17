@@ -5,9 +5,9 @@ import java.util.Iterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
-import org.informationsystem.ismsuite.itsatrueworld.controller.WorldController;
-import org.informationsystem.ismsuite.itsatrueworld.controller.TrueWorld;
-import org.informationsystem.ismsuite.itsatrueworld.utils.ClauseVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorld;
+import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
+import org.informationsystem.ismsuite.itsatrueworld.util.ClauseVisualizer;
 import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.Relation;
 

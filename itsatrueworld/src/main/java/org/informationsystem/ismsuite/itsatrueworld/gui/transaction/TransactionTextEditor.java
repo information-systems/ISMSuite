@@ -64,7 +64,7 @@ public class TransactionTextEditor extends JPanel implements ANTLRErrorListener 
 	}
 	
 	public void setTransaction(Transaction transaction) {
-		text.setText(transaction.toString(true));
+		text.setText(transaction.toString());
 		updateText();
 	}
 	

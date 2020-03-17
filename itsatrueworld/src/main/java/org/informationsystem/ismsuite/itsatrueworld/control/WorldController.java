@@ -1,4 +1,4 @@
-package org.informationsystem.ismsuite.itsatrueworld.controller;
+package org.informationsystem.ismsuite.itsatrueworld.control;
 
 import java.io.IOException;
 import java.io.InputStream;
