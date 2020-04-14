@@ -17,7 +17,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -69,6 +71,11 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 	}
 	
 	public MainWindow(WorldController controller, SpecificationController specification) {
+		
+		URL url = getClass().getResource("/itsatrueworld.png");
+		ImageIcon imgicon = new ImageIcon(url);
+		super.setIconImage(imgicon.getImage());
+		
 		if (controller == null) {
 			controller = new WorldController();
 		}

@@ -5,7 +5,7 @@
 
 	<groupId>org.informationsystem.ismsuite</groupId>
 	<artifactId>itsatrueworld</artifactId>
-	<version>0.11.0</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>itsatrueworld</name>
@@ -97,7 +97,7 @@
 						</goals>
 						<configuration>
 							<headerType>gui</headerType>
-							<icon>itsatrueworld.ico</icon>
+							<icon>src/main/resources/itsatrueworld.ico</icon>
 							<outfile>../tool/${project.build.finalName}.exe</outfile>
 							<jar>target/${project.build.finalName}-jar-with-dependencies.jar</jar>
 							<classPath>
