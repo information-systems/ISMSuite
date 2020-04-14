@@ -5,7 +5,7 @@
 
 	<groupId>org.informationsystem.ismsuite</groupId>
 	<artifactId>itsatrueworld</artifactId>
-	<version>0.10.0</version>
+	<version>0.11.0</version>
 	<packaging>jar</packaging>
 
 	<name>itsatrueworld</name>
@@ -13,8 +13,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<build>
@@ -52,7 +52,8 @@
 						<phase>install</phase>
 						<configuration>
 							<target>
-								<copy file="target/${project.build.finalName}-jar-with-dependencies.jar"
+								<copy
+									file="target/${project.build.finalName}-jar-with-dependencies.jar"
 									tofile="../tool/${project.build.finalName}.jar" />
 							</target>
 						</configuration>
@@ -63,27 +64,52 @@
 				</executions>
 			</plugin>
 			<plugin>
-      	<groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-install-plugin</artifactId>
-        <configuration>
-        	<groupId>${groupId}</groupId>
-        	<artifactId>${artifactId}</artifactId>
-        	<version>${version}</version>
-        	<generatePom>true</generatePom>
-        	<packaging>jar</packaging>
-        	<file>target/${project.build.finalName}.jar</file>
-        	<localRepositoryPath>/home/jmw/git/maven/</localRepositoryPath>
-        </configuration>
-        <executions>
-        	<execution>
-        		<id>install-jar-to-maven</id>
-        		<goals>
-        			<goal>install-file</goal>
-        		</goals>
-        		<phase>install</phase>
-        	</execution>
-        </executions>
-      </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<configuration>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>${project.artifactId}</artifactId>
+					<version>${project.version}</version>
+					<generatePom>true</generatePom>
+					<packaging>jar</packaging>
+					<file>target/${project.build.finalName}.jar</file>
+					<localRepositoryPath>/home/jmw/git/maven/</localRepositoryPath>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-jar-to-maven</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>install</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>l4j-clui</id>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<headerType>gui</headerType>
+							<icon>itsatrueworld.ico</icon>
+							<outfile>../tool/${project.build.finalName}.exe</outfile>
+							<jar>target/${project.build.finalName}-jar-with-dependencies.jar</jar>
+							<classPath>
+								<mainClass>org.informationsystem.ismsuite.itsatrueworld.App</mainClass>
+							</classPath>
+							<jre>
+								<minVersion>11.0.5</minVersion>
+							</jre>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -101,11 +127,11 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-      <groupId>org.informationsystem.ismsuite</groupId>
-      <artifactId>specifier</artifactId>
-      <version>1.1.5</version>
-      <scope>compile</scope>
-    </dependency>
+			<groupId>org.informationsystem.ismsuite</groupId>
+			<artifactId>specifier</artifactId>
+			<version>1.1.5</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 
