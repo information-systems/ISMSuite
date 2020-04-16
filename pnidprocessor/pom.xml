@@ -6,7 +6,7 @@
 
   <groupId>org.informationsystem.ismsuite</groupId>
   <artifactId>pnidprocessor</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
 
   <name>pnidprocessor</name>
   <!-- FIXME change it to the project's website -->
@@ -28,7 +28,7 @@
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>processengine</artifactId>
-    	<version>1.1.1</version>
+    	<version>1.1.2</version>
     </dependency>
   </dependencies>
 
@@ -44,7 +44,7 @@
         	<generatePom>true</generatePom>
         	<packaging>jar</packaging>
         	<file>target/${project.build.finalName}.jar</file>
-        	<localRepositoryPath>/home/jmw/git/maven/</localRepositoryPath>
+        	<localRepositoryPath>../../maven/</localRepositoryPath>
         </configuration>
         <executions>
         	<execution>
