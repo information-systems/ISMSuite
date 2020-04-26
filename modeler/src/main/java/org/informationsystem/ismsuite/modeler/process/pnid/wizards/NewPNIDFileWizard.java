@@ -89,7 +89,7 @@ public class NewPNIDFileWizard extends Wizard implements INewWizard {
 		PetriNet net = PnmlcoremodelFactory.eINSTANCE.createPetriNet();
 		net.setType(PnidsFactory.eINSTANCE.createPNID());
 		net.setId("n1");
-		if (netName != null && !netName.isBlank()) {
+		if (netName != null && !netName.isEmpty()) {
 			net.setName(PnmlcoremodelFactory.eINSTANCE.createName());
 			net.getName().setText(netName);
 		}
