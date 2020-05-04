@@ -18,6 +18,7 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Token;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.TokenBag;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence;
+import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidArc;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidPNID;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.UnknownNetType;
 import org.informationsystem.ismsuite.modeler.process.validator.PNIDSyntaxChecker;
@@ -47,7 +48,7 @@ public class PNIDEngine {
 	
 	private Stack<PNIDBinding> history = new Stack<>();
 	
-	public PNIDEngine(PetriNet petrinet) throws UnknownNetType, InvalidPNID {
+	public PNIDEngine(PetriNet petrinet) throws UnknownNetType, InvalidPNID, InvalidArc {
 		if (petrinet.getType() == null) {
 			throw new UnknownNetType(petrinet);
 		}
@@ -73,7 +74,7 @@ public class PNIDEngine {
 		return markedNet;
 	}
 	
-	public boolean reset() {
+	public boolean reset() throws InvalidArc {
 		constructMarkedPetriNet();
 		calculateMarking();
 		calculateBindings();
@@ -83,7 +84,7 @@ public class PNIDEngine {
 		return true;
 	}
 	
-	private void constructMarkedPetriNet() {
+	private void constructMarkedPetriNet() throws InvalidArc {
 		markedNet = new MarkedPetriNet();
 		transitions = new HashMap<>();
 		places = new HashMap<>();
@@ -108,6 +109,9 @@ public class PNIDEngine {
 						}
 					}
 				}
+				if (place == null) {
+					throw new InvalidArc(a);
+				}
 				markedNet.addInArc(transition.getId(), place.getId(), multiplicity, vars);
 			}
 			
@@ -127,6 +131,9 @@ public class PNIDEngine {
 							multiplicity = inscription.getMultiplicity();
 						}
 					}
+				}
+				if (place == null) {
+					throw new InvalidArc(a);
 				}
 				markedNet.addOutArc(transition.getId(), place.getId(), multiplicity, vars);
 			}
