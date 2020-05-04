@@ -187,8 +187,8 @@ public class PNIDSyntaxChecker {
 		if (types == null) {
 			if(!a.getInscription().getStructure().getVariable().isEmpty()) {
 				errors.add(new ArcInscriptionTypeError(t));
-				return;
 			}
+			return;
 		}
 		
 		assert (place != null);
