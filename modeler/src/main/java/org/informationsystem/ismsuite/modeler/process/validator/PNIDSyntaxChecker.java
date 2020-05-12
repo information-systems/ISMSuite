@@ -164,6 +164,11 @@ public class PNIDSyntaxChecker {
 			p = flat.resolve((PlaceNode) a.getSource());
 		}
 		
+		if (p == null) {
+			errors.add(new MissingReference(a));
+			return;
+		}
+		
 		Place place = null;
 		EList<EntityType> types = null;
 		
