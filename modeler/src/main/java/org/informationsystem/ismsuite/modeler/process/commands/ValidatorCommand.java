@@ -21,7 +21,7 @@ import org.pnml.tools.epnk.pnmlcoremodel.PetriNetDoc;
 
 public class ValidatorCommand extends AbstractPetriNetCommand {
 
-	public ValidatorCommand(PetriNet net) {
+	public ValidatorCommand() {
 		// TODO Auto-generated constructor stub
 	}
 
