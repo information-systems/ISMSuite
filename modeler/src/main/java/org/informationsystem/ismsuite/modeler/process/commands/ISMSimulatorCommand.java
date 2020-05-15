@@ -137,10 +137,12 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 			        } else {
 			        	lblWorld.setText(worldFileName);
 			        }
+			        
+			        container.layout();
 				}
 			});
 	        			
-			lblWorld = new Label(container, SWT.NONE);
+			lblWorld = new Label(container, SWT.LEFT);
 			lblWorld.setText("<no world selected>");
 			
 			Button btnSpec = new Button(container, SWT.NONE);
@@ -150,7 +152,7 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 				@Override
 				public void handleEvent(Event event) {
 					FileDialog fileDialog = new FileDialog(getShell());
-					if (!specificationFileName.isBlank()) {
+					if (!specificationFileName.isEmpty()) {
 						fileDialog.setFileName(specificationFileName);
 					}
 			        // Set the text
@@ -167,6 +169,7 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 			        } else {
 			        	lblSpec.setText(specificationFileName);
 			        }
+			        container.layout();
 				}
 				});
 	        			
