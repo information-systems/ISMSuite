@@ -198,17 +198,17 @@ public class PNIDSyntaxChecker {
 		
 		assert (place != null);
 		
-		EList<Variable> variables = a.getInscription().getStructure().getVariable();
+		// EList<Variable> variables = a.getInscription().getStructure().getVariable();
 		
 		// Extra check on sizes, note that this error is already handled :-)
-		if (variables.size() != types.size()) {
+		if (a.getInscription().getStructure().getVariable().size() != types.size()) {
 			return;
 		};
 		
 		// Now take the corresponding elements per index, and check with the varTypes
 		// If the var is not yet in, add it.
-		for(int i = 0; i < variables.size(); i++) {
-			String var = variables.get(i).getText();
+		for(int i = 0; i < a.getInscription().getStructure().getVariable().size(); i++) {
+			String var = a.getInscription().getStructure().getVariable().get(i).getText();
 			String typ = types.get(i).getText();
 			
 			if (varTypes.containsKey(var)) {
