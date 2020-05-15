@@ -120,7 +120,7 @@ public class ISMSimulatorCommand extends ApplicationStartCommand {
 				@Override
 				public void handleEvent(Event event) {
 					FileDialog fileDialog = new FileDialog(getShell());
-					if (!worldFileName.isBlank()) {
+					if (!worldFileName.isEmpty()) {
 						fileDialog.setFileName(worldFileName);
 					}
 			        // Set the text
