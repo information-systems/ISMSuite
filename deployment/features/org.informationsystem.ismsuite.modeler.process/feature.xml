@@ -2,7 +2,7 @@
 <feature
       id="org.informationsystem.ismsuite.modeler.process"
       label="ISMSuite Process Modeler"
-      version="1.2.3"
+      version="1.2.4"
       provider-name="InformationSystem.org">
 
    <description url="http://www.informationsystem.org/ismsuite">
@@ -133,6 +133,6 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="org.informationsystem.ismsuite.modeler.process"
          download-size="0"
          install-size="0"
-         version="1.2.6"/>
+         version="0.0.0"/>
 
 </feature>
