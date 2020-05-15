@@ -6,3 +6,4 @@ target
 deployment/updateSite/features
 deployment/updateSite/plugins
 runtime-EclipseApplication
+tool/

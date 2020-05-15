@@ -13,8 +13,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <antlr4.visitor>true</antlr4.visitor>
     <antlr4.listener>false</antlr4.listener>
   </properties>
@@ -40,17 +40,17 @@
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>prover</artifactId>
-    	<version>1.1.1</version>
+    	<version>1.1.2</version>
     </dependency>
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>specifier</artifactId>
-    	<version>1.1.5</version>
+    	<version>1.1.7</version>
     </dependency>
     <dependency>
     	<groupId>org.informationsystem.ismsuite</groupId>
     	<artifactId>processengine</artifactId>
-    	<version>1.1.1</version>
+    	<version>1.1.2</version>
     </dependency>
   </dependencies>
   
@@ -100,17 +100,17 @@
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>processengine</artifactId>
-    							<version>1.1.1</version>
+    							<version>1.1.2</version>
     						</artifactItem>
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>prover</artifactId>
-    							<version>1.1.1</version>
+    							<version>1.1.2</version>
     						</artifactItem>
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>specifier</artifactId>
-    							<version>1.1.5</version>
+    							<version>1.1.7</version>
     						</artifactItem>
     					</artifactItems>
     					<outputDirectory>${project.build.directory}/jar/</outputDirectory>

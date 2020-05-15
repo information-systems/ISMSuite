@@ -165,6 +165,7 @@ public class ISMEngine {
 	private Map<Binding, String> disabledBindings = new HashMap<>();
 	private Map<Binding, World> enabledBindings = new HashMap<>();
 	private Map<String, Set<Binding>> enabledTransitions = new HashMap<>();
+	private Map<Binding, String> warnedBindings = new HashMap<>();
 	
 	
 	public Set<String> getEnabledTransitions() {
@@ -185,6 +186,10 @@ public class ISMEngine {
 	
 	public Map<Binding, String> getDisabledBindings() {
 		return Collections.unmodifiableMap(disabledBindings);
+	}
+	
+	public Map<Binding, String> getWarnedBindings() {
+		return Collections.unmodifiableMap(warnedBindings);
 	}
 	
 	public boolean fire(Binding b) {
@@ -217,6 +222,7 @@ public class ISMEngine {
 		disabledBindings.clear();
 		enabledBindings.clear();
 		enabledTransitions.clear();
+		warnedBindings.clear();
 		
 		for(Binding binding: petriNet.getBindings()) {
 			if (specification.containsKey(binding.getTransition())) {
@@ -265,7 +271,15 @@ public class ISMEngine {
 				}
 				
 			} else {
-				disabledBindings.put(binding, "Transition has an empty transaction");
+				warnedBindings.put(binding, "Transition has an empty transaction");
+
+				// Create a clone of the current world, and add it to enabled binding,
+				// as the world does not change!
+				enabledBindings.put(binding, (World) currentWorld.clone());
+				if (!enabledTransitions.containsKey(binding.getTransition())) {
+					enabledTransitions.put(binding.getTransition(), new HashSet<>());
+				}
+				enabledTransitions.get(binding.getTransition()).add(binding);
 				continue;
 			}
 		}

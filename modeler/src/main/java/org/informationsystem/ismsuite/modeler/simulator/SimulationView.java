@@ -125,10 +125,10 @@ public class SimulationView extends ViewPart implements FiringListener {
 
 	@Override
 	public void onBindingFired(PNIDBinding fired, FirstOrderLogicWorld world, Set<PNIDBinding> enabledBindings,
-			Map<PNIDBinding, String> disabledBindings) {
+			Map<PNIDBinding, String> disabledBindings, Map<PNIDBinding, String> warnedBindings) {
 		
 		updateWorld(world);
-		updateDisabledTransitions(disabledBindings);
+		updateDisabledTransitions(disabledBindings, warnedBindings);
 		updateConjectureList();
 		
 		tabFolder.requestLayout();
@@ -173,7 +173,7 @@ public class SimulationView extends ViewPart implements FiringListener {
 	}
 	
 	
-	private void updateDisabledTransitions(Map<PNIDBinding, String> disabledBindings) {
+	private void updateDisabledTransitions(Map<PNIDBinding, String> disabledBindings, Map<PNIDBinding, String> warnedBindings) {
 		if (disabledTransitionsComposite != null) {
 			for(Control c: disabledTransitionsComposite.getChildren()) {
 				c.dispose();
@@ -183,41 +183,54 @@ public class SimulationView extends ViewPart implements FiringListener {
 			
 			disabledTransitionBar = new ExpandBar(disabledTransitionsComposite, SWT.V_SCROLL);
 			for(Entry<PNIDBinding, String> entry : disabledBindings.entrySet()) {
-				StringBuilder title = new StringBuilder();
-				title.append(entry.getKey().getTransition().getId());
-				title.append("(");
-				for(Entry<Variable, Entity> e: entry.getKey().getValuation().entrySet()) {
-					title.append(" [ ");
-					title.append(e.getKey().getText());
-					title.append(" -> ");
-					title.append(e.getValue().getText());
-					title.append("]");
-				}
-				title.append(" )");
-				
-				Composite c = new Composite(disabledTransitionBar, SWT.NONE);
-				FillLayout layout = new FillLayout();
-				layout.marginHeight = 10;
-				layout.marginWidth = 10;
-				
-				c.setLayout(layout);
-				Label l = new Label(c, SWT.WRAP);
-				l.setText(entry.getValue());
-				
-				ExpandItem item = new ExpandItem(disabledTransitionBar, SWT.NONE);
-				item.setText(title.toString());
-				item.setControl(c);
-				disabledTransitionBar.addListener(SWT.Resize, new Listener() {
-					public void handleEvent(Event event) {
-						Point size = l.computeSize(disabledTransitionBar.getClientArea().width,SWT.DEFAULT);
-						item.setHeight(size.y+20);
-					}
-				});
-				item.setImage(Display.getCurrent().getSystemImage(SWT.ICON_ERROR));
+				addTransitionToList(entry.getKey(), entry.getValue(), Display.getCurrent().getSystemImage(SWT.ICON_ERROR));		
 			}
+			
+			for(Entry<PNIDBinding, String> entry : warnedBindings.entrySet()) {
+				addTransitionToList(entry.getKey(), entry.getValue(), Display.getCurrent().getSystemImage(SWT.ICON_WARNING));
+			}
+			
 			
 			disabledTransitionBar.requestLayout();
 		}
+	}
+	
+	private void addTransitionToList(PNIDBinding binding, String message, Image image) {
+		if (disabledTransitionsComposite == null) {
+			return;
+		}
+		
+		StringBuilder title = new StringBuilder();
+		title.append(binding.getTransition().getId());
+		title.append("(");
+		for(Entry<Variable, Entity> e: binding.getValuation().entrySet()) {
+			title.append(" [ ");
+			title.append(e.getKey().getText());
+			title.append(" -> ");
+			title.append(e.getValue().getText());
+			title.append("]");
+		}
+		title.append(" )");
+		
+		Composite c = new Composite(disabledTransitionBar, SWT.NONE);
+		FillLayout layout = new FillLayout();
+		layout.marginHeight = 10;
+		layout.marginWidth = 10;
+		
+		c.setLayout(layout);
+		Label l = new Label(c, SWT.WRAP);
+		l.setText(message);
+		
+		ExpandItem item = new ExpandItem(disabledTransitionBar, SWT.NONE);
+		item.setText(title.toString());
+		item.setControl(c);
+		disabledTransitionBar.addListener(SWT.Resize, new Listener() {
+			public void handleEvent(Event event) {
+				Point size = l.computeSize(disabledTransitionBar.getClientArea().width,SWT.DEFAULT);
+				item.setHeight(size.y+20);
+			}
+		});
+		item.setImage(image);
 	}
 
 	private void updateConjectureList() {

@@ -205,6 +205,16 @@ public class Simulator extends BasicPNIDSimulator {
 		return result;
 	}
 	
+	public Map<PNIDBinding, String> getWarnedBindings() {
+		Map<PNIDBinding, String> result = new HashMap<>();
+		
+		for(Entry<Binding, String> b: ismEngine.getWarnedBindings().entrySet()) {
+			result.put(transformToPNIDBinding(b.getKey()), b.getValue());
+		}
+		
+		return result;
+	}
+	
 	private Set<FiringListener> listeners = new HashSet<>();
 	
 	public void addListener(FiringListener f) {
@@ -217,7 +227,7 @@ public class Simulator extends BasicPNIDSimulator {
 	
 	private void notifyFiring(PNIDBinding binding) {
 		for(FiringListener f: listeners) {
-			f.onBindingFired(binding, ismEngine.getCurrentWorld(), getEnabledBindings(), getDisabledBindings());
+			f.onBindingFired(binding, ismEngine.getCurrentWorld(), getEnabledBindings(), getDisabledBindings(), getWarnedBindings());
 		}
 	}
 }

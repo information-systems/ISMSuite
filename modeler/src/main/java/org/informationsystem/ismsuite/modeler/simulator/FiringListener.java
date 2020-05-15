@@ -8,5 +8,5 @@ import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 
 public interface FiringListener {
 
-	public void onBindingFired(PNIDBinding fired, FirstOrderLogicWorld world, Set<PNIDBinding> enabledBindings, Map<PNIDBinding, String> disabledBindings);
+	public void onBindingFired(PNIDBinding fired, FirstOrderLogicWorld world, Set<PNIDBinding> enabledBindings, Map<PNIDBinding, String> disabledBindings, Map<PNIDBinding, String> warnedBindings);
 }

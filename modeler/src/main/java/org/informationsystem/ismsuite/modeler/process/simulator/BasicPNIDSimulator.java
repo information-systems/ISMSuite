@@ -3,8 +3,11 @@ package org.informationsystem.ismsuite.modeler.process.simulator;
 import java.util.Set;
 
 import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.PlatformUI;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.TokenBag;
+import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidArc;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.InvalidPNID;
 import org.informationsystem.ismsuite.modeler.process.simulator.exceptions.UnknownNetType;
 import org.informationsystem.ismsuite.modeler.process.simulator.handlers.FireTransitionHandler;
@@ -53,6 +56,7 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 		adapter = new InvalidatorAdapter(this);
 		flatAccess.addInvalidationListener(adapter);
 		
+		
 		try {
 			engine = new PNIDEngine(this.getPetrinet());
 			// engine.setPetrinet(getPetrinet());
@@ -63,10 +67,16 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 			manager.addActionHandler(new FireTransitionHandler(this));
 			manager.addActionHandler(new PlaceHandler(this));
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
+		} catch (UnknownNetType | InvalidPNID | InvalidArc e) {
+			
+			MessageDialog.openError(
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					"ISMSuite - Error",
+					e.getMessage());
+			// e.printStackTrace();
+		}
+			
 	}
 
 	public void generateCurrentAnnotations() {
