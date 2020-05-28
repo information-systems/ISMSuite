@@ -61,9 +61,9 @@ public class ApplicationStartCommand  extends AbstractPetriNetCommand {
 
 		if (!factory.isApplicable(net)) {
 			String name = "";
-			if (net.getName() != null && !net.getName().getText().isBlank()) {
+			if (net.getName() != null && !net.getName().getText().isEmpty()) {
 				name = net.getName().getText();
-			} else if (net.getId() != null && !net.getId().isBlank()) {
+			} else if (net.getId() != null && !net.getId().isEmpty()) {
 				name = net.getId();
 			} else {
 				name = net.toString();

@@ -26,13 +26,7 @@ public class VariableSequenceParser {
 
 
 	public static VariableSequence parse(String input) {
-		/*
-		if (input.isBlank()) {
-			VariableSequence sequence = PnidsFactory.eINSTANCE.createVariableSequence();
-			sequence.setMultiplicity(1);
-			return sequence;
-		}
-		*/
+		
 		CharStream stream = CharStreams.fromString(input);
 		VariableDescriptionLexer lexer = new VariableDescriptionLexer(stream);
 		SyntaxErrorListener listener = new SyntaxErrorListener();
