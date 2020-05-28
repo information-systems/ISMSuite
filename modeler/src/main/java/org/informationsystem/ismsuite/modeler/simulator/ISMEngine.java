@@ -111,7 +111,7 @@ public class ISMEngine {
 			}
 		}
 		
-		if (msg.isBlank()) {
+		if (msg.isEmpty()) {
 			return true;
 		} else {
 			error = msg;

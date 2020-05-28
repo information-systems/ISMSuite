@@ -28,7 +28,7 @@ public class PNIDSyntaxChecker {
 	}
 	
 	public static List<SyntaxError> giveErrorsFor(PetriNet petrinet) {
-		List<SyntaxError> errors = new ArrayList<>();
+		List<SyntaxError> errors = UniqueIDChecker.giveErrorsFor(petrinet);
 		
 		FlatAccess flat = FlatAccess.getFlatAccess(petrinet);
 		

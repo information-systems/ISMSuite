@@ -18,8 +18,17 @@ public class SyntaxError {
 	}
 	
 	public String getMessage() {
+		if (template.isEmpty()) {
+			template = "#ID";
+		}
+		
+		if (pnObject == null) {
+			return template.replace("#ID", "No object").replace("#NAME", "No object");
+		}
+		
 		String message = template;
 		String id;
+		
 		if (pnObject.getId() != null && (!pnObject.getId().equals(""))) {
 			id = pnObject.getId();
 		} else {
