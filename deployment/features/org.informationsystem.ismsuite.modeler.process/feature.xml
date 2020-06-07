@@ -2,7 +2,7 @@
 <feature
       id="org.informationsystem.ismsuite.modeler.process"
       label="ISMSuite Process Modeler"
-      version="1.2.4"
+      version="1.2.5"
       provider-name="InformationSystem.org">
 
    <description url="http://www.informationsystem.org/ismsuite">
