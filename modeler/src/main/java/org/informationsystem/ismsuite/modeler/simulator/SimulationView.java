@@ -64,7 +64,7 @@ public class SimulationView extends ViewPart implements FiringListener {
 		
 		// 1. disabled transitions
 		TabItem disabledTransitionsItem = new TabItem(tabFolder, SWT.NONE);
-		disabledTransitionsItem.setText("Disabled transitions");
+		disabledTransitionsItem.setText("Warnings");
 		disabledTransitionsItem.setControl(createDisabledTransitionsComposite(tabFolder));
 		
 		// 2. Conjectures in the model

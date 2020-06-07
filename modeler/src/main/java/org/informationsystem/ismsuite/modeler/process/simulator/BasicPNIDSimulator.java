@@ -124,7 +124,12 @@ public class BasicPNIDSimulator extends ApplicationWithUIManager {
 			TransitionActivationAnnotation ann = PnidsimulatorFactory.eINSTANCE.createTransitionActivationAnnotation();
 			ann.setObject(transition);
 			annotation.getObjectAnnotations().add(ann);
-			
+		
+			for(TransitionNode ref: flatAccess.getRefTransitions(transition)) {
+				TransitionActivationAnnotation refTrans = PnidsimulatorFactory.eINSTANCE.createTransitionActivationAnnotation();
+				refTrans.setObject(ref);
+				annotation.getObjectAnnotations().add(refTrans);
+			}
 		}
 		
 		return annotation;
