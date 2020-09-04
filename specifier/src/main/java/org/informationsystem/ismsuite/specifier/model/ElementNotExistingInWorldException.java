@@ -1,6 +1,6 @@
 package org.informationsystem.ismsuite.specifier.model;
 
-import org.informationsystem.ismsuite.prover.model.Literal;
+import org.informationsystem.ismsuite.prover.model.literals.Literal;
 
 public class ElementNotExistingInWorldException extends OperationException {
 

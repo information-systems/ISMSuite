@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import java.util.Stack;
 
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Not;
-import org.informationsystem.ismsuite.prover.model.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
 import org.junit.Test;
 
 public class TestNotOperator extends WorldTester {

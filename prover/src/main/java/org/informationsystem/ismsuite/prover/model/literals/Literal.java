@@ -1,6 +1,10 @@
-package org.informationsystem.ismsuite.prover.model;
+package org.informationsystem.ismsuite.prover.model.literals;
 
 import java.util.Stack;
+
+import org.informationsystem.ismsuite.prover.model.Clause;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
 
 /**
  * Abstract element to build up the world. Each Literal is 

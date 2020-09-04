@@ -1,4 +1,6 @@
-package org.informationsystem.ismsuite.prover.model;
+package org.informationsystem.ismsuite.prover.model.operators;
+
+import org.informationsystem.ismsuite.prover.model.Clause;
 
 /**
  * Abstract representation of the Operator Clauses.

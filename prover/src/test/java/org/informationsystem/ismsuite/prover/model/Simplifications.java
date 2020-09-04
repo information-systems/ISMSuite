@@ -3,6 +3,15 @@ package org.informationsystem.ismsuite.prover.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
+import org.informationsystem.ismsuite.prover.model.operators.All;
+import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.Exists;
+import org.informationsystem.ismsuite.prover.model.operators.Implies;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
+import org.informationsystem.ismsuite.prover.model.operators.Or;
 import org.junit.Test;
 
 public class Simplifications {

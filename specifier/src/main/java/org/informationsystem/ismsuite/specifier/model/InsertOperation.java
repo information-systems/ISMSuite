@@ -3,10 +3,10 @@ package org.informationsystem.ismsuite.specifier.model;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.model.Operation;
 
 public class InsertOperation extends Operation {
@@ -46,7 +46,8 @@ public class InsertOperation extends Operation {
 		
 		// Notice that this fails in case that Relation remains abstract
 		// (i.e., it is not added if not all variables are instantiated
-		return world.addRelation(newRelation);
+		world.addRelation(newRelation);
+		return true;
 	}
 
 }

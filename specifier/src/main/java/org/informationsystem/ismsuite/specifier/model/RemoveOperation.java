@@ -3,10 +3,10 @@ package org.informationsystem.ismsuite.specifier.model;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.model.Operation;
 
 public class RemoveOperation extends Operation {
@@ -41,7 +41,8 @@ public class RemoveOperation extends Operation {
 			throw new IsAbstractException(this, newRelation);
 		}
 		
-		return world.removeRelation(newRelation);
+		world.removeRelation(newRelation);
 		
+		return true;
 	}
 }
