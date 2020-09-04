@@ -41,7 +41,8 @@ public class RemoveOperation extends Operation {
 			throw new IsAbstractException(this, newRelation);
 		}
 		
-		return world.removeRelation(newRelation);
+		world.removeRelation(newRelation);
 		
+		return true;
 	}
 }

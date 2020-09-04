@@ -30,7 +30,8 @@ public class DeregisterOperation extends Operation {
 	public boolean apply(Map<Variable, Element> binding, World world) {
 		if (binding.containsKey(var)) {
 			if (var.getType().equals(binding.get(var).getType())) {
-				return world.removeElement(binding.get(var));
+				world.removeElement(binding.get(var));
+				return true;
 			} else {
 				return false;
 			}

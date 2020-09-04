@@ -46,7 +46,8 @@ public class InsertOperation extends Operation {
 		
 		// Notice that this fails in case that Relation remains abstract
 		// (i.e., it is not added if not all variables are instantiated
-		return world.addRelation(newRelation);
+		world.addRelation(newRelation);
+		return true;
 	}
 
 }
