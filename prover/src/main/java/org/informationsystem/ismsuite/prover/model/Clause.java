@@ -2,6 +2,9 @@ package org.informationsystem.ismsuite.prover.model;
 
 import java.util.Stack;
 
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
+
 /**
  * The basic element of Proving: everything is a Clause.
  * 

@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import java.util.Stack;
 
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Equality;
-import org.informationsystem.ismsuite.prover.model.Not;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
+import org.informationsystem.ismsuite.prover.model.operators.Equality;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,34 +1,38 @@
-package org.informationsystem.ismsuite.prover.model;
+package org.informationsystem.ismsuite.prover.model.literals;
+
+import org.informationsystem.ismsuite.prover.model.Clause;
+import org.informationsystem.ismsuite.prover.model.ClauseVisitor;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
 
 /**
- * An element is some object in the real word that can be used
- * in defining Relations and statements about the world.
- * Each element has a Type.
- * 
+ * Represents a variable that can be used in Relations and
+ * operators. Can only be substituted for elements.
+ *  
  * @author jmw
+ *
  */
-public class Element extends Literal {
+public class Variable extends Literal {
 
 	private String type;
 	
-	public Element(String label, String type) {
+	public Variable(String label, String type) {
 		super(label);
 		this.type = type;
-	
+		
 		calculateProperties();
 	}
 	
 	@Override
 	protected void calculateProperties() {
-		mString = "ELT: " + getLabel() + " (" + type + ")";
+		this.mString = "VAR: " + getLabel() + " (" + type + ")";
 	}
-
+	
 	/**
-	 * An element is as concrete as it can get...
+	 * Is always abstract.
 	 */
 	@Override
 	public boolean isAbstract() {
-		return false;
+		return true;
 	}
 	
 	public String getType() {
@@ -37,14 +41,14 @@ public class Element extends Literal {
 	
 	@Override
 	public Object clone() {
-		return new Element(getLabel(), getType());
+		return new Variable(getLabel(), getType());
 	}
 
 	@Override
 	public void instantiate(Variable x, Element a) {
 		// Nothing to do :-)
 	}
-
+	
 	@Override
 	public String toTFF(boolean typed) {
 		if (typed) {
@@ -59,11 +63,7 @@ public class Element extends Literal {
 	 */
 	@Override
 	public boolean isValidIn(FirstOrderLogicWorld world) {
-		if (world.contains(this)) {
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 	}
 	
 	@Override
@@ -73,7 +73,6 @@ public class Element extends Literal {
 	
 	@Override
 	public Clause simplify() {
-		return (Element) this.clone();
+		return (Variable) this.clone();
 	}
-	
 }

@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.informationsystem.ismsuite.prover.model.Literal;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
+import org.informationsystem.ismsuite.prover.model.literals.Literal;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.model.DeregisterOperation;
 import org.informationsystem.ismsuite.specifier.model.InsertOperation;
 import org.informationsystem.ismsuite.specifier.model.Operation;

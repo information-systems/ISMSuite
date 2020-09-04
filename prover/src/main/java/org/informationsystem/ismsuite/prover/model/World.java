@@ -11,6 +11,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Literal;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+
 import java.util.Set;
 import java.util.Stack;
 

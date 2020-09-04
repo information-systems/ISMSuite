@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
-import org.informationsystem.ismsuite.prover.model.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
 
 public class WorldWriter {
 

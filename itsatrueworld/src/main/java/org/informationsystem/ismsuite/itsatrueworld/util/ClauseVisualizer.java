@@ -15,21 +15,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.informationsystem.ismsuite.prover.model.All;
-import org.informationsystem.ismsuite.prover.model.And;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.ClauseVisitor;
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Equality;
-import org.informationsystem.ismsuite.prover.model.Exists;
 import org.informationsystem.ismsuite.prover.model.False;
-import org.informationsystem.ismsuite.prover.model.Implies;
-import org.informationsystem.ismsuite.prover.model.Literal;
-import org.informationsystem.ismsuite.prover.model.Not;
-import org.informationsystem.ismsuite.prover.model.Or;
-import org.informationsystem.ismsuite.prover.model.Relation;
 import org.informationsystem.ismsuite.prover.model.True;
-import org.informationsystem.ismsuite.prover.model.Variable;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Literal;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
+import org.informationsystem.ismsuite.prover.model.operators.All;
+import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.Equality;
+import org.informationsystem.ismsuite.prover.model.operators.Exists;
+import org.informationsystem.ismsuite.prover.model.operators.Implies;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
+import org.informationsystem.ismsuite.prover.model.operators.Or;
 
 public class ClauseVisualizer {
 

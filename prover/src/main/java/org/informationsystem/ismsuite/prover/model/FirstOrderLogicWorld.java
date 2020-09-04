@@ -7,6 +7,10 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.Map.Entry;
 
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Literal;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+
 public interface FirstOrderLogicWorld {
 
 	Set<Entry<String, Clause>> getConjectures();

@@ -2,7 +2,7 @@ package org.informationsystem.ismsuite.prover.model;
 
 import static org.junit.Assert.*;
 
-import org.informationsystem.ismsuite.prover.model.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
 import org.junit.Test;
 
 public class TestElement {

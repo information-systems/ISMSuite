@@ -2,8 +2,8 @@ package org.informationsystem.ismsuite.prover.model;
 
 import static org.junit.Assert.*;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Variable;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.junit.Test;
 
 public class TestVariable {
