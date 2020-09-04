@@ -2,15 +2,14 @@ package org.informationsystem.ismsuite.prover.model;
 
 import static org.junit.Assert.*;
 
-import org.informationsystem.ismsuite.prover.model.All;
-import org.informationsystem.ismsuite.prover.model.And;
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Exists;
-import org.informationsystem.ismsuite.prover.model.Not;
-import org.informationsystem.ismsuite.prover.model.Or;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
-
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
+import org.informationsystem.ismsuite.prover.model.operators.All;
+import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.Exists;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
+import org.informationsystem.ismsuite.prover.model.operators.Or;
 import org.junit.Test;
 
 public class TestInstantiation {

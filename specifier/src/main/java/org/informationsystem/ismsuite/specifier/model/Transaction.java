@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.model.Operation;
 
 public class Transaction {

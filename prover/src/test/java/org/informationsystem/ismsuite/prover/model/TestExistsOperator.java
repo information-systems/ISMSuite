@@ -4,17 +4,16 @@ import static org.junit.Assert.*;
 
 import java.util.Stack;
 
-import org.informationsystem.ismsuite.prover.model.All;
-import org.informationsystem.ismsuite.prover.model.And;
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Exists;
-import org.informationsystem.ismsuite.prover.model.Implies;
-import org.informationsystem.ismsuite.prover.model.Not;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
-
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
+import org.informationsystem.ismsuite.prover.model.operators.All;
+import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.Exists;
+import org.informationsystem.ismsuite.prover.model.operators.Implies;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
 import org.junit.Test;
 
 public class TestExistsOperator extends WorldTester {

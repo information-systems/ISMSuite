@@ -1,9 +1,14 @@
-package org.informationsystem.ismsuite.prover.model;
+package org.informationsystem.ismsuite.prover.model.literals;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
+
+import org.informationsystem.ismsuite.prover.model.Clause;
+import org.informationsystem.ismsuite.prover.model.ClauseVisitor;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
 
 /**
  * A relation represents a property of one or more Literals

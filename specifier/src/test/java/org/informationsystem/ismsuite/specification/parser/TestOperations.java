@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.io.SpecificationReader;
 import org.informationsystem.ismsuite.specifier.io.TransactionReader;
 import org.informationsystem.ismsuite.specifier.model.InsertOperation;

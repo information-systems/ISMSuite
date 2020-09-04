@@ -1,8 +1,8 @@
 package org.informationsystem.ismsuite.prover.model;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Relation;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
 
 public class WorldTester {
 

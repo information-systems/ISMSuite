@@ -1,16 +1,24 @@
 package org.informationsystem.ismsuite.prover.io;
 
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
-import org.informationsystem.ismsuite.prover.model.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
 
 public class WorldWriter {
+	
+	public static String toString(FirstOrderLogicWorld world) {
+		 ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		 write(world, stream);
+		 
+		 return new String(stream.toByteArray());
+	}
 
 	public static void write(FirstOrderLogicWorld world, OutputStream output) {
 		PrintWriter out = new PrintWriter(output);

@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorld;
 import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.util.ClauseVisualizer;
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
 
 public class ElementListingPanel extends AbstractGridPanel<Element> {
 

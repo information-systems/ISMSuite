@@ -1,5 +1,16 @@
 package org.informationsystem.ismsuite.prover.model;
 
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
+import org.informationsystem.ismsuite.prover.model.operators.All;
+import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.Equality;
+import org.informationsystem.ismsuite.prover.model.operators.Exists;
+import org.informationsystem.ismsuite.prover.model.operators.Implies;
+import org.informationsystem.ismsuite.prover.model.operators.Not;
+import org.informationsystem.ismsuite.prover.model.operators.Or;
+
 public interface ClauseVisitor<T> {
 	
 	public T visit(Element e);

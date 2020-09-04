@@ -1,6 +1,12 @@
-package org.informationsystem.ismsuite.prover.model;
+package org.informationsystem.ismsuite.prover.model.operators;
 
 import java.util.Stack;
+
+import org.informationsystem.ismsuite.prover.model.Clause;
+import org.informationsystem.ismsuite.prover.model.ClauseVisitor;
+import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 
 /**
  * Clause of the form A => B

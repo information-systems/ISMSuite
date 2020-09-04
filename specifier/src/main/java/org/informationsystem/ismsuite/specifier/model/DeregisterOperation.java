@@ -2,9 +2,9 @@ package org.informationsystem.ismsuite.specifier.model;
 
 import java.util.Map;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.model.Operation;
 
 public class DeregisterOperation extends Operation {
@@ -30,7 +30,8 @@ public class DeregisterOperation extends Operation {
 	public boolean apply(Map<Variable, Element> binding, World world) {
 		if (binding.containsKey(var)) {
 			if (var.getType().equals(binding.get(var).getType())) {
-				return world.removeElement(binding.get(var));
+				world.removeElement(binding.get(var));
+				return true;
 			} else {
 				return false;
 			}

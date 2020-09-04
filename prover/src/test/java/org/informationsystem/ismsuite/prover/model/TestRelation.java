@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Literal;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Literal;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.junit.Test;
 
 public class TestRelation {

@@ -8,10 +8,10 @@ import java.util.Map;
 import org.informationsystem.ismsuite.prover.io.ClauseReader;
 import org.informationsystem.ismsuite.prover.io.WorldWriter;
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
 
