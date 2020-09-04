@@ -127,9 +127,11 @@ public class RelationDialog {
 			
 			// Now set the editor for the elements as a combobox
 			DefaultComboBoxModel<String> elementModel = new DefaultComboBoxModel<>();
-			Iterator<String> it = controller.getModel().getWorld().getElementLabels();
-			while(it.hasNext()) {
-				elementModel.addElement(it.next());
+			for (String type: controller.getModel().getWorld().getElementTypes()) {
+				Iterator<Element> it = controller.getModel().getWorld().getElementsIn(type);
+				while(it.hasNext()) {
+					elementModel.addElement(it.next().getLabel());
+				}
 			}
 			
 			JComboBox<String> elements = new JComboBox<>(elementModel);

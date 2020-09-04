@@ -265,8 +265,8 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		
 		JTabbedPane tabs = new JTabbedPane();
 		
-		tabs.addTab("Elements", new ElementListingPanel(this.controller, this));
-		tabs.addTab("Relations", new RelationListingPanel(this.controller, this));
+		tabs.addTab("Sets", new ElementListingPanel(this.controller, this));
+		tabs.addTab("Predicates", new RelationListingPanel(this.controller, this));
 		
 		panel.add(tabs, BorderLayout.CENTER);
 		return panel;
