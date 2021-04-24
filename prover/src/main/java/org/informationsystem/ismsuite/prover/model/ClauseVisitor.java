@@ -5,6 +5,7 @@ import org.informationsystem.ismsuite.prover.model.literals.Relation;
 import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.prover.model.operators.All;
 import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.ElementOf;
 import org.informationsystem.ismsuite.prover.model.operators.Equality;
 import org.informationsystem.ismsuite.prover.model.operators.Exists;
 import org.informationsystem.ismsuite.prover.model.operators.Implies;
@@ -36,5 +37,7 @@ public interface ClauseVisitor<T> {
 	public T visit(Or o);
 	
 	public T visit(True t);
+	
+	public T visit(ElementOf elem);
 	
 }

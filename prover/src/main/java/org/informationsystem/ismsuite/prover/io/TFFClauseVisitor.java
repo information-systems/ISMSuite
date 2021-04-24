@@ -19,6 +19,7 @@ import org.informationsystem.ismsuite.prover.model.literals.Relation;
 import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.prover.model.operators.All;
 import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.ElementOf;
 import org.informationsystem.ismsuite.prover.model.operators.Equality;
 import org.informationsystem.ismsuite.prover.model.operators.Exists;
 import org.informationsystem.ismsuite.prover.model.operators.Implies;
@@ -130,8 +131,29 @@ public class TFFClauseVisitor extends TFFBaseVisitor<Clause> {
 		if (txc.tff_unary_formula() != null) {
 			return visitTff_unary_formula(txc.tff_unary_formula());
 		}
-
+		if (txc.tff_elementof_formula() != null) {
+			return visitTff_elementof_formula(txc.tff_elementof_formula());
+		}
+		
 		return null;
+	}
+	
+	/**
+	 * '(' argument ElementOf atomic_word ')'
+	 */
+	public Clause visitTff_elementof_formula(TFFParser.Tff_elementof_formulaContext ctx) {
+		String type = ctx.atomic_word().getText();
+		
+		Literal element;
+		if (ctx.argument().atomic_word() != null) {
+			element = new Element(ctx.argument().atomic_word().getText(),"");
+		} else if (ctx.argument().variable() != null) {
+			element = new Variable(ctx.argument().variable().getText(), "");
+		} else {
+			return null;
+		}
+		
+		return new ElementOf(element, type);
 	}
 
 	public Clause visitTff_quantified_formula(TFFParser.Tff_quantified_formulaContext txc) {

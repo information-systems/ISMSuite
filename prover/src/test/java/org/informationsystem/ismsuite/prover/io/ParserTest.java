@@ -50,7 +50,8 @@ public class ParserTest {
 				+ "tff( r_b_c, axiom, r(b,c))."
 				+ "tff( r_refl, conjecture, ! [X: human] : ( r(X,X) ) )."
 			    + "tff( r_trans, conjecture, ! [X: human, Y: human, Z: human ] : ( ( ( r(X,Y) & r(Y,Z) )  => r(X,Z) ) ) )."
-			    + "tff( r_symm, conjecture,  ! [X: human, Y: human, Z: human ] : ( X!=Y ) ).";
+			    + "tff( r_symm, conjecture,  ! [X: human, Y: human, Z: human ] : ( X!=Y ) )."
+			    + "tff( typing_r, conjecture, ! [X ] : ( r(X,X) ) ).";
 	}
 	
 	private void testWorld(FirstOrderLogicWorld world) {

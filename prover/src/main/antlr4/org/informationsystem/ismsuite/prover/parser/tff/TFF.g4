@@ -19,8 +19,8 @@ Iff                  : '<=>'| 'IFF' | 'IF AND ONLY IF';
 Impl                 : '=>' | 'IMPLIES';
 If                   : '<=';
 Niff                 : '<~>';
-Nor                  : '~|';
-Nand                 : '~&';
+Nor                  : '~|' | 'NOR';
+Nand                 : '~&' | 'NAND';
 Not                  : '~' | 'NOT';
 ForallComb           : '!!';
 TyForall             : '!>';
@@ -70,6 +70,7 @@ WS                   : [ \r\t\n]+ -> skip ;
 Line_comment         : '%' ~[\r\n]* -> skip;
 Block_comment        : '/*' .*? '*/' -> skip;
 
+ElementOf            : App | 'IS IN';
 
 holds                : ':' | 'HOLDS' | 'IT HOLDS' | 'IT HOLDS THAT' | 'SUCH THAT';
 in                   : ':' | 'IN' | 'OF TYPE';
@@ -99,7 +100,8 @@ tff_and_formula         : tff_unitary_formula And tff_unitary_formula
                         | tff_and_formula And tff_unitary_formula;
 tff_unitary_formula     : tff_quantified_formula 
                         | tff_unary_formula
-                        | tff_atomic_formula;
+                        | tff_atomic_formula
+                        | tff_elementof_formula;
                         
                         
 tff_quantified_formula  : fof_quantifier '[' variable_list ']' holds tff_unitary_formula ;
@@ -107,6 +109,8 @@ tff_unary_formula       : unary_connective tff_unitary_formula
                         | fof_infix_unary
                         | '(' tff_logic_formula ')'; 
 tff_atomic_formula      : atomic_word ( '(' argument_list ')' )?;
+
+tff_elementof_formula   : '(' argument ElementOf atomic_word ')' ;
 
 fof_infix_unary         : fof_term Infix_inequality fof_term
                         | fof_term Infix_equality fof_term;
