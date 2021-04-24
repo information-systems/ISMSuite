@@ -101,10 +101,9 @@ public class ClauseVisualizer {
 	public static void showTreeDialog(JFrame parent, Clause c, String title) {
 		JPanel p = constructClauseTreePanel(c);
 		JScrollPane scroll = new JScrollPane(p);
-		p.setPreferredSize(new Dimension(400,400));
-		
-		scroll.getViewport().add(p);
-		
+
+		scroll.setPreferredSize(new Dimension(400,400));
+	
 		JOptionPane.showMessageDialog(parent, scroll, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
