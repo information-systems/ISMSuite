@@ -51,7 +51,7 @@ public class Variable extends Literal {
 	
 	@Override
 	public String toTFF(boolean typed) {
-		if (typed) {
+		if (typed && !getType().isEmpty() ) {
 			return getLabel() + ": " + getType();
 		} else {
 			return getLabel();
