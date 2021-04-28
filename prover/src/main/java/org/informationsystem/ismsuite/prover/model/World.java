@@ -22,7 +22,10 @@ public class World implements FirstOrderLogicWorld {
 	private HashMap<String, Clause> conjectures;
 	
 	private HashMap<String, LiteralStore<Element>> types;
-	private HashMap<String, String> elements;
+	/**
+	 * Map of all elements: label -> type
+	 */
+	private HashMap<String, Element> elements;
 	private HashSet<Relation> relations;
 	private HashMap<String, Set<Relation>> namedRelations;
 	
@@ -113,7 +116,9 @@ public class World implements FirstOrderLogicWorld {
 
 	@Override
 	public Iterator<Element> getElementsIn(String type) {
-		if (types.containsKey(type)) {
+		if (type.equals("")) {
+			return elements.values().iterator();			
+		} else 	if (types.containsKey(type)) {
 			return types.get(type).iterator();
 		}
 		
@@ -144,7 +149,7 @@ public class World implements FirstOrderLogicWorld {
 	@Override
 	public String findTypeFor(String element) {
 		if (elements.containsKey(element)) {
-			return elements.get(element);
+			return elements.get(element).getType();
 		}
 		
 		return "";
@@ -152,7 +157,7 @@ public class World implements FirstOrderLogicWorld {
 	
 	public void addElement(Element e) {	
 		if (!elements.containsKey(e.getLabel())) {
-			elements.put(e.getLabel(), e.getType());
+			elements.put(e.getLabel(), e);
 			
 			if (!types.containsKey(e.getType())) {
 				types.put(e.getType(), new LiteralStore<Element>(e.getType()));

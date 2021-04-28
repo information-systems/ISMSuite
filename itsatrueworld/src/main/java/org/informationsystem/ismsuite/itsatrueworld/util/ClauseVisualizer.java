@@ -25,6 +25,7 @@ import org.informationsystem.ismsuite.prover.model.literals.Relation;
 import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.prover.model.operators.All;
 import org.informationsystem.ismsuite.prover.model.operators.And;
+import org.informationsystem.ismsuite.prover.model.operators.ElementOf;
 import org.informationsystem.ismsuite.prover.model.operators.Equality;
 import org.informationsystem.ismsuite.prover.model.operators.Exists;
 import org.informationsystem.ismsuite.prover.model.operators.Implies;
@@ -100,10 +101,9 @@ public class ClauseVisualizer {
 	public static void showTreeDialog(JFrame parent, Clause c, String title) {
 		JPanel p = constructClauseTreePanel(c);
 		JScrollPane scroll = new JScrollPane(p);
-		p.setPreferredSize(new Dimension(400,400));
-		
-		scroll.getViewport().add(p);
-		
+
+		scroll.setPreferredSize(new Dimension(400,400));
+	
 		JOptionPane.showMessageDialog(parent, scroll, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
@@ -293,6 +293,15 @@ public class ClauseVisualizer {
 			
 			return node;
 		}
+
+		@Override
+		public DefaultMutableTreeNode visit(ElementOf elem) {
+			DefaultMutableTreeNode node = new DefaultMutableTreeNode("ELEMENT OF");
+			node.add(elem.getElement().accept(this));
+			node.add(new DefaultMutableTreeNode(elem.getType()));
+			
+			return node;
+		}
 		
 	}
 	
@@ -452,6 +461,18 @@ public class ClauseVisualizer {
 		@Override
 		public String visit(True t) {
 			return "TRUE";
+		}
+
+		@Override
+		public String visit(ElementOf elem) {
+			StringBuilder b = new StringBuilder();
+			b.append("( ");
+			b.append( elem.getElement().accept(this));
+			b.append(" IS IN ");
+			b.append(elem.getType());
+			b.append(" )");
+			
+			return b.toString();
 		}
 		
 	}

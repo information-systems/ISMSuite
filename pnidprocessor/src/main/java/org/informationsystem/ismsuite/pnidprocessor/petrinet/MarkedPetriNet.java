@@ -66,6 +66,30 @@ public class MarkedPetriNet {
 		addOutArc(transition, place, 1, variables);
 	}
 	
+	public boolean hasInArc(String transition, String place) {
+		return in.containsEntry(transition, place);
+	}
+	
+	public boolean hasOutArc(String transition, String place) {
+		return out.containsEntry(transition, place);
+	}
+	
+	public List<String> getVariablesOnInputArc(String transition, String place) {
+		if(in.containsEntry(transition, place)) {
+			return in.getVariables(transition, place);
+		} else {
+			return Collections.emptyList();
+		}
+	}
+	
+	public List<String> getVariablesOnOutputArc(String transition, String place) {
+		if(out.containsEntry(transition, place)) {
+			return out.getVariables(transition, place);
+		} else {
+			return Collections.emptyList();
+		}
+	}
+	
 	public void addOutArc(String transition, String place, int multiplicity, List<String> variables) {
 		addTransition(transition);
 		out.set(transition, place, multiplicity, variables);
