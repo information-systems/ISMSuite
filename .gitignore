@@ -8,3 +8,4 @@ deployment/updateSite/plugins
 runtime-EclipseApplication
 tool/
 .metadata
+.settings
