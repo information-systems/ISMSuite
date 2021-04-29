@@ -170,7 +170,12 @@ public class World implements FirstOrderLogicWorld {
 		elements.remove(e.getLabel());
 		if (types.containsKey(e.getType())) {
 			types.get(e.getType()).remove(e);
+			
+			if (types.get(e.getType()).isEmpty()) {
+				types.remove(e.getType());
+			}
 		}
+		
 	}
 		
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -217,9 +222,10 @@ public class World implements FirstOrderLogicWorld {
 		relations.remove(r);
 		if (namedRelations.containsKey(r.getLabel())) {
 			namedRelations.get(r.getLabel()).remove(r);
-		}
-		if (namedRelations.get(r.getLabel()).isEmpty()) {
-			namedRelations.remove(r.getLabel());
+			
+			if (namedRelations.get(r.getLabel()).isEmpty()) {
+				namedRelations.remove(r.getLabel());
+			}
 		}
 	}
 	

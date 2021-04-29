@@ -1,6 +1,7 @@
 package org.informationsystem.ismsuite.prover.model;
 
 import org.informationsystem.ismsuite.prover.model.literals.Element;
+
 import org.informationsystem.ismsuite.prover.model.literals.Relation;
 import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.prover.model.operators.All;
@@ -39,5 +40,4 @@ public interface ClauseVisitor<T> {
 	public T visit(True t);
 	
 	public T visit(ElementOf elem);
-	
 }

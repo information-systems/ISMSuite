@@ -155,7 +155,11 @@ public class ClauseVisualizer {
 			text.append("</b>");
 			text.append(" from ");
 			text.append("<i>");
-			text.append(e.getType());
+			if (e.getType().isEmpty()) {
+				text.append("Universe");
+			} else {
+				text.append(e.getType());
+			}
 			text.append("</i>");
 			text.append("</html>");
 			
@@ -190,7 +194,11 @@ public class ClauseVisualizer {
 			text.append("</b>");
 			text.append(" from ");
 			text.append("<i>");
-			text.append(v.getType());
+			if (v.getType().isEmpty()) {
+				text.append("Universe");
+			} else {
+				text.append(v.getType());
+			}
 			text.append("</i>");
 			if (!context.contains(v)) {
 				text.append("</font>");
@@ -339,7 +347,7 @@ public class ClauseVisualizer {
 
 		@Override
 		public String visit(Variable v) {
-			return v.getLabel() + (noBound ? " IN " + v.getType() : "" );
+			return v.getLabel() + ((noBound && !v.getType().isEmpty()) ? " IN " + v.getType() : "" );
 		}
 
 		@Override

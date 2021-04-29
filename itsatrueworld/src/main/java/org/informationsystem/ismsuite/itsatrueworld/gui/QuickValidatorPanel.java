@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.BitSet;
+import java.util.Set;
 import java.util.Stack;
 
 import javax.swing.BorderFactory;
@@ -30,8 +31,10 @@ import org.informationsystem.ismsuite.itsatrueworld.control.TrueWorldListener;
 import org.informationsystem.ismsuite.itsatrueworld.control.WorldController;
 import org.informationsystem.ismsuite.itsatrueworld.gui.conjecture.ConjectureEditor;
 import org.informationsystem.ismsuite.itsatrueworld.util.ClauseVisualizer;
+import org.informationsystem.ismsuite.itsatrueworld.util.EmptyVariableChecker;
 import org.informationsystem.ismsuite.prover.io.TFFClauseVisitor;
 import org.informationsystem.ismsuite.prover.model.Clause;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 
 public class QuickValidatorPanel extends JPanel implements TrueWorldListener, ANTLRErrorListener {
 
@@ -119,6 +122,24 @@ public class QuickValidatorPanel extends JPanel implements TrueWorldListener, AN
 			public void actionPerformed(ActionEvent e) {
 				Clause c = tffClauseVisitor.visit(quickText.getText());
 				if (c != null) {
+					
+					// First check whether it won't run over empty sets
+					Set<Variable> variables = EmptyVariableChecker.giveEmptyVariables(c, controller.getModel().getWorld());
+					if (!variables.isEmpty()) {
+						StringBuilder sb = new StringBuilder();
+						sb.append("<html>You run the following variables over empty sets: <ul>");
+						for(Variable v: variables) {
+							sb.append("<li>Variable: ");
+							sb.append(v.getLabel());
+							sb.append(" runs over empty set: ");
+							sb.append(v.getType());
+							sb.append("</li>");
+						}
+						sb.append("</ul></html>");
+						
+						JOptionPane.showMessageDialog(owner, sb.toString()  ,"Empty Set warning!", JOptionPane.WARNING_MESSAGE);
+					}
+					
 					Stack<Clause> expl = c.findExplanationFor(controller.getModel().getWorld());
 					if (expl.isEmpty()) {
 						JOptionPane.showMessageDialog(owner, "Formula is valid!", "Quick validator", JOptionPane.INFORMATION_MESSAGE);
