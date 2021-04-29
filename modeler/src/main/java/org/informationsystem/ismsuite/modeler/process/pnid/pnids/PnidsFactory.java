@@ -139,6 +139,24 @@ public interface PnidsFactory extends EFactory {
 	TokenBag createTokenBag();
 
 	/**
+	 * Returns a new object of class '<em>Transaction</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Transaction</em>'.
+	 * @generated
+	 */
+	Transaction createTransaction();
+
+	/**
+	 * Returns a new object of class '<em>Transition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Transition</em>'.
+	 * @generated
+	 */
+	Transition createTransition();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

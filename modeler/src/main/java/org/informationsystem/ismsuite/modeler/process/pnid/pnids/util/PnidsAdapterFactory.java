@@ -17,6 +17,7 @@ import org.pnml.tools.epnk.pnmlcoremodel.Node;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNetType;
 import org.pnml.tools.epnk.pnmlcoremodel.PlaceNode;
 
+import org.pnml.tools.epnk.pnmlcoremodel.TransitionNode;
 import org.pnml.tools.epnk.structuredpntypemodel.StructuredLabel;
 import org.pnml.tools.epnk.structuredpntypemodel.StructuredPetriNetType;
 
@@ -129,6 +130,14 @@ public class PnidsAdapterFactory extends AdapterFactoryImpl {
 				return createTokenBagAdapter();
 			}
 			@Override
+			public Adapter caseTransaction(Transaction object) {
+				return createTransactionAdapter();
+			}
+			@Override
+			public Adapter caseTransition(Transition object) {
+				return createTransitionAdapter();
+			}
+			@Override
 			public Adapter casePetriNetType(PetriNetType object) {
 				return createPetriNetTypeAdapter();
 			}
@@ -167,6 +176,14 @@ public class PnidsAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePnmlcoremodel_Arc(org.pnml.tools.epnk.pnmlcoremodel.Arc object) {
 				return createPnmlcoremodel_ArcAdapter();
+			}
+			@Override
+			public Adapter caseTransitionNode(TransitionNode object) {
+				return createTransitionNodeAdapter();
+			}
+			@Override
+			public Adapter casePnmlcoremodel_Transition(org.pnml.tools.epnk.pnmlcoremodel.Transition object) {
+				return createPnmlcoremodel_TransitionAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -371,6 +388,34 @@ public class PnidsAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction <em>Transaction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction
+	 * @generated
+	 */
+	public Adapter createTransactionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition <em>Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition
+	 * @generated
+	 */
+	public Adapter createTransitionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.pnml.tools.epnk.pnmlcoremodel.PetriNetType <em>Petri Net Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -507,6 +552,34 @@ public class PnidsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPnmlcoremodel_ArcAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.pnml.tools.epnk.pnmlcoremodel.TransitionNode <em>Transition Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.pnml.tools.epnk.pnmlcoremodel.TransitionNode
+	 * @generated
+	 */
+	public Adapter createTransitionNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.pnml.tools.epnk.pnmlcoremodel.Transition <em>Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.pnml.tools.epnk.pnmlcoremodel.Transition
+	 * @generated
+	 */
+	public Adapter createPnmlcoremodel_TransitionAdapter() {
 		return null;
 	}
 

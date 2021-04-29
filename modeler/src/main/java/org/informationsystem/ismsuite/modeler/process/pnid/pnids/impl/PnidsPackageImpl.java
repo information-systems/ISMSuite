@@ -20,6 +20,8 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsFactory;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.PnidsPackage;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Token;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.TokenBag;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableInscriptionLabel;
 import org.informationsystem.ismsuite.modeler.process.pnid.pnids.VariableSequence;
@@ -125,6 +127,20 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 	 * @generated
 	 */
 	private EClass tokenBagEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass transactionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass transitionEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -467,6 +483,46 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getTransaction() {
+		return transactionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTransaction_Text() {
+		return (EAttribute)transactionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTransition() {
+		return transitionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTransition_Transaction() {
+		return (EReference)transitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PnidsFactory getPnidsFactory() {
 		return (PnidsFactory)getEFactoryInstance();
 	}
@@ -529,6 +585,12 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 
 		tokenBagEClass = createEClass(TOKEN_BAG);
 		createEReference(tokenBagEClass, TOKEN_BAG__TOKEN);
+
+		transactionEClass = createEClass(TRANSACTION);
+		createEAttribute(transactionEClass, TRANSACTION__TEXT);
+
+		transitionEClass = createEClass(TRANSITION);
+		createEReference(transitionEClass, TRANSITION__TRANSACTION);
 	}
 
 	/**
@@ -572,6 +634,8 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 		variableEClass.getESuperTypes().add(thePnmlcoremodelPackage.getLabel());
 		entityEClass.getESuperTypes().add(thePnmlcoremodelPackage.getLabel());
 		pnidMarkingEClass.getESuperTypes().add(theStructuredpntypemodelPackage.getStructuredLabel());
+		transactionEClass.getESuperTypes().add(thePnmlcoremodelPackage.getLabel());
+		transitionEClass.getESuperTypes().add(thePnmlcoremodelPackage.getTransition());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(pnidEClass, org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID.class, "PNID", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -613,6 +677,12 @@ public class PnidsPackageImpl extends EPackageImpl implements PnidsPackage {
 
 		initEClass(tokenBagEClass, TokenBag.class, "TokenBag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTokenBag_Token(), this.getToken(), null, "token", null, 0, -1, TokenBag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(transactionEClass, Transaction.class, "Transaction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTransaction_Text(), ecorePackage.getEString(), "text", null, 0, 1, Transaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTransition_Transaction(), this.getTransaction(), null, "transaction", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

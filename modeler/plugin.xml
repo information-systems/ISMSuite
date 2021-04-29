@@ -34,20 +34,19 @@
                org.eclipse.emf.edit.provider.IItemPropertySource"/>
    </extension>
 
-   <extension
-         id="org.informationsystem.ismsuite.modeler.wizards"
-         point="org.eclipse.ui.newWizards">
+   <extension point="org.eclipse.ui.newWizards">
       <!-- @generated pnid -->
       <category
-            id="org.informationsystem.ismsuite.modeler.wizards"
-            name="ISMSuite Models">
-      </category>
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
       <wizard
-            category="org.informationsystem.ismsuite.modeler.wizards"
-            class="org.informationsystem.ismsuite.modeler.process.pnid.wizards.NewPNIDFileWizard"
-            icon="icons/full/obj16/PNID.gif"
-            id="org.informationsystem.ismsuite.modeler.process.pnid.wizards.newprocessfile"
-            name="New ISM Process">
+            id="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizardID"
+            name="%_UI_PnidsModelWizard_label"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.pnids.presentation.PnidsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/PnidsModelFile.gif">
+         <description>%_UI_PnidsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
    </extension>
 
