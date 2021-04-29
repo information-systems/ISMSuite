@@ -32,8 +32,7 @@ import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Variable;
 import org.informationsystem.ismsuite.modeler.process.simulator.PNIDBinding;
 import org.informationsystem.ismsuite.prover.model.Clause;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
-import org.informationsystem.ismsuite.prover.model.Relation;
-import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Relation;
 
 public class SimulationView extends ViewPart implements FiringListener {
 
