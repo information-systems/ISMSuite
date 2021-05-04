@@ -41,7 +41,20 @@ public class Simulator extends BasicPNIDSimulator {
 	public void initializeContents() {
 		initializeSimulator();
 		
-		ismEngine = new ISMEngine(this.initialWorld, this.specification, this.getEngine().getMarkedPetriNet());
+		HashMap<String, String> transitionTransactionMapping = new HashMap<>();
+		for (Transition t: getFlatAccess().getTransitions()) {
+			if (t instanceof org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition) {
+				String label = t.getId();
+				org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition trans = (org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition) t;
+				if (trans.getTransaction()!= null && (!trans.getTransaction().getText().isEmpty())) {
+					transitionTransactionMapping.put(label, trans.getTransaction().getText());
+				} else {
+					transitionTransactionMapping.put(label, label);
+				}
+			}
+		}
+		
+		ismEngine = new ISMEngine(this.initialWorld, this.specification, this.getEngine().getMarkedPetriNet(), transitionTransactionMapping);
 		
 		try {
 			viewer = (SimulationView) PlatformUI.getWorkbench()

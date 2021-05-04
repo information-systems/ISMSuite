@@ -21,7 +21,7 @@ public class PNIDGraphics extends GraphicalExtension {
 	public List<EClass> getExtendedNetTypes() {
 		ArrayList<EClass> list = new ArrayList<>();
 		list.add(PnidsPackage.eINSTANCE.getPNID());
-		list.add(PnmlcoremodelPackage.eINSTANCE.getTransition());
+		// list.add(PnmlcoremodelPackage.eINSTANCE.getTransition());
 		return list;
 	}
 	
@@ -30,7 +30,7 @@ public class PNIDGraphics extends GraphicalExtension {
 		ArrayList<EClass> list = new ArrayList<EClass>();
 		if (netType.equals(PnidsPackage.eINSTANCE.getPNID())) {
 			list.add(PnidsPackage.eINSTANCE.getPlace());
-			list.add(PnmlcoremodelPackage.eINSTANCE.getTransition());
+			list.add(PnidsPackage.eINSTANCE.getTransition());
 		}
 		
 		return list;
@@ -38,7 +38,11 @@ public class PNIDGraphics extends GraphicalExtension {
 	
 	@Override
 	public IUpdateableFigure createTransitionFigure(Transition transition) {
-		return new PNIDTransitionFigure(transition);
+		if (transition instanceof org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition) {
+			return new PNIDTransitionFigure((org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition) transition);
+		}
+		
+		return null;
 	}
 	
 	@Override

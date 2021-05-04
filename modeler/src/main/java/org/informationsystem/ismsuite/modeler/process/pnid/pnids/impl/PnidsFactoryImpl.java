@@ -69,6 +69,8 @@ public class PnidsFactoryImpl extends EFactoryImpl implements PnidsFactory {
 			case PnidsPackage.ENTITY: return createEntity();
 			case PnidsPackage.PNID_MARKING: return createPNIDMarking();
 			case PnidsPackage.TOKEN_BAG: return createTokenBag();
+			case PnidsPackage.TRANSACTION: return createTransaction();
+			case PnidsPackage.TRANSITION: return createTransition();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -215,6 +217,28 @@ public class PnidsFactoryImpl extends EFactoryImpl implements PnidsFactory {
 	public TokenBag createTokenBag() {
 		TokenBagImpl tokenBag = new TokenBagImpl();
 		return tokenBag;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Transaction createTransaction() {
+		TransactionImpl transaction = new TransactionImpl();
+		return transaction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Transition createTransition() {
+		TransitionImpl transition = new TransitionImpl();
+		return transition;
 	}
 
 	/**

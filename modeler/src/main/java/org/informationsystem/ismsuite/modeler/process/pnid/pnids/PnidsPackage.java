@@ -749,6 +749,153 @@ public interface PnidsPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransactionImpl <em>Transaction</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransactionImpl
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.PnidsPackageImpl#getTransaction()
+	 * @generated
+	 */
+	int TRANSACTION = 13;
+
+	/**
+	 * The feature id for the '<em><b>Toolspecific</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSACTION__TOOLSPECIFIC = PnmlcoremodelPackage.LABEL__TOOLSPECIFIC;
+
+	/**
+	 * The feature id for the '<em><b>Graphics</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSACTION__GRAPHICS = PnmlcoremodelPackage.LABEL__GRAPHICS;
+
+	/**
+	 * The feature id for the '<em><b>Unknown</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSACTION__UNKNOWN = PnmlcoremodelPackage.LABEL__UNKNOWN;
+
+	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSACTION__TEXT = PnmlcoremodelPackage.LABEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Transaction</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSACTION_FEATURE_COUNT = PnmlcoremodelPackage.LABEL_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransitionImpl <em>Transition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransitionImpl
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.PnidsPackageImpl#getTransition()
+	 * @generated
+	 */
+	int TRANSITION = 14;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__ID = PnmlcoremodelPackage.TRANSITION__ID;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__NAME = PnmlcoremodelPackage.TRANSITION__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Toolspecific</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__TOOLSPECIFIC = PnmlcoremodelPackage.TRANSITION__TOOLSPECIFIC;
+
+	/**
+	 * The feature id for the '<em><b>Graphics</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__GRAPHICS = PnmlcoremodelPackage.TRANSITION__GRAPHICS;
+
+	/**
+	 * The feature id for the '<em><b>Unknown</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__UNKNOWN = PnmlcoremodelPackage.TRANSITION__UNKNOWN;
+
+	/**
+	 * The feature id for the '<em><b>Out</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__OUT = PnmlcoremodelPackage.TRANSITION__OUT;
+
+	/**
+	 * The feature id for the '<em><b>In</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__IN = PnmlcoremodelPackage.TRANSITION__IN;
+
+	/**
+	 * The feature id for the '<em><b>Transaction</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__TRANSACTION = PnmlcoremodelPackage.TRANSITION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Transition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION_FEATURE_COUNT = PnmlcoremodelPackage.TRANSITION_FEATURE_COUNT + 1;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.PNID <em>PNID</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1033,6 +1180,48 @@ public interface PnidsPackage extends EPackage {
 	EReference getTokenBag_Token();
 
 	/**
+	 * Returns the meta object for class '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction <em>Transaction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Transaction</em>'.
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction
+	 * @generated
+	 */
+	EClass getTransaction();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction#getText <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Text</em>'.
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction#getText()
+	 * @see #getTransaction()
+	 * @generated
+	 */
+	EAttribute getTransaction_Text();
+
+	/**
+	 * Returns the meta object for class '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition <em>Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Transition</em>'.
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition
+	 * @generated
+	 */
+	EClass getTransition();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition#getTransaction <em>Transaction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Transaction</em>'.
+	 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition#getTransaction()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EReference getTransition_Transaction();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1295,6 +1484,42 @@ public interface PnidsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TOKEN_BAG__TOKEN = eINSTANCE.getTokenBag_Token();
+
+		/**
+		 * The meta object literal for the '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransactionImpl <em>Transaction</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransactionImpl
+		 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.PnidsPackageImpl#getTransaction()
+		 * @generated
+		 */
+		EClass TRANSACTION = eINSTANCE.getTransaction();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRANSACTION__TEXT = eINSTANCE.getTransaction_Text();
+
+		/**
+		 * The meta object literal for the '{@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransitionImpl <em>Transition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.TransitionImpl
+		 * @see org.informationsystem.ismsuite.modeler.process.pnid.pnids.impl.PnidsPackageImpl#getTransition()
+		 * @generated
+		 */
+		EClass TRANSITION = eINSTANCE.getTransition();
+
+		/**
+		 * The meta object literal for the '<em><b>Transaction</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TRANSITION__TRANSACTION = eINSTANCE.getTransition_Transaction();
 
 	}
 

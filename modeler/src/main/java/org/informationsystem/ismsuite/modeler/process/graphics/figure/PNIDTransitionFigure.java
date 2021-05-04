@@ -2,8 +2,10 @@ package org.informationsystem.ismsuite.modeler.process.graphics.figure;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition;
 import org.pnml.tools.epnk.gmf.extensions.graphics.figures.TransitionFigure;
-import org.pnml.tools.epnk.pnmlcoremodel.Transition;
+// import org.pnml.tools.epnk.pnmlcoremodel.Transition;
+
 
 public class PNIDTransitionFigure  extends TransitionFigure {
 	
