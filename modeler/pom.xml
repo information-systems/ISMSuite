@@ -105,12 +105,12 @@
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>prover</artifactId>
-    							<version>1.1.2</version>
+    							<version>1.2.2</version>
     						</artifactItem>
     						<artifactItem>
 		            			<groupId>org.informationsystem.ismsuite</groupId>
 								<artifactId>specifier</artifactId>
-    							<version>1.1.7</version>
+    							<version>1.2.2</version>
     						</artifactItem>
     					</artifactItems>
     					<outputDirectory>${project.build.directory}/jar/</outputDirectory>

@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Eclipse-BundleShape: dir
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.informationsystem.ismsuite.modeler.process;singleton:=true
+Bundle-SymbolicName: ISMSuite;singleton:=true
 Automatic-Module-Name: ISMSuite
-Bundle-Version: 1.2.8
+Bundle-Version: 1.2.9
 Bundle-ClassPath: .,
  target/jar/pnidprocessor.jar,
  target/jar/processengine.jar,
@@ -27,7 +27,7 @@ Export-Package: org.informationsystem.ismsuite.modeler.process.pnid.pnids,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.provider,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.tests,
  org.informationsystem.ismsuite.modeler.process.simulator.pnidsimulator.util,
-  org.informationsystem.ismsuite.modeler.process.commands
+ org.informationsystem.ismsuite.modeler.process.commands
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,

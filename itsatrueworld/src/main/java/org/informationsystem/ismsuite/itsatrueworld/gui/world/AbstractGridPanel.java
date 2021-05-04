@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -72,6 +73,10 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 		this.onNotify(controller.getModel());
 	}
 	
+	public Collection<String> getLabels() {
+		return panels.keySet();
+	}
+	
 	public DefaultListModel<E> getModel(String label) {
 		if (!panels.containsKey(label)) {
 			getPanel(label);
@@ -91,7 +96,7 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 	}
 	
 	public boolean removePanel(String label) {
-		if (getModel(label).isEmpty()) {
+		// if (getModel(label).isEmpty()) {
 			JPanel p = getPanel(label);
 			
 			listmodels.remove(label);
@@ -100,8 +105,8 @@ public abstract class AbstractGridPanel<E> extends JPanel implements TrueWorldLi
 			grid.removePanel(p);
 			
 			return true;
-		}
-		return false;
+		// }
+		// return false;
 	}
 	
 	/**

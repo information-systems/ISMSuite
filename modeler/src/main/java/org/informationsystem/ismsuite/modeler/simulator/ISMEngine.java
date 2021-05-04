@@ -15,10 +15,10 @@ import org.informationsystem.ismsuite.pnidprocessor.petrinet.MarkedPetriNet;
 import org.informationsystem.ismsuite.processengine.process.MultiSet;
 import org.informationsystem.ismsuite.processengine.process.Token;
 import org.informationsystem.ismsuite.prover.model.Clause;
-import org.informationsystem.ismsuite.prover.model.Element;
 import org.informationsystem.ismsuite.prover.model.FirstOrderLogicWorld;
-import org.informationsystem.ismsuite.prover.model.Variable;
 import org.informationsystem.ismsuite.prover.model.World;
+import org.informationsystem.ismsuite.prover.model.literals.Element;
+import org.informationsystem.ismsuite.prover.model.literals.Variable;
 import org.informationsystem.ismsuite.specifier.model.OperationException;
 import org.informationsystem.ismsuite.specifier.model.Specification;
 import org.informationsystem.ismsuite.specifier.model.Transaction;
@@ -29,10 +29,16 @@ public class ISMEngine {
 	private Specification specification;
 	private MarkedPetriNet petriNet;
 	
-	public ISMEngine(World world, Specification specification, MarkedPetriNet net) {
+	/**
+	 * A mapping of transition (key) to the corresponding transaction (value).
+	 */
+	private Map<String, String> transitionTransactionMapping;
+	
+	public ISMEngine(World world, Specification specification, MarkedPetriNet net, Map<String, String> transitionTransactionMapping) {
 		this.initialWorld = world;
 		this.specification = specification;
 		this.petriNet = net;
+		this.transitionTransactionMapping = transitionTransactionMapping;
 	}
 	
 	/**
@@ -225,8 +231,14 @@ public class ISMEngine {
 		warnedBindings.clear();
 		
 		for(Binding binding: petriNet.getBindings()) {
-			if (specification.containsKey(binding.getTransition())) {
-				Transaction t = specification.get(binding.getTransition());
+			String transactionLabel = binding.getTransition();
+			if (transitionTransactionMapping.containsKey(binding.getTransition())) {
+				transactionLabel = transitionTransactionMapping.get(binding.getTransition());
+			}
+			
+			if (specification.containsKey(transactionLabel)) {
+				
+				Transaction t = specification.get(transactionLabel);
 				
 				World next = (World) currentWorld.clone();
 				

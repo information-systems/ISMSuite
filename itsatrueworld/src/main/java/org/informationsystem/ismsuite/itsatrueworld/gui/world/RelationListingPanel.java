@@ -1,5 +1,7 @@
 package org.informationsystem.ismsuite.itsatrueworld.gui.world;
 
+import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 
@@ -24,6 +26,16 @@ public class RelationListingPanel extends AbstractGridPanel<Relation> {
 
 	@Override
 	public void onNotify(TrueWorld world) {
+		ArrayList<String> toBeRemoved = new ArrayList<>();
+		
+		for (String typ: this.getLabels()) {
+			if (!world.getWorld().getRelationLabels().contains(typ)) {
+				toBeRemoved.add(typ);
+			}
+		}
+		for( String typ : toBeRemoved) {
+			this.removePanel(typ);
+		}
 		for(String typ: world.getWorld().getRelationLabels()) {
 			DefaultListModel<Relation> model = getModel(typ);
 			model.clear();

@@ -376,7 +376,7 @@ public class MainWindow extends JFrame implements TrueWorldListener {
 		addNewMenuItem("About", KeyEvent.VK_A, menu, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(parent, "This tool is built by Jan Martijn van der Werf for the project on Information System Modeling");	
+				JOptionPane.showMessageDialog(parent, "This tool is built by Jan Martijn van der Werf for the project on Information System Modeling", "It's a True World 1.1.3",JOptionPane.INFORMATION_MESSAGE);	
 			}
 		});
 		

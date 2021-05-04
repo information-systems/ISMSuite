@@ -47,5 +47,11 @@
     <genClasses ecoreClass="PNID.ecore#//TokenBag">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//TokenBag/token"/>
     </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//Transaction">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PNID.ecore#//Transaction/text"/>
+    </genClasses>
+    <genClasses ecoreClass="PNID.ecore#//Transition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PNID.ecore#//Transition/transaction"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -371,6 +371,52 @@ public class PnidsItemProviderAdapterFactory extends PnidsAdapterFactory impleme
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TransactionItemProvider transactionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transaction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTransactionAdapter() {
+		if (transactionItemProvider == null) {
+			transactionItemProvider = new TransactionItemProvider(this);
+		}
+
+		return transactionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TransitionItemProvider transitionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.informationsystem.ismsuite.modeler.process.pnid.pnids.Transition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTransitionAdapter() {
+		if (transitionItemProvider == null) {
+			transitionItemProvider = new TransitionItemProvider(this);
+		}
+
+		return transitionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -488,6 +534,8 @@ public class PnidsItemProviderAdapterFactory extends PnidsAdapterFactory impleme
 		if (entityItemProvider != null) entityItemProvider.dispose();
 		if (pnidMarkingItemProvider != null) pnidMarkingItemProvider.dispose();
 		if (tokenBagItemProvider != null) tokenBagItemProvider.dispose();
+		if (transactionItemProvider != null) transactionItemProvider.dispose();
+		if (transitionItemProvider != null) transitionItemProvider.dispose();
 	}
 
 }
