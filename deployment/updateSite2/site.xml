@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-  <feature url="features/org.informationsystem.ismsuite.modeler.process_1.2.5.jar" id="org.informationsystem.ismsuite.modeler.process" version="1.2.5">
-    <category name="org.informationsystem.ismsuite"/>
-  </feature>
-  <category-def name="org.informationsystem.ismsuite" label="ISM Suite"/>
-  <repository-reference location="http://www2.compute.dtu.dk/~ekki/projects/ePNK/1.2/update/" enabled="true" />
+   <feature url="features/org.informationsystem.ismsuite.modeler.process_1.2.6.jar" id="org.informationsystem.ismsuite.modeler.process" version="1.2.6">
+      <category name="org.informationsystem.ismsuite"/>
+   </feature>
+   <category-def name="org.informationsystem.ismsuite" label="ISM Suite"/>
+   <repository-reference location="http://www2.compute.dtu.dk/~ekki/projects/ePNK/1.2/update/" enabled="true" />
 </site>
