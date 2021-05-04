@@ -5,6 +5,11 @@ target
 *-workspace
 deployment/updateSite/features
 deployment/updateSite/plugins
+deployment/updateSite/*.jar
+deployment/updateSite2/features
+deployment/updateSite2/plugins
+deployment/updateSite2/*.jar
+tool/modeler
 runtime-EclipseApplication
 tool/
 .metadata
