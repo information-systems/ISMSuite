@@ -4,7 +4,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: ISMSuite;singleton:=true
 Automatic-Module-Name: ISMSuite
-Bundle-Version: 1.2.9
+Bundle-Version: 1.2.10
 Bundle-ClassPath: .,
  target/jar/pnidprocessor.jar,
  target/jar/processengine.jar,
@@ -45,5 +45,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.pnml.tools.epnk.diagram;bundle-version="1.2.0";visibility:=reexport,
  org.pnml.tools.epnk.actions;visibility:=reexport,
  org.pnml.tools.epnk.applications,
- org.pnml.tools.epnk.editor
+ org.pnml.tools.epnk.editor,
+ org.eclipse.ui
 Bundle-ActivationPolicy: lazy

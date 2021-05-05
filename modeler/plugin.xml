@@ -48,6 +48,18 @@
          <description>%_UI_PnidsModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
+      <category
+            id="ISMSuite"
+            name="ISM Suite">
+      </category>
+      <wizard
+            category="ISMSuite"
+            class="org.informationsystem.ismsuite.modeler.process.pnid.wizards.NewPNIDFileWizard"
+            icon="icons/full/obj16/PNID.png"
+            id="org.informationsystem.ismsuite.modeler.process.pnid.wizards.newpnidfile"
+            name="New ISM Process"
+            project="false">
+      </wizard>
    </extension>
 
    <extension point="org.eclipse.ui.editors">
@@ -343,7 +355,7 @@
 		        visible="true">
 		    </view>
 		    <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
-		    <newWizardShortcut id="org.informationsystem.ismsuite.modeler.process.pnid.wizards.newprocessfile">
+		    <newWizardShortcut id="org.informationsystem.ismsuite.modeler.process.pnid.wizards.newpnidfile">
 		    </newWizardShortcut>
 		    
 		</perspectiveExtension>
