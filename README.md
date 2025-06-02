@@ -3,7 +3,7 @@
 
 # ISMSuite Modeler
 
-To install ISMSuite, install the Eclipse Modeling edition, and  add the following updateSite to Eclipse: http://ismsuite.informationsystem.org/modeler/0.4/update.
+To install ISMSuite, install the Eclipse Modeling edition, and  add the following updateSite to Eclipse: http://ismsuite.informationsystem.org/modeler/1.2/update.
 
 For development, Install in Eclipse the following packages
 
